@@ -350,7 +350,7 @@ export default function AdherentLoginPage() {
                       {t("adherentLogin.passwordLabel")}
                     </Label>
                     <Link
-                      href={`/${locale}/auth/adherent/ForgetPassword`}
+                      href={`/auth/adherent/forgetpassword`}
                       className="text-xs font-medium text-cyan-600 transition-colors hover:text-cyan-700 hover:underline dark:text-cyan-400"
                     >
                       {t("adherentLogin.forgotPassword")}

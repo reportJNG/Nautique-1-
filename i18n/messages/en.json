@@ -452,6 +452,103 @@
           "description": "Unable to sign in. Please try again."
         }
       }
+    },
+    "staffLogin": {
+      "title": "Staff Area",
+      "subtitle": "SONATRACH Nautical Center",
+      "loading": "Loading...",
+      "back": "Back",
+      "loginLabel": "Login ID",
+      "loginPlaceholder": "Your login ID",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot password?",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "securityHint": "Use only your authorized staff credentials.",
+      "rememberMe": "Remember me",
+      "loggingIn": "Signing in...",
+      "or": "or",
+      "staffOnly": "Access restricted to authorized staff.",
+      "validation": {
+        "loginRequired": "Login is required",
+        "loginMin": "At least 3 characters",
+        "passwordRequired": "Password is required",
+        "passwordMin": "At least 6 characters required"
+      }
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "subtitle": "SONATRACH Nautical Center",
+      "loading": "Loading...",
+      "back": "Back",
+      "previousStep": "Previous step",
+      "emailHelp": "Enter the email linked to your account. We will send you a verification code.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "your@email.com",
+      "sending": "Sending...",
+      "sendCode": "Send code",
+      "remembered": "Remember your password?",
+      "codeSentTo": "A 6-digit code was sent to",
+      "codeLabel": "Verification code",
+      "verifying": "Verifying...",
+      "verifyCode": "Verify code",
+      "resendCode": "Resend code",
+      "resendIn": "Resend in {seconds}s",
+      "resetHelp": "Choose a new secure password for your account.",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "resetting": "Resetting...",
+      "resetButton": "Reset password",
+      "otpDigitAria": "Digit {index} of code",
+      "steps": {
+        "email": "Email",
+        "code": "Code",
+        "reset": "New password"
+      },
+      "passwordChecks": {
+        "length": "8 characters",
+        "uppercase": "Uppercase",
+        "number": "Number"
+      },
+      "passwords": {
+        "match": "Passwords match",
+        "mismatch": "Passwords do not match"
+      },
+      "validation": {
+        "emailRequired": "Email address is required",
+        "emailInvalid": "Invalid email address",
+        "passwordRequired": "Password is required",
+        "passwordMin": "At least 8 characters",
+        "passwordUppercase": "At least one uppercase letter",
+        "passwordNumber": "At least one number",
+        "confirmRequired": "Please confirm",
+        "passwordsMismatch": "Passwords do not match",
+        "otpLength": "Please enter all 6 digits."
+      },
+      "notifications": {
+        "sent": {
+          "title": "Code sent"
+        },
+        "resent": {
+          "title": "Code resent",
+          "message": "A new code has been sent to your email address."
+        },
+        "verified": {
+          "title": "Code verified!",
+          "message": "Now set your new password."
+        },
+        "resetDone": {
+          "title": "Password reset",
+          "message": "You can now log in with your new credentials."
+        },
+        "error": {
+          "title": "Error"
+        }
+      },
+      "done": {
+        "title": "Password reset!",
+        "message": "Your password has been changed successfully. You can now sign in with your new credentials."
+      }
     }
   },
   "adherent": {

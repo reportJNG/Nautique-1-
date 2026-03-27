@@ -8,25 +8,26 @@ import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { GallerySection } from "@/components/landing/GallerySection";
 import { Footer } from "@/components/landing/Footer";
 
-export default function HomePage({
+export default async function HomePage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+
   return (
     <div className="flex min-h-screen flex-col">
       <LandingNav />
       <main className="overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/20">
-      
         <Hero />
         <FeaturesSection />
         <StatsSection />
-        <SaisonSection locale={params.locale} />
+        <SaisonSection locale={locale} />
         <DisciplinesSection />
         <GallerySection />
         <TestimonialsSection />
       </main>
-      <Footer locale={params.locale} />
+      <Footer locale={locale} />
     </div>
   );
 }

@@ -466,6 +466,103 @@
           "description": "Impossible de se connecter. Veuillez réessayer."
         }
       }
+    },
+    "staffLogin": {
+      "title": "Espace Staff",
+      "subtitle": "Centre Nautique SONATRACH",
+      "loading": "Chargement...",
+      "back": "Retour",
+      "loginLabel": "Identifiant",
+      "loginPlaceholder": "Votre identifiant",
+      "passwordLabel": "Mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "securityHint": "Utilisez uniquement vos identifiants staff autorisés.",
+      "rememberMe": "Se souvenir de moi",
+      "loggingIn": "Connexion en cours...",
+      "or": "ou",
+      "staffOnly": "Accès réservé au personnel autorisé.",
+      "validation": {
+        "loginRequired": "L'identifiant est requis",
+        "loginMin": "Au moins 3 caractères",
+        "passwordRequired": "Le mot de passe est requis",
+        "passwordMin": "Au moins 6 caractères requis"
+      }
+    },
+    "forgotPassword": {
+      "title": "Mot de passe oublié",
+      "subtitle": "Centre Nautique SONATRACH",
+      "loading": "Chargement...",
+      "back": "Retour",
+      "previousStep": "Étape précédente",
+      "emailHelp": "Saisissez l'adresse email associée à votre compte. Nous vous enverrons un code de vérification.",
+      "emailLabel": "Adresse email",
+      "emailPlaceholder": "votre@email.com",
+      "sending": "Envoi en cours...",
+      "sendCode": "Envoyer le code",
+      "remembered": "Vous souvenez-vous ?",
+      "codeSentTo": "Un code à 6 chiffres a été envoyé à",
+      "codeLabel": "Code de vérification",
+      "verifying": "Vérification...",
+      "verifyCode": "Vérifier le code",
+      "resendCode": "Renvoyer le code",
+      "resendIn": "Renvoyer dans {seconds}s",
+      "resetHelp": "Choisissez un nouveau mot de passe sécurisé pour votre compte.",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "resetting": "Réinitialisation...",
+      "resetButton": "Réinitialiser le mot de passe",
+      "otpDigitAria": "Chiffre {index} du code",
+      "steps": {
+        "email": "Email",
+        "code": "Code",
+        "reset": "Nouveau mot de passe"
+      },
+      "passwordChecks": {
+        "length": "8 caractères",
+        "uppercase": "Majuscule",
+        "number": "Chiffre"
+      },
+      "passwords": {
+        "match": "Les mots de passe correspondent",
+        "mismatch": "Les mots de passe ne correspondent pas"
+      },
+      "validation": {
+        "emailRequired": "L'adresse email est requise",
+        "emailInvalid": "Email invalide",
+        "passwordRequired": "Le mot de passe est requis",
+        "passwordMin": "Au moins 8 caractères",
+        "passwordUppercase": "Au moins une majuscule",
+        "passwordNumber": "Au moins un chiffre",
+        "confirmRequired": "Veuillez confirmer",
+        "passwordsMismatch": "Les mots de passe ne correspondent pas",
+        "otpLength": "Veuillez saisir les 6 chiffres."
+      },
+      "notifications": {
+        "sent": {
+          "title": "Code envoyé"
+        },
+        "resent": {
+          "title": "Code renvoyé",
+          "message": "Un nouveau code a été envoyé à votre adresse email."
+        },
+        "verified": {
+          "title": "Code vérifié !",
+          "message": "Définissez maintenant votre nouveau mot de passe."
+        },
+        "resetDone": {
+          "title": "Mot de passe réinitialisé",
+          "message": "Vous pouvez maintenant vous connecter avec vos nouveaux identifiants."
+        },
+        "error": {
+          "title": "Erreur"
+        }
+      },
+      "done": {
+        "title": "Mot de passe réinitialisé !",
+        "message": "Votre mot de passe a été modifié avec succès. Vous pouvez maintenant vous connecter avec vos nouveaux identifiants."
+      }
     }
   },
   "adherent": {

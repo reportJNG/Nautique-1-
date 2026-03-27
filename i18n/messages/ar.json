@@ -451,6 +451,103 @@
           "description": "تعذر تسجيل الدخول. يرجى المحاولة مرة أخرى."
         }
       }
+    },
+    "staffLogin": {
+      "title": "فضاء الموظفين",
+      "subtitle": "المركز البحري سوناطراك",
+      "loading": "جاري التحميل...",
+      "back": "رجوع",
+      "loginLabel": "معرف الدخول",
+      "loginPlaceholder": "معرف الدخول الخاص بك",
+      "passwordLabel": "كلمة المرور",
+      "forgotPassword": "هل نسيت كلمة المرور؟",
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور",
+      "securityHint": "استخدم فقط بيانات اعتماد الموظفين المصرح بها.",
+      "rememberMe": "تذكرني",
+      "loggingIn": "جار تسجيل الدخول...",
+      "or": "أو",
+      "staffOnly": "الدخول مخصص للموظفين المصرح لهم فقط.",
+      "validation": {
+        "loginRequired": "معرف الدخول مطلوب",
+        "loginMin": "3 أحرف على الأقل",
+        "passwordRequired": "كلمة المرور مطلوبة",
+        "passwordMin": "مطلوب 6 أحرف على الأقل"
+      }
+    },
+    "forgotPassword": {
+      "title": "نسيت كلمة المرور",
+      "subtitle": "المركز البحري سوناطراك",
+      "loading": "جاري التحميل...",
+      "back": "رجوع",
+      "previousStep": "الخطوة السابقة",
+      "emailHelp": "أدخل البريد الإلكتروني المرتبط بحسابك. سنرسل لك رمز تحقق.",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "your@email.com",
+      "sending": "جار الإرسال...",
+      "sendCode": "إرسال الرمز",
+      "remembered": "تذكرت كلمة المرور؟",
+      "codeSentTo": "تم إرسال رمز مكوّن من 6 أرقام إلى",
+      "codeLabel": "رمز التحقق",
+      "verifying": "جار التحقق...",
+      "verifyCode": "تحقق من الرمز",
+      "resendCode": "إعادة إرسال الرمز",
+      "resendIn": "إعادة الإرسال خلال {seconds}ث",
+      "resetHelp": "اختر كلمة مرور جديدة وآمنة لحسابك.",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "resetting": "جار إعادة التعيين...",
+      "resetButton": "إعادة تعيين كلمة المرور",
+      "otpDigitAria": "الرقم {index} من الرمز",
+      "steps": {
+        "email": "البريد",
+        "code": "الرمز",
+        "reset": "كلمة مرور جديدة"
+      },
+      "passwordChecks": {
+        "length": "8 أحرف",
+        "uppercase": "حرف كبير",
+        "number": "رقم"
+      },
+      "passwords": {
+        "match": "كلمتا المرور متطابقتان",
+        "mismatch": "كلمتا المرور غير متطابقتين"
+      },
+      "validation": {
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "البريد الإلكتروني غير صالح",
+        "passwordRequired": "كلمة المرور مطلوبة",
+        "passwordMin": "على الأقل 8 أحرف",
+        "passwordUppercase": "على الأقل حرف كبير واحد",
+        "passwordNumber": "على الأقل رقم واحد",
+        "confirmRequired": "يرجى التأكيد",
+        "passwordsMismatch": "كلمتا المرور غير متطابقتين",
+        "otpLength": "يرجى إدخال الأرقام الستة كاملة."
+      },
+      "notifications": {
+        "sent": {
+          "title": "تم إرسال الرمز"
+        },
+        "resent": {
+          "title": "تمت إعادة إرسال الرمز",
+          "message": "تم إرسال رمز جديد إلى بريدك الإلكتروني."
+        },
+        "verified": {
+          "title": "تم التحقق من الرمز!",
+          "message": "الآن قم بتعيين كلمة المرور الجديدة."
+        },
+        "resetDone": {
+          "title": "تمت إعادة تعيين كلمة المرور",
+          "message": "يمكنك الآن تسجيل الدخول ببياناتك الجديدة."
+        },
+        "error": {
+          "title": "خطأ"
+        }
+      },
+      "done": {
+        "title": "تمت إعادة تعيين كلمة المرور!",
+        "message": "تم تغيير كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول ببياناتك الجديدة."
+      }
     }
   },
   "adherent": {

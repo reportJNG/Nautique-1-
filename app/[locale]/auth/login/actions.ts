@@ -1,22 +1,21 @@
 "use server";
 
 import { prisma } from "@/lib/db/prisma";
-import { setAuthCookie } from "@/lib/auth/jwt";
+import { signToken } from "@/lib/auth/jwt";
+import { setSessionCookie } from "@/lib/auth/session";
+import { agentLoginSchema } from "@/lib/validators/auth";
 import bcrypt from "bcryptjs";
-import { z } from "zod";
-
-const loginSchema = z.object({
-  login: z.string().min(1, "Login requis"),
-  password: z.string().min(1, "Mot de passe requis"),
-});
 
 export async function loginAgent(formData: FormData) {
   try {
-    const data = Object.fromEntries(formData);
-    const parsed = loginSchema.safeParse(data);
+    const raw = Object.fromEntries(formData);
+    const parsed = agentLoginSchema.safeParse({
+      login: String(raw.login ?? "").trim(),
+      password: String(raw.password ?? ""),
+    });
 
     if (!parsed.success) {
-      return { error: "Données invalides" };
+      return { error: parsed.error.issues[0]?.message ?? "Données invalides" };
     }
 
     const { login, password } = parsed.data;
@@ -40,7 +39,7 @@ export async function loginAgent(formData: FormData) {
       return { error: "Identifiants invalides" };
     }
 
-    await setAuthCookie({
+    const token = await signToken({
       type: "agent",
       id: agent.id,
       login: agent.login,
@@ -48,6 +47,7 @@ export async function loginAgent(formData: FormData) {
       nom: agent.nom,
       prenom: agent.prenom,
     });
+    await setSessionCookie(token);
 
     return { success: true };
   } catch (error) {
