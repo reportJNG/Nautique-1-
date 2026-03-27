@@ -1,0 +1,286 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Parametres {
+  id                   Int      @id(map: "pk_parametres") @default(autoincrement())
+  designationCentre    String   @default("Centre Nautique SONATRACH") @map("designation_centre") @db.VarChar(150)
+  toleranceAccesAvance Int      @default(15) @map("tolerance_acces_avance")
+  toleranceAccesRetard Int      @default(10) @map("tolerance_acces_retard")
+  emailCentre          String?  @map("email_centre") @db.VarChar(150)
+  telephoneCentre      String?  @map("telephone_centre") @db.VarChar(20)
+  adresseCentre        String?  @map("adresse_centre") @db.VarChar(255)
+  createdAt            DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt            DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@map("parametres")
+}
+
+model AgentRole {
+  id          Int     @id(map: "pk_agent_role") @default(autoincrement())
+  code        String  @unique(map: "uq_role_code") @db.VarChar(20)
+  designation String  @db.VarChar(60)
+  agents      Agent[]
+
+  @@map("agent_role")
+}
+
+model Agent {
+  id                 Int          @id(map: "pk_agent") @default(autoincrement())
+  roleId             Int          @map("role_id")
+  nom                String       @db.VarChar(60)
+  prenom             String       @db.VarChar(60)
+  login              String       @unique(map: "uq_agent_login") @db.VarChar(60)
+  motDePasse         String       @map("mot_de_passe") @db.VarChar(255)
+  email              String?      @db.VarChar(150)
+  actif              Int          @default(1) @db.SmallInt
+  createdAt          DateTime     @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt          DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  abonnementsCreated Abonnement[] @relation("AbonnementCreatedBy")
+  adherentsCreated   Adherent[]   @relation("AdherentCreatedBy")
+  role               AgentRole    @relation(fields: [roleId], references: [id], map: "fk_agent_role")
+  facturesCreated    Facture[]    @relation("FactureCreatedBy")
+  facturesValidated  Facture[]    @relation("FactureValidatedBy")
+
+  @@map("agent")
+}
+
+model Espace {
+  id            Int            @id(map: "pk_espace") @default(autoincrement())
+  code          String         @unique(map: "uq_espace_code") @db.VarChar(10)
+  designation   String         @db.VarChar(80)
+  description   String?        @db.VarChar(255)
+  actif         Int            @default(1) @db.SmallInt
+  categoriesAge CategorieAge[]
+  disciplines   Discipline[]
+
+  @@map("espace")
+}
+
+model CategorieAge {
+  id             Int                   @id(map: "pk_categorie_age") @default(autoincrement())
+  espaceId       Int                   @map("espace_id")
+  designation    String                @db.VarChar(40)
+  ageMin         Int                   @map("age_min")
+  ageMax         Int?                  @map("age_max")
+  abonnements    Abonnement[]
+  espace         Espace                @relation(fields: [espaceId], references: [id], map: "fk_catage_espace")
+  creneauxCatAge CreneauCategorieAge[]
+
+  @@map("categorie_age")
+}
+
+model Discipline {
+  id          Int          @id(map: "pk_discipline") @default(autoincrement())
+  espaceId    Int          @map("espace_id")
+  code        String       @db.VarChar(10)
+  designation String       @db.VarChar(80)
+  actif       Int          @default(1) @db.SmallInt
+  abonnements Abonnement[]
+  creneaux    Creneau[]
+  espace      Espace       @relation(fields: [espaceId], references: [id], map: "fk_discipline_espace")
+
+  @@unique([espaceId, code], map: "uq_discipline_code")
+  @@map("discipline")
+}
+
+model Moniteur {
+  id               Int               @id(map: "pk_moniteur") @default(autoincrement())
+  nom              String            @db.VarChar(60)
+  prenom           String            @db.VarChar(60)
+  sexe             String            @db.Char(1)
+  telephone        String?           @db.VarChar(20)
+  email            String?           @db.VarChar(150)
+  specialite       String?           @db.VarChar(80)
+  actif            Int               @default(1) @db.SmallInt
+  creneauxMoniteur CreneauMoniteur[]
+
+  @@map("moniteur")
+}
+
+model Saison {
+  id          Int             @id(map: "pk_saison") @default(autoincrement())
+  designation String          @db.VarChar(80)
+  dateDebut   DateTime        @map("date_debut") @db.Date
+  dateFin     DateTime        @map("date_fin") @db.Date
+  statut      String          @default("OUV") @db.VarChar(3)
+  createdAt   DateTime        @default(now()) @map("created_at") @db.Timestamp(6)
+  abonnements Abonnement[]
+  creneaux    Creneau[]
+  periodes    PeriodeSaison[]
+
+  @@map("saison")
+}
+
+model PeriodeSaison {
+  id        Int      @id(map: "pk_periode_saison") @default(autoincrement())
+  saisonId  Int      @map("saison_id")
+  dateDebut DateTime @map("date_debut") @db.Date
+  dateFin   DateTime @map("date_fin") @db.Date
+  saison    Saison   @relation(fields: [saisonId], references: [id], onDelete: Cascade, map: "fk_periode_saison_saison")
+
+  @@map("periode_saison")
+}
+
+model Creneau {
+  id            Int                   @id(map: "pk_creneau") @default(autoincrement())
+  saisonId      Int                   @map("saison_id")
+  disciplineId  Int                   @map("discipline_id")
+  jourSemaine   Int                   @map("jour_semaine") @db.SmallInt
+  heureDebut    DateTime              @map("heure_debut") @db.Time(6)
+  heureFin      DateTime              @map("heure_fin") @db.Time(6)
+  nombreMin     Int                   @default(5) @map("nombre_min")
+  nombreMax     Int                   @default(20) @map("nombre_max")
+  encadrement   String?               @db.Char(1)
+  groupe        String?               @db.VarChar(40)
+  observations  String?               @db.VarChar(255)
+  actif         Int                   @default(1) @db.SmallInt
+  discipline    Discipline            @relation(fields: [disciplineId], references: [id], map: "fk_creneau_disc")
+  saison        Saison                @relation(fields: [saisonId], references: [id], map: "fk_creneau_saison")
+  abonnements   CreneauAbonnement[]
+  categoriesAge CreneauCategorieAge[]
+  moniteurs     CreneauMoniteur[]
+  seancesAcces  SeanceAcces[]
+
+  @@map("creneau")
+}
+
+model CreneauCategorieAge {
+  id             Int          @id(map: "pk_creneau_catage") @default(autoincrement())
+  creneauId      Int          @map("creneau_id")
+  categorieAgeId Int          @map("categorie_age_id")
+  sexeAutorise   String?      @map("sexe_autorise") @db.Char(1)
+  categorieAge   CategorieAge @relation(fields: [categorieAgeId], references: [id], map: "fk_crencatage_catage")
+  creneau        Creneau      @relation(fields: [creneauId], references: [id], onDelete: Cascade, map: "fk_crencatage_creneau")
+
+  @@unique([creneauId, categorieAgeId], map: "uq_creneau_catage")
+  @@map("creneau_categorie_age")
+}
+
+model CreneauMoniteur {
+  id         Int      @id(map: "pk_creneau_moniteur") @default(autoincrement())
+  creneauId  Int      @map("creneau_id")
+  moniteurId Int      @map("moniteur_id")
+  creneau    Creneau  @relation(fields: [creneauId], references: [id], onDelete: Cascade, map: "fk_crenmon_creneau")
+  moniteur   Moniteur @relation(fields: [moniteurId], references: [id], map: "fk_crenmon_moniteur")
+
+  @@unique([creneauId, moniteurId], map: "uq_creneau_moniteur")
+  @@map("creneau_moniteur")
+}
+
+model Organisation {
+  id          Int        @id(map: "pk_organisation") @default(autoincrement())
+  designation String     @db.VarChar(100)
+  code        String     @unique(map: "uq_organisation_code") @db.VarChar(20)
+  actif       Int        @default(1) @db.SmallInt
+  adherents   Adherent[]
+
+  @@map("organisation")
+}
+
+model Adherent {
+  id              Int          @id(map: "pk_adherent") @default(autoincrement())
+  organisationId  Int          @map("organisation_id")
+  numeroDossier   String       @unique(map: "uq_adherent_dossier") @map("numero_dossier") @db.VarChar(20)
+  nom             String       @db.VarChar(60)
+  prenom          String       @db.VarChar(60)
+  dateNaissance   DateTime     @map("date_naissance") @db.Date
+  sexe            String       @db.Char(1)
+  telephone       String?      @db.VarChar(20)
+  email           String?      @db.VarChar(150)
+  adresse         String?      @db.VarChar(255)
+  numeroMatricule String?      @map("numero_matricule") @db.VarChar(30)
+  password        String       @db.VarChar(255)
+  photoPath       String?      @map("photo_path") @db.VarChar(255)
+  actif           Int          @default(1) @db.SmallInt
+  createdAt       DateTime     @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt       DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  createdBy       Int?         @map("created_by")
+  abonnements     Abonnement[]
+  agent           Agent?       @relation("AdherentCreatedBy", fields: [createdBy], references: [id], map: "fk_adherent_agent")
+  organisation    Organisation @relation(fields: [organisationId], references: [id], map: "fk_adherent_org")
+  factures        Facture[]
+
+  @@map("adherent")
+}
+
+model Abonnement {
+  id                Int                 @id(map: "pk_abonnement") @default(autoincrement())
+  adherentId        Int                 @map("adherent_id")
+  saisonId          Int                 @map("saison_id")
+  disciplineId      Int                 @map("discipline_id")
+  categorieAgeId    Int                 @map("categorie_age_id")
+  typeAbonnement    String              @map("type_abonnement") @db.VarChar(3)
+  statut            String              @default("CRE") @db.VarChar(3)
+  dateDebut         DateTime            @map("date_debut") @db.Date
+  dateFin           DateTime            @map("date_fin") @db.Date
+  dureeMois         Int?                @map("duree_mois")
+  seancesParSemaine Int?                @map("seances_par_semaine")
+  nombreSeances     Int?                @map("nombre_seances")
+  montantTtc        Decimal             @default(0.00) @map("montant_ttc") @db.Decimal(10, 2)
+  codeBarre         String?             @map("code_barre") @db.VarChar(30)
+  surclassement     Int                 @default(0) @db.SmallInt
+  createdAt         DateTime            @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt         DateTime            @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+  createdBy         Int?                @map("created_by")
+  adherent          Adherent            @relation(fields: [adherentId], references: [id], map: "fk_abonn_adherent")
+  agent             Agent?              @relation("AbonnementCreatedBy", fields: [createdBy], references: [id], map: "fk_abonn_agent")
+  categorieAge      CategorieAge        @relation(fields: [categorieAgeId], references: [id], map: "fk_abonn_catage")
+  discipline        Discipline          @relation(fields: [disciplineId], references: [id], map: "fk_abonn_discipline")
+  saison            Saison              @relation(fields: [saisonId], references: [id], map: "fk_abonn_saison")
+  creneaux          CreneauAbonnement[]
+  factures          Facture[]
+  seancesAcces      SeanceAcces[]
+
+  @@map("abonnement")
+}
+
+model CreneauAbonnement {
+  id           Int        @id(map: "pk_creneau_abonnement") @default(autoincrement())
+  abonnementId Int        @map("abonnement_id")
+  creneauId    Int        @map("creneau_id")
+  actif        Int        @default(1) @db.SmallInt
+  dateAjout    DateTime   @default(now()) @map("date_ajout") @db.Timestamp(6)
+  abonnement   Abonnement @relation(fields: [abonnementId], references: [id], onDelete: Cascade, map: "fk_crenabonn_abonn")
+  creneau      Creneau    @relation(fields: [creneauId], references: [id], map: "fk_crenabonn_creneau")
+
+  @@map("creneau_abonnement")
+}
+
+model Facture {
+  id             Int        @id(map: "pk_facture") @default(autoincrement())
+  abonnementId   Int        @map("abonnement_id")
+  adherentId     Int        @map("adherent_id")
+  numeroRecu     String?    @map("numero_recu") @db.VarChar(20)
+  montantTtc     Decimal    @default(0.00) @map("montant_ttc") @db.Decimal(10, 2)
+  modePaiement   String     @default("CSH") @map("mode_paiement") @db.VarChar(3)
+  statut         String     @default("ATT") @db.VarChar(3)
+  dateCreation   DateTime   @default(now()) @map("date_creation") @db.Timestamp(6)
+  datePaiement   DateTime?  @map("date_paiement") @db.Timestamp(6)
+  createdBy      Int?       @map("created_by")
+  validatedBy    Int?       @map("validated_by")
+  abonnement     Abonnement @relation(fields: [abonnementId], references: [id], map: "fk_facture_abonn")
+  adherent       Adherent   @relation(fields: [adherentId], references: [id], map: "fk_facture_adherent")
+  agentCreated   Agent?     @relation("FactureCreatedBy", fields: [createdBy], references: [id], map: "fk_facture_created")
+  agentValidated Agent?     @relation("FactureValidatedBy", fields: [validatedBy], references: [id], map: "fk_facture_validated")
+
+  @@map("facture")
+}
+
+model SeanceAcces {
+  id            Int        @id(map: "pk_seance_acces") @default(autoincrement())
+  abonnementId  Int        @map("abonnement_id")
+  creneauId     Int        @map("creneau_id")
+  dateAcces     DateTime   @map("date_acces") @db.Date
+  heureAcces    DateTime   @map("heure_acces") @db.Time(6)
+  avecBadge     Int        @default(1) @map("avec_badge") @db.SmallInt
+  accesAutorise Int        @default(1) @map("acces_autorise") @db.SmallInt
+  abonnement    Abonnement @relation(fields: [abonnementId], references: [id], map: "fk_seance_abonn")
+  creneau       Creneau    @relation(fields: [creneauId], references: [id], map: "fk_seance_creneau")
+
+  @@map("seance_acces")
+}

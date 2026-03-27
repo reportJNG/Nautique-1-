@@ -1,0 +1,278 @@
+{
+  "metadata": {
+    "title": "Centre Nautique SONATRACH",
+    "description": "Système de gestion des adhésions et abonnements"
+  },
+  "nav": {
+    "home": "Accueil",
+    "disciplines": "Disciplines",
+    "schedule": "Horaires",
+    "gallery": "Galerie",
+    "contact": "Contact",
+    "loginAgent": "Espace Staff",
+    "loginAdherent": "Espace Adhérent",
+    "brand": "SONATRACH",
+    "toggleMenu": "Ouvrir/fermer le menu",
+    "logout": "Déconnexion"
+  },
+  "hero": {
+    "title": "Centre Nautique SONATRACH",
+    "subtitle": "Votre espace aquatique et fitness",
+    "cta": "Découvrir nos activités"
+  },
+  "landing": {
+    "disciplines": {
+      "title": "Nos Disciplines",
+      "subtitle": "Découvrez toutes nos activités aquatiques et fitness",
+      "seeMore": "En savoir plus"
+    },
+    "saison": {
+      "title": "Saison en cours",
+      "noSaison": "Aucune saison ouverte pour le moment.",
+      "dateRange": "Du {start} au {end}",
+      "allDays": "Tous les jours",
+      "noSlotsForDay": "Aucun créneau ce jour",
+      "dayLabels": {
+        "sun": "Dimanche",
+        "mon": "Lundi",
+        "tue": "Mardi",
+        "wed": "Mercredi",
+        "thu": "Jeudi",
+        "fri": "Vendredi",
+        "sat": "Samedi"
+      },
+      "disciplines": "Disciplines",
+      "weeklySlots": "Créneaux hebdomadaires",
+      "group": "groupe",
+      "groups": "groupes",
+      "days": "jours",
+      "location": "Lieu",
+      "gymnasium": "Piscine",
+      "reminder": "Rappel",
+      "arriveEarly": "Arriver tôt",
+      "moreSlots": "créneaux en plus",
+      "checkOtherDays": "Consultez les autres jours",
+      "noActivitiesForSelectedDay": "Aucune activité pour le jour sélectionné"
+    },
+    "cta": {
+      "title": "Prêt à plonger dans l'aventure ?",
+      "subtitle": "Rejoignez notre communauté dès aujourd'hui et bénéficiez d'un essai gratuit pour votre première séance.",
+      "registerCta": "S'inscrire gratuitement",
+      "contactCta": "Nous contacter"
+    },
+    "stats": {
+      "items": {
+        "activeMembers": "Membres actifs",
+        "disciplines": "Disciplines",
+        "annualCompetitions": "Compétitions annuelles",
+        "yearsOfExcellence": "Années d'excellence"
+      }
+    },
+    "features": {
+      "title": "Pourquoi nous choisir ?",
+      "subtitle": "Découvrez les avantages qui font de notre centre un lieu d'excellence.",
+      "items": {
+        "pools": {
+          "title": "Piscines modernes",
+          "description": "Des infrastructures de qualité pour toutes vos activités."
+        },
+        "staff": {
+          "title": "Encadrement expert",
+          "description": "Des entraîneurs diplômés pour vous accompagner."
+        },
+        "competitions": {
+          "title": "Compétitions",
+          "description": "Participez aux championnats locaux et nationaux."
+        },
+        "schedule": {
+          "title": "Programmation flexible",
+          "description": "Des horaires adaptés à tous les niveaux."
+        },
+        "extendedHours": {
+          "title": "Horaires étendus",
+          "description": "Ouvert tôt le matin et tard le soir pour s'adapter à votre emploi du temps."
+        },
+        "ambience": {
+          "title": "Ambiance unique",
+          "description": "Un cadre chaleureux et familial pour pratiquer votre passion."
+        }
+      }
+    },
+    "testimonials": {
+      "title": "Ce qu'ils disent de nous",
+      "subtitle": "Des milliers de membres satisfaits à travers le pays.",
+      "ariaLabel": "Avis clients",
+      
+        "items": {
+          "amira": {
+            "name": "Amira Benali",
+            "date": "Mars 2024",
+            "location": "Alger, Algérie",
+            "tags": {
+              "tag1": "Performance",
+              "tag2": "Coaching"
+            },
+            "role": "Nageuse compétitive",
+            "content": "Coaching exceptionnel ! Je me suis améliorée en quelques mois comme jamais auparavant."
+          },
+          "youcef": {
+            "name": "Youcef Merad",
+            "date": "Février 2024",
+            "location": "Oran, Algérie",
+            "tags": {
+              "tag1": "Esprit d'équipe",
+              "tag2": "Compétition"
+            },
+            "role": "Membre water-polo",
+            "content": "Une atmosphère familiale et compétitive à la fois. Je recommande vivement ce centre."
+          },
+          "meriem": {
+            "name": "Meriem Khelifi",
+            "date": "Janvier 2024",
+            "location": "Constantine, Algérie",
+            "tags": {
+              "tag1": "Bien-être",
+              "tag2": "Forme"
+            },
+            "role": "Aquagym",
+            "content": "Les cours d'aquagym sont excellents ; je me sens en pleine forme après chaque séance."
+          },
+          "bilal": {
+            "name": "Bilal Hadj",
+            "date": "Décembre 2023",
+            "location": "Annaba, Algérie",
+            "tags": {
+              "tag1": "Installations",
+              "tag2": "Accueil"
+            },
+            "role": "Nageur loisir",
+            "content": "Des installations propres, un personnel accueillant — je me sens vraiment chez moi."
+          },
+          "sabrina": {
+            "name": "Sabrina Touati",
+            "date": "Novembre 2023",
+            "location": "Tlemcen, Algérie",
+            "tags": {
+              "tag1": "Enfants",
+              "tag2": "Pédagogie"
+            },
+            "role": "Parent",
+            "content": "Mon fils adore les cours de natation. Merci pour votre patience et votre professionnalisme."
+          }
+        }
+      
+    },
+    "newsletter": {
+      "title": "Restez informé",
+      "subtitle": "Inscrivez-vous à notre newsletter pour recevoir les dernières actualités et offres.",
+      "emailPlaceholder": "Votre adresse email",
+      "button": "S'inscrire",
+      "toast": {
+        "success": "Inscription réussie 🎉",
+        "description": "Vous recevrez nos actualités par email."
+      }
+    },
+    "partners": {
+      "title": "Ils nous font confiance"
+    },
+    "gallery": {
+      "title": "Galerie",
+      "subtitle": "Découvrez nos installations et nos activités en images.",
+      "imageAlt": "Image de la galerie {index}"
+    },
+    "footer": {
+      "brand": "SONATRACH",
+      "description": "Centre Nautique - Votre espace aquatique et fitness pour le bien-être de tous.",
+      "contact": "Contact",
+      "quickLinks": "Liens rapides",
+      "memberArea": "Espace Adhérent",
+      "staffArea": "Espace Staff",
+      "copyright": "© {year} Centre Nautique SONATRACH. Tous droits réservés.",
+      "social": {
+        "facebook": "Facebook",
+        "twitter": "Twitter",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn"
+      },
+      "privacyPolicy": "Politique de confidentialité",
+      "termsOfUse": "Conditions d'utilisation",
+      "openingHoursTitle": "Horaires d'ouverture",
+      "openingHours": {
+        "monFri": "Lundi - Vendredi: 7h00 - 21h00",
+        "sat": "Samedi: 8h00 - 18h00",
+        "sun": "Dimanche: 9h00 - 12h00"
+      }
+    }
+  },
+  "auth": {
+    "login": "Connexion",
+    "signup": "Inscription",
+    "email": "Email",
+    "password": "Mot de passe",
+    "loginField": "Identifiant",
+    "confirmPassword": "Confirmer le mot de passe",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "register": "S'inscrire",
+    "loginSubmit": "Se connecter"
+  },
+  "adherent": {
+    "title": "Espace Adhérent",
+    "dashboard": "Tableau de bord",
+    "abonnements": "Mes abonnements",
+    "newAbonnement": "Nouvel abonnement",
+    "profile": "Mon profil",
+    "access": "Historique d'accès",
+    "settings": "Paramètres",
+    "nom": "Nom",
+    "prenom": "Prénom",
+    "telephone": "Téléphone",
+    "adresse": "Adresse",
+    "dateNaissance": "Date de naissance",
+    "sexe": "Sexe",
+    "numeroDossier": "N° Dossier",
+    "organisation": "Organisation"
+  },
+  "admin": {
+    "title": "Espace Administration",
+    "dashboard": "Tableau de bord",
+    "adherents": "Adhérents",
+    "abonnements": "Abonnements",
+    "saisons": "Saisons",
+    "creneaux": "Créneaux",
+    "disciplines": "Disciplines",
+    "moniteurs": "Moniteurs",
+    "agents": "Agents",
+    "factures": "Caisse",
+    "access": "Contrôle d'accès",
+    "settings": "Paramètres"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "actions": "Actions",
+    "status": "Statut",
+    "date": "Date",
+    "amount": "Montant",
+    "yes": "Oui",
+    "no": "Non",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "success": "Opération réussie"
+  },
+  "theme": {
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  },
+  "language": {
+    "fr": "Français",
+    "en": "English",
+    "ar": "العربية"
+  }
+}
