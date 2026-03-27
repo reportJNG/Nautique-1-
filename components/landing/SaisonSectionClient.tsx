@@ -154,14 +154,7 @@ export default function SaisonSectionClient({
           transition={{ duration: 0.8, type: "spring" }}
           className="text-center"
         >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring" }}
-            className="inline-flex items-center justify-center p-3 bg-gradient-to-br from-cyan-100 to-blue-100 dark:from-cyan-900/40 dark:to-blue-900/40 rounded-2xl mb-6 shadow-lg"
-          >
-            <CalendarDays className="h-8 w-8 text-cyan-600" />
-          </motion.div>
+
           
           <h2 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl">
             {t("title")}

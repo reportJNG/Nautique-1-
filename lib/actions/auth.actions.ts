@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/db/prisma";
 import { signToken } from "@/lib/auth/jwt";
-import { setSessionCookie, clearSessionCookie } from "@/lib/auth/session";
+import { setSessionCookie, clearSessionCookie, getSession } from "@/lib/auth/session";
 import {
   agentLoginSchema,
   adherentLoginSchema,
@@ -168,4 +168,19 @@ export async function logoutAction() {
   await clearSessionCookie();
   revalidatePath("/");
   return { success: true };
+}
+
+export async function getLandingRedirectForArea(area: "adherent" | "agent") {
+  const session = await getSession();
+
+  if (area === "adherent") {
+    if (session?.type === "adherent") return { href: "/espace" as const };
+    if (session?.type === "agent") return { href: "/admin" as const };
+    return { href: "/auth/adherent/login" as const };
+  }
+
+  // Staff area should only auto-enter admin for agent sessions.
+  // Adherent sessions must still go to staff login.
+  if (session?.type === "agent") return { href: "/admin" as const };
+  return { href: "/auth/login" as const };
 }

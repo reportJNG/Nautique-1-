@@ -24,7 +24,20 @@
     "disciplines": {
       "title": "Nos Disciplines",
       "subtitle": "Découvrez toutes nos activités aquatiques et fitness",
-      "seeMore": "En savoir plus"
+      "seeMore": "En savoir plus",
+      "stats": {
+        "duration": "Durée",
+        "members": "Membres",
+        "awards": "Récompenses"
+      },
+      "durations": {
+        "short": "45-60 min",
+        "long": "60-75 min"
+      },
+      "cta": {
+        "prefix": "Vous ne savez pas par où commencer ?",
+        "action": "Faites notre évaluation"
+      }
     },
     "saison": {
       "title": "Saison en cours",
@@ -158,6 +171,126 @@
             },
             "role": "Parent",
             "content": "Mon fils adore les cours de natation. Merci pour votre patience et votre professionnalisme."
+          },
+          "karim": {
+            "name": "Karim Bensalem",
+            "date": "Octobre 2023",
+            "location": "Blida, Algérie",
+            "tags": { "tag1": "Endurance", "tag2": "Progrès" },
+            "role": "Nageur adulte",
+            "content": "Le suivi des coachs est précis. J'ai gagné en endurance et en technique en quelques semaines."
+          },
+          "naima": {
+            "name": "Naima Zerrouki",
+            "date": "Septembre 2023",
+            "location": "Sétif, Algérie",
+            "tags": { "tag1": "Santé", "tag2": "Aquaforme" },
+            "role": "Aquaforme",
+            "content": "Les séances sont dynamiques et adaptées. Je me sens mieux physiquement et mentalement."
+          },
+          "ryad": {
+            "name": "Ryad Hamdani",
+            "date": "Août 2023",
+            "location": "Béjaïa, Algérie",
+            "tags": { "tag1": "Discipline", "tag2": "Résultats" },
+            "role": "Jeune compétiteur",
+            "content": "L'encadrement est sérieux et motivant. J'ai amélioré mes temps de course cette saison."
+          },
+          "lina": {
+            "name": "Lina Bouchareb",
+            "date": "Juillet 2023",
+            "location": "Mostaganem, Algérie",
+            "tags": { "tag1": "Confiance", "tag2": "Débutants" },
+            "role": "Débutante",
+            "content": "Je partais de zéro et maintenant je nage avec confiance. L'équipe est très bienveillante."
+          },
+          "yacine": {
+            "name": "Yacine Khelaf",
+            "date": "Juin 2023",
+            "location": "Boumerdès, Algérie",
+            "tags": { "tag1": "Structure", "tag2": "Planning" },
+            "role": "Membre régulier",
+            "content": "Les horaires sont bien organisés et les infrastructures sont toujours propres."
+          },
+          "samira": {
+            "name": "Samira Ouali",
+            "date": "Mai 2023",
+            "location": "Tizi Ouzou, Algérie",
+            "tags": { "tag1": "Famille", "tag2": "Ambiance" },
+            "role": "Maman de deux adhérents",
+            "content": "Mes enfants adorent venir ici. Le centre combine sécurité, pédagogie et bonne ambiance."
+          },
+          "farid": {
+            "name": "Farid Rahmani",
+            "date": "Avril 2023",
+            "location": "Skikda, Algérie",
+            "tags": { "tag1": "Reprise", "tag2": "Coaching" },
+            "role": "Nageur loisir",
+            "content": "Après une longue pause, j'ai repris le sport sans stress grâce à l'accompagnement progressif."
+          },
+          "ines": {
+            "name": "Ines Djelloul",
+            "date": "Mars 2023",
+            "location": "Ghardaïa, Algérie",
+            "tags": { "tag1": "Technique", "tag2": "Motivation" },
+            "role": "Nageuse intermédiaire",
+            "content": "Les corrections techniques sont claires et efficaces. Je vois une vraie différence dans ma nage."
+          },
+          "nadir": {
+            "name": "Nadir Mecheri",
+            "date": "Février 2023",
+            "location": "Biskra, Algérie",
+            "tags": { "tag1": "Hygiène", "tag2": "Accueil" },
+            "role": "Abonné mensuel",
+            "content": "Très bon accueil, vestiaires propres, et une équipe toujours disponible pour aider."
+          },
+          "hocine": {
+            "name": "Hocine Belkacem",
+            "date": "Janvier 2023",
+            "location": "Chlef, Algérie",
+            "tags": { "tag1": "Performance", "tag2": "Compétition" },
+            "role": "Membre triathlon",
+            "content": "La qualité d'entraînement en natation m'a permis de mieux performer en triathlon."
+          },
+          "malika": {
+            "name": "Malika Ait Ali",
+            "date": "Décembre 2022",
+            "location": "Batna, Algérie",
+            "tags": { "tag1": "Bien-être", "tag2": "Régularité" },
+            "role": "Aqua détente",
+            "content": "Un excellent espace pour garder une routine saine. Je ne rate presque aucune séance."
+          },
+          "mourad": {
+            "name": "Mourad Saadi",
+            "date": "Novembre 2022",
+            "location": "Jijel, Algérie",
+            "tags": { "tag1": "Énergie", "tag2": "Équipe" },
+            "role": "Membre fitness aquatique",
+            "content": "Les cours en groupe sont motivants et donnent beaucoup d'énergie pour toute la semaine."
+          },
+          "asma": {
+            "name": "Asma Gherbi",
+            "date": "Octobre 2022",
+            "location": "Sidi Bel Abbès, Algérie",
+            "tags": { "tag1": "Professionnalisme", "tag2": "Suivi" },
+            "role": "Nageuse confirmée",
+            "content": "Le niveau de professionnalisme est remarquable, surtout dans le suivi personnalisé."
+          },
+          "nassim": {
+            "name": "Nassim Benyahia",
+            "date": "Septembre 2022",
+            "location": "Médéa, Algérie",
+            "tags": { "tag1": "Accessibilité", "tag2": "Confort" },
+            "role": "Nageur loisir",
+            "content": "Le centre est accessible, confortable et parfait pour pratiquer régulièrement."
+          },
+          "souad": {
+            "name": "Souad Messaoudi",
+            "date": "Août 2022",
+            "location": "Saïda, Algérie",
+            "tags": { "tag1": "Convivialité", "tag2": "Confiance" },
+            "role": "Parent",
+            "content": "L'ambiance est conviviale et rassurante. Toute la famille est en confiance."
           }
         }
       
@@ -214,7 +347,126 @@
     "noAccount": "Pas encore de compte ?",
     "hasAccount": "Déjà un compte ?",
     "register": "S'inscrire",
-    "loginSubmit": "Se connecter"
+    "loginSubmit": "Se connecter",
+    "adherentLogin": {
+      "loading": "Chargement...",
+      "back": "Retour",
+      "subtitle": "Espace Adhérent — Centre Nautique SONATRACH",
+      "emailLabel": "Adresse email",
+      "emailPlaceholder": "votre@email.com",
+      "passwordLabel": "Mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "rememberMe": "Se souvenir de moi",
+      "loggingIn": "Connexion en cours...",
+      "or": "ou",
+      "validation": {
+        "emailRequired": "L'adresse email est requise",
+        "emailInvalid": "Adresse email invalide",
+        "passwordRequired": "Le mot de passe est requis",
+        "passwordMin": "Au moins 6 caractères requis"
+      }
+    },
+    "adherentSignup": {
+      "loading": "Chargement...",
+      "back": "Retour",
+      "subtitle": "Créez votre compte adhérent — Centre Nautique SONATRACH",
+      "optional": "optionnel",
+      "ifEmployee": "si employé",
+      "show": "Afficher",
+      "hide": "Masquer",
+      "or": "ou",
+      "submitting": "Inscription en cours...",
+      "sections": {
+        "identity": "Identité",
+        "contact": "Contact",
+        "sonatrach": "SONATRACH",
+        "security": "Sécurité"
+      },
+      "fields": {
+        "nom": "Nom",
+        "prenom": "Prénom",
+        "sexe": "Sexe",
+        "dateNaissance": "Date de naissance",
+        "email": "Adresse email",
+        "telephone": "Téléphone",
+        "adresse": "Adresse",
+        "numeroMatricule": "N° Matricule SONATRACH",
+        "password": "Mot de passe",
+        "confirmPassword": "Confirmer le mot de passe"
+      },
+      "placeholders": {
+        "nom": "Votre nom",
+        "prenom": "Votre prénom",
+        "select": "Sélectionner...",
+        "email": "votre@email.com",
+        "telephone": "+213 5XX XX XX XX",
+        "adresse": "Votre adresse complète",
+        "numeroMatricule": "Votre numéro de matricule"
+      },
+      "options": {
+        "male": "Masculin",
+        "female": "Féminin"
+      },
+      "passwordChecks": {
+        "length": "8 caractères",
+        "uppercase": "Majuscule",
+        "number": "Chiffre"
+      },
+      "passwords": {
+        "match": "Les mots de passe correspondent",
+        "mismatch": "Les mots de passe ne correspondent pas"
+      },
+      "matriculeHint": "Laissez vide si vous n'êtes pas employé SONATRACH.",
+      "validation": {
+        "nomRequired": "Le nom est requis",
+        "prenomRequired": "Le prénom est requis",
+        "minTwoChars": "Au moins 2 caractères",
+        "emailRequired": "L'email est requis",
+        "emailInvalid": "Email invalide",
+        "sexeRequired": "Veuillez sélectionner votre sexe",
+        "birthDateRequired": "La date de naissance est requise",
+        "passwordRequired": "Le mot de passe est requis",
+        "passwordMin": "Au moins 8 caractères",
+        "passwordUppercase": "Au moins une majuscule",
+        "passwordNumber": "Au moins un chiffre",
+        "confirmPasswordRequired": "Veuillez confirmer le mot de passe",
+        "passwordsMismatch": "Les mots de passe ne correspondent pas"
+      },
+      "notifications": {
+        "incomplete": {
+          "title": "Formulaire incomplet",
+          "message": "Veuillez corriger les erreurs avant de continuer."
+        },
+        "failed": {
+          "title": "Échec de l'inscription"
+        },
+        "success": {
+          "title": "Inscription réussie !"
+        },
+        "unexpected": {
+          "title": "Erreur inattendue",
+          "message": "Impossible de créer votre compte. Veuillez réessayer."
+        }
+      }
+    },
+    "toast": {
+      "login": {
+        "success": {
+          "title": "Connexion réussie",
+          "description": "Redirection vers votre espace personnel dans quelques secondes."
+        },
+        "error": {
+          "title": "Échec de la connexion",
+          "description": "Impossible de se connecter. Veuillez vérifier vos identifiants."
+        },
+        "unexpected": {
+          "title": "Erreur inattendue",
+          "description": "Impossible de se connecter. Veuillez réessayer."
+        }
+      }
+    }
   },
   "adherent": {
     "title": "Espace Adhérent",

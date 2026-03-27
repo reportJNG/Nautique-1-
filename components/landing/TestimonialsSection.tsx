@@ -12,7 +12,6 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { 
   Quote, 
   Star, 
@@ -51,6 +50,52 @@ interface TestimonialsSectionProps {
   showStats?: boolean;
   autoplayInterval?: number;
 }
+
+const TESTIMONIAL_IDS = [
+  "amira",
+  "youcef",
+  "meriem",
+  "bilal",
+  "sabrina",
+  "karim",
+  "naima",
+  "ryad",
+  "lina",
+  "yacine",
+  "samira",
+  "farid",
+  "ines",
+  "nadir",
+  "hocine",
+  "malika",
+  "mourad",
+  "asma",
+  "nassim",
+  "souad",
+] as const;
+
+const SOCIAL_STATS: Record<(typeof TESTIMONIAL_IDS)[number], Testimonial["social"]> = {
+  amira: { likes: 234, comments: 45, shares: 89 },
+  youcef: { likes: 567, comments: 89, shares: 234 },
+  meriem: { likes: 891, comments: 123, shares: 456 },
+  bilal: { likes: 345, comments: 67, shares: 123 },
+  sabrina: { likes: 1234, comments: 234, shares: 567 },
+  karim: { likes: 412, comments: 55, shares: 98 },
+  naima: { likes: 503, comments: 71, shares: 120 },
+  ryad: { likes: 388, comments: 49, shares: 84 },
+  lina: { likes: 642, comments: 80, shares: 142 },
+  yacine: { likes: 459, comments: 60, shares: 110 },
+  samira: { likes: 734, comments: 96, shares: 170 },
+  farid: { likes: 321, comments: 43, shares: 76 },
+  ines: { likes: 690, comments: 88, shares: 151 },
+  nadir: { likes: 277, comments: 35, shares: 63 },
+  hocine: { likes: 540, comments: 73, shares: 129 },
+  malika: { likes: 608, comments: 82, shares: 145 },
+  mourad: { likes: 366, comments: 51, shares: 92 },
+  asma: { likes: 721, comments: 94, shares: 180 },
+  nassim: { likes: 435, comments: 58, shares: 107 },
+  souad: { likes: 680, comments: 90, shares: 166 },
+};
 
 // Enhanced Rating Component
 const RatingStars = ({ rating, size = "md" }: { rating: number; size?: "sm" | "md" | "lg" }) => {
@@ -106,6 +151,7 @@ export function TestimonialsSection({
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const locale = useLocale();
+  const isRTL = locale === "ar";
   const t = useTranslations("landing.testimonials");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -119,76 +165,20 @@ export function TestimonialsSection({
       .join("");
 
   const testimonials = useMemo<Testimonial[]>(
-    () => [
-      {
-        id: "amira",
-        name: t("items.amira.name"),
-        role: t("items.amira.role"),
-        content: t("items.amira.content"),
-        avatar: getInitials(t("items.amira.name")),
-        rating: 5,
-        date: t("items.amira.date"),
-        location: t("items.amira.location"),
+    () =>
+      TESTIMONIAL_IDS.map((id) => ({
+        id,
+        name: t(`items.${id}.name`),
+        role: t(`items.${id}.role`),
+        content: t(`items.${id}.content`),
+        avatar: getInitials(t(`items.${id}.name`)),
+        rating: id === "bilal" ? 4 : 5,
+        date: t(`items.${id}.date`),
+        location: t(`items.${id}.location`),
         verified: true,
-        tags: [t("items.amira.tags.tag1"), t("items.amira.tags.tag2")],
-        social: { likes: 234, comments: 45, shares: 89 },
-      },
-      {
-        id: "youcef",
-        name: t("items.youcef.name"),
-        role: t("items.youcef.role"),
-        content: t("items.youcef.content"),
-        avatar: getInitials(t("items.youcef.name")),
-        rating: 5,
-        date: t("items.youcef.date"),
-        location: t("items.youcef.location"),
-        verified: true,
-        tags: [t("items.youcef.tags.tag1"), t("items.youcef.tags.tag2")],
-        social: { likes: 567, comments: 89, shares: 234 },
-      },
-      {
-        id: "meriem",
-        name: t("items.meriem.name"),
-        role: t("items.meriem.role"),
-        content: t("items.meriem.content"),
-        avatar: getInitials(t("items.meriem.name")),
-        rating: 5,
-        date: t("items.meriem.date"),
-        location: t("items.meriem.location"),
-        verified: true,
-        tags: [t("items.meriem.tags.tag1"), t("items.meriem.tags.tag2")],
-        social: { likes: 891, comments: 123, shares: 456 },
-      },
-      {
-        id: "bilal",
-        name: t("items.bilal.name"),
-        role: t("items.bilal.role"),
-        content: t("items.bilal.content"),
-        avatar: getInitials(t("items.bilal.name")),
-        rating: 4,
-        date: t("items.bilal.date"),
-        location: t("items.bilal.location"),
-        verified: true,
-        tags: [t("items.bilal.tags.tag1"), t("items.bilal.tags.tag2")],
-        social: { likes: 345, comments: 67, shares: 123 },
-      },
-      {
-        id: "sabrina",
-        name: t("items.sabrina.name"),
-        role: t("items.sabrina.role"),
-        content: t("items.sabrina.content"),
-        avatar: getInitials(t("items.sabrina.name")),
-        rating: 5,
-        date: t("items.sabrina.date"),
-        location: t("items.sabrina.location"),
-        verified: true,
-        tags: [
-          t("items.sabrina.tags.tag1"),
-          t("items.sabrina.tags.tag2"),
-        ],
-        social: { likes: 1234, comments: 234, shares: 567 },
-      },
-    ],
+        tags: [t(`items.${id}.tags.tag1`), t(`items.${id}.tags.tag2`)],
+        social: SOCIAL_STATS[id],
+      })),
     [t, locale]
   );
 
@@ -225,9 +215,11 @@ export function TestimonialsSection({
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <Carousel
+            key={locale}
             opts={{
               align: "start",
               loop: true,
+              direction: isRTL ? "rtl" : "ltr",
             }}
             className="w-full"
           >

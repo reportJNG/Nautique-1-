@@ -24,7 +24,20 @@
     "disciplines": {
       "title": "Our Disciplines",
       "subtitle": "Discover all our aquatic and fitness activities",
-      "seeMore": "Learn more"
+      "seeMore": "Learn more",
+      "stats": {
+        "duration": "Duration",
+        "members": "Members",
+        "awards": "Awards"
+      },
+      "durations": {
+        "short": "45-60 min",
+        "long": "60-75 min"
+      },
+      "cta": {
+        "prefix": "Not sure where to start?",
+        "action": "Take our assessment"
+      }
     },
     "saison": {
       "title": "Current Season",
@@ -108,10 +121,7 @@
             "name": "Amira Benali",
             "date": "March 2024",
             "location": "Algiers, Algeria",
-            "tags": {
-              "tag1": "Performance",
-              "tag2": "Coaching"
-            },
+            "tags": { "tag1": "Performance", "tag2": "Coaching" },
             "role": "Competitive swimmer",
             "content": "Exceptional coaching! I've improved more in a few months than ever before."
           },
@@ -119,10 +129,7 @@
             "name": "Youcef Merad",
             "date": "February 2024",
             "location": "Oran, Algeria",
-            "tags": {
-              "tag1": "Team spirit",
-              "tag2": "Competition"
-            },
+            "tags": { "tag1": "Team spirit", "tag2": "Competition" },
             "role": "Water-polo member",
             "content": "A family-like yet competitive atmosphere. I highly recommend this centre."
           },
@@ -130,10 +137,7 @@
             "name": "Meriem Khelifi",
             "date": "January 2024",
             "location": "Constantine, Algeria",
-            "tags": {
-              "tag1": "Wellbeing",
-              "tag2": "Fitness"
-            },
+            "tags": { "tag1": "Wellbeing", "tag2": "Fitness" },
             "role": "Aqua aerobics",
             "content": "The aqua aerobics classes are excellent; I feel full of energy after every session."
           },
@@ -141,10 +145,7 @@
             "name": "Bilal Hadj",
             "date": "December 2023",
             "location": "Annaba, Algeria",
-            "tags": {
-              "tag1": "Facilities",
-              "tag2": "Welcome"
-            },
+            "tags": { "tag1": "Facilities", "tag2": "Welcome" },
             "role": "Leisure swimmer",
             "content": "Clean facilities and a welcoming staff — I truly feel at home here."
           },
@@ -152,12 +153,129 @@
             "name": "Sabrina Touati",
             "date": "November 2023",
             "location": "Tlemcen, Algeria",
-            "tags": {
-              "tag1": "Children",
-              "tag2": "Pedagogy"
-            },
+            "tags": { "tag1": "Children", "tag2": "Pedagogy" },
             "role": "Parent",
             "content": "My son loves the swimming lessons. Thank you for your patience and professionalism."
+          },
+          "karim": {
+            "name": "Karim Bensalem",
+            "date": "October 2023",
+            "location": "Blida, Algeria",
+            "tags": { "tag1": "Endurance", "tag2": "Progress" },
+            "role": "Adult swimmer",
+            "content": "Coaches give precise guidance. I gained endurance and better technique in just a few weeks."
+          },
+          "naima": {
+            "name": "Naima Zerrouki",
+            "date": "September 2023",
+            "location": "Setif, Algeria",
+            "tags": { "tag1": "Health", "tag2": "Aqua fitness" },
+            "role": "Aqua fitness member",
+            "content": "Sessions are dynamic and adapted. I feel better physically and mentally."
+          },
+          "ryad": {
+            "name": "Ryad Hamdani",
+            "date": "August 2023",
+            "location": "Bejaia, Algeria",
+            "tags": { "tag1": "Discipline", "tag2": "Results" },
+            "role": "Young competitor",
+            "content": "The coaching is serious and motivating. I improved my race times this season."
+          },
+          "lina": {
+            "name": "Lina Bouchareb",
+            "date": "July 2023",
+            "location": "Mostaganem, Algeria",
+            "tags": { "tag1": "Confidence", "tag2": "Beginners" },
+            "role": "Beginner swimmer",
+            "content": "I started from zero and now I swim with confidence. The team is very supportive."
+          },
+          "yacine": {
+            "name": "Yacine Khelaf",
+            "date": "June 2023",
+            "location": "Boumerdes, Algeria",
+            "tags": { "tag1": "Structure", "tag2": "Schedule" },
+            "role": "Regular member",
+            "content": "The schedule is well organized and the facilities are always clean."
+          },
+          "samira": {
+            "name": "Samira Ouali",
+            "date": "May 2023",
+            "location": "Tizi Ouzou, Algeria",
+            "tags": { "tag1": "Family", "tag2": "Atmosphere" },
+            "role": "Mother of two members",
+            "content": "My children love coming here. The center combines safety, teaching quality and a great atmosphere."
+          },
+          "farid": {
+            "name": "Farid Rahmani",
+            "date": "April 2023",
+            "location": "Skikda, Algeria",
+            "tags": { "tag1": "Comeback", "tag2": "Coaching" },
+            "role": "Leisure swimmer",
+            "content": "After a long break, I returned to sport without stress thanks to progressive guidance."
+          },
+          "ines": {
+            "name": "Ines Djelloul",
+            "date": "March 2023",
+            "location": "Ghardaia, Algeria",
+            "tags": { "tag1": "Technique", "tag2": "Motivation" },
+            "role": "Intermediate swimmer",
+            "content": "Technical feedback is clear and effective. I can see a real difference in my swimming."
+          },
+          "nadir": {
+            "name": "Nadir Mecheri",
+            "date": "February 2023",
+            "location": "Biskra, Algeria",
+            "tags": { "tag1": "Hygiene", "tag2": "Welcome" },
+            "role": "Monthly member",
+            "content": "Great welcome, clean changing rooms, and a team always available to help."
+          },
+          "hocine": {
+            "name": "Hocine Belkacem",
+            "date": "January 2023",
+            "location": "Chlef, Algeria",
+            "tags": { "tag1": "Performance", "tag2": "Competition" },
+            "role": "Triathlon member",
+            "content": "The swimming training quality helped me perform better in triathlon."
+          },
+          "malika": {
+            "name": "Malika Ait Ali",
+            "date": "December 2022",
+            "location": "Batna, Algeria",
+            "tags": { "tag1": "Well-being", "tag2": "Consistency" },
+            "role": "Aqua relaxation member",
+            "content": "An excellent place to keep a healthy routine. I rarely miss a session."
+          },
+          "mourad": {
+            "name": "Mourad Saadi",
+            "date": "November 2022",
+            "location": "Jijel, Algeria",
+            "tags": { "tag1": "Energy", "tag2": "Team" },
+            "role": "Aquatic fitness member",
+            "content": "Group classes are motivating and give me energy for the whole week."
+          },
+          "asma": {
+            "name": "Asma Gherbi",
+            "date": "October 2022",
+            "location": "Sidi Bel Abbes, Algeria",
+            "tags": { "tag1": "Professionalism", "tag2": "Follow-up" },
+            "role": "Advanced swimmer",
+            "content": "The level of professionalism is remarkable, especially the personalized follow-up."
+          },
+          "nassim": {
+            "name": "Nassim Benyahia",
+            "date": "September 2022",
+            "location": "Medea, Algeria",
+            "tags": { "tag1": "Accessibility", "tag2": "Comfort" },
+            "role": "Leisure swimmer",
+            "content": "The center is accessible, comfortable, and perfect for regular practice."
+          },
+          "souad": {
+            "name": "Souad Messaoudi",
+            "date": "August 2022",
+            "location": "Saida, Algeria",
+            "tags": { "tag1": "Friendly", "tag2": "Trust" },
+            "role": "Parent",
+            "content": "The atmosphere is friendly and reassuring. The whole family feels confident here."
           }
         }
       
@@ -215,7 +333,126 @@
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
     "register": "Register",
-    "loginSubmit": "Sign In"
+    "loginSubmit": "Sign In",
+    "adherentLogin": {
+      "loading": "Loading...",
+      "back": "Back",
+      "subtitle": "Member Area — SONATRACH Nautical Center",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "your@email.com",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot password?",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "rememberMe": "Remember me",
+      "loggingIn": "Signing in...",
+      "or": "or",
+      "validation": {
+        "emailRequired": "Email address is required",
+        "emailInvalid": "Invalid email address",
+        "passwordRequired": "Password is required",
+        "passwordMin": "At least 6 characters required"
+      }
+    },
+    "adherentSignup": {
+      "loading": "Loading...",
+      "back": "Back",
+      "subtitle": "Create your member account — SONATRACH Nautical Center",
+      "optional": "optional",
+      "ifEmployee": "if employee",
+      "show": "Show",
+      "hide": "Hide",
+      "or": "or",
+      "submitting": "Signing up...",
+      "sections": {
+        "identity": "Identity",
+        "contact": "Contact",
+        "sonatrach": "SONATRACH",
+        "security": "Security"
+      },
+      "fields": {
+        "nom": "Last name",
+        "prenom": "First name",
+        "sexe": "Gender",
+        "dateNaissance": "Birth date",
+        "email": "Email address",
+        "telephone": "Phone",
+        "adresse": "Address",
+        "numeroMatricule": "SONATRACH Employee ID",
+        "password": "Password",
+        "confirmPassword": "Confirm password"
+      },
+      "placeholders": {
+        "nom": "Your last name",
+        "prenom": "Your first name",
+        "select": "Select...",
+        "email": "your@email.com",
+        "telephone": "+213 5XX XX XX XX",
+        "adresse": "Your full address",
+        "numeroMatricule": "Your employee ID number"
+      },
+      "options": {
+        "male": "Male",
+        "female": "Female"
+      },
+      "passwordChecks": {
+        "length": "8 characters",
+        "uppercase": "Uppercase",
+        "number": "Number"
+      },
+      "passwords": {
+        "match": "Passwords match",
+        "mismatch": "Passwords do not match"
+      },
+      "matriculeHint": "Leave empty if you are not a SONATRACH employee.",
+      "validation": {
+        "nomRequired": "Last name is required",
+        "prenomRequired": "First name is required",
+        "minTwoChars": "At least 2 characters",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email",
+        "sexeRequired": "Please select your gender",
+        "birthDateRequired": "Birth date is required",
+        "passwordRequired": "Password is required",
+        "passwordMin": "At least 8 characters",
+        "passwordUppercase": "At least one uppercase letter",
+        "passwordNumber": "At least one number",
+        "confirmPasswordRequired": "Please confirm the password",
+        "passwordsMismatch": "Passwords do not match"
+      },
+      "notifications": {
+        "incomplete": {
+          "title": "Incomplete form",
+          "message": "Please fix the errors before continuing."
+        },
+        "failed": {
+          "title": "Signup failed"
+        },
+        "success": {
+          "title": "Signup successful!"
+        },
+        "unexpected": {
+          "title": "Unexpected error",
+          "message": "Unable to create your account. Please try again."
+        }
+      }
+    },
+    "toast": {
+      "login": {
+        "success": {
+          "title": "Login successful",
+          "description": "Redirecting to your member area in a few seconds."
+        },
+        "error": {
+          "title": "Login failed",
+          "description": "Unable to sign in. Please check your credentials."
+        },
+        "unexpected": {
+          "title": "Unexpected error",
+          "description": "Unable to sign in. Please try again."
+        }
+      }
+    }
   },
   "adherent": {
     "title": "Member Area",

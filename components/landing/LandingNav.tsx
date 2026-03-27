@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import { Link as IntlLink } from "@/i18n/navigation";
+import { Link as IntlLink, useRouter } from "@/i18n/navigation";
+import { getLandingRedirectForArea } from "@/lib/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -26,6 +27,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export function LandingNav() {
   const t = useTranslations("nav");
   const locale = useLocale();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState("");
@@ -59,20 +61,35 @@ export function LandingNav() {
         }
       }
 
-      setActiveLink(bestSection);
+      // Highlight "hero" when we are near the top (before any section reaches header zone).
+      setActiveLink(bestSection || (window.scrollY < 200 ? "hero" : ""));
     };
     
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   const navLinks = [
-    { href: "/#disciplines", label: t("disciplines"), icon: Zap },
+    { href: "/#hero", label: t("home"), icon: Home },
     { href: "/#horaires", label: t("schedule"), icon: Clock },
+    { href: "/#disciplines", label: t("disciplines"), icon: Zap },
     { href: "/#gallery", label: t("gallery"), icon: Images },
   ];
+
+  const handleAdherentClick = async () => {
+    const { href } = await getLandingRedirectForArea("adherent");
+    router.push(href);
+  };
+
+  const handleAgentClick = async () => {
+    const { href } = await getLandingRedirectForArea("agent");
+    router.push(href);
+  };
 
   return (
     <>
@@ -91,7 +108,7 @@ export function LandingNav() {
           >
             <div className="relative">
               <Waves className="h-8 w-8 text-cyan-600 transition-all duration-300 group-hover:rotate-12 group-hover:scale-110 dark:text-cyan-500" />
-              <Sparkles className="absolute -right-1 -top-1 h-3 w-3 text-amber-500 opacity-0 transition-all duration-300 group-hover:opacity-100" />
+              
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent transition-all duration-300 group-hover:from-cyan-600 group-hover:to-cyan-800 dark:from-white dark:to-gray-300 dark:group-hover:from-cyan-400 dark:group-hover:to-cyan-600">
               {t("brand")}
@@ -140,41 +157,41 @@ export function LandingNav() {
               <LanguageSwitcher />
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <IntlLink href="/auth/adherent/login">
-                <Button 
-                  variant="outline" 
-                  size="default"
-                  className="h-9 px-3 rounded-md text-sm font-medium 
-                  border border-gray-200 dark:border-gray-700
-                  transition-all duration-200
-                  hover:border-cyan-500 hover:shadow-sm hover:shadow-cyan-500/20
-                  active:scale-95
-                  dark:hover:border-cyan-400
-                  cursor-pointer"                >
-                  <User className="mr-2 h-3.5 w-3.5" />
-                  <span>{t("loginAdherent")}</span>
-                </Button>
-              </IntlLink>
+              <Button 
+                type="button"
+                onClick={handleAdherentClick}
+                variant="outline" 
+                size="default"
+                className="h-9 px-3 rounded-md text-sm font-medium 
+                border border-gray-200 dark:border-gray-700
+                transition-all duration-200
+                hover:border-cyan-500 hover:shadow-sm hover:shadow-cyan-500/20
+                active:scale-95
+                dark:hover:border-cyan-400
+                cursor-pointer"
+              >
+                <User className="mr-2 h-3.5 w-3.5" />
+                <span>{t("loginAdherent")}</span>
+              </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              
-              <IntlLink href="/auth/login">
-                <Button 
-                  size="default"
-                  className="h-9 px-5 bg-gradient-to-r from-cyan-600 to-cyan-700 
-  rounded-md text-sm font-medium text-white
-  transition-all duration-200
-  hover:from-cyan-500 hover:to-cyan-600
-  hover:shadow-md hover:shadow-cyan-500/25
-  active:scale-95
-  dark:from-cyan-500 dark:to-cyan-600
-  dark:hover:from-cyan-400 dark:hover:to-cyan-500
-  cursor-pointer"
-                >
-                  <Shield className="mr-2 h-3.5 w-3.5" />
-                  <span>{t("loginAgent")}</span>
-                </Button>
-              </IntlLink>
+              <Button 
+                type="button"
+                onClick={handleAgentClick}
+                size="default"
+                className="h-9 px-5 bg-gradient-to-r from-cyan-600 to-cyan-700 
+rounded-md text-sm font-medium text-white
+transition-all duration-200
+hover:from-cyan-500 hover:to-cyan-600
+hover:shadow-md hover:shadow-cyan-500/25
+active:scale-95
+dark:from-cyan-500 dark:to-cyan-600
+dark:hover:from-cyan-400 dark:hover:to-cyan-500
+cursor-pointer"
+              >
+                <Shield className="mr-2 h-3.5 w-3.5" />
+                <span>{t("loginAgent")}</span>
+              </Button>
             </motion.div>
           </div>
 
@@ -263,16 +280,19 @@ export function LandingNav() {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <IntlLink href="/auth/adherent/login">
-                      <Button 
-                        variant="outline" 
-                        size="default"
-                        className="h-10 w-full transition-all duration-300 hover:border-cyan-500 hover:shadow-md cursor-pointer"
-                      >
-                        <User className="mr-2 h-4 w-4" />
-                        {t("loginAdherent")}
-                      </Button>
-                    </IntlLink>
+                    <Button 
+                      type="button"
+                      onClick={() => {
+                        setIsOpen(false);
+                        handleAdherentClick();
+                      }}
+                      variant="outline" 
+                      size="default"
+                      className="h-10 w-full transition-all duration-300 hover:border-cyan-500 hover:shadow-md cursor-pointer"
+                    >
+                      <User className="mr-2 h-4 w-4" />
+                      {t("loginAdherent")}
+                    </Button>
                   </motion.div>
                   <motion.div 
                     className="flex-1"
@@ -280,15 +300,18 @@ export function LandingNav() {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.45 }}
                   >
-                    <IntlLink href="/auth/login">
-                      <Button 
-                        size="default"
-                        className="h-10 w-full bg-gradient-to-r from-cyan-600 to-cyan-700 transition-all duration-300 hover:shadow-lg cursor-pointer"
-                      >
-                        <Shield className="mr-2 h-4 w-4" />
-                        {t("loginAgent")}
-                      </Button>
-                    </IntlLink>
+                    <Button 
+                      type="button"
+                      onClick={() => {
+                        setIsOpen(false);
+                        handleAgentClick();
+                      }}
+                      size="default"
+                      className="h-10 w-full bg-gradient-to-r from-cyan-600 to-cyan-700 transition-all duration-300 hover:shadow-lg cursor-pointer"
+                    >
+                      <Shield className="mr-2 h-4 w-4" />
+                      {t("loginAgent")}
+                    </Button>
                   </motion.div>
                 </div>
               </motion.div>
