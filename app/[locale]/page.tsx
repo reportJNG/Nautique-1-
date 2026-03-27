@@ -16,7 +16,8 @@ export default function HomePage({
   return (
     <div className="flex min-h-screen flex-col">
       <LandingNav />
-      <main className="bg-gradient-to-br from-cyan-50 via-white to-blue-50 dark:from-cyan-950/30 dark:via-gray-950 dark:to-blue-950/30">
+      <main className="overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/20">
+      
         <Hero />
         <FeaturesSection />
         <StatsSection />

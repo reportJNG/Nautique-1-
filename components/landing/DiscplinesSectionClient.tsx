@@ -29,9 +29,9 @@ export default function DisciplinesSectionClient({ espaces }: Props) {
   const t = useTranslations("landing.disciplines");
 
   return (
-    <section id="disciplines" className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/20">
+    <section id="disciplines" className="relative py-20 ">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-slate-100 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-grid-slate-800/20" />
+      
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
@@ -41,7 +41,7 @@ export default function DisciplinesSectionClient({ espaces }: Props) {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent dark:from-cyan-400 dark:to-blue-400">
+            <h2 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl">
               {t("title")}
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">

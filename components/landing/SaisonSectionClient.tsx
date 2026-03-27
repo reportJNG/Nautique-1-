@@ -121,8 +121,7 @@ export default function SaisonSectionClient({
   if (!saison) {
     return (
       <section id="horaires" className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-50 via-transparent to-blue-50 dark:from-cyan-950/20 dark:via-transparent dark:to-blue-950/20" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+        
         <div className="relative mx-auto max-w-7xl px-4 text-center">
           <motion.div
             initial={{ scale: 0 }}
@@ -145,10 +144,7 @@ export default function SaisonSectionClient({
 
   return (
     <section id="horaires" className="relative py-32 overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-50/30 via-transparent to-blue-50/30 dark:from-cyan-950/20 dark:via-transparent dark:to-blue-950/20" />
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-cyan-400/20 rounded-full blur-[100px] opacity-20" />
+
       
       <div ref={ref} className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
@@ -167,7 +163,7 @@ export default function SaisonSectionClient({
             <CalendarDays className="h-8 w-8 text-cyan-600" />
           </motion.div>
           
-          <h2 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <h2 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl">
             {t("title")}
           </h2>
 
@@ -247,47 +243,47 @@ export default function SaisonSectionClient({
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent blur-xl" />
             <div className="relative flex flex-wrap justify-center gap-2 p-2">
-              <button
-                type="button"
-                onClick={() => setActiveDay(null)}
-                className={`group relative px-6 py-3 rounded-2xl text-sm font-medium transition-all duration-300 ${
-                  activeDay === null
-                    ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-xl shadow-cyan-500/30"
-                    : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm text-muted-foreground hover:bg-white dark:hover:bg-gray-900 border border-border"
-                }`}
-              >
-                <span className="relative z-10">{t("allDays")}</span>
-                {activeDay === null && (
-                  <motion.div
-                    layoutId="activeDayTab"
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-              </button>
+            <button
+  type="button"
+  onClick={() => setActiveDay(null)}
+  className={`cursor-pointer group relative px-6 py-3 rounded-2xl text-sm font-medium transition-all duration-300 ${
+    activeDay === null
+      ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-xl shadow-cyan-500/30 hover:from-cyan-500 hover:to-blue-500 hover:shadow-cyan-500/40"
+      : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm text-muted-foreground hover:bg-white dark:hover:bg-gray-900 border border-border hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10"
+  }`}
+>
+  <span className="relative z-10">{t("allDays")}</span>
+  {activeDay === null && (
+    <motion.div
+      layoutId="activeDayTab"
+      className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600"
+      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+    />
+  )}
+</button>
 
-              {days.map((day) => (
-                <button
-                  key={day.value}
-                  type="button"
-                  onClick={() => setActiveDay(day.value)}
-                  className={`group relative px-5 py-3 rounded-2xl text-sm font-medium transition-all duration-300 ${
-                    activeDay === day.value
-                      ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-xl shadow-cyan-500/30"
-                      : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm text-muted-foreground hover:bg-white dark:hover:bg-gray-900 border border-border"
-                  }`}
-                >
-                  <span className="relative z-10 hidden sm:inline">{day.label}</span>
-                  <span className="relative z-10 sm:hidden">{day.shortLabel}</span>
-                  {activeDay === day.value && (
-                    <motion.div
-                      layoutId="activeDayTab"
-                      className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </button>
-              ))}
+{days.map((day) => (
+  <button
+    key={day.value}
+    type="button"
+    onClick={() => setActiveDay(day.value)}
+    className={`cursor-pointer group relative px-5 py-3 rounded-2xl text-sm font-medium transition-all duration-300 ${
+      activeDay === day.value
+        ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-xl shadow-cyan-500/30 hover:from-cyan-500 hover:to-blue-500 hover:shadow-cyan-500/40"
+        : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm text-muted-foreground hover:bg-white dark:hover:bg-gray-900 border border-border hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10"
+    }`}
+  >
+    <span className="relative z-10 hidden sm:inline">{day.label}</span>
+    <span className="relative z-10 sm:hidden">{day.shortLabel}</span>
+    {activeDay === day.value && (
+      <motion.div
+        layoutId="activeDayTab"
+        className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600"
+        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+      />
+    )}
+  </button>
+))}
             </div>
           </div>
         </motion.div>

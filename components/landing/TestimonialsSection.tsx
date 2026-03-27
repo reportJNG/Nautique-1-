@@ -210,7 +210,7 @@ export function TestimonialsSection({
             
           </div>
           
-          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
+          <h2 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl">
             {t("title")}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -241,10 +241,10 @@ export function TestimonialsSection({
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     className="p-2 h-full"
                   >
-                    <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                    <Card className="h-full border-0   transition-all duration-500 overflow-hidden">
                       {/* Gradient Background on Hover */}
                       <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 opacity-0"
+                        
                         animate={{ opacity: hoveredIndex === idx ? 1 : 0 }}
                         transition={{ duration: 0.3 }}
                       />
