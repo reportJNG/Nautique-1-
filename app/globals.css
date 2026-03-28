@@ -1,4 +1,4 @@
-/* globals.css */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -115,42 +115,42 @@
   }
 }
 
-/* ===== NAUTICAL COLOR VARIABLES - ALL SHADES OF BLUE ===== */
+
 :root {
-  /* Light Blue Shades */
+  
   --blue-50: 210 40% 98%;
   --blue-100: 210 40% 96%;
   --blue-200: 214 32% 91%;
   --blue-300: 213 27% 84%;
   --blue-400: 215 20% 65%;
   
-  /* Medium Blue Shades */
+  
   --blue-500: 201 96% 32%;
   --blue-600: 200 98% 26%;
   --blue-700: 201 96% 22%;
   
-  /* Dark Blue Shades */
+  
   --blue-800: 217 33% 17%;
   --blue-900: 222 47% 11%;
   --blue-950: 222 84% 5%;
   
-  /* Cyan/Turquoise Shades */
+  
   --cyan-400: 187 94% 43%;
   --cyan-500: 189 94% 35%;
   --cyan-600: 192 91% 25%;
   
-  /* Text Colors */
+  
   --text-black: 0 0% 0%;
   --text-white: 0 0% 100%;
   
-  /* Hover Colors */
+  
   --hover-blue: 201 96% 32%;
   --hover-blue-dark: 187 94% 43%;
 }
 
-/* Utility Classes for Text Colors */
+
 @layer utilities {
-  /* Text Colors - Black & White */
+  
   .text-black {
     color: hsl(0, 0%, 0%);
   }
@@ -158,7 +158,7 @@
     color: hsl(0, 0%, 100%);
   }
   
-  /* All Blue Text Colors */
+  
   .text-blue-50 { color: hsl(var(--blue-50)); }
   .text-blue-100 { color: hsl(var(--blue-100)); }
   .text-blue-200 { color: hsl(var(--blue-200)); }
@@ -171,12 +171,12 @@
   .text-blue-900 { color: hsl(var(--blue-900)); }
   .text-blue-950 { color: hsl(var(--blue-950)); }
   
-  /* Cyan Text Colors */
+  
   .text-cyan-400 { color: hsl(var(--cyan-400)); }
   .text-cyan-500 { color: hsl(var(--cyan-500)); }
   .text-cyan-600 { color: hsl(var(--cyan-600)); }
   
-  /* Background Colors */
+  
   .bg-blue-50 { background-color: hsl(var(--blue-50)); }
   .bg-blue-100 { background-color: hsl(var(--blue-100)); }
   .bg-blue-200 { background-color: hsl(var(--blue-200)); }
@@ -189,17 +189,17 @@
   .bg-blue-900 { background-color: hsl(var(--blue-900)); }
   .bg-blue-950 { background-color: hsl(var(--blue-950)); }
   
-  /* Cyan Backgrounds */
+  
   .bg-cyan-400 { background-color: hsl(var(--cyan-400)); }
   .bg-cyan-500 { background-color: hsl(var(--cyan-500)); }
   .bg-cyan-600 { background-color: hsl(var(--cyan-600)); }
   
-  /* Border Colors */
+  
   .border-blue-500 { border-color: hsl(var(--blue-500)); }
   .border-blue-600 { border-color: hsl(var(--blue-600)); }
   .border-cyan-400 { border-color: hsl(var(--cyan-400)); }
   
-  /* Hover Effects */
+  
   .hover\:text-blue-500:hover { color: hsl(var(--hover-blue)); }
   .hover\:text-cyan-400:hover { color: hsl(var(--hover-blue-dark)); }
   .hover\:bg-blue-500:hover { background-color: hsl(var(--hover-blue)); }
@@ -207,7 +207,7 @@
   .hover\:border-blue-500:hover { border-color: hsl(var(--hover-blue)); }
 }
 
-/* Custom scrollbar */
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -225,12 +225,12 @@
   @apply bg-gray-400 dark:bg-gray-500;
 }
 
-/* Ocean gradient for hero */
+
 .ocean-gradient {
   background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #06b6d4 100%);
 }
 
-/* Animation for wave */
+
 @keyframes wave {
   0% {
     transform: translateX(0) translateZ(0) scaleY(1);

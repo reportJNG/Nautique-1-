@@ -1,6 +1,4 @@
-// app/[locale]/admin/adherents/nouveau/page.tsx
 "use client";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,16 +6,13 @@ import { Label } from "@/components/ui/label";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-
 export default function NouvelAdherentPage() {
-  const locale = useLocale();
-
-  return (
-    <div className="p-6">
+    const locale = useLocale();
+    return (<div className="p-6">
       <div className="mb-6">
         <Link href={`/${locale}/admin/adherents`}>
           <Button variant="ghost" size="sm">
-            <ChevronLeft className="mr-2 h-4 w-4" />
+            <ChevronLeft className="mr-2 h-4 w-4"/>
             Retour
           </Button>
         </Link>
@@ -35,28 +30,28 @@ export default function NouvelAdherentPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Nom</Label>
-              <Input placeholder="Nom de famille" />
+              <Input placeholder="Nom de famille"/>
             </div>
             <div className="space-y-2">
               <Label>Prénom</Label>
-              <Input placeholder="Prénom" />
+              <Input placeholder="Prénom"/>
             </div>
           </div>
 
           <div className="space-y-2">
             <Label>Email</Label>
-            <Input type="email" placeholder="email@exemple.com" />
+            <Input type="email" placeholder="email@exemple.com"/>
           </div>
 
           <div className="space-y-2">
             <Label>Téléphone</Label>
-            <Input placeholder="+213..." />
+            <Input placeholder="+213..."/>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Date de naissance</Label>
-              <Input type="date" />
+              <Input type="date"/>
             </div>
             <div className="space-y-2">
               <Label>Sexe</Label>
@@ -80,12 +75,11 @@ export default function NouvelAdherentPage() {
 
           <div className="space-y-2">
             <Label>Mot de passe initial</Label>
-            <Input type="password" />
+            <Input type="password"/>
           </div>
 
           <Button>Créer l&apos;adhérent</Button>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
 }

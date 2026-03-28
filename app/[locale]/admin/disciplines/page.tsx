@@ -1,30 +1,25 @@
-// app/[locale]/admin/disciplines/page.tsx
 import { prisma } from "@/lib/db/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 async function getData() {
-  const [espaces, disciplines] = await Promise.all([
-    prisma.espace.findMany({
-      include: {
-        categoriesAge: true,
-      },
-    }),
-    prisma.discipline.findMany({
-      include: {
-        espace: true,
-      },
-    }),
-  ]);
-  return { espaces, disciplines };
+    const [espaces, disciplines] = await Promise.all([
+        prisma.espace.findMany({
+            include: {
+                categoriesAge: true,
+            },
+        }),
+        prisma.discipline.findMany({
+            include: {
+                espace: true,
+            },
+        }),
+    ]);
+    return { espaces, disciplines };
 }
-
 export default async function DisciplinesPage() {
-  const { espaces, disciplines } = await getData();
-
-  return (
-    <div className="p-6">
+    const { espaces, disciplines } = await getData();
+    return (<div className="p-6">
       <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
         Disciplines et Espaces
       </h1>
@@ -37,8 +32,7 @@ export default async function DisciplinesPage() {
 
         <TabsContent value="espaces" className="mt-4">
           <div className="grid gap-4 md:grid-cols-2">
-            {espaces.map((espace) => (
-              <Card key={espace.id}>
+            {espaces.map((espace) => (<Card key={espace.id}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle>{espace.designation}</CardTitle>
@@ -50,16 +44,13 @@ export default async function DisciplinesPage() {
                   <div>
                     <p className="text-sm font-medium mb-2">Catégories d&apos;âge :</p>
                     <div className="flex flex-wrap gap-2">
-                      {espace.categoriesAge.map((cat) => (
-                        <Badge key={cat.id} variant="secondary">
+                      {espace.categoriesAge.map((cat) => (<Badge key={cat.id} variant="secondary">
                           {cat.designation}
-                        </Badge>
-                      ))}
+                        </Badge>))}
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>))}
           </div>
         </TabsContent>
 
@@ -77,20 +68,14 @@ export default async function DisciplinesPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {disciplines.map((discipline) => (
-                      <tr key={discipline.id} className="border-b">
+                    {disciplines.map((discipline) => (<tr key={discipline.id} className="border-b">
                         <td className="py-3 font-mono">{discipline.code}</td>
                         <td className="py-3">{discipline.designation}</td>
                         <td className="py-3">{discipline.espace.designation}</td>
                         <td className="py-3">
-                          {discipline.actif === 1 ? (
-                            <Badge className="bg-green-100 text-green-700">Actif</Badge>
-                          ) : (
-                            <Badge className="bg-gray-100 text-gray-600">Inactif</Badge>
-                          )}
+                          {discipline.actif === 1 ? (<Badge className="bg-green-100 text-green-700">Actif</Badge>) : (<Badge className="bg-gray-100 text-gray-600">Inactif</Badge>)}
                         </td>
-                      </tr>
-                    ))}
+                      </tr>))}
                   </tbody>
                 </table>
               </div>
@@ -98,6 +83,5 @@ export default async function DisciplinesPage() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>);
 }

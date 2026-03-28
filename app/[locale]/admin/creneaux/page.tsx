@@ -1,27 +1,22 @@
-// app/[locale]/admin/creneaux/page.tsx
 import { prisma } from "@/lib/db/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { JOURS_SEMAINE } from "@/lib/constants";
-
 async function getCreneaux() {
-  return prisma.creneau.findMany({
-    include: {
-      discipline: { include: { espace: true } },
-      saison: true,
-      _count: {
-        select: { abonnements: true },
-      },
-    },
-    orderBy: [{ jourSemaine: "asc" }, { heureDebut: "asc" }],
-  });
+    return prisma.creneau.findMany({
+        include: {
+            discipline: { include: { espace: true } },
+            saison: true,
+            _count: {
+                select: { abonnements: true },
+            },
+        },
+        orderBy: [{ jourSemaine: "asc" }, { heureDebut: "asc" }],
+    });
 }
-
 export default async function CreneauxPage() {
-  const creneaux = await getCreneaux();
-
-  return (
-    <div className="p-6">
+    const creneaux = await getCreneaux();
+    return (<div className="p-6">
       <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
         Gestion des créneaux
       </h1>
@@ -44,8 +39,7 @@ export default async function CreneauxPage() {
                 </tr>
               </thead>
               <tbody>
-                {creneaux.map((creneau) => (
-                  <tr key={creneau.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-900">
+                {creneaux.map((creneau) => (<tr key={creneau.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-900">
                     <td className="py-3">{creneau.discipline.designation}</td>
                     <td className="py-3">
                       <Badge variant="outline">{creneau.discipline.espace.code}</Badge>
@@ -56,13 +50,11 @@ export default async function CreneauxPage() {
                     <td className="py-3">
                       {creneau._count.abonnements} / {creneau.nombreMax}
                     </td>
-                  </tr>
-                ))}
+                  </tr>))}
               </tbody>
             </table>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
 }

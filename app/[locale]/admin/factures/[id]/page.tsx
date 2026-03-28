@@ -1,44 +1,39 @@
-// app/[locale]/admin/factures/[id]/page.tsx
 import { prisma } from "@/lib/db/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { STATUT_FACTURE_STYLES, MODE_PAIEMENT } from "@/lib/constants";
 import { Printer } from "lucide-react";
-
 async function getFacture(id: number) {
-  return prisma.facture.findUnique({
-    where: { id },
-    include: {
-      adherent: true,
-      abonnement: {
+    return prisma.facture.findUnique({
+        where: { id },
         include: {
-          discipline: true,
+            adherent: true,
+            abonnement: {
+                include: {
+                    discipline: true,
+                },
+            },
         },
-      },
-    },
-  });
+    });
 }
-
-export default async function FactureDetailPage({
-  params,
-}: {
-  params: { locale: string; id: string };
+export default async function FactureDetailPage({ params, }: {
+    params: {
+        locale: string;
+        id: string;
+    };
 }) {
-  const facture = await getFacture(parseInt(params.id));
-
-  if (!facture) {
-    return <div>Facture non trouvée</div>;
-  }
-
-  return (
-    <div className="p-6">
+    const facture = await getFacture(parseInt(params.id));
+    if (!facture) {
+        return <div>Facture non trouvée</div>;
+    }
+    return (<div className="p-6">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           Détail de la facture
         </h1>
         <Button variant="outline">
-          <Printer className="mr-2 h-4 w-4" />
+          <Printer className="mr-2 h-4 w-4"/>
           Imprimer
         </Button>
       </div>
@@ -91,14 +86,11 @@ export default async function FactureDetailPage({
               </div>
             </div>
 
-            {facture.datePaiement && (
-              <div className="mt-6 text-center text-sm text-gray-500">
+            {facture.datePaiement && (<div className="mt-6 text-center text-sm text-gray-500">
                 Payé le {new Date(facture.datePaiement).toLocaleDateString("fr-FR")}
-              </div>
-            )}
+              </div>)}
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>);
 }

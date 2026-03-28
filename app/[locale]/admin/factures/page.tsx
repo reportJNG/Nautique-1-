@@ -1,29 +1,23 @@
-// app/[locale]/admin/factures/page.tsx
 import { prisma } from "@/lib/db/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { STATUT_FACTURE_STYLES, MODE_PAIEMENT } from "@/lib/constants";
-
 async function getFactures() {
-  return prisma.facture.findMany({
-    orderBy: { dateCreation: "desc" },
-    include: {
-      adherent: true,
-    },
-    take: 50,
-  });
+    return prisma.facture.findMany({
+        orderBy: { dateCreation: "desc" },
+        include: {
+            adherent: true,
+        },
+        take: 50,
+    });
 }
-
 export default async function FacturesPage() {
-  const factures = await getFactures();
-
-  const totalPaye = factures
-    .filter((f) => f.statut === "PAY")
-    .reduce((sum, f) => sum + Number(f.montantTtc), 0);
-
-  return (
-    <div className="p-6">
+    const factures = await getFactures();
+    const totalPaye = factures
+        .filter((f) => f.statut === "PAY")
+        .reduce((sum, f) => sum + Number(f.montantTtc), 0);
+    return (<div className="p-6">
       <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
         Caisse - Gestion des factures
       </h1>
@@ -67,8 +61,7 @@ export default async function FacturesPage() {
                 </tr>
               </thead>
               <tbody>
-                {factures.map((facture) => (
-                  <tr key={facture.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-900">
+                {factures.map((facture) => (<tr key={facture.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-900">
                     <td className="py-3 font-mono text-sm">{facture.numeroRecu || "-"}</td>
                     <td className="py-3">
                       {facture.adherent.prenom} {facture.adherent.nom}
@@ -83,13 +76,11 @@ export default async function FacturesPage() {
                     <td className="py-3 text-sm text-gray-500">
                       {new Date(facture.dateCreation).toLocaleDateString("fr-FR")}
                     </td>
-                  </tr>
-                ))}
+                  </tr>))}
               </tbody>
             </table>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
 }
