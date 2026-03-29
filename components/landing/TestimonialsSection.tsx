@@ -1,79 +1,21 @@
 "use client";
-import { useRef, useMemo, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Quote, Star, ChevronRight, CheckCircle2, Calendar, MapPin, Heart, MessageCircle, Share2 } from "lucide-react";
+import { Quote, Star, CheckCircle2, Calendar, MapPin, Heart, MessageCircle, Share2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-interface Testimonial {
-    id: string;
-    name: string;
-    role: string;
-    content: string;
-    avatar: string;
-    image?: string;
-    rating: number;
-    date?: string;
-    location?: string;
-    verified?: boolean;
-    tags?: string[];
-    social?: {
-        likes?: number;
-        comments?: number;
-        shares?: number;
-    };
-}
+import type { Testimonial } from "./testimonialsSection.logic";
+import { useTestimonials } from "./useTestimonials";
+
 interface TestimonialsSectionProps {
     className?: string;
     showStats?: boolean;
     autoplayInterval?: number;
 }
-const TESTIMONIAL_IDS = [
-    "amira",
-    "youcef",
-    "meriem",
-    "bilal",
-    "sabrina",
-    "karim",
-    "naima",
-    "ryad",
-    "lina",
-    "yacine",
-    "samira",
-    "farid",
-    "ines",
-    "nadir",
-    "hocine",
-    "malika",
-    "mourad",
-    "asma",
-    "nassim",
-    "souad",
-] as const;
-const SOCIAL_STATS: Record<(typeof TESTIMONIAL_IDS)[number], Testimonial["social"]> = {
-    amira: { likes: 234, comments: 45, shares: 89 },
-    youcef: { likes: 567, comments: 89, shares: 234 },
-    meriem: { likes: 891, comments: 123, shares: 456 },
-    bilal: { likes: 345, comments: 67, shares: 123 },
-    sabrina: { likes: 1234, comments: 234, shares: 567 },
-    karim: { likes: 412, comments: 55, shares: 98 },
-    naima: { likes: 503, comments: 71, shares: 120 },
-    ryad: { likes: 388, comments: 49, shares: 84 },
-    lina: { likes: 642, comments: 80, shares: 142 },
-    yacine: { likes: 459, comments: 60, shares: 110 },
-    samira: { likes: 734, comments: 96, shares: 170 },
-    farid: { likes: 321, comments: 43, shares: 76 },
-    ines: { likes: 690, comments: 88, shares: 151 },
-    nadir: { likes: 277, comments: 35, shares: 63 },
-    hocine: { likes: 540, comments: 73, shares: 129 },
-    malika: { likes: 608, comments: 82, shares: 145 },
-    mourad: { likes: 366, comments: 51, shares: 92 },
-    asma: { likes: 721, comments: 94, shares: 180 },
-    nassim: { likes: 435, comments: 58, shares: 107 },
-    souad: { likes: 680, comments: 90, shares: 166 },
-};
+
 const RatingStars = ({ rating, size = "md" }: {
     rating: number;
     size?: "sm" | "md" | "lg";
@@ -85,6 +27,7 @@ const RatingStars = ({ rating, size = "md" }: {
                 : "text-gray-200 dark:text-gray-700"} transition-colors duration-200`}/>))}
     </div>);
 };
+
 const SocialStats = ({ stats }: {
     stats: Testimonial["social"];
 }) => {
@@ -105,34 +48,17 @@ const SocialStats = ({ stats }: {
         </div>)}
     </div>);
 };
+
 export function TestimonialsSection({ className = "", showStats = true, autoplayInterval = 5000 }: TestimonialsSectionProps) {
     const ref = useRef<HTMLElement>(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
     const locale = useLocale();
     const isRTL = locale === "ar";
     const t = useTranslations("landing.testimonials");
+    const testimonials = useTestimonials();
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const getInitials = (fullName: string) => fullName
-        .trim()
-        .split(/\s+/)
-        .slice(0, 2)
-        .map((part) => part[0]?.toUpperCase())
-        .filter(Boolean)
-        .join("");
-    const testimonials = useMemo<Testimonial[]>(() => TESTIMONIAL_IDS.map((id) => ({
-        id,
-        name: t(`items.${id}.name`),
-        role: t(`items.${id}.role`),
-        content: t(`items.${id}.content`),
-        avatar: getInitials(t(`items.${id}.name`)),
-        rating: id === "bilal" ? 4 : 5,
-        date: t(`items.${id}.date`),
-        location: t(`items.${id}.location`),
-        verified: true,
-        tags: [t(`items.${id}.tags.tag1`), t(`items.${id}.tags.tag2`)],
-        social: SOCIAL_STATS[id],
-    })), [t, locale]);
-    return (<section ref={ref} className={`py-24 bg-muted/30 ${className}`} aria-label={t("ariaLabel")}>
+
+    return (<section ref={ref} id="testimonials" className={`py-24 bg-muted/30 ${className}`} aria-label={t("ariaLabel")}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <motion.div initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }} className="text-center mb-16">

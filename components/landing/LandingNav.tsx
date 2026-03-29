@@ -7,7 +7,7 @@ import { getLandingRedirectForArea } from "@/lib/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { Waves, Menu, X, Sparkles, Home, Zap, Clock, Images, Mail, User, Shield, ChevronRight } from "lucide-react";
+import { Waves, Menu, X, Home, Zap, Clock, Images, MessageCircle, User, Shield, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 export function LandingNav() {
     const t = useTranslations("nav");
@@ -16,7 +16,7 @@ export function LandingNav() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeLink, setActiveLink] = useState("");
-    const sectionIds = ["disciplines", "horaires", "gallery", "contact"];
+    const sectionIds = ["disciplines", "horaires", "gallery", "testimonials", "contact"];
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 10);
@@ -54,6 +54,7 @@ export function LandingNav() {
         { href: "/#horaires", label: t("schedule"), icon: Clock },
         { href: "/#disciplines", label: t("disciplines"), icon: Zap },
         { href: "/#gallery", label: t("gallery"), icon: Images },
+        { href: "/#testimonials", label: t("testimonials"), icon: MessageCircle },
     ];
     const handleAdherentClick = async () => {
         const { href } = await getLandingRedirectForArea("adherent");
