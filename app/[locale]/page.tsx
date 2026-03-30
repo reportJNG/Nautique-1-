@@ -6,6 +6,7 @@ import DisciplinesSection from "@/components/landing/DisciplinesSection";
 import { SaisonSection } from "@/components/landing/SaisonSection";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { GallerySection } from "@/components/landing/GallerySection";
+import { SupportForm } from "@/components/landing/SupportForm";
 import { Footer } from "@/components/landing/Footer";
 export default async function HomePage({ params, }: {
     params: Promise<{
@@ -23,6 +24,7 @@ export default async function HomePage({ params, }: {
         <DisciplinesSection />
         <GallerySection />
         <TestimonialsSection />
+        <SupportForm />
       </main>
       <Footer locale={locale}/>
     </div>);

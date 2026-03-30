@@ -9,6 +9,7 @@
     "schedule": "الجدول الزمني",
     "gallery": "المعرض",
     "testimonials": "آراء الأعضاء",
+    "support": "المساعدة",
     "contact": "اتصل بنا",
     "loginAgent": "فضاء الموظفين",
     "loginAdherent": "فضاء الأعضاء",
@@ -298,6 +299,46 @@
       "title": "المعرض",
       "subtitle": "اكتشف منشآتنا وأنشطتنا في صور.",
       "imageAlt": "صورة من المعرض {index}"
+    },
+    "support": {
+      "title": "المساعدة والدعم",
+      "subtitle": "لديك سؤال أو مشكلة؟ راسلنا وسنرد عليك في أقرب وقت.",
+      "cardTitle": "التواصل مع الدعم",
+      "cardSubtitle": "نرد عادةً خلال 24 ساعة.",
+      "privacyNote": "معلوماتك تبقى خاصة وآمنة.",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "name@example.com",
+      "problemTypeLabel": "نوع الطلب",
+      "problemTypePlaceholder": "اختر فئة",
+      "commentLabel": "الرسالة",
+      "commentPlaceholder": "صف طلبك في بضع أسطر…",
+      "charCount": "{count} / {max}",
+      "submit": "إرسال الطلب",
+      "submitting": "جاري الإرسال…",
+      "toast": {
+        "title": "تم إرسال الطلب",
+        "description": "سنتواصل معك على {email} قريبًا.",
+        "errorTitle": "تعذّر الإرسال",
+        "errorDescription": "بعض الحقول غير صالحة أو فارغة. صحّحها ثم أعد المحاولة."
+      },
+      "validation": {
+        "email": "يرجى إدخال بريد إلكتروني صالح.",
+        "problemType": "يرجى اختيار نوع الطلب.",
+        "commentMin": "يجب أن لا يقل طول الرسالة عن {min} حرفًا.",
+        "commentMax": "لا يمكن أن تتجاوز الرسالة {max} حرفًا."
+      },
+      "problemTypes": {
+        "connection": "الاتصال / الدخول للموقع",
+        "account": "الحساب وتسجيل الدخول",
+        "performance": "بطء أو توقف التطبيق",
+        "billing": "الفوترة والدفع",
+        "bug": "خلل أو رسالة خطأ",
+        "staff": "الطاقم أو الاستقبال",
+        "sync": "البيانات أو المزامنة",
+        "notification": "الإشعارات",
+        "chat": "المراسلة",
+        "other": "أخرى"
+      }
     },
     "footer": {
       "brand": "سوناطراك",

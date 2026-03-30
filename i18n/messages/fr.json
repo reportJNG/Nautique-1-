@@ -9,6 +9,7 @@
     "schedule": "Horaires",
     "gallery": "Galerie",
     "testimonials": "Témoignages",
+    "support": "Assistance",
     "contact": "Contact",
     "loginAgent": "Espace Staff",
     "loginAdherent": "Espace Adhérent",
@@ -313,6 +314,46 @@
       "title": "Galerie",
       "subtitle": "Découvrez nos installations et nos activités en images.",
       "imageAlt": "Image de la galerie {index}"
+    },
+    "support": {
+      "title": "Aide et assistance",
+      "subtitle": "Une question ou un souci ? Écrivez-nous, nous vous répondons dès que possible.",
+      "cardTitle": "Contacter le support",
+      "cardSubtitle": "Nous répondons en général sous 24 heures.",
+      "privacyNote": "Vos informations restent confidentielles et sécurisées.",
+      "emailLabel": "Adresse e-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "problemTypeLabel": "Type de demande",
+      "problemTypePlaceholder": "Choisissez une catégorie",
+      "commentLabel": "Message",
+      "commentPlaceholder": "Décrivez votre demande en quelques lignes…",
+      "charCount": "{count} / {max}",
+      "submit": "Envoyer la demande",
+      "submitting": "Envoi en cours…",
+      "toast": {
+        "title": "Demande envoyée",
+        "description": "Nous vous répondrons à l’adresse {email} sous peu.",
+        "errorTitle": "Formulaire incomplet",
+        "errorDescription": "Certains champs sont invalides ou manquants. Corrigez-les puis réessayez."
+      },
+      "validation": {
+        "email": "Veuillez saisir une adresse e-mail valide.",
+        "problemType": "Veuillez choisir un type de demande.",
+        "commentMin": "Votre message doit contenir au moins {min} caractères.",
+        "commentMax": "Votre message ne peut pas dépasser {max} caractères."
+      },
+      "problemTypes": {
+        "connection": "Connexion / accès au site",
+        "account": "Compte et identifiants",
+        "performance": "Lenteur ou plantage",
+        "billing": "Facturation et paiements",
+        "bug": "Bug ou message d’erreur",
+        "staff": "Équipe ou accueil",
+        "sync": "Données ou synchronisation",
+        "notification": "Notifications",
+        "chat": "Messagerie",
+        "other": "Autre"
+      }
     },
     "footer": {
       "brand": "SONATRACH",
