@@ -14,6 +14,10 @@
     "loginAgent": "Espace Staff",
     "loginAdherent": "Espace Adhérent",
     "brand": "SONATRACH",
+    "mainNavigation": "Navigation principale",
+    "desktopMenu": "Menu de navigation",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
     "toggleMenu": "Ouvrir/fermer le menu",
     "logout": "Déconnexion"
   },
