@@ -487,7 +487,7 @@ export function LandingNav() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.97 }}
                             className={cn(
-                                "inline-flex h-[26px] items-center gap-[5px] rounded-full px-3",
+                                "inline-flex h-[26px] items-center gap-[5px] rounded-full px-3 cursor-pointer",
                                 "text-[10.5px] font-bold tracking-[0.06em] uppercase leading-none whitespace-nowrap",
                                 "border transition-all duration-200",
                                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60",
@@ -510,7 +510,7 @@ export function LandingNav() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.97 }}
                             className={cn(
-                                "inline-flex h-[26px] items-center gap-[5px] rounded-full px-3",
+                                "inline-flex h-[26px] items-center gap-[5px] rounded-full px-3 cursor-pointer",
                                 "text-[10.5px] font-bold tracking-[0.06em] uppercase leading-none whitespace-nowrap text-white",
                                 "bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-700 hover:to-cyan-600",
                                 "dark:from-cyan-500 dark:to-cyan-400 dark:hover:from-cyan-600 dark:hover:to-cyan-500",
@@ -604,18 +604,18 @@ export function LandingNav() {
                                         disabled={loading !== null}
                                         whileTap={{ scale: 0.97 }}
                                         className={cn(
-                                            "inline-flex items-center justify-center gap-2 rounded-xl",
+                                            "inline-flex items-center justify-center gap-2 rounded-xl ",
                                             "h-10 px-3 text-[13px] font-medium",
                                             "border border-black/[0.1] dark:border-white/[0.1]",
                                             "bg-white dark:bg-white/[0.04] text-gray-700 dark:text-gray-300",
                                             "hover:bg-gray-50 dark:hover:bg-white/[0.07] transition-all duration-200",
-                                            "disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden group",
+                                            "disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden group ",
                                         )}
                                     >
                                         <span className="absolute inset-0 bg-gradient-to-r from-gray-100/0 via-gray-100/50 to-gray-100/0 dark:from-white/0 dark:via-white/10 dark:to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
                                         {loading === "adherent"
-                                            ? <span className="h-3.5 w-3.5 animate-spin rounded-full border-[1.5px] border-current border-t-transparent" />
-                                            : <User className="h-3.5 w-3.5" />
+                                            ? <span className="h-3.5 w-3.5 animate-spin rounded-full border-[1.5px] border-current border-t-transparent cursor-pointer" />
+                                            : <User className="h-3.5 w-3.5 " />
                                         }
                                         {t("loginAdherent")}
                                     </motion.button>
