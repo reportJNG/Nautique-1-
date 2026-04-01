@@ -1,6 +1,6 @@
 "use server";
 import { prisma } from "@/lib/db/prisma";
-import { requireAdherent } from "@/lib/auth/jwt";
+import { requireAdherent } from "@/lib/auth/session";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
@@ -36,7 +36,7 @@ export async function updateProfile(formData: FormData) {
                 adresse: adresse || null,
             },
         });
-        revalidatePath("/[locale]/espace/profil");
+        revalidatePath("/", "layout");
         return { success: true };
     }
     catch (error) {

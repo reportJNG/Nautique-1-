@@ -1,6 +1,6 @@
 "use server";
 import { prisma } from "@/lib/db/prisma";
-import { requireAgent } from "@/lib/auth/jwt";
+import { requireAgent } from "@/lib/auth/session";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { generateNumeroRecu } from "@/lib/utils";

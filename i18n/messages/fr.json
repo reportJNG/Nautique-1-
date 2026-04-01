@@ -626,7 +626,8 @@
     "dateNaissance": "Date de naissance",
     "sexe": "Sexe",
     "numeroDossier": "N° Dossier",
-    "organisation": "Organisation"
+    "organisation": "Organisation",
+    "logout": "Déconnexion"
   },
   "admin": {
     "title": "Espace Administration",
@@ -640,7 +641,384 @@
     "agents": "Agents",
     "factures": "Caisse",
     "access": "Contrôle d'accès",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "navigation": "Navigation",
+    "nav": {
+      "section": {
+        "overview": "Vue d'ensemble",
+        "management": "Gestion",
+        "team": "Équipe",
+        "finance": "Finances",
+        "config": "Configuration"
+      }
+    },
+    "sidebar": {
+      "title": "Centre nautique",
+      "subtitle": "Espace d'administration"
+    },
+    "shell": {
+      "toggleMenu": "Basculer le menu",
+      "toggleSidebarSr": "Basculer la barre latérale",
+      "closeOverlaySr": "Fermer le panneau",
+      "collapseDesktopSr": "Réduire le menu latéral",
+      "expandDesktopSr": "Agrandir le menu latéral",
+      "mainContentLabel": "Contenu principal"
+    },
+    "footer": {
+      "copyright": "© {year} Centre nautique",
+      "tagline": "Espace d'administration — pilotage des adherents, abonnements et planning"
+    },
+    "roles": {
+      "ADMIN": "Administrateur",
+      "DIR": "Directeur",
+      "RESP-COM": "Responsable Commercial",
+      "AG-COM": "Agent Commercial",
+      "AG-FIN": "Agent Financier"
+    },
+    "days": {
+      "sun": "Dimanche",
+      "mon": "Lundi",
+      "tue": "Mardi",
+      "wed": "Mercredi",
+      "thu": "Jeudi",
+      "fri": "Vendredi",
+      "sat": "Samedi"
+    },
+    "status": {
+      "active": "Actif",
+      "inactive": "Inactif",
+      "noData": "Aucune donnée disponible"
+    },
+    "toast": {
+      "createSuccess": { "title": "Créé avec succès", "desc": "L'enregistrement a été ajouté." },
+      "createError":   { "title": "Erreur de création", "desc": "Impossible de créer l'enregistrement. Veuillez réessayer." },
+      "updateSuccess": { "title": "Modifications enregistrées", "desc": "Les informations ont été mises à jour." },
+      "updateError":   { "title": "Erreur de mise à jour", "desc": "Impossible d'enregistrer les modifications." },
+      "deleteSuccess": { "title": "Supprimé", "desc": "L'enregistrement a été supprimé." },
+      "deleteError":   { "title": "Erreur de suppression", "desc": "Impossible de supprimer cet enregistrement." },
+      "toggleSuccess": { "title": "Statut mis à jour", "desc": "Le statut a été modifié." },
+      "toggleError":   { "title": "Erreur", "desc": "Impossible de modifier le statut." },
+      "paymentSuccess": { "title": "Paiement validé ✓", "desc": "Le paiement a été enregistré et l'abonnement activé." },
+      "paymentError":   { "title": "Erreur de paiement", "desc": "Impossible de valider ce paiement." },
+      "accessGranted":  { "title": "Accès autorisé ✓", "desc": "L'adhérent a été enregistré." },
+      "accessDenied":   { "title": "Accès refusé", "desc": "Abonnement non valide ou expiré." },
+      "accessError":    { "title": "Erreur", "desc": "Impossible de traiter cette demande." },
+      "settingsSaved":  { "title": "Paramètres sauvegardés", "desc": "La configuration du centre a été mise à jour." },
+      "settingsError":  { "title": "Erreur", "desc": "Impossible de sauvegarder les paramètres." },
+      "validationError": { "title": "Formulaire incomplet", "desc": "Veuillez remplir tous les champs obligatoires." },
+      "emailExists":    { "title": "Email déjà utilisé", "desc": "Un compte avec cet email existe déjà." }
+    },
+    "abonnementStatus": {
+      "CRE": "Créé",
+      "ATP": "Att. Paiement",
+      "ATT": "En attente",
+      "ACT": "Actif",
+      "APP": "Approuvé",
+      "ANL": "Annulé",
+      "ANN": "Annulé",
+      "RES": "Résilié",
+      "EXP": "Expiré",
+      "NPY": "Non Payé"
+    },
+    "saisonStatus": {
+      "OUV": "Ouverte",
+      "FER": "Fermée",
+      "CLO": "Clôturée"
+    },
+    "paymentMethods": {
+      "CSH": "Cash",
+      "CRT": "Carte bancaire"
+    },
+    "factureStatus": {
+      "ATT": "En attente",
+      "PAY": "Payé"
+    },
+    "dashboardUi": {
+      "title": "Tableau de bord",
+      "description": "Suivez en un coup d’œil l’activité du centre nautique.",
+      "kpis": {
+        "adherentsActive": "Adhérents actifs",
+        "abonnementsActive": "Abonnements actifs",
+        "pendingFactures": "Factures en attente",
+        "monthlyRevenue": "Recettes du mois",
+        "availableCreneaux": "Créneaux disponibles"
+      },
+      "recentAbonnements": {
+        "title": "Abonnements récents",
+        "description": "Les 5 derniers abonnements créés dans le système.",
+        "empty": "Aucun abonnement récent."
+      }
+    },
+    "adherentsUi": {
+      "pageTitle": "Gestion des adhérents",
+      "description": "Recherchez, filtrez et consultez les fiches adhérents.",
+      "newButton": "Nouvel adhérent",
+      "searchPlaceholder": "Rechercher par nom, email ou n° dossier...",
+      "table": {
+        "fileNumber": "N° Dossier",
+        "name": "Nom",
+        "email": "Email",
+        "organization": "Organisation",
+        "status": "Statut",
+        "signupDate": "Inscription",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "Voir"
+      },
+      "new": {
+        "title": "Nouvel adhérent",
+        "back": "Retour",
+        "infoTitle": "Informations de l'adhérent",
+        "nom": "Nom",
+        "prenom": "Prénom",
+        "email": "Email",
+        "telephone": "Téléphone",
+        "birthDate": "Date de naissance",
+        "sexe": "Sexe",
+        "organisation": "Organisation",
+        "motDePasseInitial": "Mot de passe initial",
+        "select": "Sélectionner",
+        "sexeOptions": {
+          "M": "Masculin",
+          "F": "Féminin"
+        },
+        "organisationOptions": {
+          "SON": "Employés SONATRACH",
+          "PAR": "Membres particuliers",
+          "CLB": "Club sportif"
+        },
+        "submit": "Créer l'adhérent"
+      },
+      "detail": {
+        "title": "Détail de l'adhérent",
+        "notFound": "Adhérent non trouvé",
+        "tabs": {
+          "infos": "Informations",
+          "abonnements": "Abonnements"
+        },
+        "labels": {
+          "dossier": "Dossier",
+          "email": "Email",
+          "phone": "Téléphone",
+          "telephoneUnknown": "Non renseigné",
+          "birthDate": "Né(e) le",
+          "organization": "Organisation"
+        },
+        "emptySubscriptions": "Aucun abonnement"
+      }
+    },
+    "abonnementsUi": {
+      "pageTitle": "Gestion des abonnements",
+      "description": "Vue globale sur les abonnements actifs et en attente.",
+      "newButton": "Nouvel abonnement",
+      "searchPlaceholder": "Rechercher...",
+      "table": {
+        "adherent": "Adhérent",
+        "discipline": "Discipline",
+        "type": "Type",
+        "status": "Statut",
+        "amount": "Montant",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "Voir"
+      },
+      "new": {
+        "title": "Nouvel abonnement (Admin)",
+        "back": "Retour",
+        "selectAdherentTitle": "Sélectionner un adhérent",
+        "searchLabel": "Rechercher un adhérent",
+        "searchPlaceholder": "Nom, email ou n° dossier...",
+        "disciplineLabel": "Discipline",
+        "disciplineSelectPlaceholder": "Sélectionner une discipline",
+        "subscriptionTypeLabel": "Type d'abonnement",
+        "subscriptionTypeOptions": {
+          "OPN": "Open Saison",
+          "DUR": "Par Durée",
+          "SEA": "Par Séances"
+        },
+        "subscriptionAmountLabel": "Montant (DA)",
+        "amountPlaceholder": "0.00",
+        "submit": "Créer l'abonnement"
+      },
+      "detail": {
+        "title": "Détail de l'abonnement",
+        "notFound": "Abonnement non trouvé",
+        "cards": {
+          "informations": "Informations",
+          "actions": "Actions"
+        },
+        "labels": {
+          "adherent": "Adhérent",
+          "discipline": "Discipline",
+          "space": "Espace",
+          "status": "Statut",
+          "amount": "Montant"
+        },
+        "actions": {
+          "metToATP": "Mettre ATP",
+          "validatePayment": "Valider paiement",
+          "activate": "Activer",
+          "cancel": "Annuler"
+        }
+      }
+    },
+    "facturesUi": {
+      "pageTitle": "Caisse - Gestion des factures",
+      "listTitle": "Liste des factures",
+      "kpis": {
+        "totalPaid": "Total payé",
+        "pending": "En attente",
+        "totalInvoices": "Total factures"
+      },
+      "table": {
+        "receiptNumber": "N° Reçu",
+        "member": "Adhérent",
+        "amount": "Montant",
+        "paymentMethod": "Mode",
+        "status": "Statut",
+        "date": "Date"
+      },
+      "detail": {
+        "notFound": "Facture non trouvée",
+        "title": "Détail de la facture",
+        "print": "Imprimer",
+        "receipt": {
+          "headerTitle": "Centre Nautique SONATRACH",
+          "subtitle": "Reçu de paiement"
+        },
+        "labels": {
+          "receiptNumber": "N° Reçu",
+          "member": "Adhérent",
+          "fileNumber": "N° Dossier",
+          "discipline": "Discipline",
+          "paymentMethod": "Mode de paiement",
+          "totalAmount": "Montant total"
+        },
+        "paidOn": "Payé le {date}"
+      }
+    },
+    "saisonsUi": {
+      "pageTitle": "Gestion des saisons",
+      "newButton": "Nouvelle saison",
+      "cards": {
+        "slots": "{count} créneaux"
+      },
+      "detail": {
+        "notFound": "Saison non trouvée",
+        "tabs": {
+          "creneaux": "Créneaux",
+          "periodes": "Périodes"
+        },
+        "cards": {
+          "creneaux": "Créneaux de la saison",
+          "periodes": "Périodes de la saison"
+        },
+        "table": {
+          "discipline": "Discipline",
+          "day": "Jour",
+          "schedule": "Horaire",
+          "group": "Groupe"
+        },
+        "emptyPeriods": "Aucune période définie",
+        "dateRange": "Du {start} au {end}"
+      }
+    },
+    "creneauxUi": {
+      "pageTitle": "Gestion des créneaux",
+      "table": {
+        "title": "Liste des créneaux",
+        "discipline": "Discipline",
+        "space": "Espace",
+        "day": "Jour",
+        "schedule": "Horaire",
+        "group": "Groupe",
+        "enrolled": "Inscrits"
+      },
+      "detail": {
+        "notFound": "Créneau non trouvé",
+        "title": "Détail du créneau",
+        "cards": {
+          "informations": "Informations",
+          "moniteurs": "Moniteurs",
+          "inscrits": "Inscrits ({count})"
+        },
+        "emptyMonitors": "Aucun moniteur assigné",
+        "emptyEnrolled": "Aucun inscrit",
+        "labels": {
+          "discipline": "Discipline",
+          "space": "Espace",
+          "day": "Jour",
+          "schedule": "Horaire",
+          "capacity": "Capacité",
+          "group": "Groupe"
+        }
+      }
+    },
+    "disciplinesUi": {
+      "pageTitle": "Disciplines et Espaces",
+      "tabs": {
+        "espaces": "Espaces",
+        "disciplines": "Disciplines"
+      },
+      "labelAgeCategories": "Catégories d'âge :",
+      "table": {
+        "code": "Code",
+        "designation": "Désignation",
+        "space": "Espace",
+        "status": "Statut"
+      }
+    },
+    "moniteursUi": {
+      "pageTitle": "Gestion des moniteurs",
+      "newButton": "Nouveau moniteur",
+      "status": {
+        "active": "Actif",
+        "inactive": "Inactif"
+      }
+    },
+    "agentsUi": {
+      "pageTitle": "Gestion des agents",
+      "newButton": "Nouvel agent",
+      "listTitle": "Liste des agents",
+      "table": {
+        "name": "Nom",
+        "login": "Login",
+        "role": "Rôle",
+        "email": "Email",
+        "status": "Statut"
+      }
+    },
+    "accessUi": {
+      "title": "Contrôle d'accès",
+      "card": {
+        "save": "Enregistrer un accès",
+        "journal": "Journal d'accès"
+      },
+      "searchPlaceholder": "N° dossier ou code barre...",
+      "button": {
+        "validate": "Valider l'accès"
+      },
+      "emptyJournal": "Aucun accès enregistré aujourd'hui"
+    },
+    "parametresUi": {
+      "title": "Paramètres globaux",
+      "card": {
+        "title": "Configuration du centre"
+      },
+      "labels": {
+        "designationCentre": "Désignation du centre",
+        "email": "Email",
+        "telephone": "Téléphone",
+        "adresse": "Adresse",
+        "toleranceAdvance": "Tolérance accès avance (min)",
+        "toleranceDelay": "Tolérance accès retard (min)"
+      },
+      "button": {
+        "saveChanges": "Enregistrer les modifications"
+      }
+    }
   },
   "common": {
     "save": "Enregistrer",
@@ -658,7 +1036,13 @@
     "no": "Non",
     "loading": "Chargement...",
     "error": "Une erreur est survenue",
-    "success": "Opération réussie"
+    "success": "Opération réussie",
+    "back": "Retour",
+    "view": "Voir",
+    "print": "Imprimer",
+    "select": "Sélectionner",
+    "vsLastMonth": "vs mois précédent",
+    "total": "total"
   },
   "theme": {
     "light": "Clair",

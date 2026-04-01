@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Waves, Eye, EyeOff, ArrowLeft, User, Lock, Loader2, AlertCircle, Shield, Anchor, Key, } from "lucide-react";
 import { loginAgent } from "./actions";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { agentLoginSchema, type AgentLoginInput } from "@/lib/validators/auth";
 function FieldError({ message }: {
     message: string;
 }) {
@@ -25,8 +26,9 @@ export default function AgentLoginPage() {
     const redirectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [showPassword, setShowPassword] = useState(false);
     const [isPending, setIsPending] = useState(false);
-    const [formData, setFormData] = useState({ login: "", password: "" });
+    const [formData, setFormData] = useState<AgentLoginInput>({ login: "", password: "" });
     const [touched, setTouched] = useState({ login: false, password: false });
+    const [fieldErrors, setFieldErrors] = useState<Partial<AgentLoginInput>>({});
     const [isNavigating, setIsNavigating] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
@@ -55,27 +57,34 @@ export default function AgentLoginPage() {
         return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
     }, []);
     const loginError = (() => {
-        if (!touched.login)
-            return "";
-        if (!formData.login)
-            return t("staffLogin.validation.loginRequired");
-        if (formData.login.length < 3)
-            return t("staffLogin.validation.loginMin");
+        if (fieldErrors.login) return fieldErrors.login;
+        if (!touched.login) return "";
+        const result = agentLoginSchema.shape.login.safeParse(formData.login);
+        if (!result.success) return result.error.issues[0]?.message || "";
         return "";
     })();
     const passwordError = (() => {
-        if (!touched.password)
-            return "";
-        if (!formData.password)
-            return t("staffLogin.validation.passwordRequired");
-        if (formData.password.length < 6)
-            return t("staffLogin.validation.passwordMin");
+        if (fieldErrors.password) return fieldErrors.password;
+        if (!touched.password) return "";
+        const result = agentLoginSchema.shape.password.safeParse(formData.password);
+        if (!result.success) return result.error.issues[0]?.message || "";
         return "";
     })();
     const isValid = !loginError && !passwordError && !!formData.login && !!formData.password;
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        let sanitizedValue = value;
+        
+        if (name === 'login') {
+            sanitizedValue = value.replace(/[^a-zA-Z0-9_\-\.]/g, '').slice(0, 50);
+        } else if (name === 'password') {
+            sanitizedValue = value.slice(0, 128);
+        }
+        
+        setFormData((prev) => ({ ...prev, [name]: sanitizedValue }));
+        if (fieldErrors[name as keyof AgentLoginInput]) {
+            setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
+        }
     };
     const handleBlur = (field: keyof typeof touched) => setTouched((prev) => ({ ...prev, [field]: true }));
     const handleKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
@@ -93,11 +102,32 @@ export default function AgentLoginPage() {
             return;
         }
         setIsPending(true);
+        setFieldErrors({});
         try {
-            const result = await loginAgent(fd);
-            if ("error" in result) {
+            const result = agentLoginSchema.safeParse(formData);
+            if (!result.success) {
+                const errors: Partial<AgentLoginInput> = {};
+                result.error.issues.forEach((error: any) => {
+                    if (error.path.length > 0) {
+                        errors[error.path[0] as keyof AgentLoginInput] = error.message;
+                    }
+                });
+                setFieldErrors(errors);
+                setIsPending(false);
+                loginInputRef.current?.focus();
+                return;
+            }
+            
+            const sanitizedFd = new FormData();
+            sanitizedFd.set("login", formData.login.trim());
+            sanitizedFd.set("password", formData.password);
+            const loginResult = await loginAgent(sanitizedFd);
+            if ("error" in loginResult) {
+                if ('fieldErrors' in loginResult && loginResult.fieldErrors) {
+                    setFieldErrors(loginResult.fieldErrors as Partial<AgentLoginInput>);
+                }
                 toast.error(t("toast.login.error.title"), {
-                    description: result.error ?? t("toast.login.error.description"),
+                    description: loginResult.error ?? t("toast.login.error.description"),
                     duration: 5000,
                 });
                 setIsPending(false);
@@ -233,7 +263,7 @@ export default function AgentLoginPage() {
                     <User className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${loginError && touched.login
             ? "text-red-400"
             : "text-gray-400"}`}/>
-                    <Input ref={loginInputRef} id="login" name="login" type="text" required placeholder={t("staffLogin.loginPlaceholder")} value={formData.login} onChange={handleInputChange} onBlur={() => handleBlur("login")} disabled={isPending} autoComplete="username" className={`border-2 pl-10 transition-all duration-200 focus:ring-4 ${loginError && touched.login
+                    <Input ref={loginInputRef} id="login" name="login" type="text" required placeholder={t("staffLogin.loginPlaceholder")} value={formData.login} onChange={handleInputChange} onBlur={() => handleBlur("login")} disabled={isPending} autoComplete="username" autoCapitalize="off" autoCorrect="off" spellCheck={false} maxLength={50} className={`border-2 pl-10 transition-all duration-200 focus:ring-4 ${loginError && touched.login
             ? "border-red-400 focus:border-red-400 focus:ring-red-500/15"
             : "border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/15 dark:border-gray-700"}`}/>
                   </div>
@@ -254,7 +284,7 @@ export default function AgentLoginPage() {
                     <Lock className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${passwordError && touched.password
             ? "text-red-400"
             : "text-gray-400"}`}/>
-                    <Input id="password" name="password" type={showPassword ? "text" : "password"} required placeholder="••••••••" value={formData.password} onChange={handleInputChange} onBlur={() => handleBlur("password")} disabled={isPending} autoComplete="current-password" className={`border-2 pl-10 pr-11 transition-all duration-200 focus:ring-4 ${passwordError && touched.password
+                    <Input id="password" name="password" type={showPassword ? "text" : "password"} required placeholder="••••••••" value={formData.password} onChange={handleInputChange} onBlur={() => handleBlur("password")} disabled={isPending} autoComplete="current-password" maxLength={128} className={`border-2 pl-10 pr-11 transition-all duration-200 focus:ring-4 ${passwordError && touched.password
             ? "border-red-400 focus:border-red-400 focus:ring-red-500/15"
             : "border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/15 dark:border-gray-700"}`}/>
                     <button type="button" onClick={() => setShowPassword((v) => !v)} disabled={isPending} aria-label={showPassword

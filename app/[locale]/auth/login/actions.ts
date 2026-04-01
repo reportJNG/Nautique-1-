@@ -25,6 +25,10 @@ export async function loginAgent(formData: FormData) {
         if (agent.actif !== 1) {
             return { error: "Compte désactivé" };
         }
+        const isValid = password === agent.motDePasse
+        if (!isValid) {
+            return { error: "Identifiants invalides" };
+        }
         const token = await signToken({
             type: "agent",
             id: agent.id,

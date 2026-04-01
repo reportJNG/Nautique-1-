@@ -9,23 +9,23 @@ import { GallerySection } from "@/components/landing/GallerySection";
 import { SupportForm } from "@/components/landing/SupportForm";
 import { Footer } from "@/components/landing/Footer";
 export default async function HomePage({ params, }: {
-    params: Promise<{
-        locale: string;
-    }>;
+  params: Promise<{
+    locale: string;
+  }>;
 }) {
-    const { locale } = await params;
-    return (<div className="flex min-h-screen flex-col">
-      <LandingNav />
-      <main className="overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/20">
-        <Hero />
-        <FeaturesSection />
-        <StatsSection />
-        <SaisonSection locale={locale}/>
-        <DisciplinesSection />
-        <GallerySection />
-        <TestimonialsSection />
-        <SupportForm />
-      </main>
-      <Footer locale={locale}/>
-    </div>);
+  const { locale } = await params;
+  return (<div className="flex min-h-screen flex-col">
+    <LandingNav />
+    <main className="overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/20">
+      <Hero />
+      <FeaturesSection />
+      <StatsSection />
+      <SaisonSection locale={locale} />
+      <DisciplinesSection />
+      <GallerySection />
+      <TestimonialsSection />
+      <SupportForm />
+    </main>
+    <Footer locale={locale} />
+  </div>);
 }

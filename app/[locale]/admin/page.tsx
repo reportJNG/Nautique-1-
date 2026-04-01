@@ -1,166 +1,455 @@
 import { prisma } from "@/lib/db/prisma";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Users, Calendar, CreditCard, TrendingUp, Clock } from "lucide-react";
-import { STATUT_ABONNEMENT_STYLES } from "@/lib/constants";
-async function getDashboardStats() {
-    const now = new Date();
-    const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const [totalAdherents, actifAbonnements, pendingFactures, monthlyRevenue, availableCreneaux, recentAbonnements,] = await Promise.all([
-        prisma.adherent.count({ where: { actif: 1 } }),
-        prisma.abonnement.count({
-            where: {
-                statut: "ACT",
-                dateDebut: { lte: now },
-                dateFin: { gte: now },
-            }
-        }),
-        prisma.facture.count({ where: { statut: "ATT" } }),
-        prisma.facture.aggregate({
-            where: {
-                statut: "PAY",
-                datePaiement: { gte: firstDayOfMonth },
-            },
-            _sum: { montantTtc: true },
-        }),
-        prisma.creneau.count({
-            where: {
-                actif: 1,
-                saison: { statut: "OUV" },
-            },
-        }),
-        prisma.abonnement.findMany({
-            orderBy: { createdAt: "desc" },
-            take: 5,
-            include: {
-                adherent: true,
-                discipline: true,
-                saison: true,
-            },
-        }),
-    ]);
-    return {
-        totalAdherents,
-        actifAbonnements,
-        pendingFactures,
-        monthlyRevenue: monthlyRevenue._sum.montantTtc || 0,
-        availableCreneaux,
-        recentAbonnements,
-    };
+import { cn } from "@/lib/utils";
+import { AdminPageHeader, AdminSection, AdminPageShell } from "@/components/admin/AdminPage";
+import { getTranslations } from "next-intl/server";
+import {
+  Users,
+  Calendar,
+  CreditCard,
+  TrendingUp,
+  Clock,
+  ArrowUpRight,
+  ArrowDownRight,
+  Minus,
+  AlertCircle,
+  RefreshCw,
+} from "lucide-react";
+import { cache } from "react";
+import { unstable_noStore as noStore } from "next/cache";
+
+/* ─── Types ──────────────────────────────────────────────────── */
+type Accent = "cyan" | "emerald" | "amber" | "sky" | "violet";
+type StatusCode = "ACT" | "ATT" | "EXP" | "RES" | "ANN";
+
+interface DashboardStats {
+  totalAdherents: number;
+  actifAbonnements: number;
+  pendingFactures: number;
+  monthlyRevenue: number;
+  revTrend: number | null;
+  availableCreneaux: number;
+  recentAbonnements: RecentAbonnement[];
 }
-export default async function AdminDashboardPage() {
-    const stats = await getDashboardStats();
-    return (<div className="p-6">
-      <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
-        Tableau de bord
-      </h1>
 
-      
-      <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              Adhérents actifs
-            </CardTitle>
-            <Users className="h-4 w-4 text-cyan-600"/>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalAdherents}</div>
-          </CardContent>
-        </Card>
+interface RecentAbonnement {
+  id: number;
+  createdAt: Date;
+  montantTtc: any;
+  statut: StatusCode;
+  typeAbonnement: string;
+  adherent: {
+    prenom: string | null;
+    nom: string | null;
+  };
+  discipline: {
+    designation: string;
+  };
+  saison: {
+    id: number;
+  };
+}
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              Abonnements actifs
-            </CardTitle>
-            <Calendar className="h-4 w-4 text-green-600"/>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">{stats.actifAbonnements}</div>
-          </CardContent>
-        </Card>
+interface KpiCardProps {
+  label: string;
+  value: string | number;
+  icon: React.ReactNode;
+  accent: Accent;
+  trend?: number | null;
+  trendLabel?: string;
+  isLoading?: boolean;
+}
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              Factures en attente
-            </CardTitle>
-            <CreditCard className="h-4 w-4 text-amber-600"/>
-          </CardHeader>
-          <CardContent>
-            <div className={`text-2xl font-bold ${stats.pendingFactures > 0 ? "text-amber-600" : ""}`}>
-              {stats.pendingFactures}
-            </div>
-          </CardContent>
-        </Card>
+/* ─── Constants ───────────────────────────────────────────────── */
+const ACCENT_STYLES: Record<Accent, {
+  iconBg: string;
+  iconText: string;
+  glow: string;
+  hover: string;
+}> = {
+  cyan: {
+    iconBg: "bg-cyan-500/15",
+    iconText: "text-cyan-400",
+    glow: "via-cyan-400",
+    hover: "hover:border-cyan-500/20"
+  },
+  emerald: {
+    iconBg: "bg-emerald-500/15",
+    iconText: "text-emerald-400",
+    glow: "via-emerald-400",
+    hover: "hover:border-emerald-500/20"
+  },
+  amber: {
+    iconBg: "bg-amber-500/15",
+    iconText: "text-amber-400",
+    glow: "via-amber-400",
+    hover: "hover:border-amber-500/20"
+  },
+  sky: {
+    iconBg: "bg-sky-500/15",
+    iconText: "text-sky-400",
+    glow: "via-sky-400",
+    hover: "hover:border-sky-500/20"
+  },
+  violet: {
+    iconBg: "bg-violet-500/15",
+    iconText: "text-violet-400",
+    glow: "via-violet-400",
+    hover: "hover:border-violet-500/20"
+  },
+};
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              Recettes du mois
-            </CardTitle>
-            <TrendingUp className="h-4 w-4 text-cyan-600"/>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {Number(stats.monthlyRevenue).toFixed(0)} DA
-            </div>
-          </CardContent>
-        </Card>
+const STATUS_STYLES: Record<StatusCode, string> = {
+  ACT: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  ATT: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+  EXP: "bg-red-400/10 text-red-400 border-red-400/20",
+  RES: "bg-sky-500/10 text-sky-400 border-sky-500/20",
+  ANN: "bg-slate-500/10 text-slate-400 border-slate-500/20",
+};
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              Créneaux disponibles
-            </CardTitle>
-            <Clock className="h-4 w-4 text-cyan-600"/>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.availableCreneaux}</div>
-          </CardContent>
-        </Card>
+const DEFAULT_STATUS_STYLE = STATUS_STYLES.ANN;
+
+/* ─── Data Fetching with Caching ──────────────────────────────── */
+const getDashboardStats = cache(async (): Promise<DashboardStats> => {
+  noStore(); // Ensure fresh data on every request
+
+  const now = new Date();
+  const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const firstDayPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
+  try {
+    const [
+      totalAdherents,
+      actifAbonnements,
+      pendingFactures,
+      monthlyRevenue,
+      prevMonthRevenue,
+      availableCreneaux,
+      recentAbonnements,
+    ] = await Promise.all([
+      prisma.adherent.count({ where: { actif: 1 } }),
+      prisma.abonnement.count({
+        where: {
+          statut: "ACT",
+          dateDebut: { lte: now },
+          dateFin: { gte: now }
+        },
+      }),
+      prisma.facture.count({ where: { statut: "ATT" } }),
+      prisma.facture.aggregate({
+        where: {
+          statut: "PAY",
+          datePaiement: { gte: firstDayOfMonth }
+        },
+        _sum: { montantTtc: true },
+      }),
+      prisma.facture.aggregate({
+        where: {
+          statut: "PAY",
+          datePaiement: { gte: firstDayPrevMonth, lt: firstDayOfMonth }
+        },
+        _sum: { montantTtc: true },
+      }),
+      prisma.creneau.count({
+        where: {
+          actif: 1,
+          saison: { statut: "OUV" }
+        }
+      }),
+      prisma.abonnement.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 8,
+        include: {
+          adherent: { select: { prenom: true, nom: true } },
+          discipline: { select: { designation: true } },
+          saison: { select: { id: true } }
+        },
+      }),
+    ]);
+
+    const currentRev = Number(monthlyRevenue._sum.montantTtc || 0);
+    const prevRev = Number(prevMonthRevenue._sum.montantTtc || 0);
+    const revTrend = prevRev === 0 ? null : Math.round(((currentRev - prevRev) / prevRev) * 100);
+
+    return {
+      totalAdherents,
+      actifAbonnements,
+      pendingFactures,
+      monthlyRevenue: currentRev,
+      revTrend,
+      availableCreneaux,
+      recentAbonnements: recentAbonnements as RecentAbonnement[],
+    };
+  } catch (error) {
+    console.error("Failed to fetch dashboard stats:", error);
+    throw new Error("Unable to load dashboard statistics");
+  }
+});
+
+/* ─── UI Components ──────────────────────────────────────────── */
+const KpiCard = ({
+  label,
+  value,
+  icon,
+  accent,
+  trend,
+  trendLabel,
+  isLoading = false,
+}: KpiCardProps) => {
+  const a = ACCENT_STYLES[accent];
+
+  const renderTrend = () => {
+    if (!trendLabel) return null;
+
+    if (trend == null) {
+      return (
+        <div className="flex items-center gap-1 text-[11px]">
+          <Minus size={11} className="text-[#3a5270]" />
+          <span className="text-[#3a5270]">{trendLabel}</span>
+        </div>
+      );
+    }
+
+    const isPositive = trend > 0;
+    const isNegative = trend < 0;
+    const Icon = isPositive ? ArrowUpRight : isNegative ? ArrowDownRight : Minus;
+    const colorClass = isPositive ? "text-emerald-400" : isNegative ? "text-red-400" : "text-[#3a5270]";
+
+    return (
+      <div className="flex items-center gap-1 text-[11px]">
+        <Icon size={11} className={colorClass} />
+        <span className={colorClass}>
+          {isPositive ? `+${trend}%` : isNegative ? `${trend}%` : trendLabel}
+        </span>
+        {!isNegative && !isPositive && <span className="text-[#3a5270]">&nbsp;{trendLabel}</span>}
+      </div>
+    );
+  };
+
+  return (
+    <div
+      className={cn(
+        "group relative rounded-2xl border border-white/[0.06]",
+        "bg-[#0c1525]/80 backdrop-blur-md",
+        "p-4 flex flex-col gap-3",
+        "shadow-[0_2px_8px_rgba(0,0,0,0.25)]",
+        "transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(0,0,0,0.4)]",
+        a.hover,
+        isLoading && "opacity-70 animate-pulse pointer-events-none"
+      )}
+    >
+      <div className={cn("absolute top-0 inset-x-0 h-px opacity-50 bg-gradient-to-r from-transparent to-transparent", a.glow)} />
+
+      <div className="flex items-start justify-between gap-2">
+        <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#3a5270]">
+          {label}
+        </span>
+        <div className={cn("w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0", a.iconBg, a.iconText)}>
+          {icon}
+        </div>
       </div>
 
-      
-      <Card>
-        <CardHeader>
-          <CardTitle>Abonnements récents</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {stats.recentAbonnements.length === 0 ? (<p className="text-center text-gray-500">Aucun abonnement récent</p>) : (<div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b text-left text-sm text-gray-500">
-                    <th className="pb-2">Adhérent</th>
-                    <th className="pb-2">Discipline</th>
-                    <th className="pb-2">Type</th>
-                    <th className="pb-2">Statut</th>
-                    <th className="pb-2">Montant</th>
-                    <th className="pb-2">Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {stats.recentAbonnements.map((abonnement) => (<tr key={abonnement.id} className="border-b">
-                      <td className="py-3">
-                        {abonnement.adherent.prenom} {abonnement.adherent.nom}
+      <div className="text-[26px] font-extrabold tracking-tight text-[#f0f9ff] leading-none">
+        {isLoading ? "—" : value}
+      </div>
+
+      {renderTrend()}
+    </div>
+  );
+};
+
+const StatusBadge = ({ code, label }: { code: string; label: string }) => {
+  const isValidCode = (c: string): c is StatusCode => c in STATUS_STYLES;
+  const style = isValidCode(code) ? STATUS_STYLES[code] : DEFAULT_STATUS_STYLE;
+
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center px-2 py-0.5 rounded-full",
+        "text-[10.5px] font-semibold whitespace-nowrap border",
+        style
+      )}
+    >
+      {label}
+    </span>
+  );
+};
+
+const EmptyState = ({ message }: { message: string }) => (
+  <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+    <AlertCircle className="w-12 h-12 text-[#3a5270] mb-3" />
+    <p className="text-[#3a5270] text-sm">{message}</p>
+  </div>
+);
+
+/* ─── Main Page Component ────────────────────────────────────── */
+interface AdminDashboardPageProps {
+  params: Promise<{ locale: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function AdminDashboardPage({
+  params,
+  searchParams
+}: AdminDashboardPageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "admin" });
+  const tc = await getTranslations({ locale, namespace: "common" });
+
+  const stats = await getDashboardStats();
+  const dateLocale = locale === "en" ? "en-US" : locale === "ar" ? "ar-DZ" : "fr-FR";
+
+  const formatCurrency = (amount: number): string => {
+    return `${amount.toLocaleString(dateLocale)} DA`;
+  };
+
+  const formatDate = (date: Date): string => {
+    return new Intl.DateTimeFormat(dateLocale, {
+      dateStyle: "medium",
+    }).format(date);
+  };
+
+  const getInitials = (prenom: string | null, nom: string | null): string => {
+    return `${prenom?.[0] ?? ""}${nom?.[0] ?? ""}`.toUpperCase() || "?";
+  };
+
+  return (
+    <AdminPageShell locale={locale}>
+      <AdminPageHeader
+        title={t("dashboardUi.title")}
+        description={t("dashboardUi.description")}
+      />
+
+      {/* KPI Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <KpiCard
+          label={t("dashboardUi.kpis.adherentsActive")}
+          value={stats.totalAdherents}
+          icon={<Users className="w-[16px] h-[16px]" />}
+          accent="cyan"
+        />
+        <KpiCard
+          label={t("dashboardUi.kpis.abonnementsActive")}
+          value={stats.actifAbonnements}
+          icon={<Calendar className="w-[16px] h-[16px]" />}
+          accent="emerald"
+        />
+        <KpiCard
+          label={t("dashboardUi.kpis.pendingFactures")}
+          value={stats.pendingFactures}
+          icon={<CreditCard className="w-[16px] h-[16px]" />}
+          accent="amber"
+        />
+        <KpiCard
+          label={t("dashboardUi.kpis.monthlyRevenue")}
+          value={formatCurrency(stats.monthlyRevenue)}
+          icon={<TrendingUp className="w-[16px] h-[16px]" />}
+          accent="sky"
+          trend={stats.revTrend}
+          trendLabel={tc("vsLastMonth")}
+        />
+        <KpiCard
+          label={t("dashboardUi.kpis.availableCreneaux")}
+          value={stats.availableCreneaux}
+          icon={<Clock className="w-[16px] h-[16px]" />}
+          accent="violet"
+        />
+      </div>
+
+      {/* Recent Subscriptions Section */}
+      <AdminSection
+        title={t("dashboardUi.recentAbonnements.title")}
+        description={t("dashboardUi.recentAbonnements.description")}
+      >
+        {stats.recentAbonnements.length === 0 ? (
+          <EmptyState message={t("dashboardUi.recentAbonnements.empty")} />
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[640px]">
+              <thead>
+                <tr className="border-b border-white/[0.06]">
+                  {[
+                    t("abonnementsUi.table.adherent"),
+                    t("abonnementsUi.table.discipline"),
+                    t("abonnementsUi.table.type"),
+                    t("abonnementsUi.table.status"),
+                    t("abonnementsUi.table.amount"),
+                    tc("date"),
+                  ].map((header, index) => (
+                    <th
+                      key={index}
+                      className={cn(
+                        "py-3 px-4 text-[10.5px] font-bold text-[#3a5270] uppercase tracking-widest",
+                        index === 5 && "text-right"
+                      )}
+                    >
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {stats.recentAbonnements.map((subscription) => {
+                  const initials = getInitials(
+                    subscription.adherent.prenom,
+                    subscription.adherent.nom
+                  );
+
+                  return (
+                    <tr
+                      key={subscription.id}
+                      className="border-b border-white/[0.04] last:border-none hover:bg-white/[0.03] transition-colors duration-150"
+                    >
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-[30px] h-[30px] rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0">
+                            {initials}
+                          </div>
+                          <span className="text-[13px] font-semibold text-[#d8ecff]">
+                            {subscription.adherent.prenom} {subscription.adherent.nom}
+                          </span>
+                        </div>
                       </td>
-                      <td className="py-3">{abonnement.discipline.designation}</td>
-                      <td className="py-3">{abonnement.typeAbonnement}</td>
-                      <td className="py-3">
-                        <Badge className={STATUT_ABONNEMENT_STYLES[abonnement.statut]}>
-                          {abonnement.statut}
-                        </Badge>
+                      <td className="py-3 px-4 text-[13px] text-[#7a93b4]">
+                        {subscription.discipline.designation}
                       </td>
-                      <td className="py-3">{Number(abonnement.montantTtc).toFixed(2)} DA</td>
-                      <td className="py-3 text-sm text-gray-500">
-                        {new Date(abonnement.createdAt).toLocaleDateString("fr-FR")}
+                      <td className="py-3 px-4 text-[13px] text-[#7a93b4]">
+                        {subscription.typeAbonnement}
                       </td>
-                    </tr>))}
-                </tbody>
-              </table>
-            </div>)}
-        </CardContent>
-      </Card>
-    </div>);
+                      <td className="py-3 px-4">
+                        <StatusBadge
+                          code={subscription.statut}
+                          label={t(`abonnementStatus.${subscription.statut}`)}
+                        />
+                      </td>
+                      <td className="py-3 px-4 text-[13px] font-semibold text-[#d8ecff]">
+                        {formatCurrency(Number(subscription.montantTtc))}
+                      </td>
+                      <td className="py-3 px-4 text-right text-[11.5px] text-[#3a5270]">
+                        {formatDate(subscription.createdAt)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </AdminSection>
+    </AdminPageShell>
+  );
+}
+
+/* ─── Optional: Add metadata for better SEO ──────────────────── */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "admin" });
+
+  return {
+    title: `${t("dashboardUi.title")} | Admin Dashboard`,
+    description: t("dashboardUi.description"),
+  };
 }

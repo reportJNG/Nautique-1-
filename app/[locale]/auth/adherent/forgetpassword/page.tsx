@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Waves, ArrowLeft, Mail, Lock, Eye, EyeOff, Loader2, CheckCircle2, AlertCircle, ShieldCheck, RotateCcw, Check, X, KeyRound, } from "lucide-react";
 import { requestPasswordResetAction, verifyOTPAction, resetPasswordAction, } from "./actions";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { forgotPasswordSchema, resetPasswordSchema, type ForgotPasswordInput, type ResetPasswordInput } from "@/lib/validators/auth";
 type Step = "email" | "otp" | "reset" | "done";
 function FieldError({ message }: {
     message: string;
@@ -169,6 +170,7 @@ export default function ForgotPasswordPage() {
     const [isNavigating, setIsNavigating] = useState(false);
     const [email, setEmail] = useState("");
     const [emailTouched, setEmailTouched] = useState(false);
+    const [emailServerError, setEmailServerError] = useState("");
     const [otpCode, setOtpCode] = useState("");
     const [otpError, setOtpError] = useState("");
     const [canResend, setCanResend] = useState(false);
@@ -179,27 +181,50 @@ export default function ForgotPasswordPage() {
     const [showConfirm, setShowConfirm] = useState(false);
     const [pwdTouched, setPwdTouched] = useState(false);
     const [confirmTouched, setConfirmTouched] = useState(false);
+    const [pwdError, setPwdError] = useState("");
+    const [confirmServerError, setConfirmServerError] = useState("");
     const emailRef = useRef<HTMLInputElement>(null);
     useEffect(() => {
         emailRef.current?.focus();
     }, []);
-    const emailError = emailTouched
-        ? !email ? t("forgotPassword.validation.emailRequired")
-            : !/^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email) ? t("forgotPassword.validation.emailInvalid")
-                : ""
-        : "";
-    const passwordError = pwdTouched
-        ? !password ? t("forgotPassword.validation.passwordRequired")
-            : password.length < 8 ? t("forgotPassword.validation.passwordMin")
-                : !/[A-Z]/.test(password) ? t("forgotPassword.validation.passwordUppercase")
-                    : !/[0-9]/.test(password) ? t("forgotPassword.validation.passwordNumber")
-                        : ""
-        : "";
-    const confirmError = confirmTouched
-        ? !confirmPassword ? t("forgotPassword.validation.confirmRequired")
-            : confirmPassword !== password ? t("forgotPassword.validation.passwordsMismatch")
-                : ""
-        : "";
+    const emailError = emailServerError || (() => {
+        if (!emailTouched) return "";
+        const result = forgotPasswordSchema.shape.email.safeParse(email);
+        if (!result.success) return result.error.issues[0]?.message || "";
+        return "";
+    })();
+    const passwordError = pwdError || (() => {
+        if (!pwdTouched) return "";
+        const result = resetPasswordSchema.shape.password.safeParse(password);
+        if (!result.success) return result.error.issues[0]?.message || "";
+        return "";
+    })();
+    const confirmError = confirmServerError || (() => {
+        if (!confirmTouched) return "";
+        const result = resetPasswordSchema.shape.confirmPassword.safeParse(confirmPassword);
+        if (!result.success) return result.error.issues[0]?.message || "";
+        return "";
+    })();
+    const handleEmailChange = (value: string) => {
+        const sanitizedEmail = value.toLowerCase().slice(0, 100);
+        setEmail(sanitizedEmail);
+        setEmailServerError("");
+    };
+    const handlePasswordChange = (value: string) => {
+        const sanitizedPassword = value.slice(0, 128);
+        setPassword(sanitizedPassword);
+        setPwdError("");
+        if (confirmPassword && sanitizedPassword !== confirmPassword) {
+            setConfirmServerError(t("forgotPassword.validation.passwordsMismatch"));
+        } else {
+            setConfirmServerError("");
+        }
+    };
+    const handleConfirmChange = (value: string) => {
+        const sanitizedConfirm = value.slice(0, 128);
+        setConfirmPassword(sanitizedConfirm);
+        setConfirmServerError("");
+    };
     const containerV: Variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
@@ -239,22 +264,31 @@ export default function ForgotPasswordPage() {
     async function handleEmailSubmit(e: React.FormEvent) {
         e.preventDefault();
         setEmailTouched(true);
-        if (!email || !/^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email))
+        
+        const result = forgotPasswordSchema.safeParse({ email });
+        if (!result.success) {
+            setEmailServerError(result.error.issues[0]?.message || "");
             return;
+        }
+        
         setIsPending(true);
         const fd = new FormData();
-        fd.set("email", email);
-        const result = await requestPasswordResetAction(fd);
+        fd.set("email", email.trim().toLowerCase());
+        const resetResult = await requestPasswordResetAction(fd);
         setIsPending(false);
-        if ("error" in result) {
+        if ("error" in resetResult) {
+            if (resetResult.error.includes("password")) {
+                setPwdError(resetResult.error);
+            } else if (resetResult.error.includes("confirm")) {
+                setConfirmServerError(resetResult.error);
+            }
             toast.error(t("forgotPassword.notifications.error.title"), {
-                description: result.error,
+                description: resetResult.error,
                 duration: 5000,
             });
-        }
-        else {
+        } else {
             toast.info(t("forgotPassword.notifications.sent.title"), {
-                description: result.message,
+                description: resetResult.message,
                 duration: 5000,
             });
             setCanResend(false);
@@ -276,9 +310,11 @@ export default function ForgotPasswordPage() {
         const result = await verifyOTPAction(fd);
         setIsPending(false);
         if ("error" in result) {
-            setOtpError(result.error);
-        }
-        else {
+            toast.error(t("forgotPassword.notifications.error.title"), {
+                description: result.error,
+                duration: 5000,
+            });
+        } else {
             toast.success(t("forgotPassword.notifications.verified.title"), {
                 description: t("forgotPassword.notifications.verified.message"),
                 duration: 5000,
@@ -290,25 +326,46 @@ export default function ForgotPasswordPage() {
         e.preventDefault();
         setPwdTouched(true);
         setConfirmTouched(true);
-        if (passwordError || confirmError || !password || !confirmPassword)
-            return;
+        const resetData: ResetPasswordInput = {
+            email: email,
+            code: otpCode,
+            password: password,
+            confirmPassword: confirmPassword,
+        };
+        const result = resetPasswordSchema.safeParse(resetData);
+        if (!result.success) {
+            const errors: Partial<ResetPasswordInput> = {};
+            result.error.issues.forEach((error: any) => {
+                if (error.path.length > 0) {
+                    const field = error.path[0] as keyof ResetPasswordInput;
+                    errors[field] = error.message;
+                    if (field === 'password') {
+                        setPwdError(error.message);
+                    } else if (field === 'confirmPassword') {
+                        setConfirmServerError(error.message);
+                    }
+                }
+            });
+            if (Object.keys(errors).length > 0) {
+                return;
+            }
+        }
         setIsPending(true);
         const fd = new FormData();
-        fd.set("email", email);
+        fd.set("email", email.trim().toLowerCase());
         fd.set("code", otpCode);
         fd.set("password", password);
         fd.set("confirmPassword", confirmPassword);
-        const result = await resetPasswordAction(fd);
+        const resetResult = await resetPasswordAction(fd);
         setIsPending(false);
-        if ("error" in result) {
+        if ("error" in resetResult) {
             toast.error(t("forgotPassword.notifications.error.title"), {
-                description: result.error,
+                description: resetResult.error,
                 duration: 5000,
             });
-        }
-        else {
+        } else {
             toast.success(t("forgotPassword.notifications.resetDone.title"), {
-                description: t("forgotPassword.notifications.resetDone.message"),
+                description: resetResult.message || t("forgotPassword.notifications.resetDone.message"),
                 duration: 5000,
             });
             setStep("done");
@@ -382,7 +439,7 @@ export default function ForgotPasswordPage() {
                         </Label>
                         <div className="relative">
                           <Mail className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${emailError ? "text-red-400" : "text-gray-400"}`}/>
-                          <Input ref={emailRef} id="email" type="email" required placeholder={t("forgotPassword.emailPlaceholder")} value={email} onChange={(e) => setEmail(e.target.value)} onBlur={() => setEmailTouched(true)} disabled={isPending} autoComplete="email" className={`border-2 pl-10 transition-all duration-200 focus:ring-4 ${emailError
+                          <Input ref={emailRef} id="email" type="email" required placeholder={t("forgotPassword.emailPlaceholder")} value={email} onChange={(e) => handleEmailChange(e.target.value)} onBlur={() => setEmailTouched(true)} disabled={isPending} autoComplete="email" autoCapitalize="off" autoCorrect="off" spellCheck={false} maxLength={100} className={`border-2 pl-10 transition-all duration-200 focus:ring-4 ${emailError
                 ? "border-red-400 focus:border-red-400 focus:ring-red-500/15"
                 : "border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/15 dark:border-gray-700"}`}/>
                         </div>
@@ -455,7 +512,7 @@ export default function ForgotPasswordPage() {
                         </Label>
                         <div className="relative">
                           <Lock className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${passwordError ? "text-red-400" : "text-gray-400"}`}/>
-                          <Input id="password" type={showPassword ? "text" : "password"} required placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() => setPwdTouched(true)} disabled={isPending} autoComplete="new-password" className={`border-2 pl-10 pr-11 transition-all duration-200 focus:ring-4 ${passwordError
+                          <Input id="password" type={showPassword ? "text" : "password"} required placeholder="••••••••" value={password} onChange={(e) => handlePasswordChange(e.target.value)} onBlur={() => setPwdTouched(true)} disabled={isPending} autoComplete="new-password" maxLength={128} className={`border-2 pl-10 pr-11 transition-all duration-200 focus:ring-4 ${passwordError
                 ? "border-red-400 focus:border-red-400 focus:ring-red-500/15"
                 : "border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/15 dark:border-gray-700"}`}/>
                           <button type="button" onClick={() => setShowPassword((v) => !v)} disabled={isPending} className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-0.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
@@ -475,7 +532,7 @@ export default function ForgotPasswordPage() {
                         </Label>
                         <div className="relative">
                           <Lock className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${confirmError ? "text-red-400" : "text-gray-400"}`}/>
-                          <Input id="confirmPassword" type={showConfirm ? "text" : "password"} required placeholder="••••••••" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() => setConfirmTouched(true)} disabled={isPending} autoComplete="new-password" className={`border-2 pl-10 pr-11 transition-all duration-200 focus:ring-4 ${confirmError
+                          <Input id="confirmPassword" type={showConfirm ? "text" : "password"} required placeholder="••••••••" value={confirmPassword} onChange={(e) => handleConfirmChange(e.target.value)} onBlur={() => setConfirmTouched(true)} disabled={isPending} autoComplete="new-password" maxLength={128} className={`border-2 pl-10 pr-11 transition-all duration-200 focus:ring-4 ${confirmError
                 ? "border-red-400 focus:border-red-400 focus:ring-red-500/15"
                 : "border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/15 dark:border-gray-700"}`}/>
                           <button type="button" onClick={() => setShowConfirm((v) => !v)} disabled={isPending} className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-0.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">

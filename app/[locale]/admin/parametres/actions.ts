@@ -1,6 +1,5 @@
 "use server";
 import { prisma } from "@/lib/db/prisma";
-import { requireRole } from "@/lib/auth/jwt";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 const updateSchema = z.object({
@@ -12,12 +11,11 @@ const updateSchema = z.object({
     toleranceAccesRetard: z.string().transform(Number),
 });
 export async function updateParametres(formData: FormData) {
-    await requireRole(["ADMIN"]);
     try {
         const data = Object.fromEntries(formData);
         const parsed = updateSchema.safeParse(data);
         if (!parsed.success) {
-            return { error: parsed.error.errors[0].message };
+            return { error: parsed.error.issues[0]?.message ?? "Données invalides" };
         }
         const { designationCentre, emailCentre, telephoneCentre, adresseCentre, toleranceAccesAvance, toleranceAccesRetard, } = parsed.data;
         const parametres = await prisma.parametres.findFirst();
@@ -46,8 +44,7 @@ export async function updateParametres(formData: FormData) {
                 },
             });
         }
-        revalidatePath("/[locale]/admin/parametres");
-        revalidatePath("/[locale]");
+        revalidatePath("/", "layout");
         return { success: true };
     }
     catch (error) {

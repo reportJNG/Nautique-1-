@@ -121,171 +121,228 @@
       "title": "What they say about us",
       "subtitle": "Thousands of happy members across the country.",
       "ariaLabel": "Testimonials",
-      
-        "items": {
-          "amira": {
-            "name": "Amira Benali",
-            "date": "March 2024",
-            "location": "Algiers, Algeria",
-            "tags": { "tag1": "Performance", "tag2": "Coaching" },
-            "role": "Competitive swimmer",
-            "content": "Exceptional coaching! I've improved more in a few months than ever before."
+      "items": {
+        "amira": {
+          "name": "Amira Benali",
+          "date": "March 2024",
+          "location": "Algiers, Algeria",
+          "tags": {
+            "tag1": "Performance",
+            "tag2": "Coaching"
           },
-          "youcef": {
-            "name": "Youcef Merad",
-            "date": "February 2024",
-            "location": "Oran, Algeria",
-            "tags": { "tag1": "Team spirit", "tag2": "Competition" },
-            "role": "Water-polo member",
-            "content": "A family-like yet competitive atmosphere. I highly recommend this centre."
+          "role": "Competitive swimmer",
+          "content": "Exceptional coaching! I've improved more in a few months than ever before."
+        },
+        "youcef": {
+          "name": "Youcef Merad",
+          "date": "February 2024",
+          "location": "Oran, Algeria",
+          "tags": {
+            "tag1": "Team spirit",
+            "tag2": "Competition"
           },
-          "meriem": {
-            "name": "Meriem Khelifi",
-            "date": "January 2024",
-            "location": "Constantine, Algeria",
-            "tags": { "tag1": "Wellbeing", "tag2": "Fitness" },
-            "role": "Aqua aerobics",
-            "content": "The aqua aerobics classes are excellent; I feel full of energy after every session."
+          "role": "Water-polo member",
+          "content": "A family-like yet competitive atmosphere. I highly recommend this centre."
+        },
+        "meriem": {
+          "name": "Meriem Khelifi",
+          "date": "January 2024",
+          "location": "Constantine, Algeria",
+          "tags": {
+            "tag1": "Wellbeing",
+            "tag2": "Fitness"
           },
-          "bilal": {
-            "name": "Bilal Hadj",
-            "date": "December 2023",
-            "location": "Annaba, Algeria",
-            "tags": { "tag1": "Facilities", "tag2": "Welcome" },
-            "role": "Leisure swimmer",
-            "content": "Clean facilities and a welcoming staff — I truly feel at home here."
+          "role": "Aqua aerobics",
+          "content": "The aqua aerobics classes are excellent; I feel full of energy after every session."
+        },
+        "bilal": {
+          "name": "Bilal Hadj",
+          "date": "December 2023",
+          "location": "Annaba, Algeria",
+          "tags": {
+            "tag1": "Facilities",
+            "tag2": "Welcome"
           },
-          "sabrina": {
-            "name": "Sabrina Touati",
-            "date": "November 2023",
-            "location": "Tlemcen, Algeria",
-            "tags": { "tag1": "Children", "tag2": "Pedagogy" },
-            "role": "Parent",
-            "content": "My son loves the swimming lessons. Thank you for your patience and professionalism."
+          "role": "Leisure swimmer",
+          "content": "Clean facilities and a welcoming staff — I truly feel at home here."
+        },
+        "sabrina": {
+          "name": "Sabrina Touati",
+          "date": "November 2023",
+          "location": "Tlemcen, Algeria",
+          "tags": {
+            "tag1": "Children",
+            "tag2": "Pedagogy"
           },
-          "karim": {
-            "name": "Karim Bensalem",
-            "date": "October 2023",
-            "location": "Blida, Algeria",
-            "tags": { "tag1": "Endurance", "tag2": "Progress" },
-            "role": "Adult swimmer",
-            "content": "Coaches give precise guidance. I gained endurance and better technique in just a few weeks."
+          "role": "Parent",
+          "content": "My son loves the swimming lessons. Thank you for your patience and professionalism."
+        },
+        "karim": {
+          "name": "Karim Bensalem",
+          "date": "October 2023",
+          "location": "Blida, Algeria",
+          "tags": {
+            "tag1": "Endurance",
+            "tag2": "Progress"
           },
-          "naima": {
-            "name": "Naima Zerrouki",
-            "date": "September 2023",
-            "location": "Setif, Algeria",
-            "tags": { "tag1": "Health", "tag2": "Aqua fitness" },
-            "role": "Aqua fitness member",
-            "content": "Sessions are dynamic and adapted. I feel better physically and mentally."
+          "role": "Adult swimmer",
+          "content": "Coaches give precise guidance. I gained endurance and better technique in just a few weeks."
+        },
+        "naima": {
+          "name": "Naima Zerrouki",
+          "date": "September 2023",
+          "location": "Setif, Algeria",
+          "tags": {
+            "tag1": "Health",
+            "tag2": "Aqua fitness"
           },
-          "ryad": {
-            "name": "Ryad Hamdani",
-            "date": "August 2023",
-            "location": "Bejaia, Algeria",
-            "tags": { "tag1": "Discipline", "tag2": "Results" },
-            "role": "Young competitor",
-            "content": "The coaching is serious and motivating. I improved my race times this season."
+          "role": "Aqua fitness member",
+          "content": "Sessions are dynamic and adapted. I feel better physically and mentally."
+        },
+        "ryad": {
+          "name": "Ryad Hamdani",
+          "date": "August 2023",
+          "location": "Bejaia, Algeria",
+          "tags": {
+            "tag1": "Discipline",
+            "tag2": "Results"
           },
-          "lina": {
-            "name": "Lina Bouchareb",
-            "date": "July 2023",
-            "location": "Mostaganem, Algeria",
-            "tags": { "tag1": "Confidence", "tag2": "Beginners" },
-            "role": "Beginner swimmer",
-            "content": "I started from zero and now I swim with confidence. The team is very supportive."
+          "role": "Young competitor",
+          "content": "The coaching is serious and motivating. I improved my race times this season."
+        },
+        "lina": {
+          "name": "Lina Bouchareb",
+          "date": "July 2023",
+          "location": "Mostaganem, Algeria",
+          "tags": {
+            "tag1": "Confidence",
+            "tag2": "Beginners"
           },
-          "yacine": {
-            "name": "Yacine Khelaf",
-            "date": "June 2023",
-            "location": "Boumerdes, Algeria",
-            "tags": { "tag1": "Structure", "tag2": "Schedule" },
-            "role": "Regular member",
-            "content": "The schedule is well organized and the facilities are always clean."
+          "role": "Beginner swimmer",
+          "content": "I started from zero and now I swim with confidence. The team is very supportive."
+        },
+        "yacine": {
+          "name": "Yacine Khelaf",
+          "date": "June 2023",
+          "location": "Boumerdes, Algeria",
+          "tags": {
+            "tag1": "Structure",
+            "tag2": "Schedule"
           },
-          "samira": {
-            "name": "Samira Ouali",
-            "date": "May 2023",
-            "location": "Tizi Ouzou, Algeria",
-            "tags": { "tag1": "Family", "tag2": "Atmosphere" },
-            "role": "Mother of two members",
-            "content": "My children love coming here. The center combines safety, teaching quality and a great atmosphere."
+          "role": "Regular member",
+          "content": "The schedule is well organized and the facilities are always clean."
+        },
+        "samira": {
+          "name": "Samira Ouali",
+          "date": "May 2023",
+          "location": "Tizi Ouzou, Algeria",
+          "tags": {
+            "tag1": "Family",
+            "tag2": "Atmosphere"
           },
-          "farid": {
-            "name": "Farid Rahmani",
-            "date": "April 2023",
-            "location": "Skikda, Algeria",
-            "tags": { "tag1": "Comeback", "tag2": "Coaching" },
-            "role": "Leisure swimmer",
-            "content": "After a long break, I returned to sport without stress thanks to progressive guidance."
+          "role": "Mother of two members",
+          "content": "My children love coming here. The center combines safety, teaching quality and a great atmosphere."
+        },
+        "farid": {
+          "name": "Farid Rahmani",
+          "date": "April 2023",
+          "location": "Skikda, Algeria",
+          "tags": {
+            "tag1": "Comeback",
+            "tag2": "Coaching"
           },
-          "ines": {
-            "name": "Ines Djelloul",
-            "date": "March 2023",
-            "location": "Ghardaia, Algeria",
-            "tags": { "tag1": "Technique", "tag2": "Motivation" },
-            "role": "Intermediate swimmer",
-            "content": "Technical feedback is clear and effective. I can see a real difference in my swimming."
+          "role": "Leisure swimmer",
+          "content": "After a long break, I returned to sport without stress thanks to progressive guidance."
+        },
+        "ines": {
+          "name": "Ines Djelloul",
+          "date": "March 2023",
+          "location": "Ghardaia, Algeria",
+          "tags": {
+            "tag1": "Technique",
+            "tag2": "Motivation"
           },
-          "nadir": {
-            "name": "Nadir Mecheri",
-            "date": "February 2023",
-            "location": "Biskra, Algeria",
-            "tags": { "tag1": "Hygiene", "tag2": "Welcome" },
-            "role": "Monthly member",
-            "content": "Great welcome, clean changing rooms, and a team always available to help."
+          "role": "Intermediate swimmer",
+          "content": "Technical feedback is clear and effective. I can see a real difference in my swimming."
+        },
+        "nadir": {
+          "name": "Nadir Mecheri",
+          "date": "February 2023",
+          "location": "Biskra, Algeria",
+          "tags": {
+            "tag1": "Hygiene",
+            "tag2": "Welcome"
           },
-          "hocine": {
-            "name": "Hocine Belkacem",
-            "date": "January 2023",
-            "location": "Chlef, Algeria",
-            "tags": { "tag1": "Performance", "tag2": "Competition" },
-            "role": "Triathlon member",
-            "content": "The swimming training quality helped me perform better in triathlon."
+          "role": "Monthly member",
+          "content": "Great welcome, clean changing rooms, and a team always available to help."
+        },
+        "hocine": {
+          "name": "Hocine Belkacem",
+          "date": "January 2023",
+          "location": "Chlef, Algeria",
+          "tags": {
+            "tag1": "Performance",
+            "tag2": "Competition"
           },
-          "malika": {
-            "name": "Malika Ait Ali",
-            "date": "December 2022",
-            "location": "Batna, Algeria",
-            "tags": { "tag1": "Well-being", "tag2": "Consistency" },
-            "role": "Aqua relaxation member",
-            "content": "An excellent place to keep a healthy routine. I rarely miss a session."
+          "role": "Triathlon member",
+          "content": "The swimming training quality helped me perform better in triathlon."
+        },
+        "malika": {
+          "name": "Malika Ait Ali",
+          "date": "December 2022",
+          "location": "Batna, Algeria",
+          "tags": {
+            "tag1": "Well-being",
+            "tag2": "Consistency"
           },
-          "mourad": {
-            "name": "Mourad Saadi",
-            "date": "November 2022",
-            "location": "Jijel, Algeria",
-            "tags": { "tag1": "Energy", "tag2": "Team" },
-            "role": "Aquatic fitness member",
-            "content": "Group classes are motivating and give me energy for the whole week."
+          "role": "Aqua relaxation member",
+          "content": "An excellent place to keep a healthy routine. I rarely miss a session."
+        },
+        "mourad": {
+          "name": "Mourad Saadi",
+          "date": "November 2022",
+          "location": "Jijel, Algeria",
+          "tags": {
+            "tag1": "Energy",
+            "tag2": "Team"
           },
-          "asma": {
-            "name": "Asma Gherbi",
-            "date": "October 2022",
-            "location": "Sidi Bel Abbes, Algeria",
-            "tags": { "tag1": "Professionalism", "tag2": "Follow-up" },
-            "role": "Advanced swimmer",
-            "content": "The level of professionalism is remarkable, especially the personalized follow-up."
+          "role": "Aquatic fitness member",
+          "content": "Group classes are motivating and give me energy for the whole week."
+        },
+        "asma": {
+          "name": "Asma Gherbi",
+          "date": "October 2022",
+          "location": "Sidi Bel Abbes, Algeria",
+          "tags": {
+            "tag1": "Professionalism",
+            "tag2": "Follow-up"
           },
-          "nassim": {
-            "name": "Nassim Benyahia",
-            "date": "September 2022",
-            "location": "Medea, Algeria",
-            "tags": { "tag1": "Accessibility", "tag2": "Comfort" },
-            "role": "Leisure swimmer",
-            "content": "The center is accessible, comfortable, and perfect for regular practice."
+          "role": "Advanced swimmer",
+          "content": "The level of professionalism is remarkable, especially the personalized follow-up."
+        },
+        "nassim": {
+          "name": "Nassim Benyahia",
+          "date": "September 2022",
+          "location": "Medea, Algeria",
+          "tags": {
+            "tag1": "Accessibility",
+            "tag2": "Comfort"
           },
-          "souad": {
-            "name": "Souad Messaoudi",
-            "date": "August 2022",
-            "location": "Saida, Algeria",
-            "tags": { "tag1": "Friendly", "tag2": "Trust" },
-            "role": "Parent",
-            "content": "The atmosphere is friendly and reassuring. The whole family feels confident here."
-          }
+          "role": "Leisure swimmer",
+          "content": "The center is accessible, comfortable, and perfect for regular practice."
+        },
+        "souad": {
+          "name": "Souad Messaoudi",
+          "date": "August 2022",
+          "location": "Saida, Algeria",
+          "tags": {
+            "tag1": "Friendly",
+            "tag2": "Trust"
+          },
+          "role": "Parent",
+          "content": "The atmosphere is friendly and reassuring. The whole family feels confident here."
         }
-      
-
+      }
     },
     "newsletter": {
       "title": "Stay informed",
@@ -612,7 +669,8 @@
     "dateNaissance": "Birth Date",
     "sexe": "Gender",
     "numeroDossier": "File Number",
-    "organisation": "Organization"
+    "organisation": "Organization",
+    "logout": "Logout"
   },
   "admin": {
     "title": "Administration Area",
@@ -626,7 +684,436 @@
     "agents": "Staff",
     "factures": "Cash Register",
     "access": "Access Control",
-    "settings": "Settings"
+    "settings": "Settings",
+    "navigation": "Navigation",
+    "nav": {
+      "section": {
+        "overview": "Overview",
+        "management": "Management",
+        "team": "Team",
+        "finance": "Finance",
+        "config": "Configuration"
+      }
+    },
+    "sidebar": {
+      "title": "Nautical Center",
+      "subtitle": "Administration Area"
+    },
+    "shell": {
+      "toggleMenu": "Toggle menu",
+      "toggleSidebarSr": "Toggle sidebar",
+      "collapseDesktopSr": "Collapse sidebar",
+      "expandDesktopSr": "Expand sidebar",
+      "closeOverlaySr": "Close sidebar panel",
+      "mainContentLabel": "Main content"
+    },
+    "footer": {
+      "copyright": "© {year} Nautical Center",
+      "tagline": "Administration area — managing members, subscriptions and planning"
+    },
+    "roles": {
+      "ADMIN": "Administrator",
+      "DIR": "Director",
+      "RESP-COM": "Sales Manager",
+      "AG-COM": "Sales Agent",
+      "AG-FIN": "Finance Agent"
+    },
+    "days": {
+      "sun": "Sunday",
+      "mon": "Monday",
+      "tue": "Tuesday",
+      "wed": "Wednesday",
+      "thu": "Thursday",
+      "fri": "Friday",
+      "sat": "Saturday"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "noData": "No data available"
+    },
+    "toast": {
+      "createSuccess": {
+        "title": "Created successfully",
+        "desc": "The record has been added."
+      },
+      "createError": {
+        "title": "Creation error",
+        "desc": "Unable to create the record. Please try again."
+      },
+      "updateSuccess": {
+        "title": "Changes saved",
+        "desc": "The information has been updated."
+      },
+      "updateError": {
+        "title": "Update error",
+        "desc": "Unable to save the changes."
+      },
+      "deleteSuccess": {
+        "title": "Deleted",
+        "desc": "The record has been deleted."
+      },
+      "deleteError": {
+        "title": "Deletion error",
+        "desc": "Unable to delete this record."
+      },
+      "toggleSuccess": {
+        "title": "Status updated",
+        "desc": "The status has been changed."
+      },
+      "toggleError": {
+        "title": "Error",
+        "desc": "Unable to change the status."
+      },
+      "paymentSuccess": {
+        "title": "Payment validated ✓",
+        "desc": "Payment recorded and subscription activated."
+      },
+      "paymentError": {
+        "title": "Payment error",
+        "desc": "Unable to validate this payment."
+      },
+      "accessGranted": {
+        "title": "Access granted ✓",
+        "desc": "The member has been checked in."
+      },
+      "accessDenied": {
+        "title": "Access denied",
+        "desc": "Subscription is invalid or expired."
+      },
+      "accessError": {
+        "title": "Error",
+        "desc": "Unable to process this request."
+      },
+      "settingsSaved": {
+        "title": "Settings saved",
+        "desc": "Center configuration has been updated."
+      },
+      "settingsError": {
+        "title": "Error",
+        "desc": "Unable to save the settings."
+      },
+      "validationError": {
+        "title": "Incomplete form",
+        "desc": "Please fill in all required fields."
+      },
+      "emailExists": {
+        "title": "Email already used",
+        "desc": "An account with this email already exists."
+      }
+    },
+    "abonnementStatus": {
+      "CRE": "Created",
+      "ATP": "Pending payment",
+      "ATT": "Pending",
+      "ACT": "Active",
+      "APP": "Approved",
+      "ANL": "Cancelled",
+      "ANN": "Cancelled",
+      "RES": "Terminated",
+      "EXP": "Expired",
+      "NPY": "Not paid"
+    },
+    "saisonStatus": {
+      "OUV": "Open",
+      "FER": "Closed",
+      "CLO": "Closed/Final"
+    },
+    "paymentMethods": {
+      "CSH": "Cash",
+      "CRT": "Bank card"
+    },
+    "factureStatus": {
+      "ATT": "Pending",
+      "PAY": "Paid"
+    },
+    "dashboardUi": {
+      "title": "Dashboard",
+      "description": "At-a-glance center activity.",
+      "kpis": {
+        "adherentsActive": "Active members",
+        "abonnementsActive": "Active subscriptions",
+        "pendingFactures": "Pending invoices",
+        "monthlyRevenue": "Monthly revenue",
+        "availableCreneaux": "Available time slots"
+      },
+      "recentAbonnements": {
+        "title": "Recent subscriptions",
+        "description": "Last 5 subscriptions created in the system.",
+        "empty": "No recent subscriptions."
+      }
+    },
+    "adherentsUi": {
+      "pageTitle": "Manage members",
+      "description": "Search, filter and view member profiles.",
+      "newButton": "New member",
+      "searchPlaceholder": "Search by name, email or file number...",
+      "table": {
+        "fileNumber": "File No.",
+        "name": "Name",
+        "email": "Email",
+        "organization": "Organization",
+        "status": "Status",
+        "signupDate": "Registration date",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "View"
+      },
+      "new": {
+        "title": "New member",
+        "back": "Back",
+        "infoTitle": "Member information",
+        "nom": "Last name",
+        "prenom": "First name",
+        "email": "Email",
+        "telephone": "Phone",
+        "birthDate": "Birth date",
+        "sexe": "Gender",
+        "organization": "Organization",
+        "motDePasseInitial": "Initial password",
+        "select": "Select",
+        "sexeOptions": {
+          "M": "Male",
+          "F": "Female"
+        },
+        "organisationOptions": {
+          "SON": "SONATRACH employees",
+          "PAR": "Private members",
+          "CLB": "Sports club"
+        },
+        "submit": "Create member",
+        "organisation": "Organization"
+      },
+      "detail": {
+        "title": "Member details",
+        "notFound": "Member not found",
+        "tabs": {
+          "infos": "Informations",
+          "abonnements": "Subscriptions"
+        },
+        "labels": {
+          "dossier": "File",
+          "email": "Email",
+          "phone": "Phone",
+          "telephoneUnknown": "Not provided",
+          "birthDate": "Born on",
+          "organization": "Organization"
+        },
+        "emptySubscriptions": "No subscriptions"
+      }
+    },
+    "abonnementsUi": {
+      "pageTitle": "Manage subscriptions",
+      "description": "Overview of active and pending subscriptions.",
+      "newButton": "New subscription",
+      "searchPlaceholder": "Search...",
+      "table": {
+        "adherent": "Member",
+        "discipline": "Discipline",
+        "type": "Type",
+        "status": "Status",
+        "amount": "Amount",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "View"
+      },
+      "new": {
+        "title": "New subscription (Admin)",
+        "back": "Back",
+        "selectAdherentTitle": "Select a member",
+        "searchLabel": "Search for a member",
+        "searchPlaceholder": "Name, email or file number...",
+        "disciplineLabel": "Discipline",
+        "disciplineSelectPlaceholder": "Select a discipline",
+        "subscriptionTypeLabel": "Subscription type",
+        "subscriptionTypeOptions": {
+          "OPN": "Open Season",
+          "DUR": "By duration",
+          "SEA": "By sessions"
+        },
+        "subscriptionAmountLabel": "Amount (DA)",
+        "amountPlaceholder": "0.00",
+        "submit": "Create subscription"
+      },
+      "detail": {
+        "title": "Subscription details",
+        "notFound": "Subscription not found",
+        "cards": {
+          "informations": "Informations",
+          "actions": "Actions"
+        },
+        "labels": {
+          "adherent": "Member",
+          "discipline": "Discipline",
+          "space": "Space",
+          "status": "Status",
+          "amount": "Amount"
+        },
+        "actions": {
+          "metToATP": "Set to ATP",
+          "validatePayment": "Validate payment",
+          "activate": "Activate",
+          "cancel": "Cancel"
+        }
+      }
+    },
+    "facturesUi": {
+      "pageTitle": "Cash Register - Invoice Management",
+      "listTitle": "Invoices list",
+      "kpis": {
+        "totalPaid": "Total paid",
+        "pending": "Pending",
+        "totalInvoices": "Total invoices"
+      },
+      "table": {
+        "receiptNumber": "Receipt No.",
+        "member": "Member",
+        "amount": "Amount",
+        "paymentMethod": "Method",
+        "status": "Status",
+        "date": "Date"
+      },
+      "detail": {
+        "notFound": "Invoice not found",
+        "title": "Invoice details",
+        "print": "Print",
+        "receipt": {
+          "headerTitle": "Centre Nautique SONATRACH",
+          "subtitle": "Payment receipt"
+        },
+        "labels": {
+          "receiptNumber": "Receipt No.",
+          "member": "Member",
+          "fileNumber": "File No.",
+          "discipline": "Discipline",
+          "paymentMethod": "Payment method",
+          "totalAmount": "Total amount"
+        },
+        "paidOn": "Paid on {date}"
+      }
+    },
+    "saisonsUi": {
+      "pageTitle": "Seasons management",
+      "newButton": "New season",
+      "cards": {
+        "slots": "{count} time slots"
+      },
+      "detail": {
+        "notFound": "Season not found",
+        "tabs": {
+          "creneaux": "Time slots",
+          "periodes": "Periods"
+        },
+        "cards": {
+          "creneaux": "Time slots for the season",
+          "periodes": "Season periods"
+        },
+        "table": {
+          "discipline": "Discipline",
+          "day": "Day",
+          "schedule": "Schedule",
+          "group": "Group"
+        },
+        "emptyPeriods": "No period defined",
+        "dateRange": "From {start} to {end}"
+      }
+    },
+    "creneauxUi": {
+      "pageTitle": "Time slot management",
+      "table": {
+        "title": "Time slots list",
+        "discipline": "Discipline",
+        "space": "Space",
+        "day": "Day",
+        "schedule": "Schedule",
+        "group": "Group",
+        "enrolled": "Enrolled"
+      },
+      "detail": {
+        "notFound": "Time slot not found",
+        "title": "Time slot details",
+        "cards": {
+          "informations": "Informations",
+          "moniteurs": "Instructors",
+          "inscrits": "Enrolled ({count})"
+        },
+        "emptyMonitors": "No instructor assigned",
+        "emptyEnrolled": "No enrolled users",
+        "labels": {
+          "discipline": "Discipline",
+          "space": "Space",
+          "day": "Day",
+          "schedule": "Schedule",
+          "capacity": "Capacity",
+          "group": "Group"
+        }
+      }
+    },
+    "disciplinesUi": {
+      "pageTitle": "Disciplines and Spaces",
+      "tabs": {
+        "espaces": "Spaces",
+        "disciplines": "Disciplines"
+      },
+      "labelAgeCategories": "Age categories:",
+      "table": {
+        "code": "Code",
+        "designation": "Name",
+        "space": "Space",
+        "status": "Status"
+      }
+    },
+    "moniteursUi": {
+      "pageTitle": "Instructors management",
+      "newButton": "New instructor",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      }
+    },
+    "agentsUi": {
+      "pageTitle": "Staff management",
+      "newButton": "New staff",
+      "listTitle": "Staff list",
+      "table": {
+        "name": "Name",
+        "login": "Login",
+        "role": "Role",
+        "email": "Email",
+        "status": "Status"
+      }
+    },
+    "accessUi": {
+      "title": "Access control",
+      "card": {
+        "save": "Register an access",
+        "journal": "Access log"
+      },
+      "searchPlaceholder": "File No. or barcode...",
+      "button": {
+        "validate": "Validate access"
+      },
+      "emptyJournal": "No access recorded today"
+    },
+    "parametresUi": {
+      "title": "Global settings",
+      "card": {
+        "title": "Center configuration"
+      },
+      "labels": {
+        "designationCentre": "Center name",
+        "email": "Email",
+        "telephone": "Phone",
+        "adresse": "Address",
+        "toleranceAdvance": "Access tolerance (early) (min)",
+        "toleranceDelay": "Access tolerance (late) (min)"
+      },
+      "button": {
+        "saveChanges": "Save changes"
+      }
+    }
   },
   "common": {
     "save": "Save",
@@ -644,7 +1131,13 @@
     "no": "No",
     "loading": "Loading...",
     "error": "An error occurred",
-    "success": "Operation successful"
+    "success": "Operation successful",
+    "back": "Back",
+    "view": "View",
+    "print": "Print",
+    "select": "Select",
+    "vsLastMonth": "vs last month",
+    "total": "total"
   },
   "theme": {
     "light": "Light",

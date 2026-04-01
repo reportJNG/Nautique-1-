@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Waves, Eye, EyeOff, ArrowLeft, User, Mail, Phone, MapPin, Lock, IdCard, CalendarDays, Loader2, AlertCircle, Check, X, } from "lucide-react";
 import { signupAction, type SignupFieldErrors } from "./actions";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { adherentSignupSchema, type AdherentSignupInput } from "@/lib/validators/auth";
 type FormFields = {
     nom: string;
     prenom: string;
@@ -74,14 +75,14 @@ export default function AdherentSignupPage() {
     const [showConfirm, setShowConfirm] = useState(false);
     const [isPending, setIsPending] = useState(false);
     const [isNavigating, setIsNavigating] = useState(false);
-    const [fieldErrors, setFieldErrors] = useState<SignupFieldErrors>({});
-    const [touched, setTouched] = useState<Partial<Record<keyof FormFields, boolean>>>({});
-    const [formData, setFormData] = useState<FormFields>({
+    const [fieldErrors, setFieldErrors] = useState<Partial<AdherentSignupInput>>({});
+    const [touched, setTouched] = useState<Partial<Record<keyof AdherentSignupInput, boolean>>>({});
+    const [formData, setFormData] = useState<AdherentSignupInput>({
         nom: "",
         prenom: "",
         email: "",
         telephone: "",
-        sexe: "",
+        sexe: "M" as const,
         dateNaissance: "",
         adresse: "",
         numeroMatricule: "",
@@ -93,99 +94,102 @@ export default function AdherentSignupPage() {
     useEffect(() => {
         firstInputRef.current?.focus();
     }, []);
-    const validate = (name: keyof FormFields, value: string): string => {
-        switch (name) {
-            case "nom":
-            case "prenom":
-                if (!value)
-                    return name === "nom" ? t("adherentSignup.validation.nomRequired") : t("adherentSignup.validation.prenomRequired");
-                if (value.length < 2)
-                    return t("adherentSignup.validation.minTwoChars");
-                return "";
-            case "email":
-                if (!value)
-                    return t("adherentSignup.validation.emailRequired");
-                if (!/^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(value))
-                    return t("adherentSignup.validation.emailInvalid");
-                return "";
-            case "sexe":
-                if (!value)
-                    return t("adherentSignup.validation.sexeRequired");
-                return "";
-            case "dateNaissance":
-                if (!value)
-                    return t("adherentSignup.validation.birthDateRequired");
-                return "";
-            case "password":
-                if (!value)
-                    return t("adherentSignup.validation.passwordRequired");
-                if (value.length < 8)
-                    return t("adherentSignup.validation.passwordMin");
-                if (!/[A-Z]/.test(value))
-                    return t("adherentSignup.validation.passwordUppercase");
-                if (!/[0-9]/.test(value))
-                    return t("adherentSignup.validation.passwordNumber");
-                return "";
-            case "confirmPassword":
-                if (!value)
-                    return t("adherentSignup.validation.confirmPasswordRequired");
-                if (value !== formData.password)
-                    return t("adherentSignup.validation.passwordsMismatch");
-                return "";
-            default:
-                return "";
+    const validate = (name: keyof AdherentSignupInput, value: string): string => {
+        const result = adherentSignupSchema.shape[name].safeParse(value);
+        if (!result.success) {
+            return result.error.issues[0]?.message || "";
         }
+        return "";
     };
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-        if (fieldErrors[name as keyof SignupFieldErrors]) {
+        let sanitizedValue = value;
+        
+        if (name === 'email') {
+            sanitizedValue = value.toLowerCase().slice(0, 100);
+        } else if (name === 'nom' || name === 'prenom') {
+            sanitizedValue = value.replace(/[^a-zA-Z\s\-']/g, '').slice(0, 50);
+        } else if (name === 'telephone') {
+            sanitizedValue = value.replace(/[^\d\+\s\-\(\)]/g, '').slice(0, 20);
+        } else if (name === 'numeroMatricule') {
+            sanitizedValue = value.replace(/[^a-zA-Z0-9\-]/g, '').toUpperCase().slice(0, 20);
+        } else if (name === 'adresse') {
+            sanitizedValue = value.slice(0, 200);
+        } else if (name === 'password' || name === 'confirmPassword') {
+            sanitizedValue = value.slice(0, 128);
+        } else {
+            sanitizedValue = value;
+        }
+        
+        setFormData((prev) => ({ ...prev, [name]: sanitizedValue }));
+        if (fieldErrors[name as keyof AdherentSignupInput]) {
             setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
         }
     };
-    const handleBlur = (name: keyof FormFields) => {
+    const handleBlur = (name: keyof AdherentSignupInput) => {
         setTouched((prev) => ({ ...prev, [name]: true }));
     };
-    const getError = (name: keyof FormFields) => {
+    const getError = (name: keyof AdherentSignupInput) => {
         if (fieldErrors[name])
             return fieldErrors[name]!;
         if (!touched[name])
             return "";
-        return validate(name, formData[name]);
+        return validate(name, formData[name] || "");
     };
     const handleGoBack = () => {
         router.push(`/`);
     };
     async function handleSubmit(fd: FormData) {
-        const required: (keyof FormFields)[] = [
+        const required: (keyof AdherentSignupInput)[] = [
             "nom", "prenom", "email", "sexe", "dateNaissance", "password", "confirmPassword",
         ];
         const newTouched = Object.fromEntries(required.map((k) => [k, true]));
         setTouched((prev) => ({ ...prev, ...newTouched }));
-        const hasErrors = required.some((k) => validate(k, formData[k]) !== "");
-        if (hasErrors) {
+        
+        const result = adherentSignupSchema.safeParse(formData);
+        if (!result.success) {
+            const errors: Partial<AdherentSignupInput> = {};
+            result.error.issues.forEach((error: any) => {
+                if (error.path.length > 0) {
+                    errors[error.path[0] as keyof AdherentSignupInput] = error.message;
+                }
+            });
+            setFieldErrors(errors);
             toast.error(t("adherentSignup.notifications.incomplete.title"), {
                 description: t("adherentSignup.notifications.incomplete.message"),
                 duration: 5000,
             });
             return;
         }
+        
         setIsPending(true);
         setFieldErrors({});
         try {
-            const result = await signupAction(fd);
-            if ("error" in result) {
-                if (result.fieldErrors)
-                    setFieldErrors(result.fieldErrors);
+            const sanitizedFd = new FormData();
+            Object.entries(formData).forEach(([key, value]) => {
+                if (key === 'email') {
+                    sanitizedFd.set(key, value.trim().toLowerCase());
+                } else if (key === 'nom' || key === 'prenom') {
+                    sanitizedFd.set(key, value.trim());
+                } else if (key === 'numeroMatricule') {
+                    sanitizedFd.set(key, value.trim().toUpperCase());
+                } else {
+                    sanitizedFd.set(key, value);
+                }
+            });
+            const signupResult = await signupAction(sanitizedFd);
+            if ("error" in signupResult) {
+                if (signupResult.fieldErrors)
+                    setFieldErrors(signupResult.fieldErrors as Partial<AdherentSignupInput>);
                 toast.error(t("adherentSignup.notifications.failed.title"), {
-                    description: result.error,
+                    description: signupResult.error,
                     duration: 5000,
                 });
                 setIsPending(false);
             }
             else {
                 toast.success(t("adherentSignup.notifications.success.title"), {
-                    description: result.message,
+                    description: signupResult.message || "Inscription réussie",
                     duration: 5000,
                 });
                 setTimeout(() => {
@@ -281,7 +285,7 @@ export default function AdherentSignupPage() {
                     </Label>
                     <div className="relative">
                       <User className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${getError("nom") ? "text-red-400" : "text-gray-400"}`}/>
-                      <Input ref={firstInputRef} id="nom" name="nom" required placeholder={t("adherentSignup.placeholders.nom")} value={formData.nom} onChange={handleChange} onBlur={() => handleBlur("nom")} disabled={isPending} autoComplete="family-name" className={`pl-10 ${inputClass(!!getError("nom"))}`}/>
+                      <Input ref={firstInputRef} id="nom" name="nom" required placeholder={t("adherentSignup.placeholders.nom")} value={formData.nom} onChange={handleChange} onBlur={() => handleBlur("nom")} disabled={isPending} autoComplete="family-name" autoCapitalize="words" className={`pl-10 ${inputClass(!!getError("nom"))}`}/>
                     </div>
                     <AnimatePresence>
                       {getError("nom") && <FieldError message={getError("nom")}/>}
@@ -294,7 +298,7 @@ export default function AdherentSignupPage() {
                     </Label>
                     <div className="relative">
                       <User className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${getError("prenom") ? "text-red-400" : "text-gray-400"}`}/>
-                      <Input id="prenom" name="prenom" required placeholder={t("adherentSignup.placeholders.prenom")} value={formData.prenom} onChange={handleChange} onBlur={() => handleBlur("prenom")} disabled={isPending} autoComplete="given-name" className={`pl-10 ${inputClass(!!getError("prenom"))}`}/>
+                      <Input id="prenom" name="prenom" required placeholder={t("adherentSignup.placeholders.prenom")} value={formData.prenom} onChange={handleChange} onBlur={() => handleBlur("prenom")} disabled={isPending} autoComplete="given-name" autoCapitalize="words" className={`pl-10 ${inputClass(!!getError("prenom"))}`}/>
                     </div>
                     <AnimatePresence>
                       {getError("prenom") && <FieldError message={getError("prenom")}/>}
@@ -326,7 +330,7 @@ export default function AdherentSignupPage() {
                     </Label>
                     <div className="relative">
                       <CalendarDays className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${getError("dateNaissance") ? "text-red-400" : "text-gray-400"}`}/>
-                      <Input id="dateNaissance" name="dateNaissance" type="date" required value={formData.dateNaissance} onChange={handleChange} onBlur={() => handleBlur("dateNaissance")} disabled={isPending} className={`pl-10 ${inputClass(!!getError("dateNaissance"))}`}/>
+                      <Input id="dateNaissance" name="dateNaissance" type="date" required value={formData.dateNaissance} onChange={handleChange} onBlur={() => handleBlur("dateNaissance")} disabled={isPending} max={new Date().toISOString().split('T')[0]} className={`pl-10 ${inputClass(!!getError("dateNaissance"))}`}/>
                     </div>
                     <AnimatePresence>
                       {getError("dateNaissance") && <FieldError message={getError("dateNaissance")}/>}
@@ -346,7 +350,7 @@ export default function AdherentSignupPage() {
                   </Label>
                   <div className="relative">
                     <Mail className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${getError("email") ? "text-red-400" : "text-gray-400"}`}/>
-                    <Input id="email" name="email" type="email" required placeholder={t("adherentSignup.placeholders.email")} value={formData.email} onChange={handleChange} onBlur={() => handleBlur("email")} disabled={isPending} autoComplete="email" className={`pl-10 ${inputClass(!!getError("email"))}`}/>
+                    <Input id="email" name="email" type="email" required placeholder={t("adherentSignup.placeholders.email")} value={formData.email} onChange={handleChange} onBlur={() => handleBlur("email")} disabled={isPending} autoComplete="email" autoCapitalize="off" autoCorrect="off" spellCheck={false} className={`pl-10 ${inputClass(!!getError("email"))}`}/>
                   </div>
                   <AnimatePresence>
                     {getError("email") && <FieldError message={getError("email")}/>}

@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Waves, Eye, EyeOff, ArrowLeft, Mail, Lock, Loader2, AlertCircle, } from "lucide-react";
 import { loginAdherentAction } from "@/lib/actions/auth.actions";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { adherentLoginSchema, type AdherentLoginInput } from "@/lib/validators/auth";
 function FieldError({ message }: {
     message: string;
 }) {
@@ -25,8 +26,9 @@ export default function AdherentLoginPage() {
     const redirectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [showPassword, setShowPassword] = useState(false);
     const [isPending, setIsPending] = useState(false);
-    const [formData, setFormData] = useState({ email: "", password: "" });
+    const [formData, setFormData] = useState<AdherentLoginInput>({ email: "", password: "" });
     const [touched, setTouched] = useState({ email: false, password: false });
+    const [fieldErrors, setFieldErrors] = useState<Partial<AdherentLoginInput>>({});
     const [isNavigating, setIsNavigating] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
@@ -55,28 +57,34 @@ export default function AdherentLoginPage() {
         return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
     }, []);
     const emailError = (() => {
-        if (!touched.email)
-            return "";
-        if (!formData.email)
-            return t("adherentLogin.validation.emailRequired");
-        if (!/^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(formData.email)) {
-            return t("adherentLogin.validation.emailInvalid");
-        }
+        if (fieldErrors.email) return fieldErrors.email;
+        if (!touched.email) return "";
+        const result = adherentLoginSchema.shape.email.safeParse(formData.email);
+        if (!result.success) return result.error.issues[0]?.message || "";
         return "";
     })();
     const passwordError = (() => {
-        if (!touched.password)
-            return "";
-        if (!formData.password)
-            return t("adherentLogin.validation.passwordRequired");
-        if (formData.password.length < 6)
-            return t("adherentLogin.validation.passwordMin");
+        if (fieldErrors.password) return fieldErrors.password;
+        if (!touched.password) return "";
+        const result = adherentLoginSchema.shape.password.safeParse(formData.password);
+        if (!result.success) return result.error.issues[0]?.message || "";
         return "";
     })();
     const isValid = !emailError && !passwordError && !!formData.email && !!formData.password;
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        let sanitizedValue = value;
+        
+        if (name === 'email') {
+            sanitizedValue = value.toLowerCase().slice(0, 100);
+        } else if (name === 'password') {
+            sanitizedValue = value.slice(0, 128);
+        }
+        
+        setFormData((prev) => ({ ...prev, [name]: sanitizedValue }));
+        if (fieldErrors[name as keyof AdherentLoginInput]) {
+            setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
+        }
     };
     const handleBlur = (field: keyof typeof touched) => setTouched((prev) => ({ ...prev, [field]: true }));
     const handleKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
@@ -94,11 +102,32 @@ export default function AdherentLoginPage() {
             return;
         }
         setIsPending(true);
+        setFieldErrors({});
         try {
-            const result = await loginAdherentAction(fd);
-            if ("error" in result) {
+            const result = adherentLoginSchema.safeParse(formData);
+            if (!result.success) {
+                const errors: Partial<AdherentLoginInput> = {};
+                result.error.issues.forEach((error: any) => {
+                    if (error.path.length > 0) {
+                        errors[error.path[0] as keyof AdherentLoginInput] = error.message;
+                    }
+                });
+                setFieldErrors(errors);
+                setIsPending(false);
+                emailInputRef.current?.focus();
+                return;
+            }
+            
+            const sanitizedFd = new FormData();
+            sanitizedFd.set("email", formData.email.trim().toLowerCase());
+            sanitizedFd.set("password", formData.password);
+            const loginResult = await loginAdherentAction(sanitizedFd);
+            if ("error" in loginResult) {
+                if ('fieldErrors' in loginResult && loginResult.fieldErrors) {
+                    setFieldErrors(loginResult.fieldErrors as Partial<AdherentLoginInput>);
+                }
                 toast.error(t("toast.login.error.title"), {
-                    description: result.error ?? t("toast.login.error.description"),
+                    description: loginResult.error ?? t("toast.login.error.description"),
                     duration: 5000,
                 });
                 setIsPending(false);
@@ -213,7 +242,7 @@ export default function AdherentLoginPage() {
                     <Mail className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${emailError && touched.email
             ? "text-red-400"
             : "text-gray-400"}`}/>
-                    <Input ref={emailInputRef} id="email" name="email" type="email" required placeholder={t("adherentLogin.emailPlaceholder")} value={formData.email} onChange={handleInputChange} onBlur={() => handleBlur("email")} disabled={isPending} autoComplete="email" className={`border-2 pl-10 transition-all duration-200 focus:ring-4 ${emailError && touched.email
+                    <Input ref={emailInputRef} id="email" name="email" type="email" required placeholder={t("adherentLogin.emailPlaceholder")} value={formData.email} onChange={handleInputChange} onBlur={() => handleBlur("email")} disabled={isPending} autoComplete="email" autoCapitalize="off" autoCorrect="off" spellCheck={false} maxLength={100} className={`border-2 pl-10 transition-all duration-200 focus:ring-4 ${emailError && touched.email
             ? "border-red-400 focus:border-red-400 focus:ring-red-500/15"
             : "border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/15 dark:border-gray-700"}`}/>
                   </div>

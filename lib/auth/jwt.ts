@@ -1,3 +1,4 @@
+export const runtime = 'nodejs';
 import { SignJWT, jwtVerify } from "jose";
 const SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
 export type AgentSession = {

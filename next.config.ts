@@ -1,12 +1,16 @@
 import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
+
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
+
 const nextConfig: NextConfig = {
     experimental: {
         typedRoutes: true,
     },
+
     images: {
         remotePatterns: [],
     },
 };
+
 export default withNextIntl(nextConfig);

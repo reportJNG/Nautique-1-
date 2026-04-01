@@ -1,6 +1,6 @@
 "use server";
 import { prisma } from "@/lib/db/prisma";
-import { requireAgent } from "@/lib/auth/jwt";
+import { requireAgent } from "@/lib/auth/session";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
@@ -51,10 +51,10 @@ export async function createAdherent(formData: FormData) {
         const data = Object.fromEntries(formData);
         const parsed = createSchema.safeParse(data);
         if (!parsed.success) {
-            return { error: parsed.error.errors[0].message };
+            return { error: parsed.error.issues[0].message };
         }
         const { nom, prenom, email, telephone, sexe, dateNaissance, adresse, organisationId, password, } = parsed.data;
-        const existing = await prisma.adherent.findUnique({
+        const existing = await prisma.adherent.findFirst({
             where: { email },
         });
         if (existing) {
