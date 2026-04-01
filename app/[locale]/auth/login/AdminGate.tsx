@@ -23,10 +23,7 @@ export function AdminGate({ children }: AdminGateProps) {
 
     // Persist gate pass for the session
     useEffect(() => {
-        const alreadyPassed = sessionStorage.getItem(SESSION_KEY) === "true";
-        if (alreadyPassed) {
-            setPassed(true);
-        }
+
         setChecking(false);
         setTimeout(() => inputRef.current?.focus(), 100);
     }, []);
@@ -147,8 +144,8 @@ export function AdminGate({ children }: AdminGateProps) {
                                         animate={error ? { x: [-6, 6, -4, 4, 0] } : { x: 0 }}
                                         transition={{ duration: 0.3 }}
                                         className={`w-full rounded-xl border bg-white/5 py-2.5 pl-10 pr-10 text-sm text-white placeholder-gray-600 outline-none transition-all duration-200 focus:ring-2 disabled:opacity-50 ${error
-                                                ? "border-red-500/60 focus:border-red-400 focus:ring-red-500/20"
-                                                : "border-white/10 focus:border-violet-500/60 focus:ring-violet-500/20"
+                                            ? "border-red-500/60 focus:border-red-400 focus:ring-red-500/20"
+                                            : "border-white/10 focus:border-violet-500/60 focus:ring-violet-500/20"
                                             }`}
                                     />
                                     <button

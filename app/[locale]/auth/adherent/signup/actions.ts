@@ -6,58 +6,58 @@ import { signToken } from "@/lib/auth/jwt";
 import { setSessionCookie } from "@/lib/auth/session";
 const signupSchema = z
     .object({
-    nom: z
-        .string()
-        .min(1, "Le nom est requis")
-        .min(2, "Le nom doit contenir au moins 2 caractères")
-        .max(50, "Le nom ne peut pas dépasser 50 caractères")
-        .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Le nom contient des caractères invalides"),
-    prenom: z
-        .string()
-        .min(1, "Le prénom est requis")
-        .min(2, "Le prénom doit contenir au moins 2 caractères")
-        .max(50, "Le prénom ne peut pas dépasser 50 caractères")
-        .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Le prénom contient des caractères invalides"),
-    email: z
-        .string()
-        .min(1, "L'adresse email est requise")
-        .email("L'adresse email n'est pas valide")
-        .max(100, "L'adresse email est trop longue"),
-    telephone: z
-        .string()
-        .optional()
-        .refine((v) => !v || /^(\+213|0)[5-7]\d{8}$/.test(v.replace(/\s/g, "")), "Numéro de téléphone invalide (ex: +213 5XX XX XX XX)"),
-    sexe: z.enum(["M", "F"], { message: "Veuillez sélectionner votre sexe" }),
-    dateNaissance: z
-        .string()
-        .min(1, "La date de naissance est requise")
-        .refine((d) => {
-        const date = new Date(d);
-        const now = new Date();
-        const age = now.getFullYear() - date.getFullYear();
-        return age >= 5 && age <= 100;
-    }, "Date de naissance invalide"),
-    adresse: z
-        .string()
-        .max(200, "L'adresse ne peut pas dépasser 200 caractères")
-        .optional(),
-    numeroMatricule: z
-        .string()
-        .max(20, "Le matricule ne peut pas dépasser 20 caractères")
-        .optional(),
-    password: z
-        .string()
-        .min(1, "Le mot de passe est requis")
-        .min(8, "Le mot de passe doit contenir au moins 8 caractères")
-        .max(100, "Le mot de passe est trop long")
-        .regex(/[A-Z]/, "Le mot de passe doit contenir au moins une majuscule")
-        .regex(/[0-9]/, "Le mot de passe doit contenir au moins un chiffre"),
-    confirmPassword: z.string().min(1, "Veuillez confirmer votre mot de passe"),
-})
+        nom: z
+            .string()
+            .min(1, "Le nom est requis")
+            .min(2, "Le nom doit contenir au moins 2 caractères")
+            .max(50, "Le nom ne peut pas dépasser 50 caractères")
+            .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Le nom contient des caractères invalides"),
+        prenom: z
+            .string()
+            .min(1, "Le prénom est requis")
+            .min(2, "Le prénom doit contenir au moins 2 caractères")
+            .max(50, "Le prénom ne peut pas dépasser 50 caractères")
+            .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Le prénom contient des caractères invalides"),
+        email: z
+            .string()
+            .min(1, "L'adresse email est requise")
+            .email("L'adresse email n'est pas valide")
+            .max(100, "L'adresse email est trop longue"),
+        telephone: z
+            .string()
+            .optional()
+            .refine((v) => !v || /^(\+213|0)[5-7]\d{8}$/.test(v.replace(/\s/g, "")), "Numéro de téléphone invalide (ex: +213 5XX XX XX XX)"),
+        sexe: z.enum(["M", "F"], { message: "Veuillez sélectionner votre sexe" }),
+        dateNaissance: z
+            .string()
+            .min(1, "La date de naissance est requise")
+            .refine((d) => {
+                const date = new Date(d);
+                const now = new Date();
+                const age = now.getFullYear() - date.getFullYear();
+                return age >= 5 && age <= 100;
+            }, "Date de naissance invalide"),
+        adresse: z
+            .string()
+            .max(200, "L'adresse ne peut pas dépasser 200 caractères")
+            .optional(),
+        numeroMatricule: z
+            .string()
+            .max(20, "Le matricule ne peut pas dépasser 20 caractères")
+            .optional(),
+        password: z
+            .string()
+            .min(1, "Le mot de passe est requis")
+            .min(8, "Le mot de passe doit contenir au moins 8 caractères")
+            .max(100, "Le mot de passe est trop long")
+            .regex(/[A-Z]/, "Le mot de passe doit contenir au moins une majuscule")
+            .regex(/[0-9]/, "Le mot de passe doit contenir au moins un chiffre"),
+        confirmPassword: z.string().min(1, "Veuillez confirmer votre mot de passe"),
+    })
     .refine((data) => data.password === data.confirmPassword, {
-    message: "Les mots de passe ne correspondent pas",
-    path: ["confirmPassword"],
-});
+        message: "Les mots de passe ne correspondent pas",
+        path: ["confirmPassword"],
+    });
 export type SignupFieldErrors = Partial<Record<keyof z.infer<typeof signupSchema>, string>>;
 type SignupResult = {
     success: true;
