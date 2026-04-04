@@ -239,7 +239,7 @@ export default async function CreneauxPage({
                           <div className="w-full h-1.5 bg-card rounded-full overflow-hidden">
                             <div
                               className={`h-full rounded-full transition-all duration-300 ${fillColor}`}
-                              style={{ width: `${fillPercentage}%` }}
+                              style={{ '--fill-width': `${fillPercentage}%` } as React.CSSProperties}
                             />
                           </div>
                         </div>

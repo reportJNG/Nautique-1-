@@ -1,6 +1,6 @@
 "use server";
 import { prisma } from "@/lib/db/prisma";
-import { requireRole } from "@/lib/auth/jwt";
+import { requireRole } from "@/lib/auth/session";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 const toggleSchema = z.object({
