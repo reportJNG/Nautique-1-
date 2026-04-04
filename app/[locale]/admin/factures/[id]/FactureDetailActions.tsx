@@ -38,16 +38,7 @@ export function FactureDetailActions({ factureId, locale }: FactureDetailActions
       type="button"
       onClick={handleValidate}
       disabled={loading}
-      style={{
-        display: "inline-flex", alignItems: "center", gap: 8, justifyContent: "center",
-        padding: "10px 16px", borderRadius: 9, width: "100%",
-        background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8))",
-        border: "none", color: "hsl(var(--primary-foreground))", fontSize: 13.5, fontWeight: 700,
-        cursor: loading ? "not-allowed" : "pointer",
-        opacity: loading ? 0.7 : 1,
-        boxShadow: "0 2px 10px hsl(var(--primary)/0.35)",
-        transition: "opacity 150ms ease, transform 150ms ease",
-      }}
+      className="inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg w-full bg-gradient-to-br from-primary to-primary/80 border-none text-primary-foreground text-[13.5px] font-bold cursor-pointer shadow-[0_2px_10px_hsl(var(--primary)/0.35)] transition-all duration-150 hover:opacity-90 hover:-translate-y-px disabled:opacity-70 disabled:cursor-not-allowed"
     >
       <CheckCircle2 size={15} />
       {loading ? "..." : t("abonnementsUi.detail.actions.validatePayment")}

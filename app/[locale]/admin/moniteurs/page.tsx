@@ -17,66 +17,85 @@ export default async function MoniteursPage({
   const moniteurs = await getMoniteurs();
 
   const avatarColors = [
-    "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8))",
-    "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8))",
-    "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8))",
-    "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8))",
-    "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8))",
+    "bg-gradient-to-br from-primary to-primary/80",
+    "bg-gradient-to-br from-primary to-primary/80",
+    "bg-gradient-to-br from-primary to-primary/80",
+    "bg-gradient-to-br from-primary to-primary/80",
+    "bg-gradient-to-br from-primary to-primary/80",
   ];
 
   return (
     <AdminPageShell locale={locale}>
-      <style>{`
-        .btn-primary { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8)); color: hsl(var(--primary-foreground)); font-size: 13px; font-weight: 600; border: none; cursor: pointer; box-shadow: 0 2px 8px hsl(var(--primary)/0.3); transition: opacity 150ms ease, transform 150ms ease; }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-primary svg { width: 15px; height: 15px; }
-        .mon-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
-        @media (min-width: 640px) { .mon-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .mon-grid { grid-template-columns: repeat(3, 1fr); } }
-        .mon-card { border-radius: 14px; border: 1px solid hsl(var(--border)/0.5); background: hsl(var(--card)/0.8); backdrop-filter: blur(12px); padding: 20px; display: flex; flex-direction: column; gap: 14px; transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease; position: relative; overflow: hidden; }
-        .mon-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent); opacity: 0; transition: opacity 200ms ease; }
-        .mon-card:hover { border-color: hsl(var(--primary)/0.2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
-        .mon-card:hover::before { opacity: 0.6; }
-        .mon-card-header { display: flex; align-items: center; gap: 14px; }
-        .mon-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: hsl(var(--primary-foreground)); flex-shrink: 0; box-shadow: 0 0 16px hsl(var(--primary)/0.25); }
-        .mon-name { font-size: 15px; font-weight: 700; color: hsl(var(--foreground)); }
-        .mon-specialite { font-size: 12px; color: hsl(var(--primary)); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
-        .mon-info-row { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: hsl(var(--muted-foreground)); }
-        .mon-info-row svg { color: hsl(var(--muted-foreground)); flex-shrink: 0; }
-        .mon-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid hsl(var(--border)/0.3); }
-        .mon-status-active   { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.25); }
-        .mon-status-inactive { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; background: hsl(var(--muted)/0.12); color: hsl(var(--muted-foreground)); border: 1px solid hsl(var(--muted)/0.2); }
-        .mon-empty { padding: 60px 20px; text-align: center; color: hsl(var(--muted-foreground)); font-size: 14px; }
-      `}</style>
-
       <AdminPageHeader
         title={t("moniteursUi.pageTitle")}
         description={`${moniteurs.length} moniteur${moniteurs.length !== 1 ? "s" : ""} enregistré${moniteurs.length !== 1 ? "s" : ""}`}
         icon={<UserCheck />}
-        actions={<button className="btn-primary" type="button"><Plus />{t("moniteursUi.newButton")}</button>}
+        actions={
+          <button
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground text-[13px] font-semibold border-none cursor-pointer shadow-[0_2px_8px_hsl(var(--primary)/0.3)] transition-all duration-150 hover:opacity-90 hover:-translate-y-px [&_svg]:w-[15px] [&_svg]:h-[15px]"
+            type="button"
+          >
+            <Plus />
+            {t("moniteursUi.newButton")}
+          </button>
+        }
       />
 
       {moniteurs.length === 0 ? (
-        <AdminSection><div className="mon-empty">{t("status.noData")}</div></AdminSection>
+        <AdminSection>
+          <div className="py-16 px-5 text-center text-muted-foreground text-sm">
+            {t("status.noData")}
+          </div>
+        </AdminSection>
       ) : (
-        <div className="mon-grid">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {moniteurs.map((moniteur, idx) => {
             const initials = `${moniteur.prenom?.[0] ?? ""}${moniteur.nom?.[0] ?? ""}`.toUpperCase();
             return (
-              <div key={moniteur.id} className="mon-card">
-                <div className="mon-card-header">
-                  <div className="mon-avatar" style={{ background: avatarColors[idx % avatarColors.length] }} aria-hidden="true">{initials}</div>
+              <div
+                key={moniteur.id}
+                className="group relative rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-5 flex flex-col gap-3.5 transition-all duration-200 hover:border-primary/20 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.4)] overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary before:to-transparent before:opacity-0 before:transition-opacity before:duration-200 hover:before:opacity-60"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div
+                    className={`w-12 h-12 rounded-full flex items-center justify-center text-[15px] font-bold text-primary-foreground shrink-0 shadow-[0_0_16px_hsl(var(--primary)/0.25)] ${avatarColors[idx % avatarColors.length]}`}
+                    aria-hidden="true"
+                  >
+                    {initials}
+                  </div>
                   <div>
-                    <div className="mon-name">{moniteur.prenom} {moniteur.nom}</div>
-                    {moniteur.specialite && <div className="mon-specialite"><Star size={10} />{moniteur.specialite}</div>}
+                    <div className="text-[15px] font-bold text-foreground">
+                      {moniteur.prenom} {moniteur.nom}
+                    </div>
+                    {moniteur.specialite && (
+                      <div className="text-xs text-primary mt-0.5 flex items-center gap-1">
+                        <Star size={10} />
+                        {moniteur.specialite}
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  {moniteur.email && <div className="mon-info-row"><Mail size={13} />{moniteur.email}</div>}
-                  {moniteur.telephone && <div className="mon-info-row"><Phone size={13} />{moniteur.telephone}</div>}
+
+                <div className="flex flex-col gap-1.5">
+                  {moniteur.email && (
+                    <div className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
+                      <Mail size={13} className="text-muted-foreground shrink-0" />
+                      {moniteur.email}
+                    </div>
+                  )}
+                  {moniteur.telephone && (
+                    <div className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
+                      <Phone size={13} className="text-muted-foreground shrink-0" />
+                      {moniteur.telephone}
+                    </div>
+                  )}
                 </div>
-                <div className="mon-footer">
-                  <span className={moniteur.actif === 1 ? "mon-status-active" : "mon-status-inactive"}>
+
+                <div className="flex items-center justify-between pt-2 border-t border-border/30">
+                  <span className={moniteur.actif === 1
+                    ? "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-primary/12 text-primary border border-primary/25"
+                    : "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-muted/12 text-muted-foreground border border-muted/20"
+                  }>
                     {moniteur.actif === 1 ? t("status.active") : t("status.inactive")}
                   </span>
                 </div>

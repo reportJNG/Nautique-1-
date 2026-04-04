@@ -29,163 +29,99 @@ export default async function FactureDetailPage({
 
   return (
     <AdminPageShell locale={locale}>
-      <style>{`
-        .fcd-back {
-          display: inline-flex; align-items: center; gap: 7px;
-          padding: 7px 14px; border-radius: 8px;
-          background: hsl(var(--muted)/0.1); border: 1px solid hsl(var(--border)/0.5);
-          color: hsl(var(--muted-foreground)); font-size: 13px; font-weight: 500;
-          text-decoration: none; margin-bottom: 24px;
-          transition: background 150ms, color 150ms;
-        }
-        .fcd-back:hover { background: hsl(var(--muted)/0.15); color: hsl(var(--foreground)); }
-
-        .fcd-layout { display: grid; gap: 20px; }
-        @media (min-width: 768px) { .fcd-layout { grid-template-columns: 1fr auto; align-items: start; } }
-
-        /* ── Receipt card ── */
-        .fcd-receipt {
-          border-radius: 16px; overflow: hidden;
-          border: 1px solid hsl(var(--border)/0.5);
-          background: hsl(var(--card)/0.9); backdrop-filter: blur(16px);
-          width: 100%; max-width: 540px;
-        }
-
-        .fcd-receipt-header {
-          padding: 24px 28px 20px; text-align: center;
-          background: linear-gradient(135deg, hsl(var(--primary)/0.08), hsl(var(--primary)/0.04));
-          border-bottom: 1px solid hsl(var(--border)/0.3);
-          position: relative;
-        }
-        .fcd-receipt-logo {
-          font-size: 11px; font-weight: 800; letter-spacing: 0.15em;
-          color: hsl(var(--primary)); text-transform: uppercase; margin-bottom: 4px;
-        }
-        .fcd-receipt-title { font-size: 20px; font-weight: 800; color: hsl(var(--foreground)); }
-        .fcd-receipt-subtitle { font-size: 12px; color: hsl(var(--muted-foreground)); margin-top: 2px; }
-
-        .fcd-receipt-status-row {
-          display: flex; align-items: center; justify-content: space-between;
-          padding: 14px 24px; border-bottom: 1px solid hsl(var(--border)/0.3);
-          background: hsl(var(--muted)/0.1);
-        }
-        .fcd-receipt-num { font-family: monospace; font-size: 13px; font-weight: 700; color: hsl(var(--primary)); }
-        .fcd-status-paid { display: inline-flex; align-items: center; gap: 5px; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.25); }
-        .fcd-status-att  { display: inline-flex; align-items: center; gap: 5px; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; background: hsl(var(--accent)/0.12); color: hsl(var(--accent)); border: 1px solid hsl(var(--accent)/0.25); }
-
-        .fcd-receipt-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 0; }
-        .fcd-row {
-          display: flex; align-items: center; justify-content: space-between;
-          padding: 10px 0; border-bottom: 1px solid hsl(var(--border)/0.2);
-          gap: 12px;
-        }
-        .fcd-row:last-child { border-bottom: none; }
-        .fcd-row-left { display: flex; align-items: center; gap: 8px; }
-        .fcd-row-icon { color: hsl(var(--muted-foreground)); flex-shrink: 0; }
-        .fcd-row-label { font-size: 12.5px; color: hsl(var(--muted-foreground)); }
-        .fcd-row-val { font-size: 13.5px; font-weight: 600; color: hsl(var(--foreground)); text-align: right; }
-        .fcd-row-total { font-size: 18px; font-weight: 800; color: hsl(var(--foreground)); text-align: right; }
-
-        .fcd-total-row {
-          display: flex; align-items: center; justify-content: space-between;
-          padding: 14px 24px; margin: 0;
-          border-top: 1px solid hsl(var(--primary)/0.15);
-          background: hsl(var(--primary)/0.04);
-        }
-        .fcd-total-label { font-size: 14px; font-weight: 700; color: hsl(var(--foreground)); }
-
-        .fcd-paid-on { padding: 12px 24px 20px; text-align: center; font-size: 12px; color: hsl(var(--muted-foreground)); }
-
-        /* ── Action panel ── */
-        .fcd-actions {
-          display: flex; flex-direction: column; gap: 10px; min-width: 200px;
-        }
-        .fcd-action-card {
-          border-radius: 12px; border: 1px solid hsl(var(--border)/0.5);
-          background: hsl(var(--card)/0.8); backdrop-filter: blur(12px);
-          overflow: hidden;
-        }
-        .fcd-action-hdr {
-          padding: 12px 16px 10px; border-bottom: 1px solid hsl(var(--border)/0.3);
-          font-size: 12px; font-weight: 700; color: hsl(var(--muted-foreground)); letter-spacing: 0.06em; text-transform: uppercase;
-        }
-        .fcd-action-body { padding: 14px; display: flex; flex-direction: column; gap: 8px; }
-
-        .fcd-print-btn {
-          display: inline-flex; align-items: center; gap: 7px; justify-content: center;
-          padding: 9px 16px; border-radius: 8px; width: 100%;
-          background: hsl(var(--muted)/0.1); border: 1px solid hsl(var(--border)/0.5);
-          color: hsl(var(--muted-foreground)); font-size: 13px; font-weight: 500; cursor: pointer;
-          transition: background 150ms, color 150ms;
-        }
-        .fcd-print-btn:hover { background: hsl(var(--muted)/0.15); color: hsl(var(--foreground)); }
-        .fcd-print-btn svg { width: 14px; }
-      `}</style>
-
-      <Link href={`/${locale}/admin/factures`} className="fcd-back">
+      {/* Back button */}
+      <Link
+        href={`/${locale}/admin/factures`}
+        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-muted/10 border border-border/50 text-muted-foreground text-[13px] font-medium no-underline hover:bg-muted/15 hover:text-foreground transition-all duration-150 mb-6"
+      >
         <ArrowLeft size={14} />
         {t("facturesUi.listTitle")}
       </Link>
 
-      <div className="fcd-layout">
-        {/* Receipt */}
-        <div className="fcd-receipt">
-          <div className="fcd-receipt-header">
-            <div className="fcd-receipt-logo">Centre Nautique SONATRACH</div>
-            <div className="fcd-receipt-title">{t("facturesUi.detail.receipt.headerTitle")}</div>
-            <div className="fcd-receipt-subtitle">{t("facturesUi.detail.receipt.subtitle")}</div>
+      <div className="grid gap-5 md:grid-cols-[1fr_auto] items-start">
+        {/* Receipt Card */}
+        <div className="rounded-2xl overflow-hidden border border-border/50 bg-card/90 backdrop-blur-md w-full max-w-[540px]">
+          {/* Receipt Header */}
+          <div className="relative text-center px-7 pt-6 pb-5 bg-gradient-to-br from-primary/8 to-primary/4 border-b border-border/30">
+            <div className="text-[11px] font-extrabold tracking-[0.15em] text-primary uppercase mb-1">
+              Centre Nautique SONATRACH
+            </div>
+            <div className="text-xl font-extrabold text-foreground">
+              {t("facturesUi.detail.receipt.headerTitle")}
+            </div>
+            <div className="text-xs text-muted-foreground mt-0.5">
+              {t("facturesUi.detail.receipt.subtitle")}
+            </div>
           </div>
 
-          <div className="fcd-receipt-status-row">
-            <span className="fcd-receipt-num">{facture.numeroRecu || "—"}</span>
-            <span className={isPaid ? "fcd-status-paid" : "fcd-status-att"}>
+          {/* Status Row */}
+          <div className="flex items-center justify-between px-6 py-3.5 border-b border-border/30 bg-muted/10">
+            <span className="font-mono text-[13px] font-bold text-primary">
+              {facture.numeroRecu || "—"}
+            </span>
+            <span className={`inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold ${isPaid
+                ? "bg-primary/12 text-primary border border-primary/25"
+                : "bg-accent/12 text-accent border border-accent/25"
+              }`}>
               {isPaid ? <CheckCircle2 size={12} /> : <Clock size={12} />}
               {t(`factureStatus.${facture.statut}`)}
             </span>
           </div>
 
-          <div className="fcd-receipt-body">
-            <div className="fcd-row">
-              <div className="fcd-row-left">
-                <User size={13} className="fcd-row-icon" />
-                <span className="fcd-row-label">{t("facturesUi.detail.labels.member")}</span>
+          {/* Receipt Body */}
+          <div className="px-6 py-5 flex flex-col gap-0">
+            <div className="flex items-center justify-between py-2.5 border-b border-border/20 gap-3">
+              <div className="flex items-center gap-2">
+                <User size={13} className="text-muted-foreground shrink-0" />
+                <span className="text-[12.5px] text-muted-foreground">{t("facturesUi.detail.labels.member")}</span>
               </div>
-              <span className="fcd-row-val">{facture.adherent.prenom} {facture.adherent.nom}</span>
+              <span className="text-[13.5px] font-semibold text-foreground text-right">
+                {facture.adherent.prenom} {facture.adherent.nom}
+              </span>
             </div>
-            <div className="fcd-row">
-              <div className="fcd-row-left">
-                <Hash size={13} className="fcd-row-icon" />
-                <span className="fcd-row-label">{t("facturesUi.detail.labels.fileNumber")}</span>
+
+            <div className="flex items-center justify-between py-2.5 border-b border-border/20 gap-3">
+              <div className="flex items-center gap-2">
+                <Hash size={13} className="text-muted-foreground shrink-0" />
+                <span className="text-[12.5px] text-muted-foreground">{t("facturesUi.detail.labels.fileNumber")}</span>
               </div>
-              <span className="fcd-row-val" style={{ fontFamily: "monospace" }}>{facture.adherent.numeroDossier}</span>
+              <span className="text-[13.5px] font-semibold text-foreground text-right font-mono">
+                {facture.adherent.numeroDossier}
+              </span>
             </div>
-            <div className="fcd-row">
-              <div className="fcd-row-left">
-                <Dumbbell size={13} className="fcd-row-icon" />
-                <span className="fcd-row-label">{t("facturesUi.detail.labels.discipline")}</span>
+
+            <div className="flex items-center justify-between py-2.5 border-b border-border/20 gap-3">
+              <div className="flex items-center gap-2">
+                <Dumbbell size={13} className="text-muted-foreground shrink-0" />
+                <span className="text-[12.5px] text-muted-foreground">{t("facturesUi.detail.labels.discipline")}</span>
               </div>
-              <span className="fcd-row-val">{facture.abonnement.discipline.designation}</span>
+              <span className="text-[13.5px] font-semibold text-foreground text-right">
+                {facture.abonnement.discipline.designation}
+              </span>
             </div>
-            <div className="fcd-row">
-              <div className="fcd-row-left">
-                <CreditCard size={13} className="fcd-row-icon" />
-                <span className="fcd-row-label">{t("facturesUi.detail.labels.paymentMethod")}</span>
+
+            <div className="flex items-center justify-between py-2.5 border-b border-border/20 gap-3">
+              <div className="flex items-center gap-2">
+                <CreditCard size={13} className="text-muted-foreground shrink-0" />
+                <span className="text-[12.5px] text-muted-foreground">{t("facturesUi.detail.labels.paymentMethod")}</span>
               </div>
-              <span className="fcd-row-val">
+              <span className="text-[13.5px] font-semibold text-foreground text-right">
                 {methodEmoji[facture.modePaiement] ?? "💳"} {t(`paymentMethods.${facture.modePaiement}`)}
               </span>
             </div>
           </div>
 
-          <div className="fcd-total-row">
-            <span className="fcd-total-label">{t("facturesUi.detail.labels.totalAmount")}</span>
-            <span className="fcd-row-total">
+          {/* Total Row */}
+          <div className="flex items-center justify-between px-6 py-3.5 border-t border-primary/15 bg-primary/4">
+            <span className="text-sm font-bold text-foreground">{t("facturesUi.detail.labels.totalAmount")}</span>
+            <span className="text-lg font-extrabold text-foreground text-right">
               {Number(facture.montantTtc).toLocaleString(dateLocale)} DA
             </span>
           </div>
 
+          {/* Paid On Date */}
           {facture.datePaiement && (
-            <div className="fcd-paid-on">
+            <div className="text-center py-3 pb-5 text-xs text-muted-foreground">
               {t("facturesUi.detail.paidOn", {
                 date: new Date(facture.datePaiement).toLocaleDateString(dateLocale),
               })}
@@ -193,17 +129,19 @@ export default async function FactureDetailPage({
           )}
         </div>
 
-        {/* Action panel */}
-        <div className="fcd-actions">
-          <div className="fcd-action-card">
-            <div className="fcd-action-hdr">Actions</div>
-            <div className="fcd-action-body">
+        {/* Action Panel */}
+        <div className="flex flex-col gap-2.5 min-w-[200px]">
+          <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden">
+            <div className="px-4 pt-3 pb-2.5 border-b border-border/30 text-xs font-bold text-muted-foreground tracking-wide uppercase">
+              Actions
+            </div>
+            <div className="p-3.5 flex flex-col gap-2">
               {!isPaid && (
                 <FactureDetailActions factureId={facture.id} locale={locale} />
               )}
               <button
                 type="button"
-                className="fcd-print-btn"
+                className="inline-flex items-center gap-1.5 justify-center py-2.5 px-4 rounded-lg w-full bg-muted/10 border border-border/50 text-muted-foreground text-[13px] font-medium cursor-pointer transition-all duration-150 hover:bg-muted/15 hover:text-foreground [&_svg]:w-[14px]"
                 onClick={() => window.print()}
               >
                 <Printer size={14} />

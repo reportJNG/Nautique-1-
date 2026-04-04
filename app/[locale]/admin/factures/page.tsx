@@ -25,96 +25,134 @@ export default async function FacturesPage({
   const pending = factures.filter((f) => f.statut === "ATT").length;
 
   const statusStyle: Record<string, string> = {
-    PAY: "fac-status-pay", ATT: "fac-status-att",
-    ANN: "fac-status-ann", REM: "fac-status-rem",
+    PAY: "bg-primary/12 text-primary border border-primary/25",
+    ATT: "bg-accent/12 text-accent border border-accent/25",
+    ANN: "bg-muted/12 text-muted-foreground border border-muted/20",
+    REM: "bg-primary/12 text-primary border border-primary/25",
   };
   const methodIcon: Record<string, string> = { ESP: "💵", VIR: "🏦", CHQ: "📄", TPE: "💳" };
 
   return (
     <AdminPageShell locale={locale}>
-      <style>{`
-        .fac-kpi-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
-        @media (min-width: 640px) { .fac-kpi-grid { grid-template-columns: repeat(3, 1fr); } }
-        .fac-kpi { border-radius: 14px; border: 1px solid hsl(var(--border)/0.5); background: hsl(var(--card)/0.8); backdrop-filter: blur(12px); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease; }
-        .fac-kpi:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
-        .fac-kpi::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; opacity: 0.6; }
-        .fac-kpi.emerald::before { background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent); }
-        .fac-kpi.amber::before   { background: linear-gradient(90deg, transparent, hsl(var(--accent)), transparent); }
-        .fac-kpi.sky::before     { background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent); }
-        .fac-kpi.emerald:hover { border-color: hsl(var(--primary)/0.25); }
-        .fac-kpi.amber:hover   { border-color: hsl(var(--accent)/0.25); }
-        .fac-kpi.sky:hover     { border-color: hsl(var(--primary)/0.25); }
-        .fac-kpi-top { display: flex; align-items: center; justify-content: space-between; }
-        .fac-kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: hsl(var(--muted-foreground)); }
-        .fac-kpi-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .fac-kpi-icon svg { width: 18px; height: 18px; }
-        .fac-kpi-icon.emerald { background: hsl(var(--primary)/0.15); color: hsl(var(--primary)); }
-        .fac-kpi-icon.amber   { background: hsl(var(--accent)/0.15);  color: hsl(var(--accent)); }
-        .fac-kpi-icon.sky     { background: hsl(var(--primary)/0.15);  color: hsl(var(--primary)); }
-        .fac-kpi-val { font-size: 26px; font-weight: 800; color: hsl(var(--foreground)); letter-spacing: -0.02em; line-height: 1; }
-        .fac-status-badge { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
-        .fac-status-pay { background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.25); }
-        .fac-status-att { background: hsl(var(--accent)/0.12); color: hsl(var(--accent)); border: 1px solid hsl(var(--accent)/0.25); }
-        .fac-status-ann { background: hsl(var(--muted)/0.12); color: hsl(var(--muted-foreground)); border: 1px solid hsl(var(--muted)/0.2); }
-        .fac-status-rem { background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.25); }
-        .fac-receipt { font-family: monospace; font-size: 11.5px; color: hsl(var(--muted-foreground)); }
-        .fac-amount  { font-weight: 700; color: hsl(var(--foreground)); }
-        .fac-method  { font-size: 12.5px; color: hsl(var(--muted-foreground)); display: flex; align-items: center; gap: 5px; }
-        .fac-user-cell { display: flex; align-items: center; gap: 8px; }
-        .fac-initials { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: hsl(var(--primary-foreground)); flex-shrink: 0; }
-        .fac-user-name { font-size: 13px; font-weight: 600; color: hsl(var(--foreground)); }
-      `}</style>
-
       <AdminPageHeader
         title={t("facturesUi.pageTitle")}
         description={`${factures.length} facture${factures.length !== 1 ? "s" : ""}`}
         icon={<CreditCard />}
       />
 
-      <div className="fac-kpi-grid">
-        <div className="fac-kpi emerald">
-          <div className="fac-kpi-top"><span className="fac-kpi-label">{t("facturesUi.kpis.totalPaid")}</span><div className="fac-kpi-icon emerald"><TrendingUp /></div></div>
-          <div className="fac-kpi-val">{totalPaye.toLocaleString(dateLocale)} DA</div>
+      {/* KPI Cards */}
+      <div className="grid gap-3.5 grid-cols-1 sm:grid-cols-3 mb-6">
+        {/* Total Paid */}
+        <div className="group relative rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-[18px] pt-5 flex flex-col gap-2.5 overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:border-primary/25 before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary before:to-transparent before:opacity-60">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
+              {t("facturesUi.kpis.totalPaid")}
+            </span>
+            <div className="w-9 h-9 rounded-lg bg-primary/15 text-primary flex items-center justify-center shrink-0">
+              <TrendingUp size={18} />
+            </div>
+          </div>
+          <div className="text-[26px] font-extrabold text-foreground tracking-tight leading-none">
+            {totalPaye.toLocaleString(dateLocale)} DA
+          </div>
         </div>
-        <div className="fac-kpi amber">
-          <div className="fac-kpi-top"><span className="fac-kpi-label">{t("facturesUi.kpis.pending")}</span><div className="fac-kpi-icon amber"><Clock /></div></div>
-          <div className="fac-kpi-val">{pending}</div>
+
+        {/* Pending */}
+        <div className="group relative rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-[18px] pt-5 flex flex-col gap-2.5 overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:border-accent/25 before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-accent before:to-transparent before:opacity-60">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
+              {t("facturesUi.kpis.pending")}
+            </span>
+            <div className="w-9 h-9 rounded-lg bg-accent/15 text-accent flex items-center justify-center shrink-0">
+              <Clock size={18} />
+            </div>
+          </div>
+          <div className="text-[26px] font-extrabold text-foreground tracking-tight leading-none">
+            {pending}
+          </div>
         </div>
-        <div className="fac-kpi sky">
-          <div className="fac-kpi-top"><span className="fac-kpi-label">{t("facturesUi.kpis.totalInvoices")}</span><div className="fac-kpi-icon sky"><FileText /></div></div>
-          <div className="fac-kpi-val">{factures.length}</div>
+
+        {/* Total Invoices */}
+        <div className="group relative rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-[18px] pt-5 flex flex-col gap-2.5 overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:border-primary/25 before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary before:to-transparent before:opacity-60">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-muted-foreground">
+              {t("facturesUi.kpis.totalInvoices")}
+            </span>
+            <div className="w-9 h-9 rounded-lg bg-primary/15 text-primary flex items-center justify-center shrink-0">
+              <FileText size={18} />
+            </div>
+          </div>
+          <div className="text-[26px] font-extrabold text-foreground tracking-tight leading-none">
+            {factures.length}
+          </div>
         </div>
       </div>
 
+      {/* Table Section */}
       <AdminSection title={t("facturesUi.listTitle")}>
-        <div style={{ overflowX: "auto" }}>
-          <table className="apg-table">
-            <thead>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead className="border-b border-border/30 bg-muted/10">
               <tr>
-                <th>{t("facturesUi.table.receiptNumber")}</th>
-                <th>{t("facturesUi.table.member")}</th>
-                <th>{t("facturesUi.table.amount")}</th>
-                <th>{t("facturesUi.table.paymentMethod")}</th>
-                <th>{t("facturesUi.table.status")}</th>
-                <th style={{ textAlign: "right" }}>{t("facturesUi.table.date")}</th>
+                <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-left">
+                  {t("facturesUi.table.receiptNumber")}
+                </th>
+                <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-left">
+                  {t("facturesUi.table.member")}
+                </th>
+                <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-left">
+                  {t("facturesUi.table.amount")}
+                </th>
+                <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-left">
+                  {t("facturesUi.table.paymentMethod")}
+                </th>
+                <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-left">
+                  {t("facturesUi.table.status")}
+                </th>
+                <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-right">
+                  {t("facturesUi.table.date")}
+                </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-border/30">
               {factures.map((facture) => {
                 const initials = `${facture.adherent.prenom?.[0] ?? ""}${facture.adherent.nom?.[0] ?? ""}`.toUpperCase();
                 return (
-                  <tr key={facture.id}>
-                    <td><span className="fac-receipt">{facture.numeroRecu || "—"}</span></td>
-                    <td>
-                      <div className="fac-user-cell">
-                        <div className="fac-initials" aria-hidden="true">{initials}</div>
-                        <span className="fac-user-name">{facture.adherent.prenom} {facture.adherent.nom}</span>
+                  <tr key={facture.id} className="hover:bg-card/30 transition-colors">
+                    <td className="px-3.5 py-2.5 align-middle">
+                      <span className="font-mono text-[11.5px] text-muted-foreground">
+                        {facture.numeroRecu || "—"}
+                      </span>
+                    </td>
+                    <td className="px-3.5 py-2.5 align-middle">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-[10px] font-bold text-primary-foreground shrink-0">
+                          {initials}
+                        </div>
+                        <span className="text-[13px] font-semibold text-foreground">
+                          {facture.adherent.prenom} {facture.adherent.nom}
+                        </span>
                       </div>
                     </td>
-                    <td><span className="fac-amount">{Number(facture.montantTtc).toLocaleString(dateLocale)} DA</span></td>
-                    <td><span className="fac-method"><span aria-hidden="true">{methodIcon[facture.modePaiement] ?? "💳"}</span>{t(`paymentMethods.${facture.modePaiement}`)}</span></td>
-                    <td><span className={`fac-status-badge ${statusStyle[facture.statut] ?? "fac-status-ann"}`}>{t(`factureStatus.${facture.statut}`)}</span></td>
-                    <td style={{ textAlign: "right", color: "hsl(var(--muted-foreground))", fontSize: 12 }}>{new Date(facture.dateCreation).toLocaleDateString(dateLocale)}</td>
+                    <td className="px-3.5 py-2.5 align-middle">
+                      <span className="font-bold text-foreground">
+                        {Number(facture.montantTtc).toLocaleString(dateLocale)} DA
+                      </span>
+                    </td>
+                    <td className="px-3.5 py-2.5 align-middle">
+                      <span className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
+                        <span aria-hidden="true">{methodIcon[facture.modePaiement] ?? "💳"}</span>
+                        {t(`paymentMethods.${facture.modePaiement}`)}
+                      </span>
+                    </td>
+                    <td className="px-3.5 py-2.5 align-middle">
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap ${statusStyle[facture.statut] ?? "bg-muted/12 text-muted-foreground border border-muted/20"}`}>
+                        {t(`factureStatus.${facture.statut}`)}
+                      </span>
+                    </td>
+                    <td className="px-3.5 py-2.5 align-middle text-right text-xs text-muted-foreground">
+                      {new Date(facture.dateCreation).toLocaleDateString(dateLocale)}
+                    </td>
                   </tr>
                 );
               })}

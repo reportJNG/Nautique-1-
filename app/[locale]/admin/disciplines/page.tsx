@@ -29,61 +29,56 @@ export default async function DisciplinesPage({
 
   return (
     <AdminPageShell locale={locale}>
-      <style>{`
-        .dis-tabs { display: flex; gap: 4px; margin-bottom: 24px; }
-        .dis-tab-input { display: none; }
-        .dis-tab-label {
-          padding: 8px 18px; border-radius: 8px;
-          font-size: 13px; font-weight: 500; cursor: pointer;
-          color: hsl(var(--muted-foreground)); background: transparent;
-          transition: all 180ms ease; user-select: none;
-          display: inline-flex; align-items: center; gap: 6px;
-        }
-        .dis-tab-input:checked + .dis-tab-label {
-          background: hsl(var(--primary)/0.1);
-          color: hsl(var(--primary));
-          font-weight: 600;
-          ring: 1px solid hsl(var(--primary)/0.3);
-        }
-        .dis-tab-label:hover { color: hsl(var(--foreground)); background: hsl(var(--muted)/0.2); }
-        #dis-tab-espaces:checked  ~ .dis-content .dis-panel-espaces     { display: block; }
-        #dis-tab-espaces:checked  ~ .dis-content .dis-panel-disciplines { display: none; }
-        #dis-tab-disc:checked     ~ .dis-content .dis-panel-espaces     { display: none; }
-        #dis-tab-disc:checked     ~ .dis-content .dis-panel-disciplines { display: block; }
-        .dis-espace-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
-        @media (min-width: 768px) { .dis-espace-grid { grid-template-columns: repeat(2, 1fr); } }
-        .dis-content { margin-top: 0; }
-      `}</style>
-
       <AdminPageHeader
         title={t("disciplinesUi.pageTitle")}
         description={`${espaces.length} espaces · ${disciplines.length} disciplines`}
         icon={<Dumbbell />}
       />
 
-      <input type="radio" name="dis-tab" id="dis-tab-espaces" className="dis-tab-input" defaultChecked />
-      <input type="radio" name="dis-tab" id="dis-tab-disc" className="dis-tab-input" />
+      {/* Hidden radio inputs for tab switching */}
+      <input
+        type="radio"
+        name="dis-tab"
+        id="dis-tab-espaces"
+        className="hidden"
+        defaultChecked
+      />
+      <input
+        type="radio"
+        name="dis-tab"
+        id="dis-tab-disc"
+        className="hidden"
+      />
 
-      <div className="dis-tabs">
-        <label htmlFor="dis-tab-espaces" className="dis-tab-label">
+      {/* Tab Buttons */}
+      <div className="flex gap-1 mb-6">
+        <label
+          htmlFor="dis-tab-espaces"
+          className="inline-flex items-center gap-1.5 px-[18px] py-2 rounded-lg text-[13px] font-medium cursor-pointer transition-all duration-180 text-muted-foreground bg-transparent hover:text-foreground hover:bg-muted/20 has-[:checked]:bg-primary/10 has-[:checked]:text-primary has-[:checked]:font-semibold has-[:checked]:ring-1 has-[:checked]:ring-primary/30"
+        >
           <Waves size={14} />
           {t("disciplinesUi.tabs.espaces")}
         </label>
-        <label htmlFor="dis-tab-disc" className="dis-tab-label">
+        <label
+          htmlFor="dis-tab-disc"
+          className="inline-flex items-center gap-1.5 px-[18px] py-2 rounded-lg text-[13px] font-medium cursor-pointer transition-all duration-180 text-muted-foreground bg-transparent hover:text-foreground hover:bg-muted/20 has-[:checked]:bg-primary/10 has-[:checked]:text-primary has-[:checked]:font-semibold has-[:checked]:ring-1 has-[:checked]:ring-primary/30"
+        >
           <Tag size={14} />
           {t("disciplinesUi.tabs.disciplines")}
         </label>
       </div>
 
-      <div className="dis-content">
-        <div className="dis-panel-espaces">
-          <div className="dis-espace-grid">
+      {/* Tab Content */}
+      <div>
+        {/* Espaces Panel */}
+        <div className="block [input#dis-tab-disc:checked~&]:hidden">
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
             {espaces.map((espace, idx) => {
               const col = espaceColors[idx % espaceColors.length];
               return (
                 <div
                   key={espace.id}
-                  className={`rounded-2xl border border-border/50 bg-card/40 backdrop-blur-sm p-5 flex flex-col gap-4 transition-all duration-200 hover:translate-y-[-2px] hover:bg-card/60 ring-1 ${col.border}`}
+                  className={`rounded-2xl border border-border/50 bg-card/40 backdrop-blur-sm p-5 flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:bg-card/60 ring-1 ${col.border}`}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="text-base font-bold text-foreground">
@@ -119,7 +114,8 @@ export default async function DisciplinesPage({
           </div>
         </div>
 
-        <div className="dis-panel-disciplines">
+        {/* Disciplines Panel */}
+        <div className="hidden [input#dis-tab-espaces:checked~&]:hidden [input#dis-tab-disc:checked~&]:block">
           <AdminSection title={t("disciplinesUi.tabs.disciplines")} description={`${disciplines.length} disciplines enregistrées`}>
             <AdminDataTable>
               <div className="overflow-x-auto">
