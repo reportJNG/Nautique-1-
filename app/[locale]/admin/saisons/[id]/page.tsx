@@ -31,148 +31,109 @@ export default async function SaisonDetailPage({
   const saison = await getSaison(parseInt(id));
   if (!saison) notFound();
 
-  const statutColor: Record<string, { cls: string; label: string }> = {
-    OUV: { cls: "sai-stat-ouv", label: t("saisonStatus.OUV") },
-    FER: { cls: "sai-stat-fer", label: t("saisonStatus.FER") },
-    CLO: { cls: "sai-stat-clo", label: t("saisonStatus.CLO") },
+  const statutColor: Record<string, string> = {
+    OUV: "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11.5px] font-bold bg-primary/12 text-primary border border-primary/25",
+    FER: "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11.5px] font-bold bg-muted/12 text-muted-foreground border border-muted/20",
+    CLO: "inline-flex items-center px-2.5 py-0.5 rounded-full text-[11.5px] font-bold bg-destructive/12 text-destructive border border-destructive/25",
   };
-  const stat = statutColor[saison.statut] ?? { cls: "sai-stat-fer", label: saison.statut };
+  const statClass = statutColor[saison.statut] ?? statutColor.FER;
 
   return (
     <AdminPageShell locale={locale}>
-      <style>{`
-        .sai-back {
-          display: inline-flex; align-items: center; gap: 7px;
-          padding: 7px 14px; border-radius: 8px;
-          background: hsl(var(--muted)/0.1); border: 1px solid hsl(var(--border)/0.5);
-          color: hsl(var(--muted-foreground)); font-size: 13px; font-weight: 500;
-          text-decoration: none; margin-bottom: 24px;
-          transition: background 150ms, color 150ms;
-        }
-        .sai-back:hover { background: hsl(var(--muted)/0.15); color: hsl(var(--foreground)); }
-
-        .sai-hero {
-          padding: 20px 24px; border-radius: 14px;
-          border: 1px solid hsl(var(--border)/0.5);
-          background: hsl(var(--card)/0.8); backdrop-filter: blur(12px);
-          margin-bottom: 16px; display: flex; align-items: flex-start;
-          gap: 16px; position: relative; overflow: hidden;
-        }
-        .sai-hero::before {
-          content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-          background: linear-gradient(90deg, transparent, hsl(var(--primary)/0.4), transparent);
-        }
-        .sai-hero-icon {
-          width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
-          background: hsl(var(--primary)/0.12); border: 1px solid hsl(var(--primary)/0.2);
-          display: flex; align-items: center; justify-content: center; color: hsl(var(--primary));
-        }
-        .sai-hero-icon svg { width: 22px; height: 22px; }
-        .sai-hero-title { font-size: 20px; font-weight: 800; color: hsl(var(--foreground)); }
-        .sai-hero-dates { font-size: 12.5px; color: hsl(var(--muted-foreground)); margin-top: 4px; display: flex; align-items: center; gap: 5px; }
-        .sai-hero-badges { display: flex; gap: 8px; margin-top: 8px; }
-        .sai-stat-ouv { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;background:hsl(var(--primary)/0.12);color:hsl(var(--primary));border:1px solid hsl(var(--primary)/0.25); }
-        .sai-stat-fer { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;background:hsl(var(--muted)/0.12);color:hsl(var(--muted-foreground));border:1px solid hsl(var(--muted)/0.2); }
-        .sai-stat-clo { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;background:hsl(var(--destructive)/0.12);color:hsl(var(--destructive));border:1px solid hsl(var(--destructive)/0.25); }
-        .sai-count-chip { display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:hsl(var(--primary)/0.1);color:hsl(var(--primary));border:1px solid hsl(var(--primary)/0.2); }
-
-        .sai-grid { display: grid; gap: 14px; }
-        @media (min-width: 900px) { .sai-grid { grid-template-columns: 2fr 1fr; } }
-
-        .sai-card {
-          border-radius: 14px; border: 1px solid hsl(var(--border)/0.5);
-          background: hsl(var(--card)/0.8); backdrop-filter: blur(12px); overflow: hidden;
-        }
-        .sai-card-hdr {
-          display: flex; align-items: center; gap: 9px;
-          padding: 13px 18px 11px; border-bottom: 1px solid hsl(var(--border)/0.3);
-        }
-        .sai-card-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .sai-card-icon.cyan { background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.2); }
-        .sai-card-icon.purple { background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.2); }
-        .sai-card-icon svg { width: 14px; height: 14px; }
-        .sai-card-title { font-size: 13px; font-weight: 600; color: hsl(var(--foreground)); }
-
-        /* Creneaux table */
-        .apg-table { width: 100%; border-collapse: collapse; }
-        .apg-table thead th { padding: 10px 14px; font-size: 11px; font-weight: 700; color: hsl(var(--muted-foreground)); text-transform: uppercase; letter-spacing: 0.08em; text-align: left; border-bottom: 1px solid hsl(var(--border)/0.3); background: hsl(var(--muted)/0.1); }
-        .apg-table tbody tr { border-bottom: 1px solid hsl(var(--border)/0.2); transition: background 120ms; }
-        .apg-table tbody tr:hover { background: hsl(var(--primary)/0.03); }
-        .apg-table tbody tr:last-child { border-bottom: none; }
-        .apg-table td { padding: 10px 14px; font-size: 13px; color: hsl(var(--foreground)); vertical-align: middle; }
-        .apg-table td strong { color: hsl(var(--foreground)); font-weight: 600; }
-        .apg-table-empty { padding: 40px 20px; text-align: center; color: hsl(var(--muted-foreground)); font-size: 13px; }
-
-        /* Day badge */
-        .sai-day-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; background: hsl(var(--primary)/0.1); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.2); }
-        .sai-time { display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; color: hsl(var(--muted-foreground)); }
-
-        /* Periods */
-        .sai-period { display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-bottom: 1px solid hsl(var(--border)/0.2); }
-        .sai-period:last-child { border-bottom: none; }
-        .sai-period-icon { width: 28px; height: 28px; border-radius: 7px; background: hsl(var(--primary)/0.1); border: 1px solid hsl(var(--primary)/0.2); display: flex; align-items: center; justify-content: center; color: hsl(var(--primary)); flex-shrink: 0; }
-        .sai-period-icon svg { width: 13px; }
-        .sai-period-text { font-size: 13px; color: hsl(var(--foreground)); }
-        .sai-period-empty { padding: 24px 18px; text-align: center; color: hsl(var(--muted-foreground)); font-size: 13px; }
-      `}</style>
-
-      <Link href={`/${locale}/admin/saisons`} className="sai-back">
-        <ArrowLeft size={14} />
-        {t("saisonsUi.pageTitle")}
+      {/* Back button */}
+      <Link
+        href={`/${locale}/admin/saisons`}
+        className="inline-flex w-fit items-center gap-2 px-3 py-1.5 rounded-lg bg-muted/10 border border-border/50 text-muted-foreground text-sm font-medium no-underline hover:bg-muted/15 hover:text-foreground transition-all duration-150 mb-6"
+      >
+        <ArrowLeft size={16} />
+        {t("abonnementsUi.new.back")}
       </Link>
 
-      {/* Hero */}
-      <div className="sai-hero">
-        <div className="sai-hero-icon"><Calendar /></div>
+      {/* Hero Section */}
+      <div className="relative p-5 px-6 rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm mb-4 flex items-start gap-4 overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary/40 before:to-transparent">
+        <div className="w-12 h-12 rounded-xl bg-primary/12 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+          <Calendar size={22} />
+        </div>
         <div>
-          <div className="sai-hero-title">{saison.designation}</div>
-          <div className="sai-hero-dates">
+          <div className="text-xl font-extrabold text-foreground">
+            {saison.designation}
+          </div>
+          <div className="text-[12.5px] text-muted-foreground mt-1 flex items-center gap-1.5">
             <CalendarRange size={12} />
             {t("saisonsUi.detail.dateRange", {
               start: new Date(saison.dateDebut).toLocaleDateString(dateLocale),
               end: new Date(saison.dateFin).toLocaleDateString(dateLocale),
             })}
           </div>
-          <div className="sai-hero-badges">
-            <span className={stat.cls}>{stat.label}</span>
-            <span className="sai-count-chip"><Dumbbell size={10} />{saison.creneaux.length} créneaux</span>
-            <span className="sai-count-chip"><CalendarRange size={10} />{saison.periodes.length} périodes</span>
+          <div className="flex gap-2 mt-2">
+            <span className={statClass}>{t(`saisonStatus.${saison.statut}`)}</span>
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-primary/10 text-primary border border-primary/20">
+              <Dumbbell size={10} />
+              {saison.creneaux.length} créneaux
+            </span>
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-primary/10 text-primary border border-primary/20">
+              <CalendarRange size={10} />
+              {saison.periodes.length} périodes
+            </span>
           </div>
         </div>
       </div>
 
-      <div className="sai-grid">
-        {/* Creneaux */}
-        <div className="sai-card">
-          <div className="sai-card-hdr">
-            <div className="sai-card-icon cyan"><Dumbbell /></div>
-            <span className="sai-card-title">{t("saisonsUi.detail.cards.creneaux")} ({saison.creneaux.length})</span>
+      <div className="grid gap-3.5 lg:grid-cols-[2fr_1fr]">
+        {/* Creneaux Table */}
+        <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden">
+          <div className="flex items-center gap-2.5 px-[18px] pt-[13px] pb-[11px] border-b border-border/30">
+            <div className="w-[30px] h-[30px] rounded-lg bg-primary/12 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+              <Dumbbell size={14} />
+            </div>
+            <span className="text-[13px] font-semibold text-foreground">
+              {t("saisonsUi.detail.cards.creneaux")} ({saison.creneaux.length})
+            </span>
           </div>
+
           {saison.creneaux.length === 0 ? (
-            <div className="apg-table-empty">Aucun créneau dans cette saison</div>
+            <div className="py-10 px-5 text-center text-muted-foreground text-[13px]">
+              Aucun créneau dans cette saison
+            </div>
           ) : (
-            <div style={{ overflowX: "auto" }}>
-              <table className="apg-table">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
                 <thead>
-                  <tr>
-                    <th>{t("saisonsUi.detail.table.discipline")}</th>
-                    <th>{t("saisonsUi.detail.table.day")}</th>
-                    <th>{t("saisonsUi.detail.table.schedule")}</th>
-                    <th>{t("saisonsUi.detail.table.group")}</th>
+                  <tr className="border-b border-border/30 bg-muted/10">
+                    <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-left">
+                      {t("saisonsUi.detail.table.discipline")}
+                    </th>
+                    <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-left">
+                      {t("saisonsUi.detail.table.day")}
+                    </th>
+                    <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-left">
+                      {t("saisonsUi.detail.table.schedule")}
+                    </th>
+                    <th className="px-3.5 py-2.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wide text-left">
+                      {t("saisonsUi.detail.table.group")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {saison.creneaux.map((c) => (
-                    <tr key={c.id}>
-                      <td><strong>{c.discipline.designation}</strong></td>
-                      <td><span className="sai-day-badge">{t(`days.${DAY_KEYS[c.jourSemaine]}`)}</span></td>
-                      <td>
-                        <span className="sai-time">
+                    <tr key={c.id} className="border-b border-border/20 last:border-b-0 hover:bg-primary/5 transition-colors">
+                      <td className="px-3.5 py-2.5 text-[13px] text-foreground align-middle">
+                        <strong className="font-semibold">{c.discipline.designation}</strong>
+                      </td>
+                      <td className="px-3.5 py-2.5 text-[13px] text-foreground align-middle">
+                        <span className="inline-block px-2 py-0.5 rounded-md text-[11.5px] font-semibold bg-primary/10 text-primary border border-primary/20">
+                          {t(`days.${DAY_KEYS[c.jourSemaine]}`)}
+                        </span>
+                      </td>
+                      <td className="px-3.5 py-2.5 text-[13px] text-foreground align-middle">
+                        <span className="inline-flex items-center gap-1 text-[12.5px] text-muted-foreground">
                           <Clock size={11} />
                           {new Date(c.heureDebut).toTimeString().slice(0, 5)} – {new Date(c.heureFin).toTimeString().slice(0, 5)}
                         </span>
                       </td>
-                      <td>{c.groupe || <span style={{ color: "hsl(var(--muted-foreground))" }}>—</span>}</td>
+                      <td className="px-3.5 py-2.5 text-[13px] text-foreground align-middle">
+                        {c.groupe || <span className="text-muted-foreground">—</span>}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -181,20 +142,29 @@ export default async function SaisonDetailPage({
           )}
         </div>
 
-        {/* Periodes */}
-        <div className="sai-card">
-          <div className="sai-card-hdr">
-            <div className="sai-card-icon purple"><CalendarRange /></div>
-            <span className="sai-card-title">{t("saisonsUi.detail.cards.periodes")} ({saison.periodes.length})</span>
+        {/* Periodes List */}
+        <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden">
+          <div className="flex items-center gap-2.5 px-[18px] pt-[13px] pb-[11px] border-b border-border/30">
+            <div className="w-[30px] h-[30px] rounded-lg bg-primary/12 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+              <CalendarRange size={14} />
+            </div>
+            <span className="text-[13px] font-semibold text-foreground">
+              {t("saisonsUi.detail.cards.periodes")} ({saison.periodes.length})
+            </span>
           </div>
+
           {saison.periodes.length === 0 ? (
-            <div className="sai-period-empty">{t("saisonsUi.detail.emptyPeriods")}</div>
+            <div className="py-6 px-[18px] text-center text-muted-foreground text-[13px]">
+              {t("saisonsUi.detail.emptyPeriods")}
+            </div>
           ) : (
             <div>
               {saison.periodes.map((p) => (
-                <div key={p.id} className="sai-period">
-                  <div className="sai-period-icon"><CalendarRange /></div>
-                  <span className="sai-period-text">
+                <div key={p.id} className="flex items-center gap-2.5 px-[18px] py-2.5 border-b border-border/20 last:border-b-0">
+                  <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+                    <CalendarRange size={13} />
+                  </div>
+                  <span className="text-[13px] text-foreground">
                     {t("saisonsUi.detail.dateRange", {
                       start: new Date(p.dateDebut).toLocaleDateString(dateLocale),
                       end: new Date(p.dateFin).toLocaleDateString(dateLocale),

@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db/prisma";
-import { AdminPageHeader, AdminSection, AdminDataTable, AdminPageShell } from "@/components/admin/AdminPage";
+import { AdminPageShell } from "@/components/admin/AdminPage";
 import { getTranslations } from "next-intl/server";
 import { Clock, Users, Dumbbell, MapPin, Calendar, ChevronRight } from "lucide-react";
 
@@ -30,19 +30,6 @@ export default async function CreneauxPage({
   const totalEnrolled = creneaux.reduce((sum, c) => sum + c._count.abonnements, 0);
   const averageFillRate = totalCapacity > 0 ? (totalEnrolled / totalCapacity) * 100 : 0;
 
-  const getDayColor = (day: number) => {
-    const colors = [
-      "text-primary ring-primary/30", // Sunday
-      "text-primary ring-primary/30", // Monday
-      "text-primary ring-primary/30", // Tuesday
-      "text-primary ring-primary/30", // Wednesday
-      "text-primary ring-primary/30", // Thursday
-      "text-primary ring-primary/30", // Friday
-      "text-primary ring-primary/30", // Saturday
-    ];
-    return colors[day % colors.length];
-  };
-
   // Enhanced fill color with primary scheme for status badges
   const getFillColor = (fill: number) => {
     if (fill >= 100) return "bg-primary";
@@ -57,27 +44,23 @@ export default async function CreneauxPage({
       return {
         label: "Complet",
         color: "text-primary ring-primary/30",
-        icon: null
       };
     }
     if (fillPercentage >= 80) {
       return {
         label: "Presque complet",
         color: "text-primary ring-primary/30",
-        icon: null
       };
     }
     if (fillPercentage >= 50) {
       return {
         label: "Places limitées",
         color: "text-accent ring-accent/30",
-        icon: null
       };
     }
     return {
       label: "Disponible",
       color: "text-primary ring-primary/30",
-      icon: null
     };
   };
 
@@ -196,7 +179,6 @@ export default async function CreneauxPage({
                     ? Math.min(100, Math.round((creneau._count.abonnements / creneau.nombreMax) * 100))
                     : 0;
                   const fillColor = getFillColor(fillPercentage);
-                  const dayColor = getDayColor(creneau.jourSemaine);
                   const statusBadge = getStatusBadge(fillPercentage);
 
                   return (
@@ -218,7 +200,7 @@ export default async function CreneauxPage({
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium ring-1 bg-transparent ${dayColor}`}>
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium ring-1 bg-transparent text-primary ring-primary/30">
                           <Calendar className="w-3 h-3 mr-1.5" />
                           {t(`days.${dayKeyByIndex[creneau.jourSemaine]}`)}
                         </span>
