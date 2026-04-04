@@ -24,7 +24,7 @@ function FieldError({ message }: { message: string }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -6 }}
       transition={{ duration: 0.15 }}
-      className="flex items-center gap-1.5 text-xs font-medium text-red-500 dark:text-red-400"
+      className="flex items-center gap-1.5 text-xs font-medium text-destructive"
     >
       <AlertCircle className="h-3.5 w-3.5 shrink-0" />
       {message}
@@ -186,15 +186,15 @@ function AgentLoginForm() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-gray-950 dark:to-gray-900"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-background to-muted/50"
       >
         <div className="flex flex-col items-center gap-4">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            className="h-14 w-14 rounded-full border-4 border-cyan-600 border-t-transparent dark:border-cyan-400"
+            className="h-14 w-14 rounded-full border-4 border-primary border-t-transparent"
           />
-          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+          <p className="text-sm font-medium text-muted-foreground">
             {t("staffLogin.loading")}
           </p>
         </div>
@@ -203,21 +203,21 @@ function AgentLoginForm() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
       {/* Background decorations */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-cyan-200/20 blur-3xl dark:bg-cyan-500/10" />
-        <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-blue-200/20 blur-3xl dark:bg-blue-500/10" />
+        <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-primary/20 blur-3xl" />
+        <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-primary/20 blur-3xl" />
         <motion.div
           animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.45, 0.25] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-cyan-300/10 to-blue-300/10 blur-3xl"
+          className="absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-primary/10 to-primary/10 blur-3xl"
         />
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
           <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="waves" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M0 20 Q10 15 20 20 T40 20" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-cyan-600" />
+                <path d="M0 20 Q10 15 20 20 T40 20" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-primary" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#waves)" />
@@ -234,7 +234,7 @@ function AgentLoginForm() {
       >
         <button
           onClick={() => router.push("/")}
-          className="group flex cursor-pointer items-center gap-2 rounded-xl bg-white/80 px-4 py-2 text-sm font-medium text-gray-700 shadow-md backdrop-blur-sm transition-all duration-200 hover:gap-3 hover:bg-white hover:shadow-lg dark:bg-gray-900/80 dark:text-gray-300 dark:hover:bg-gray-900"
+          className="group flex cursor-pointer items-center gap-2 rounded-xl bg-card/80 px-4 py-2 text-sm font-medium text-foreground shadow-md backdrop-blur-sm transition-all duration-200 hover:gap-3 hover:bg-card hover:shadow-lg"
         >
           <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
           <span className="hidden sm:inline">{t("staffLogin.back")}</span>
@@ -249,29 +249,29 @@ function AgentLoginForm() {
           variants={containerVariants}
           className="w-full max-w-md"
         >
-          <Card className="overflow-hidden border-0 bg-white/85 shadow-2xl backdrop-blur-xl dark:bg-gray-900/85">
-            <div className="h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-400" />
+          <Card className="overflow-hidden border-0 bg-card/85 shadow-2xl backdrop-blur-xl">
+            <div className="h-1 w-full bg-gradient-to-r from-primary via-primary/80 to-primary/60" />
 
             <CardHeader className="space-y-4 pb-6 pt-8 text-center">
               <motion.div variants={itemVariants} className="flex justify-center">
                 <div className="relative">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 blur-lg opacity-50" />
-                  <div className="relative rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 p-3 shadow-lg">
-                    <Waves className="h-10 w-10 text-white" />
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-primary/80 blur-lg opacity-50" />
+                  <div className="relative rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-3 shadow-lg">
+                    <Waves className="h-10 w-10 text-primary-foreground" />
                   </div>
                 </div>
               </motion.div>
 
               <motion.div variants={itemVariants}>
-                <h1 className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent dark:from-cyan-400 dark:to-blue-400">
+                <h1 className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-2xl font-bold text-transparent">
                   {t("login")}
                 </h1>
-                <p className="mt-1 flex items-center justify-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-1 flex items-center justify-center gap-1.5 text-sm text-muted-foreground">
                   <Anchor className="h-3.5 w-3.5" />
                   <span>{t("staffLogin.title")}</span>
                   <Shield className="h-3.5 w-3.5" />
                 </p>
-                <p className="mt-0.5 text-xs text-gray-400 dark:text-gray-500">
+                <p className="mt-0.5 text-xs text-muted-foreground">
                   {t("staffLogin.subtitle")}
                 </p>
               </motion.div>
@@ -281,11 +281,11 @@ function AgentLoginForm() {
               <form ref={formRef} action={handleSubmit} onKeyDown={handleKeyDown} className="space-y-4" noValidate>
                 {/* Login field */}
                 <motion.div variants={itemVariants} className="space-y-1.5">
-                  <Label htmlFor="login" className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <Label htmlFor="login" className="text-sm font-semibold text-foreground">
                     {t("staffLogin.loginLabel")}
                   </Label>
                   <div className="relative">
-                    <User className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${loginError && touched.login ? "text-red-400" : "text-gray-400"}`} />
+                    <User className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${loginError && touched.login ? "text-destructive" : "text-muted-foreground"}`} />
                     <Input
                       ref={loginInputRef}
                       id="login"
@@ -302,7 +302,7 @@ function AgentLoginForm() {
                       autoCorrect="off"
                       spellCheck={false}
                       maxLength={50}
-                      className={`border-2 pl-10 transition-all duration-200 focus:ring-4 ${loginError && touched.login ? "border-red-400 focus:border-red-400 focus:ring-red-500/15" : "border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/15 dark:border-gray-700"}`}
+                      className={`border-2 pl-10 transition-all duration-200 focus:ring-4 ${loginError && touched.login ? "border-destructive focus:border-destructive focus:ring-destructive/15" : "border-border focus:border-primary focus:ring-primary/15"}`}
                     />
                   </div>
                   <AnimatePresence>
@@ -312,11 +312,11 @@ function AgentLoginForm() {
 
                 {/* Password field */}
                 <motion.div variants={itemVariants} className="space-y-1.5">
-                  <Label htmlFor="password" className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  <Label htmlFor="password" className="text-sm font-semibold text-foreground">
                     {t("staffLogin.passwordLabel")}
                   </Label>
                   <div className="relative">
-                    <Lock className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${passwordError && touched.password ? "text-red-400" : "text-gray-400"}`} />
+                    <Lock className={`absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors ${passwordError && touched.password ? "text-destructive" : "text-muted-foreground"}`} />
                     <Input
                       id="password"
                       name="password"
@@ -329,14 +329,14 @@ function AgentLoginForm() {
                       disabled={isPending}
                       autoComplete="current-password"
                       maxLength={128}
-                      className={`border-2 pl-10 pr-11 transition-all duration-200 focus:ring-4 ${passwordError && touched.password ? "border-red-400 focus:border-red-400 focus:ring-red-500/15" : "border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/15 dark:border-gray-700"}`}
+                      className={`border-2 pl-10 pr-11 transition-all duration-200 focus:ring-4 ${passwordError && touched.password ? "border-destructive focus:border-destructive focus:ring-destructive/15" : "border-border focus:border-primary focus:ring-primary/15"}`}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
                       disabled={isPending}
                       aria-label={showPassword ? t("staffLogin.hidePassword") : t("staffLogin.showPassword")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-0.5 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-0.5 text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -348,9 +348,9 @@ function AgentLoginForm() {
 
                 {/* Security hint */}
                 <motion.div variants={itemVariants}>
-                  <div className="flex items-center gap-2 rounded-lg bg-cyan-50 p-2.5 dark:bg-cyan-950/30">
-                    <Key className="h-3.5 w-3.5 text-cyan-600 dark:text-cyan-400" />
-                    <p className="text-xs text-cyan-700 dark:text-cyan-300">
+                  <div className="flex items-center gap-2 rounded-lg bg-primary/10 p-2.5">
+                    <Key className="h-3.5 w-3.5 text-primary" />
+                    <p className="text-xs text-primary">
                       {t("staffLogin.securityHint")}
                     </p>
                   </div>
@@ -363,9 +363,9 @@ function AgentLoginForm() {
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
+                      className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
                     />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-muted-foreground">
                       {t("staffLogin.rememberMe")}
                     </span>
                   </label>
@@ -376,7 +376,7 @@ function AgentLoginForm() {
                   <Button
                     type="submit"
                     disabled={isPending || !isValid}
-                    className="relative w-full cursor-pointer overflow-hidden bg-gradient-to-r from-cyan-600 to-blue-600 py-6 text-sm font-semibold text-white shadow-md shadow-cyan-500/20 transition-all duration-200 hover:scale-[1.01] hover:shadow-lg hover:shadow-cyan-500/30 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
+                    className="relative w-full cursor-pointer overflow-hidden bg-gradient-to-r from-primary to-primary/80 py-6 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all duration-200 hover:scale-[1.01] hover:shadow-lg hover:shadow-primary/30 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
                   >
                     {isPending ? (
                       <span className="flex items-center gap-2">
@@ -396,16 +396,16 @@ function AgentLoginForm() {
               {/* Divider */}
               <motion.div variants={itemVariants} className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200 dark:border-gray-700" />
+                  <div className="w-full border-t border-border" />
                 </div>
                 <div className="relative flex justify-center text-xs">
-                  <span className="bg-white/80 px-3 text-gray-400 backdrop-blur-sm dark:bg-gray-900/80">
+                  <span className="bg-card/80 px-3 text-muted-foreground backdrop-blur-sm">
                     {t("staffLogin.or")}
                   </span>
                 </div>
               </motion.div>
 
-              <motion.p variants={itemVariants} className="text-center text-xs text-gray-500 dark:text-gray-400">
+              <motion.p variants={itemVariants} className="text-center text-xs text-muted-foreground">
                 {t("staffLogin.staffOnly")}
               </motion.p>
             </CardContent>

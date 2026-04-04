@@ -110,49 +110,49 @@ export function ModifierAdherentClient({ adherent, organisations, locale }: Prop
         }
     };
 
-    const inputClass = "w-full px-4 py-2.5 rounded-xl bg-slate-800/50 border border-slate-700 text-slate-200 text-sm placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:bg-slate-800/70 transition-all duration-200";
-    const labelClass = "block text-xs font-semibold text-slate-300 mb-2 uppercase tracking-wider";
+    const inputClass = "w-full px-4 py-2.5 rounded-xl bg-card/50 border border-border text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-card/70 transition-all duration-200";
+    const labelClass = "block text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider";
 
     const sections = [
-        { id: "identity", icon: User, title: "Identité", color: "indigo", gradient: "from-indigo-500 to-purple-500" },
-        { id: "contact", icon: Mail, title: "Contact", color: "blue", gradient: "from-blue-500 to-cyan-500" },
-        { id: "organisation", icon: Building2, title: "Organisation", color: "amber", gradient: "from-amber-500 to-orange-500" },
-        { id: "security", icon: ShieldCheck, title: "Sécurité", color: "rose", gradient: "from-rose-500 to-pink-500" },
+        { id: "identity", icon: User, title: "Identité", color: "indigo", gradient: "from-primary to-primary/80" },
+        { id: "contact", icon: Mail, title: "Contact", color: "blue", gradient: "from-primary to-primary/80" },
+        { id: "organisation", icon: Building2, title: "Organisation", color: "amber", gradient: "from-primary to-primary/80" },
+        { id: "security", icon: ShieldCheck, title: "Sécurité", color: "rose", gradient: "from-primary to-primary/80" },
     ];
 
     return (
         <form onSubmit={handleSubmit} className="space-y-8">
             {/* Enhanced Header */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10" />
-                <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card/90 via-card/80 to-card/90 backdrop-blur-xl border border-border/50 shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/10" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse delay-1000" />
 
                 <div className="relative p-8">
                     <div className="flex items-center gap-6">
                         <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-xl opacity-50" />
-                            <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-2xl font-bold text-white shadow-xl ring-4 ring-indigo-500/30">
+                            <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary rounded-full blur-xl opacity-50" />
+                            <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-2xl font-bold text-primary-foreground shadow-xl ring-4 ring-primary/30">
                                 {adherent.prenom[0]}{adherent.nom[0]}
                             </div>
-                            <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 border-slate-900 flex items-center justify-center">
-                                <CheckCircle className="w-3 h-3 text-white" />
+                            <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-primary border-2 border-border flex items-center justify-center">
+                                <CheckCircle className="w-3 h-3 text-primary-foreground" />
                             </div>
                         </div>
 
                         <div className="flex-1">
                             <div className="flex items-center gap-3 mb-2">
-                                <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+                                <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
                                     {adherent.prenom} {adherent.nom}
                                 </h1>
                                 <span className={`px-2 py-1 rounded-full text-xs font-semibold ${parseInt(form.actif) === 1
-                                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                                    : "bg-red-500/20 text-red-400 border border-red-500/30"
+                                    ? "bg-primary/20 text-primary border border-primary/30"
+                                    : "bg-destructive/20 text-destructive border border-destructive/30"
                                     }`}>
                                     {parseInt(form.actif) === 1 ? "Actif" : "Inactif"}
                                 </span>
                             </div>
-                            <div className="flex items-center gap-4 text-sm text-slate-400">
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
                                 <span className="flex items-center gap-1.5">
                                     <Hash className="w-3.5 h-3.5" />
                                     {adherent.numeroDossier}
@@ -167,8 +167,8 @@ export function ModifierAdherentClient({ adherent, organisations, locale }: Prop
                         </div>
 
                         <div className="hidden sm:block text-right">
-                            <div className="text-xs text-slate-500 uppercase tracking-wider">Membre depuis</div>
-                            <div className="text-sm font-semibold text-slate-300">
+                            <div className="text-xs text-muted-foreground/60 uppercase tracking-wider">Membre depuis</div>
+                            <div className="text-sm font-semibold text-muted-foreground">
                                 {new Date(adherent.dateNaissance).getFullYear()}
                             </div>
                         </div>
@@ -178,32 +178,32 @@ export function ModifierAdherentClient({ adherent, organisations, locale }: Prop
 
             {/* Enhanced Notifications */}
             {error && (
-                <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-red-500/10 to-red-600/10 backdrop-blur-sm border border-red-500/30 p-4 animate-in slide-in-from-top-2 duration-300">
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-red-500/20 rounded-full blur-2xl" />
+                <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-destructive/10 to-destructive/10 backdrop-blur-sm border border-destructive/30 p-4 animate-in slide-in-from-top-2 duration-300">
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-destructive/20 rounded-full blur-2xl" />
                     <div className="relative flex items-start gap-3">
                         <div className="flex-shrink-0">
-                            <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">
-                                <AlertCircle className="w-4 h-4 text-red-400" />
+                            <div className="w-8 h-8 rounded-full bg-destructive/20 flex items-center justify-center">
+                                <AlertCircle className="w-4 h-4 text-destructive" />
                             </div>
                         </div>
                         <div className="flex-1">
-                            <p className="text-sm text-red-300 font-medium">{error}</p>
+                            <p className="text-sm text-destructive font-medium">{error}</p>
                         </div>
                     </div>
                 </div>
             )}
 
             {success && (
-                <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-emerald-500/10 to-teal-500/10 backdrop-blur-sm border border-emerald-500/30 p-4 animate-in slide-in-from-top-2 duration-300">
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-500/20 rounded-full blur-2xl" />
+                <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 to-primary/10 backdrop-blur-sm border border-primary/30 p-4 animate-in slide-in-from-top-2 duration-300">
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-primary/20 rounded-full blur-2xl" />
                     <div className="relative flex items-start gap-3">
                         <div className="flex-shrink-0">
-                            <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center animate-pulse">
-                                <CheckCircle className="w-4 h-4 text-emerald-400" />
+                            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center animate-pulse">
+                                <CheckCircle className="w-4 h-4 text-primary" />
                             </div>
                         </div>
                         <div className="flex-1">
-                            <p className="text-sm text-emerald-300 font-medium">
+                            <p className="text-sm text-primary font-medium">
                                 Modifications enregistrées avec succès ! Redirection en cours...
                             </p>
                         </div>
@@ -215,21 +215,21 @@ export function ModifierAdherentClient({ adherent, organisations, locale }: Prop
             {sections.map((section) => (
                 <div
                     key={section.id}
-                    className="group relative overflow-hidden rounded-2xl bg-slate-900/50 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600/50 transition-all duration-300"
+                    className="group relative overflow-hidden rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 hover:border-border/50 transition-all duration-300"
                     onMouseEnter={() => setActiveSection(section.id)}
                     onMouseLeave={() => setActiveSection(null)}
                 >
                     <div className={`absolute inset-0 bg-gradient-to-r ${section.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
 
                     <div className="relative">
-                        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-700/50 bg-slate-800/30">
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-border/50 bg-card/30">
                             <div className="flex items-center gap-3">
                                 <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${section.gradient} opacity-20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                                    <section.icon className={`w-5 h-5 text-${section.color}-400`} />
+                                    <section.icon className="w-5 h-5 text-primary" />
                                 </div>
                                 <div>
-                                    <h2 className="text-sm font-semibold text-slate-200">{section.title}</h2>
-                                    <p className="text-xs text-slate-500 mt-0.5">
+                                    <h2 className="text-sm font-semibold text-foreground">{section.title}</h2>
+                                    <p className="text-xs text-muted-foreground/60 mt-0.5">
                                         {section.id === "identity" && "Informations personnelles"}
                                         {section.id === "contact" && "Coordonnées et adresse"}
                                         {section.id === "organisation" && "Affiliation et statut"}
@@ -238,7 +238,7 @@ export function ModifierAdherentClient({ adherent, organisations, locale }: Prop
                                 </div>
                             </div>
                             {activeSection === section.id && (
-                                <ChevronRight className="w-4 h-4 text-slate-500 animate-pulse" />
+                                <ChevronRight className="w-4 h-4 text-muted-foreground/60 animate-pulse" />
                             )}
                         </div>
 
@@ -382,7 +382,7 @@ export function ModifierAdherentClient({ adherent, organisations, locale }: Prop
                                             </option>
                                         ))}
                                     </select>
-                                    <p className="text-xs text-slate-500 mt-2">
+                                    <p className="text-xs text-muted-foreground/60 mt-2">
                                         Sélectionnez l'organisation à laquelle cet adhérent est rattaché
                                     </p>
                                 </div>
@@ -403,12 +403,12 @@ export function ModifierAdherentClient({ adherent, organisations, locale }: Prop
                                         <button
                                             type="button"
                                             onClick={() => setShowPassword((v) => !v)}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/60 hover:text-muted-foreground transition-colors"
                                         >
                                             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                         </button>
                                     </div>
-                                    <p className="text-xs text-slate-500 mt-2 flex items-center gap-1">
+                                    <p className="text-xs text-muted-foreground/60 mt-2 flex items-center gap-1">
                                         <ShieldCheck className="w-3 h-3" />
                                         Laissez vide pour conserver le mot de passe actuel
                                     </p>
@@ -424,9 +424,9 @@ export function ModifierAdherentClient({ adherent, organisations, locale }: Prop
                 <button
                     type="button"
                     onClick={() => router.back()}
-                    className="group relative px-6 py-2.5 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 border border-slate-700 text-slate-400 hover:text-slate-200 text-sm font-medium transition-all duration-200 overflow-hidden cursor-pointer"
+                    className="group relative px-6 py-2.5 rounded-xl bg-card/50 hover:bg-muted/50 border border-border text-muted-foreground hover:text-foreground text-sm font-medium transition-all duration-200 overflow-hidden cursor-pointer"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-red-500/0 via-red-500/0 to-red-500/0 group-hover:from-red-500/10 group-hover:via-red-500/5 group-hover:to-red-500/0 transition-all duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-destructive/0 via-destructive/0 to-destructive/0 group-hover:from-destructive/10 group-hover:via-destructive/5 group-hover:to-destructive/0 transition-all duration-500" />
                     <span className="relative flex items-center gap-2">
                         <XCircle className="w-4 h-4" />
                         Annuler
@@ -436,7 +436,7 @@ export function ModifierAdherentClient({ adherent, organisations, locale }: Prop
                 <button
                     type="submit"
                     disabled={loading || success}
-                    className="group relative px-8 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-sm font-semibold shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/40 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-indigo-500/30 overflow-hidden cursor-pointer"
+                    className="group relative px-8 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/30 hover:shadow-primary/40 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-primary/30 overflow-hidden cursor-pointer"
                 >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 cursor-pointer" />
                     <span className="relative flex items-center gap-2">

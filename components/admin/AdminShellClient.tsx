@@ -166,8 +166,8 @@ const BackgroundGrid = () => (
     className="fixed inset-0 pointer-events-none z-0 opacity-[0.015]"
     style={{
       backgroundImage: `
-        linear-gradient(rgba(6,182,212,1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(6,182,212,1) 1px, transparent 1px)
+        linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
+        linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)
       `,
       backgroundSize: "60px 60px",
     }}
@@ -188,7 +188,7 @@ const MobileBackdrop = ({
     <div
       className={cn(
         "fixed inset-0 z-40 lg:hidden",
-        "bg-[#030608]/80 backdrop-blur-sm",
+        "bg-background/80 backdrop-blur-sm",
         "transition-opacity duration-300 ease-in-out",
         isOpen
           ? "opacity-100 pointer-events-auto"
@@ -303,7 +303,7 @@ export function AdminShellClient({ agent, children }: AdminShellClientProps) {
   return (
     <AdminToastProvider position="bottom" maxToasts={5}>
       <div
-        className="flex h-screen bg-[#05090f] overflow-hidden text-[#e2f0ff] font-sans selection:bg-cyan-500/30 selection:text-cyan-200"
+        className="flex h-screen bg-background overflow-hidden text-foreground font-sans selection:bg-primary/30 selection:text-primary-foreground/80"
         suppressHydrationWarning
       >
         <BackgroundGrid />
@@ -364,10 +364,10 @@ export class AdminShellErrorBoundary extends React.Component<{ children: React.R
     if (this.state.hasError) {
       return (
         this.props.fallback || (
-          <div className="flex items-center justify-center h-screen bg-[#05090f] text-[#e2f0ff]">
+          <div className="flex items-center justify-center h-screen bg-background text-foreground">
             <div className="text-center">
               <h2 className="text-xl font-bold mb-2">Something went wrong</h2>
-              <p className="text-[#7a93b4]">
+              <p className="text-muted-foreground">
                 Please refresh the page or contact support.
               </p>
             </div>

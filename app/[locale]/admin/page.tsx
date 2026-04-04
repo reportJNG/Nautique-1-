@@ -67,43 +67,43 @@ const ACCENT_STYLES: Record<Accent, {
   hover: string;
 }> = {
   cyan: {
-    iconBg: "bg-cyan-500/15",
-    iconText: "text-cyan-400",
-    glow: "via-cyan-400",
-    hover: "hover:border-cyan-500/20"
+    iconBg: "bg-primary/15",
+    iconText: "text-primary",
+    glow: "via-primary",
+    hover: "hover:border-primary/20"
   },
   emerald: {
-    iconBg: "bg-emerald-500/15",
-    iconText: "text-emerald-400",
-    glow: "via-emerald-400",
-    hover: "hover:border-emerald-500/20"
+    iconBg: "bg-primary/15",
+    iconText: "text-primary",
+    glow: "via-primary",
+    hover: "hover:border-primary/20"
   },
   amber: {
-    iconBg: "bg-amber-500/15",
-    iconText: "text-amber-400",
-    glow: "via-amber-400",
-    hover: "hover:border-amber-500/20"
+    iconBg: "bg-accent/15",
+    iconText: "text-accent",
+    glow: "via-accent",
+    hover: "hover:border-accent/20"
   },
   sky: {
-    iconBg: "bg-sky-500/15",
-    iconText: "text-sky-400",
-    glow: "via-sky-400",
-    hover: "hover:border-sky-500/20"
+    iconBg: "bg-primary/15",
+    iconText: "text-primary",
+    glow: "via-primary",
+    hover: "hover:border-primary/20"
   },
   violet: {
-    iconBg: "bg-violet-500/15",
-    iconText: "text-violet-400",
-    glow: "via-violet-400",
-    hover: "hover:border-violet-500/20"
+    iconBg: "bg-primary/15",
+    iconText: "text-primary",
+    glow: "via-primary",
+    hover: "hover:border-primary/20"
   },
 };
 
 const STATUS_STYLES: Record<StatusCode, string> = {
-  ACT: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  ATT: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-  EXP: "bg-red-400/10 text-red-400 border-red-400/20",
-  RES: "bg-sky-500/10 text-sky-400 border-sky-500/20",
-  ANN: "bg-slate-500/10 text-slate-400 border-slate-500/20",
+  ACT: "bg-primary/10 text-primary border-primary/20",
+  ATT: "bg-accent/10 text-accent border-accent/20",
+  EXP: "bg-destructive/10 text-destructive border-destructive/20",
+  RES: "bg-primary/10 text-primary border-primary/20",
+  ANN: "bg-muted/10 text-muted-foreground border-border/20",
 };
 
 const DEFAULT_STATUS_STYLE = STATUS_STYLES.ANN;
@@ -203,8 +203,8 @@ const KpiCard = ({
     if (trend == null) {
       return (
         <div className="flex items-center gap-1 text-[11px]">
-          <Minus size={11} className="text-[#3a5270]" />
-          <span className="text-[#3a5270]">{trendLabel}</span>
+          <Minus size={11} className="text-muted-foreground" />
+          <span className="text-muted-foreground">{trendLabel}</span>
         </div>
       );
     }
@@ -212,7 +212,7 @@ const KpiCard = ({
     const isPositive = trend > 0;
     const isNegative = trend < 0;
     const Icon = isPositive ? ArrowUpRight : isNegative ? ArrowDownRight : Minus;
-    const colorClass = isPositive ? "text-emerald-400" : isNegative ? "text-red-400" : "text-[#3a5270]";
+    const colorClass = isPositive ? "text-primary" : isNegative ? "text-destructive" : "text-muted-foreground";
 
     return (
       <div className="flex items-center gap-1 text-[11px]">
@@ -220,7 +220,7 @@ const KpiCard = ({
         <span className={colorClass}>
           {isPositive ? `+${trend}%` : isNegative ? `${trend}%` : trendLabel}
         </span>
-        {!isNegative && !isPositive && <span className="text-[#3a5270]">&nbsp;{trendLabel}</span>}
+        {!isNegative && !isPositive && <span className="text-muted-foreground">&nbsp;{trendLabel}</span>}
       </div>
     );
   };
@@ -228,8 +228,8 @@ const KpiCard = ({
   return (
     <div
       className={cn(
-        "group relative rounded-2xl border border-white/[0.06]",
-        "bg-[#0c1525]/80 backdrop-blur-md",
+        "group relative rounded-2xl border border-border/50",
+        "bg-card/80 backdrop-blur-md",
         "p-4 flex flex-col gap-3",
         "shadow-[0_2px_8px_rgba(0,0,0,0.25)]",
         "transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(0,0,0,0.4)]",
@@ -240,7 +240,7 @@ const KpiCard = ({
       <div className={cn("absolute top-0 inset-x-0 h-px opacity-50 bg-gradient-to-r from-transparent to-transparent", a.glow)} />
 
       <div className="flex items-start justify-between gap-2">
-        <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#3a5270]">
+        <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
           {label}
         </span>
         <div className={cn("w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0", a.iconBg, a.iconText)}>
@@ -248,7 +248,7 @@ const KpiCard = ({
         </div>
       </div>
 
-      <div className="text-[26px] font-extrabold tracking-tight text-[#f0f9ff] leading-none">
+      <div className="text-[26px] font-extrabold tracking-tight text-foreground leading-none">
         {isLoading ? "—" : value}
       </div>
 
@@ -276,8 +276,8 @@ const StatusBadge = ({ code, label }: { code: string; label: string }) => {
 
 const EmptyState = ({ message }: { message: string }) => (
   <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-    <AlertCircle className="w-12 h-12 text-[#3a5270] mb-3" />
-    <p className="text-[#3a5270] text-sm">{message}</p>
+    <AlertCircle className="w-12 h-12 text-muted-foreground mb-3" />
+    <p className="text-muted-foreground text-sm">{message}</p>
   </div>
 );
 
@@ -366,7 +366,7 @@ export default async function AdminDashboardPage({
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px]">
               <thead>
-                <tr className="border-b border-white/[0.06]">
+                <tr className="border-b border-border/50">
                   {[
                     t("abonnementsUi.table.adherent"),
                     t("abonnementsUi.table.discipline"),
@@ -378,7 +378,7 @@ export default async function AdminDashboardPage({
                     <th
                       key={index}
                       className={cn(
-                        "py-3 px-4 text-[10.5px] font-bold text-[#3a5270] uppercase tracking-widest",
+                        "py-3 px-4 text-[10.5px] font-bold text-muted-foreground uppercase tracking-widest",
                         index === 5 && "text-right"
                       )}
                     >
@@ -397,22 +397,22 @@ export default async function AdminDashboardPage({
                   return (
                     <tr
                       key={subscription.id}
-                      className="border-b border-white/[0.04] last:border-none hover:bg-white/[0.03] transition-colors duration-150"
+                      className="border-b border-border/30 last:border-none hover:bg-muted/10 transition-colors duration-150"
                     >
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-[30px] h-[30px] rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0">
+                          <div className="w-[30px] h-[30px] rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-[10px] font-bold text-primary-foreground flex-shrink-0">
                             {initials}
                           </div>
-                          <span className="text-[13px] font-semibold text-[#d8ecff]">
+                          <span className="text-[13px] font-semibold text-foreground">
                             {subscription.adherent.prenom} {subscription.adherent.nom}
                           </span>
                         </div>
                       </td>
-                      <td className="py-3 px-4 text-[13px] text-[#7a93b4]">
+                      <td className="py-3 px-4 text-[13px] text-foreground">
                         {subscription.discipline.designation}
                       </td>
-                      <td className="py-3 px-4 text-[13px] text-[#7a93b4]">
+                      <td className="py-3 px-4 text-[13px] text-foreground">
                         {subscription.typeAbonnement}
                       </td>
                       <td className="py-3 px-4">
@@ -421,10 +421,10 @@ export default async function AdminDashboardPage({
                           label={t(`abonnementStatus.${subscription.statut}`)}
                         />
                       </td>
-                      <td className="py-3 px-4 text-[13px] font-semibold text-[#d8ecff]">
+                      <td className="py-3 px-4 text-[13px] font-semibold text-foreground">
                         {formatCurrency(Number(subscription.montantTtc))}
                       </td>
-                      <td className="py-3 px-4 text-right text-[11.5px] text-[#3a5270]">
+                      <td className="py-3 px-4 text-right text-[11.5px] text-muted-foreground">
                         {formatDate(subscription.createdAt)}
                       </td>
                     </tr>

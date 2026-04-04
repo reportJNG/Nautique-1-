@@ -33,7 +33,7 @@ const inputClass = (invalid: boolean) =>
     cn(
         "h-10 rounded-xl border bg-background text-sm transition-shadow",
         "placeholder:text-muted-foreground/70",
-        "focus-visible:border-cyan-500 focus-visible:ring-2 focus-visible:ring-cyan-500/20",
+        "focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/20",
         invalid
             ? "border-destructive/70 focus-visible:border-destructive focus-visible:ring-destructive/20"
             : "border-input shadow-sm",
@@ -103,11 +103,11 @@ export function SupportForm() {
     return (
         <section
             id={SUPPORT_SECTION_ID}
-            className="relative scroll-mt-28  bg-gradient-to-b from-muted/50 via-background to-cyan-50/15 py-20 dark:from-muted/25 dark:via-background dark:to-cyan-950/20"
+            className="relative scroll-mt-28 py-20 "
             aria-labelledby="support-heading"
         >
             <div
-                className="pointer-events-none absolute start-0 top-1/4 h-64 w-64 -translate-x-1/3 rounded-full bg-cyan-400/15 blur-3xl dark:bg-cyan-500/10"
+                className="pointer-events-none absolute start-0 top-1/4 h-64 w-64 -translate-x-1/3 rounded-full bg-primary/15 blur-3xl dark:bg-primary/10"
                 aria-hidden
             />
             <div
@@ -143,12 +143,12 @@ export function SupportForm() {
                 >
                     <div
                         className={cn(
-                            "overflow-hidden rounded-2xl border border-border/80 bg-card/95 shadow-xl shadow-cyan-500/[0.06] backdrop-blur-sm",
-                            "dark:border-white/10 dark:bg-slate-900/40 dark:shadow-black/40",
+                            "overflow-hidden rounded-2xl border border-border/80 bg-card/95 shadow-xl shadow-primary/[0.06] backdrop-blur-sm",
+                            "dark:border-white/10 dark:bg-card/40 dark:shadow-black/40",
                         )}
                     >
                         <div className="flex items-start gap-3.5 border-b border-border/80 bg-muted/30 px-6 py-5 dark:bg-white/[0.03]">
-                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-600 to-cyan-700 text-white shadow-md shadow-cyan-600/25">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-md shadow-primary/25">
                                 <MessageSquare
                                     className="h-5 w-5"
                                     strokeWidth={1.85}
@@ -216,9 +216,9 @@ export function SupportForm() {
                                             !problemType && "text-muted-foreground",
                                         )}
                                     >
-                                        <option value="" className="text-black">{t("problemTypePlaceholder")}</option>
+                                        <option value="" className="text-foreground">{t("problemTypePlaceholder")}</option>
                                         {SUPPORT_PROBLEM_TYPE_IDS.map((id) => (
-                                            <option key={id} value={id} className="text-black">
+                                            <option key={id} value={id} className="text-foreground">
                                                 {t(`problemTypes.${id}`)}
                                             </option>
                                         ))}
@@ -245,8 +245,8 @@ export function SupportForm() {
                                                 "text-[11px] font-medium tabular-nums text-muted-foreground",
                                                 charPct >= 1 && "text-destructive",
                                                 charPct >= 0.85 &&
-                                                    charPct < 1 &&
-                                                    "text-amber-600 dark:text-amber-400",
+                                                charPct < 1 &&
+                                                "text-amber-600 dark:text-amber-400",
                                             )}
                                         >
                                             {t("charCount", {
@@ -283,8 +283,8 @@ export function SupportForm() {
                                                     charPct >= 1
                                                         ? "stroke-destructive"
                                                         : charPct >= 0.85
-                                                          ? "stroke-amber-500 dark:stroke-amber-400"
-                                                          : "stroke-cyan-600 dark:stroke-cyan-400",
+                                                            ? "stroke-amber-500 dark:stroke-amber-400"
+                                                            : "stroke-primary",
                                                 )}
                                             />
                                         </svg>
@@ -312,7 +312,7 @@ export function SupportForm() {
                             <Button
                                 type="submit"
                                 disabled={isLoading}
-                                className="mt-1 h-11 w-full rounded-xl bg-gradient-to-r from-cyan-600 to-cyan-700 text-sm font-semibold text-white shadow-md shadow-cyan-600/20 transition hover:from-cyan-500 hover:to-cyan-600 hover:shadow-lg disabled:opacity-60 dark:from-cyan-500 dark:to-cyan-600 dark:hover:from-cyan-400 dark:hover:to-cyan-500"
+                                className="mt-1 h-11 w-full rounded-xl bg-gradient-to-r from-primary to-primary/90 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition hover:from-primary/90 hover:to-primary/80 hover:shadow-lg disabled:opacity-60 cursor-pointer"
                             >
                                 {isLoading ? (
                                     <>

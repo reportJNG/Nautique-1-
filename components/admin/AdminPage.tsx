@@ -29,17 +29,17 @@ const FOOTER_LINKS: AdminFooterLink[] = [
 
 const STATUS_CONFIG = {
   operational: {
-    color: "bg-emerald-400",
+    color: "bg-primary",
     shadow: "shadow-[0_0_5px_rgba(52,211,153,0.7)]",
     label: "Tous les services opérationnels",
   },
   degraded: {
-    color: "bg-amber-400",
+    color: "bg-accent",
     shadow: "shadow-[0_0_5px_rgba(251,191,36,0.7)]",
     label: "Performance dégradée",
   },
   outage: {
-    color: "bg-red-400",
+    color: "bg-destructive",
     shadow: "shadow-[0_0_5px_rgba(248,113,113,0.7)]",
     label: "Interruption de service",
   },
@@ -52,9 +52,9 @@ const StatusPill = ({ status = "operational", label }: StatusPillProps) => {
   const config = STATUS_CONFIG[status];
 
   return (
-    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.05] bg-white/[0.02]">
+    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/30 bg-muted/20">
       <span className={cn("w-1.5 h-1.5 rounded-full", config.color, config.shadow)} />
-      <span className="text-[10.5px] font-medium text-[#1a3050]">
+      <span className="text-[10.5px] font-medium text-muted-foreground">
         {label || config.label}
       </span>
     </div>
@@ -69,7 +69,7 @@ const FooterLink = ({ link }: { link: AdminFooterLink }) => {
       href={link.href}
       target={link.external ? "_blank" : undefined}
       rel={link.external ? "noopener noreferrer" : undefined}
-      className="flex items-center gap-0.5 text-[11px] text-[#1e3550] hover:text-[#4a7090] transition-colors group"
+      className="flex items-center gap-0.5 text-[11px] text-muted-foreground hover:text-foreground transition-colors group"
       aria-label={link.label}
     >
       {link.label}
@@ -135,21 +135,21 @@ export function AdminFooter({
     <footer className="mt-auto pt-5" role="contentinfo">
       {/* Top rule with shimmer animation */}
       <div className="relative h-px w-full mb-5">
-        <div className="absolute inset-0 bg-white/[0.05]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent animate-pulse" />
+        <div className="absolute inset-0 bg-border/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-pulse" />
       </div>
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         {/* Brand Section */}
         <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-sky-500 to-cyan-400 flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.3)] transition-transform hover:scale-105">
-            <Waves className="w-3 h-3 text-white" />
+          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.3)] transition-transform hover:scale-105">
+            <Waves className="w-3 h-3 text-primary-foreground" />
           </div>
           <div>
-            <p className="text-[11px] font-bold text-[#2a4060] tracking-tight leading-none">
+            <p className="text-[11px] font-bold text-foreground/70 tracking-tight leading-none">
               {copyright || `© ${currentYear} — Tous droits réservés`}
             </p>
-            <p className="text-[9.5px] text-[#1a2e40] mt-0.5 flex items-center gap-1">
+            <p className="text-[9.5px] text-muted-foreground/50 mt-0.5 flex items-center gap-1">
               <Heart className="w-2.5 h-2.5 text-rose-400/70" />
               {tagline || "Fait avec soin"}
             </p>
@@ -195,30 +195,30 @@ export function AdminPageHeader({
   className,
 }: AdminPageHeaderProps) {
   return (
-    <header className={cn("relative pb-5 border-b border-white/[0.05]", className)}>
+    <header className={cn("relative pb-5 border-b border-border/30", className)}>
       {/* Animated accent underline */}
-      <div className="absolute bottom-0 left-0 h-[2px] w-16 rounded-full bg-gradient-to-r from-cyan-400 to-sky-500 shadow-[0_0_12px_rgba(6,182,212,0.5)] transition-all duration-300 group-hover:w-24" />
+      <div className="absolute bottom-0 left-0 h-[2px] w-16 rounded-full bg-gradient-to-r from-primary to-primary/80 shadow-[0_0_12px_rgba(6,182,212,0.5)] transition-all duration-300 group-hover:w-24" />
 
       {breadcrumbs && (
-        <div className="mb-3 text-xs text-[#3a5a7a]">{breadcrumbs}</div>
+        <div className="mb-3 text-xs text-muted-foreground">{breadcrumbs}</div>
       )}
 
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3.5 min-w-0">
           {icon && (
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-500/15 to-sky-500/10 border border-cyan-500/15 flex items-center justify-center text-cyan-400 flex-shrink-0 shadow-[0_0_20px_rgba(6,182,212,0.1)] transition-all group-hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary/15 to-primary/10 border border-primary/15 flex items-center justify-center text-primary flex-shrink-0 shadow-[0_0_20px_rgba(6,182,212,0.1)] transition-all group-hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]">
               {icon}
             </div>
           )}
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2.5 flex-wrap">
-              <h1 className="text-[20px] sm:text-[24px] font-extrabold tracking-tight text-[#f0f9ff] leading-none break-words">
+              <h1 className="text-[20px] sm:text-[24px] font-extrabold tracking-tight text-foreground leading-none break-words">
                 {title}
               </h1>
               {badge && <div className="flex-shrink-0">{badge}</div>}
             </div>
             {description && (
-              <p className="text-[12.5px] text-[#3a5a7a] mt-1.5 max-w-[520px] leading-relaxed">
+              <p className="text-[12.5px] text-muted-foreground mt-1.5 max-w-[520px] leading-relaxed">
                 {description}
               </p>
             )}
@@ -267,26 +267,26 @@ export function AdminSection({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-white/[0.06]",
-        "bg-[#0a1828]/70 backdrop-blur-md",
+        "rounded-2xl border border-border/30",
+        "bg-card/70 backdrop-blur-md",
         "shadow-[0_1px_3px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.02)_inset]",
         elevated && "shadow-[0_8px_30px_rgba(0,0,0,0.4)]",
-        "hover:border-cyan-500/10",
+        "hover:border-primary/10",
         "transition-all duration-200 overflow-hidden",
         className
       )}
       {...props}
     >
       {(title || description || headerRight) && (
-        <div className="flex items-start justify-between gap-3 px-5 pt-4 pb-3.5 border-b border-white/[0.05]">
+        <div className="flex items-start justify-between gap-3 px-5 pt-4 pb-3.5 border-b border-border/30">
           <div className="flex-1 min-w-0">
             {title && (
-              <h2 className="text-[13px] font-bold text-[#c8dff5] tracking-tight">
+              <h2 className="text-[13px] font-bold text-foreground tracking-tight">
                 {title}
               </h2>
             )}
             {description && (
-              <p className="text-[11.5px] text-[#3a5a7a] mt-0.5 leading-relaxed">
+              <p className="text-[11.5px] text-muted-foreground mt-0.5 leading-relaxed">
                 {description}
               </p>
             )}
@@ -334,14 +334,14 @@ export function AdminDataTable({
   return (
     <div className="flex flex-col">
       {toolbar && (
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 px-5 py-3 border-b border-white/[0.05]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 px-5 py-3 border-b border-border/30">
           {toolbar}
         </div>
       )}
       <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
           </div>
         ) : !hasData && emptyState ? (
           emptyState
@@ -350,11 +350,11 @@ export function AdminDataTable({
         )}
       </div>
       {(footer || (totalItems && itemsPerPage && currentPage && onPageChange)) && (
-        <div className="flex items-center justify-between px-5 py-2.5 text-[11px] text-[#2a4060] border-t border-white/[0.05]">
+        <div className="flex items-center justify-between px-5 py-2.5 text-[11px] text-muted-foreground border-t border-border/30">
           {footer}
           {totalItems && itemsPerPage && currentPage && onPageChange && (
             <div className="flex items-center gap-2">
-              <span className="text-[#3a5a7a]">
+              <span className="text-muted-foreground">
                 {Math.min(currentPage * itemsPerPage, totalItems)} / {totalItems}
               </span>
             </div>
@@ -400,7 +400,7 @@ export function AdminFormLayout({
       onSubmit={handleSubmit}
       {...props}
     >
-      <div className="rounded-2xl border border-white/[0.06] bg-[#0a1828]/70 backdrop-blur-md p-5 flex flex-col gap-4">
+      <div className="rounded-2xl border border-border/30 bg-card/70 backdrop-blur-md p-5 flex flex-col gap-4">
         {children}
       </div>
       {sidebar && <aside className="flex flex-col gap-4 sticky top-6">{sidebar}</aside>}
@@ -433,14 +433,14 @@ export function AdminDetailLayout({
 }: AdminDetailLayoutProps) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <header className="flex flex-col gap-3 pb-4 border-b border-white/[0.05]">
+      <header className="flex flex-col gap-3 pb-4 border-b border-border/30">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div className="flex-1 min-w-0">
-            <h1 className="text-xl font-bold tracking-tight text-[#f0f9ff] break-words">
+            <h1 className="text-xl font-bold tracking-tight text-foreground break-words">
               {title}
             </h1>
             {subtitle && (
-              <p className="text-xs text-[#3a5a7a] mt-0.5">{subtitle}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>
             )}
           </div>
           {headerAside && <div className="flex items-center gap-2 flex-shrink-0">{headerAside}</div>}
@@ -450,8 +450,8 @@ export function AdminDetailLayout({
           <div className="flex flex-wrap gap-4 text-xs">
             {metadata.map((item, index) => (
               <div key={index} className="flex items-center gap-1.5">
-                <span className="text-[#3a5a7a]">{item.label}:</span>
-                <span className="text-[#b0d0ff] font-medium">{item.value}</span>
+                <span className="text-muted-foreground">{item.label}:</span>
+                <span className="text-foreground font-medium">{item.value}</span>
               </div>
             ))}
           </div>
@@ -493,7 +493,7 @@ interface AdminTableHeadProps extends React.HTMLAttributes<HTMLTableSectionEleme
 export function AdminTableHead({ children, className, ...props }: AdminTableHeadProps) {
   return (
     <thead
-      className={cn("border-b border-white/[0.05] bg-white/[0.015]", className)}
+      className={cn("border-b border-border/30 bg-muted/20", className)}
       {...props}
     >
       {children}
@@ -525,8 +525,8 @@ export function AdminTableHeaderCell({
   return (
     <th
       className={cn(
-        "px-4 py-3 text-[10px] font-bold text-[#253d56] uppercase tracking-[0.12em] text-left whitespace-nowrap",
-        sortable && "cursor-pointer hover:text-[#3a5a7a] transition-colors select-none",
+        "px-4 py-3 text-[10px] font-bold text-muted-foreground uppercase tracking-[0.12em] text-left whitespace-nowrap",
+        sortable && "cursor-pointer hover:text-foreground transition-colors select-none",
         className
       )}
       onClick={handleClick}
@@ -557,7 +557,7 @@ interface AdminTableBodyProps extends React.HTMLAttributes<HTMLTableSectionEleme
 
 export function AdminTableBody({ children, className, ...props }: AdminTableBodyProps) {
   return (
-    <tbody className={cn("divide-y divide-white/[0.03]", className)} {...props}>
+    <tbody className={cn("divide-y divide-border/20", className)} {...props}>
       {children}
     </tbody>
   );
@@ -580,7 +580,7 @@ export function AdminTableRow({
     <tr
       className={cn(
         "transition-colors",
-        clickable && "cursor-pointer hover:bg-white/[0.05]",
+        clickable && "cursor-pointer hover:bg-muted/30",
         className
       )}
       onClick={onClick}
@@ -608,7 +608,7 @@ export function AdminTableCell({
     <td
       className={cn(
         "px-4 py-3 align-middle",
-        primary ? "text-[#d8ecff] font-semibold" : "text-[#4a6a88]",
+        primary ? "text-foreground font-semibold" : "text-muted-foreground",
         align === "center" && "text-center",
         align === "right" && "text-right",
         className

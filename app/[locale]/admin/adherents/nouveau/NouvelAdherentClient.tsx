@@ -122,7 +122,7 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
       {/* Back Button */}
       <Link
         href={`/${locale}/admin/adherents`}
-        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-slate-200 text-sm transition-all"
+        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/20 hover:bg-muted/30 border border-border/30 text-muted-foreground hover:text-foreground text-sm transition-all"
       >
         <ArrowLeft className="w-4 h-4" />
         {t("adherentsUi.new.back")}
@@ -130,22 +130,22 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
 
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
           {t("adherentsUi.new.title")}
         </h1>
-        <p className="text-slate-400 text-sm">
+        <p className="text-muted-foreground text-sm">
           {t("adherentsUi.new.infoTitle")}
         </p>
       </div>
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden">
-          <div className="flex items-center gap-3 px-6 py-4 border-b border-white/10 bg-white/5">
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
-              <User className="w-4 h-4 text-cyan-400" />
+        <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30 overflow-hidden">
+          <div className="flex items-center gap-3 px-6 py-4 border-b border-border/30 bg-muted/20">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <User className="w-4 h-4 text-primary" />
             </div>
-            <h2 className="text-sm font-semibold text-slate-200">
+            <h2 className="text-sm font-semibold text-foreground">
               {t("adherentsUi.new.infoTitle")}
             </h2>
           </div>
@@ -154,24 +154,24 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
             {/* Name Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   <User className="w-3.5 h-3.5" />
                   {t("adherentsUi.new.nom")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-destructive">*</span>
                 </label>
                 <input
                   type="text"
                   name="nom"
                   value={formData.nom}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-white/5 border rounded-lg text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-1 transition-all ${errors.nom
-                    ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20'
+                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 transition-all ${errors.nom
+                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
+                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
                     }`}
                   placeholder={t("adherentsUi.new.nom")}
                 />
                 {errors.nom && (
-                  <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.nom}
                   </p>
@@ -179,24 +179,24 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   <User className="w-3.5 h-3.5" />
                   {t("adherentsUi.new.prenom")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-destructive">*</span>
                 </label>
                 <input
                   type="text"
                   name="prenom"
                   value={formData.prenom}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-white/5 border rounded-lg text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-1 transition-all ${errors.prenom
-                    ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20'
+                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 transition-all ${errors.prenom
+                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
+                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
                     }`}
                   placeholder={t("adherentsUi.new.prenom")}
                 />
                 {errors.prenom && (
-                  <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.prenom}
                   </p>
@@ -207,24 +207,24 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
             {/* Contact Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   <Mail className="w-3.5 h-3.5" />
                   {t("adherentsUi.new.email")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-destructive">*</span>
                 </label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-white/5 border rounded-lg text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-1 transition-all ${errors.email
-                    ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20'
+                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 transition-all ${errors.email
+                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
+                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
                     }`}
                   placeholder="adherent@email.com"
                 />
                 {errors.email && (
-                  <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.email}
                   </p>
@@ -232,7 +232,7 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   <Phone className="w-3.5 h-3.5" />
                   {t("adherentsUi.new.telephone")}
                 </label>
@@ -241,7 +241,7 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="telephone"
                   value={formData.telephone}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+                  className="w-full px-3 py-2 bg-muted/20 border border-border/30 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                   placeholder="+213 5XX XX XX XX"
                 />
               </div>
@@ -250,23 +250,23 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
             {/* Identity Row */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   <Calendar className="w-3.5 h-3.5" />
                   {t("adherentsUi.new.birthDate")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-destructive">*</span>
                 </label>
                 <input
                   type="date"
                   name="dateNaissance"
                   value={formData.dateNaissance}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-white/5 border rounded-lg text-sm text-slate-200 focus:outline-none focus:ring-1 transition-all ${errors.dateNaissance
-                    ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20'
+                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground focus:outline-none focus:ring-1 transition-all ${errors.dateNaissance
+                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
+                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
                     }`}
                 />
                 {errors.dateNaissance && (
-                  <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.dateNaissance}
                   </p>
@@ -274,18 +274,18 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   <User className="w-3.5 h-3.5" />
                   {t("adherentsUi.new.sexe")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-destructive">*</span>
                 </label>
                 <select
                   name="sexe"
                   value={formData.sexe}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-white/5 border rounded-lg text-sm text-slate-200 focus:outline-none focus:ring-1 transition-all ${errors.sexe
-                    ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20'
+                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground focus:outline-none focus:ring-1 transition-all ${errors.sexe
+                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
+                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
                     }`}
                 >
                   <option value="" disabled>Sélectionner</option>
@@ -293,7 +293,7 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   <option value="F">Féminin</option>
                 </select>
                 {errors.sexe && (
-                  <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.sexe}
                   </p>
@@ -301,18 +301,18 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   <Building2 className="w-3.5 h-3.5" />
                   {t("adherentsUi.new.organisation")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-destructive">*</span>
                 </label>
                 <select
                   name="organisationId"
                   value={formData.organisationId}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-white/5 border rounded-lg text-sm text-slate-200 focus:outline-none focus:ring-1 transition-all ${errors.organisationId
-                    ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20'
+                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground focus:outline-none focus:ring-1 transition-all ${errors.organisationId
+                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
+                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
                     }`}
                 >
                   <option value="" disabled>Sélectionner</option>
@@ -323,7 +323,7 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   ))}
                 </select>
                 {errors.organisationId && (
-                  <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3 h-3" />
                     {errors.organisationId}
                   </p>
@@ -331,14 +331,14 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
               </div>
             </div>
 
-            <div className="h-px bg-white/10" />
+            <div className="h-px bg-border/30" />
 
             {/* Password */}
             <div className="max-w-md space-y-2">
-              <label className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                 <Lock className="w-3.5 h-3.5" />
                 {t("adherentsUi.new.motDePasseInitial")}
-                <span className="text-red-400">*</span>
+                <span className="text-destructive">*</span>
               </label>
               <div className="relative">
                 <input
@@ -346,48 +346,48 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-white/5 border rounded-lg text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:ring-1 transition-all ${errors.password
-                    ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20'
+                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 transition-all ${errors.password
+                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
+                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
                     }`}
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-muted-foreground transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
               {errors.password && (
-                <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+                <p className="text-xs text-destructive flex items-center gap-1 mt-1">
                   <AlertCircle className="w-3 h-3" />
                   {errors.password}
                 </p>
               )}
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted-foreground/50">
                 Minimum 8 caractères
               </p>
             </div>
           </div>
 
           {/* Footer */}
-          <div className="flex justify-end gap-3 px-6 py-4 border-t border-white/10 bg-white/5">
+          <div className="flex justify-end gap-3 px-6 py-4 border-t border-border/30 bg-muted/20">
             <Link
               href={`/${locale}/admin/adherents`}
-              className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-slate-200 text-sm font-medium transition-all"
+              className="px-4 py-2 rounded-lg bg-muted/20 hover:bg-muted/30 border border-border/30 text-muted-foreground hover:text-foreground text-sm font-medium transition-all"
             >
               Annuler
             </Link>
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center gap-2 px-6 py-2 rounded-lg bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-sm font-semibold shadow-lg shadow-cyan-500/30 hover:opacity-90 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-2 rounded-lg bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/30 hover:opacity-90 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 transition-all"
             >
               {loading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
                   Création...
                 </>
               ) : (

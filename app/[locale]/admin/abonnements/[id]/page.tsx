@@ -37,172 +37,147 @@ export default async function AbonnementDetailPage({
   const initials = `${abo.adherent.prenom?.[0] ?? ""}${abo.adherent.nom?.[0] ?? ""}`.toUpperCase();
 
   const statusBadge: Record<string, { cls: string; icon: React.ReactNode }> = {
-    ACT: { cls: "abd-s-act", icon: <CheckCircle2 size={11} /> },
-    CRE: { cls: "abd-s-cre", icon: <Clock size={11} /> },
-    ATP: { cls: "abd-s-atp", icon: <Clock size={11} /> },
-    APP: { cls: "abd-s-app", icon: <CheckCircle2 size={11} /> },
-    ANL: { cls: "abd-s-anl", icon: <XCircle size={11} /> },
-    EXP: { cls: "abd-s-exp", icon: <XCircle size={11} /> },
-    ATT: { cls: "abd-s-atp", icon: <Clock size={11} /> },
+    ACT: { cls: "bg-primary/12 text-primary border border-primary/25", icon: <CheckCircle2 size={11} /> },
+    CRE: { cls: "bg-primary/12 text-primary border border-primary/25", icon: <Clock size={11} /> },
+    ATP: { cls: "bg-primary/12 text-primary border border-primary/25", icon: <Clock size={11} /> },
+    APP: { cls: "bg-primary/12 text-primary border border-primary/25", icon: <CheckCircle2 size={11} /> },
+    ANL: { cls: "bg-muted/12 text-muted-foreground border border-muted/20", icon: <XCircle size={11} /> },
+    EXP: { cls: "bg-destructive/12 text-destructive border border-destructive/25", icon: <XCircle size={11} /> },
+    ATT: { cls: "bg-primary/12 text-primary border border-primary/25", icon: <Clock size={11} /> },
   };
-  const sb = statusBadge[abo.statut] ?? { cls: "abd-s-anl", icon: null };
+  const sb = statusBadge[abo.statut] ?? { cls: "bg-muted/12 text-muted-foreground border border-muted/20", icon: null };
 
   const factureStatusStyle: Record<string, string> = {
-    PAY: "abd-fac-pay", ATT: "abd-fac-att", ANN: "abd-fac-ann",
+    PAY: "bg-primary/12 text-primary border border-primary/25",
+    ATT: "bg-primary/12 text-primary border border-primary/25",
+    ANN: "bg-muted/12 text-muted-foreground border border-muted/20",
   };
 
   return (
     <AdminPageShell locale={locale}>
-      <style>{`
-        .abd-back {
-          display: inline-flex; align-items: center; gap: 7px;
-          padding: 7px 14px; border-radius: 8px;
-          background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-          color: #7a93b4; font-size: 13px; font-weight: 500;
-          text-decoration: none; margin-bottom: 24px;
-          transition: background 150ms, color 150ms;
-        }
-        .abd-back:hover { background: rgba(255,255,255,0.08); color: #e2f0ff; }
-
-        .abd-grid { display: grid; gap: 16px; }
-        @media (min-width: 900px) { .abd-grid { grid-template-columns: 1fr 340px; } }
-
-        .abd-card {
-          border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);
-          background: rgba(13,21,38,0.72); backdrop-filter: blur(12px);
-          overflow: hidden;
-        }
-        .abd-card-hdr {
-          display: flex; align-items: center; gap: 9px;
-          padding: 13px 18px 11px; border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .abd-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .abd-icon.cyan { background: rgba(6,182,212,0.12); color: #06b6d4; border: 1px solid rgba(6,182,212,0.2); }
-        .abd-icon.purple { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.2); }
-        .abd-icon.emerald { background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.2); }
-        .abd-icon svg { width: 14px; height: 14px; }
-        .abd-card-title { font-size: 13px; font-weight: 600; color: #e2f0ff; }
-        .abd-card-body { padding: 18px; }
-
-        .abd-hero {
-          display: flex; align-items: center; gap: 16px; margin-bottom: 18px;
-          padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .abd-initials {
-          width: 48px; height: 48px; border-radius: 50%;
-          background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 16px; font-weight: 800; color: #fff; flex-shrink: 0;
-        }
-        .abd-hero-name { font-size: 16px; font-weight: 700; color: #f0f9ff; }
-        .abd-hero-sub { font-size: 12px; color: #4a6280; margin-top: 2px; font-family: monospace; }
-
-        .abd-row {
-          display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-          padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
-        }
-        .abd-row:last-child { border-bottom: none; }
-        .abd-lbl { font-size: 12px; color: #7a93b4; display: flex; align-items: center; gap: 5px; }
-        .abd-lbl svg { color: #4a6280; }
-        .abd-val { font-size: 13.5px; font-weight: 600; color: #e2f0ff; text-align: right; }
-
-        /* Status badges */
-        .abd-status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600; }
-        .abd-s-act { background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.25); }
-        .abd-s-cre { background: rgba(96,165,250,0.12); color: #60a5fa; border: 1px solid rgba(96,165,250,0.25); }
-        .abd-s-atp { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
-        .abd-s-app { background: rgba(6,182,212,0.12); color: #22d3ee; border: 1px solid rgba(6,182,212,0.25); }
-        .abd-s-anl { background: rgba(100,116,139,0.12); color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
-        .abd-s-exp { background: rgba(248,113,113,0.12); color: #f87171; border: 1px solid rgba(248,113,113,0.25); }
-
-        /* Amount */
-        .abd-amount { font-size: 24px; font-weight: 800; color: #f0f9ff; letter-spacing: -0.02em; }
-        .abd-amount-unit { font-size: 14px; color: #7a93b4; font-weight: 400; }
-
-        /* Factures list */
-        .abd-fac-row {
-          display: flex; align-items: center; justify-content: space-between; gap: 10px;
-          padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
-        }
-        .abd-fac-row:last-child { border-bottom: none; }
-        .abd-fac-num { font-size: 12px; font-family: monospace; color: #22d3ee; }
-        .abd-fac-date { font-size: 11.5px; color: #4a6280; }
-        .abd-fac-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
-        .abd-fac-pay { background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.25); }
-        .abd-fac-att { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
-        .abd-fac-ann { background: rgba(100,116,139,0.12); color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
-        .abd-fac-empty { padding: 20px; text-align: center; font-size: 12.5px; color: #4a6280; }
-      `}</style>
-
-      <Link href={`/${locale}/admin/abonnements`} className="abd-back">
+      {/* Back button */}
+      <Link
+        href={`/${locale}/admin/abonnements`}
+        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-muted/10 border border-border/50 text-muted-foreground text-[13px] font-medium no-underline hover:bg-muted/15 hover:text-foreground transition-all duration-150 mb-6"
+      >
         <ArrowLeft size={14} />
         {t("abonnementsUi.pageTitle")}
       </Link>
 
-      <div className="abd-grid">
-        {/* Main info */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          <div className="abd-card">
-            <div className="abd-card-hdr">
-              <div className="abd-icon cyan"><Dumbbell /></div>
-              <span className="abd-card-title">{t("abonnementsUi.detail.cards.informations")}</span>
+      <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
+        {/* Main info column */}
+        <div className="flex flex-col gap-3.5">
+          {/* Informations Card */}
+          <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden">
+            <div className="flex items-center gap-2.5 px-[18px] pt-[13px] pb-[11px] border-b border-border/30">
+              <div className="w-[30px] h-[30px] rounded-lg bg-primary/12 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+                <Dumbbell size={14} />
+              </div>
+              <span className="text-[13px] font-semibold text-foreground">
+                {t("abonnementsUi.detail.cards.informations")}
+              </span>
             </div>
-            <div className="abd-card-body">
+
+            <div className="p-[18px]">
               {/* Adherent hero */}
-              <div className="abd-hero">
-                <div className="abd-initials" aria-hidden="true">{initials}</div>
+              <div className="flex items-center gap-4 mb-[18px] pb-[18px] border-b border-border/30">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-base font-extrabold text-primary-foreground shrink-0">
+                  {initials}
+                </div>
                 <div>
-                  <div className="abd-hero-name">{abo.adherent.prenom} {abo.adherent.nom}</div>
-                  <div className="abd-hero-sub">{abo.adherent.numeroDossier}</div>
+                  <div className="text-base font-bold text-foreground">
+                    {abo.adherent.prenom} {abo.adherent.nom}
+                  </div>
+                  <div className="text-xs text-muted-foreground font-mono mt-0.5">
+                    {abo.adherent.numeroDossier}
+                  </div>
                 </div>
               </div>
 
-              <div className="abd-row">
-                <span className="abd-lbl"><Dumbbell size={12} />{t("abonnementsUi.detail.labels.discipline")}</span>
-                <span className="abd-val">{abo.discipline.designation}</span>
+              <div className="flex items-baseline justify-between gap-3 py-2.5 border-b border-border/20">
+                <span className="text-xs text-muted-foreground flex items-center gap-1.5">
+                  <Dumbbell size={12} />
+                  {t("abonnementsUi.detail.labels.discipline")}
+                </span>
+                <span className="text-[13.5px] font-semibold text-foreground text-right">
+                  {abo.discipline.designation}
+                </span>
               </div>
-              <div className="abd-row">
-                <span className="abd-lbl"><Waves size={12} />{t("abonnementsUi.detail.labels.space")}</span>
-                <span className="abd-val">{abo.discipline.espace.code} — {abo.discipline.espace.designation}</span>
+
+              <div className="flex items-baseline justify-between gap-3 py-2.5 border-b border-border/20">
+                <span className="text-xs text-muted-foreground flex items-center gap-1.5">
+                  <Waves size={12} />
+                  {t("abonnementsUi.detail.labels.space")}
+                </span>
+                <span className="text-[13.5px] font-semibold text-foreground text-right">
+                  {abo.discipline.espace.code} — {abo.discipline.espace.designation}
+                </span>
               </div>
-              <div className="abd-row">
-                <span className="abd-lbl"><Calendar size={12} />Saison</span>
-                <span className="abd-val">{abo.saison.designation}</span>
+
+              <div className="flex items-baseline justify-between gap-3 py-2.5 border-b border-border/20">
+                <span className="text-xs text-muted-foreground flex items-center gap-1.5">
+                  <Calendar size={12} />
+                  Saison
+                </span>
+                <span className="text-[13.5px] font-semibold text-foreground text-right">
+                  {abo.saison.designation}
+                </span>
               </div>
-              <div className="abd-row">
-                <span className="abd-lbl"><CreditCard size={12} />Type</span>
-                <span className="abd-val">{abo.typeAbonnement}</span>
+
+              <div className="flex items-baseline justify-between gap-3 py-2.5 border-b border-border/20">
+                <span className="text-xs text-muted-foreground flex items-center gap-1.5">
+                  <CreditCard size={12} />
+                  Type
+                </span>
+                <span className="text-[13.5px] font-semibold text-foreground text-right">
+                  {abo.typeAbonnement}
+                </span>
               </div>
-              <div className="abd-row">
-                <span className="abd-lbl">{t("abonnementsUi.detail.labels.status")}</span>
-                <span className={`abd-status-badge ${sb.cls}`}>{sb.icon}{t(`abonnementStatus.${abo.statut}`)}</span>
+
+              <div className="flex items-baseline justify-between gap-3 py-2.5">
+                <span className="text-xs text-muted-foreground flex items-center gap-1.5">
+                  {t("abonnementsUi.detail.labels.status")}
+                </span>
+                <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11.5px] font-semibold ${sb.cls}`}>
+                  {sb.icon}
+                  {t(`abonnementStatus.${abo.statut}`)}
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Factures */}
-          <div className="abd-card">
-            <div className="abd-card-hdr">
-              <div className="abd-icon emerald"><ReceiptText /></div>
-              <span className="abd-card-title">Factures ({abo.factures.length})</span>
+          {/* Factures Card */}
+          <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden">
+            <div className="flex items-center gap-2.5 px-[18px] pt-[13px] pb-[11px] border-b border-border/30">
+              <div className="w-[30px] h-[30px] rounded-lg bg-primary/12 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+                <ReceiptText size={14} />
+              </div>
+              <span className="text-[13px] font-semibold text-foreground">
+                Factures ({abo.factures.length})
+              </span>
             </div>
-            <div className="abd-card-body" style={{ padding: "0 18px" }}>
+
+            <div className="px-[18px]">
               {abo.factures.length === 0 ? (
-                <div className="abd-fac-empty">Aucune facture</div>
+                <div className="py-5 text-center text-[12.5px] text-muted-foreground">
+                  Aucune facture
+                </div>
               ) : (
                 abo.factures.map((fac) => (
-                  <div key={fac.id} className="abd-fac-row">
+                  <div key={fac.id} className="flex items-center justify-between gap-2.5 py-2.5 border-b border-border/20 last:border-b-0">
                     <div>
-                      <div className="abd-fac-num">{fac.numeroRecu || "—"}</div>
-                      <div className="abd-fac-date">
+                      <div className="text-xs font-mono text-primary">
+                        {fac.numeroRecu || "—"}
+                      </div>
+                      <div className="text-[11.5px] text-muted-foreground">
                         {new Date(fac.dateCreation).toLocaleDateString(dateLocale)}
                       </div>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: "#e2f0ff" }}>
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-[13px] font-bold text-foreground">
                         {Number(fac.montantTtc).toLocaleString(dateLocale)} DA
                       </span>
-                      <span className={`abd-fac-badge ${factureStatusStyle[fac.statut] ?? "abd-fac-att"}`}>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap ${factureStatusStyle[fac.statut] ?? "bg-primary/12 text-primary border border-primary/25"}`}>
                         {t(`factureStatus.${fac.statut}`)}
                       </span>
                     </div>
@@ -213,29 +188,39 @@ export default async function AbonnementDetailPage({
           </div>
         </div>
 
-        {/* Side panel */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          {/* Amount */}
-          <div className="abd-card">
-            <div className="abd-card-hdr">
-              <div className="abd-icon emerald"><CreditCard /></div>
-              <span className="abd-card-title">{t("abonnementsUi.detail.labels.amount")}</span>
+        {/* Side panel column */}
+        <div className="flex flex-col gap-3.5">
+          {/* Amount Card */}
+          <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden">
+            <div className="flex items-center gap-2.5 px-[18px] pt-[13px] pb-[11px] border-b border-border/30">
+              <div className="w-[30px] h-[30px] rounded-lg bg-primary/12 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+                <CreditCard size={14} />
+              </div>
+              <span className="text-[13px] font-semibold text-foreground">
+                {t("abonnementsUi.detail.labels.amount")}
+              </span>
             </div>
-            <div className="abd-card-body" style={{ textAlign: "center", padding: "20px 18px" }}>
-              <div className="abd-amount">
+
+            <div className="text-center p-5">
+              <div className="text-2xl font-extrabold text-foreground tracking-tight">
                 {Number(abo.montantTtc).toLocaleString(dateLocale)}
-                <span className="abd-amount-unit"> DA</span>
+                <span className="text-sm text-muted-foreground font-normal"> DA</span>
               </div>
             </div>
           </div>
 
-          {/* Actions */}
-          <div className="abd-card">
-            <div className="abd-card-hdr">
-              <div className="abd-icon purple"><User /></div>
-              <span className="abd-card-title">{t("abonnementsUi.detail.cards.actions")}</span>
+          {/* Actions Card */}
+          <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden">
+            <div className="flex items-center gap-2.5 px-[18px] pt-[13px] pb-[11px] border-b border-border/30">
+              <div className="w-[30px] h-[30px] rounded-lg bg-primary/12 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+                <User size={14} />
+              </div>
+              <span className="text-[13px] font-semibold text-foreground">
+                {t("abonnementsUi.detail.cards.actions")}
+              </span>
             </div>
-            <div className="abd-card-body">
+
+            <div className="p-[18px]">
               <AbonnementDetailActions
                 abonnementId={abo.id}
                 statut={abo.statut}

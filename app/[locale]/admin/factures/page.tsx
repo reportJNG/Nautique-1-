@@ -35,34 +35,34 @@ export default async function FacturesPage({
       <style>{`
         .fac-kpi-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
         @media (min-width: 640px) { .fac-kpi-grid { grid-template-columns: repeat(3, 1fr); } }
-        .fac-kpi { border-radius: 14px; border: 1px solid rgba(255,255,255,0.06); background: rgba(13,21,38,0.72); backdrop-filter: blur(12px); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease; }
+        .fac-kpi { border-radius: 14px; border: 1px solid hsl(var(--border)/0.5); background: hsl(var(--card)/0.8); backdrop-filter: blur(12px); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease; }
         .fac-kpi:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
         .fac-kpi::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; opacity: 0.6; }
-        .fac-kpi.emerald::before { background: linear-gradient(90deg, transparent, #10b981, transparent); }
-        .fac-kpi.amber::before   { background: linear-gradient(90deg, transparent, #f59e0b, transparent); }
-        .fac-kpi.sky::before     { background: linear-gradient(90deg, transparent, #0ea5e9, transparent); }
-        .fac-kpi.emerald:hover { border-color: rgba(16,185,129,0.25); }
-        .fac-kpi.amber:hover   { border-color: rgba(245,158,11,0.25); }
-        .fac-kpi.sky:hover     { border-color: rgba(14,165,233,0.25); }
+        .fac-kpi.emerald::before { background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent); }
+        .fac-kpi.amber::before   { background: linear-gradient(90deg, transparent, hsl(var(--accent)), transparent); }
+        .fac-kpi.sky::before     { background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent); }
+        .fac-kpi.emerald:hover { border-color: hsl(var(--primary)/0.25); }
+        .fac-kpi.amber:hover   { border-color: hsl(var(--accent)/0.25); }
+        .fac-kpi.sky:hover     { border-color: hsl(var(--primary)/0.25); }
         .fac-kpi-top { display: flex; align-items: center; justify-content: space-between; }
-        .fac-kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #7a93b4; }
+        .fac-kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: hsl(var(--muted-foreground)); }
         .fac-kpi-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .fac-kpi-icon svg { width: 18px; height: 18px; }
-        .fac-kpi-icon.emerald { background: rgba(16,185,129,0.15); color: #10b981; }
-        .fac-kpi-icon.amber   { background: rgba(245,158,11,0.15);  color: #f59e0b; }
-        .fac-kpi-icon.sky     { background: rgba(14,165,233,0.15);  color: #0ea5e9; }
-        .fac-kpi-val { font-size: 26px; font-weight: 800; color: #f0f9ff; letter-spacing: -0.02em; line-height: 1; }
+        .fac-kpi-icon.emerald { background: hsl(var(--primary)/0.15); color: hsl(var(--primary)); }
+        .fac-kpi-icon.amber   { background: hsl(var(--accent)/0.15);  color: hsl(var(--accent)); }
+        .fac-kpi-icon.sky     { background: hsl(var(--primary)/0.15);  color: hsl(var(--primary)); }
+        .fac-kpi-val { font-size: 26px; font-weight: 800; color: hsl(var(--foreground)); letter-spacing: -0.02em; line-height: 1; }
         .fac-status-badge { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
-        .fac-status-pay { background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.25); }
-        .fac-status-att { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
-        .fac-status-ann { background: rgba(100,116,139,0.12); color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
-        .fac-status-rem { background: rgba(14,165,233,0.12); color: #0ea5e9; border: 1px solid rgba(14,165,233,0.25); }
-        .fac-receipt { font-family: monospace; font-size: 11.5px; color: #7a93b4; }
-        .fac-amount  { font-weight: 700; color: #e2f0ff; }
-        .fac-method  { font-size: 12.5px; color: #7a93b4; display: flex; align-items: center; gap: 5px; }
+        .fac-status-pay { background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.25); }
+        .fac-status-att { background: hsl(var(--accent)/0.12); color: hsl(var(--accent)); border: 1px solid hsl(var(--accent)/0.25); }
+        .fac-status-ann { background: hsl(var(--muted)/0.12); color: hsl(var(--muted-foreground)); border: 1px solid hsl(var(--muted)/0.2); }
+        .fac-status-rem { background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.25); }
+        .fac-receipt { font-family: monospace; font-size: 11.5px; color: hsl(var(--muted-foreground)); }
+        .fac-amount  { font-weight: 700; color: hsl(var(--foreground)); }
+        .fac-method  { font-size: 12.5px; color: hsl(var(--muted-foreground)); display: flex; align-items: center; gap: 5px; }
         .fac-user-cell { display: flex; align-items: center; gap: 8px; }
-        .fac-initials { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0ea5e9, #06b6d4); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0; }
-        .fac-user-name { font-size: 13px; font-weight: 600; color: #e2f0ff; }
+        .fac-initials { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: hsl(var(--primary-foreground)); flex-shrink: 0; }
+        .fac-user-name { font-size: 13px; font-weight: 600; color: hsl(var(--foreground)); }
       `}</style>
 
       <AdminPageHeader
@@ -114,7 +114,7 @@ export default async function FacturesPage({
                     <td><span className="fac-amount">{Number(facture.montantTtc).toLocaleString(dateLocale)} DA</span></td>
                     <td><span className="fac-method"><span aria-hidden="true">{methodIcon[facture.modePaiement] ?? "💳"}</span>{t(`paymentMethods.${facture.modePaiement}`)}</span></td>
                     <td><span className={`fac-status-badge ${statusStyle[facture.statut] ?? "fac-status-ann"}`}>{t(`factureStatus.${facture.statut}`)}</span></td>
-                    <td style={{ textAlign: "right", color: "#4a6280", fontSize: 12 }}>{new Date(facture.dateCreation).toLocaleDateString(dateLocale)}</td>
+                    <td style={{ textAlign: "right", color: "hsl(var(--muted-foreground))", fontSize: 12 }}>{new Date(facture.dateCreation).toLocaleDateString(dateLocale)}</td>
                   </tr>
                 );
               })}

@@ -1,4 +1,3 @@
-
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -52,55 +51,72 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Light Theme - Fresh Nautical White & Sky Blue */
+    --background: 210 40% 98%;
+    /* Soft off-white like sea foam */
+    --foreground: 202 80% 24%;
+    /* Deep navy for text */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Pure white cards */
+    --card-foreground: 202 80% 24%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 201 96% 32%;
+    --popover-foreground: 202 80% 24%;
+    --primary: 199 89% 48%;
+    /* Vibrant ocean blue */
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --secondary: 199 89% 95%;
+    /* Lightest blue tint */
+    --secondary-foreground: 199 89% 35%;
+    --muted: 199 30% 92%;
+    --muted-foreground: 202 40% 45%;
     --accent: 187 94% 43%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
+    /* Bright cyan like tropical water */
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 201 96% 32%;
+    --border: 199 30% 88%;
+    --input: 199 30% 88%;
+    --ring: 199 89% 48%;
     --radius: 0.75rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    /* Dark Theme - Deep Ocean & Midnight Blue */
+    --background: 215 75% 8%;
+    /* Deep midnight ocean */
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    /* Crisp white text */
+    --card: 215 70% 12%;
+    /* Dark navy cards */
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 215 70% 12%;
     --popover-foreground: 210 40% 98%;
-    --primary: 187 94% 43%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 187 94% 43%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --primary: 199 89% 55%;
+    /* Bright ocean blue for accents */
+    --primary-foreground: 215 75% 8%;
+    --secondary: 215 60% 18%;
+    /* Slightly lighter navy */
+    --secondary-foreground: 199 89% 55%;
+    --muted: 215 60% 18%;
+    --muted-foreground: 200 30% 65%;
+    --accent: 187 94% 50%;
+    /* Glowing cyan like bioluminescence */
+    --accent-foreground: 215 75% 8%;
+    --destructive: 0 70% 45%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 187 94% 43%;
+    --border: 215 60% 20%;
+    --input: 215 60% 20%;
+    --ring: 199 89% 55%;
   }
+
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
@@ -110,134 +126,318 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
-
+/* Enhanced Nautical Color Palette */
 :root {
-  
-  --blue-50: 210 40% 98%;
-  --blue-100: 210 40% 96%;
-  --blue-200: 214 32% 91%;
-  --blue-300: 213 27% 84%;
-  --blue-400: 215 20% 65%;
-  
-  
-  --blue-500: 201 96% 32%;
-  --blue-600: 200 98% 26%;
-  --blue-700: 201 96% 22%;
-  
-  
-  --blue-800: 217 33% 17%;
-  --blue-900: 222 47% 11%;
-  --blue-950: 222 84% 5%;
-  
-  
-  --cyan-400: 187 94% 43%;
-  --cyan-500: 189 94% 35%;
-  --cyan-600: 192 91% 25%;
-  
-  
-  --text-black: 0 0% 0%;
-  --text-white: 0 0% 100%;
-  
-  
-  --hover-blue: 201 96% 32%;
-  --hover-blue-dark: 187 94% 43%;
+  /* Ocean Blues - Light Theme */
+  --blue-50: 199 89% 98%;
+  --blue-100: 199 89% 95%;
+  --blue-200: 199 89% 88%;
+  --blue-300: 199 89% 75%;
+  --blue-400: 199 89% 60%;
+  --blue-500: 199 89% 48%;
+  --blue-600: 199 89% 40%;
+  --blue-700: 199 89% 32%;
+  --blue-800: 202 80% 28%;
+  --blue-900: 202 80% 24%;
+  --blue-950: 202 80% 16%;
+
+  /* Cyan / Tropical Waters */
+  --cyan-300: 187 94% 70%;
+  --cyan-400: 187 94% 55%;
+  --cyan-500: 187 94% 43%;
+  --cyan-600: 187 84% 35%;
+  --cyan-700: 187 84% 28%;
+
+  /* Teal Depths */
+  --teal-400: 175 80% 45%;
+  --teal-500: 175 80% 38%;
+  --teal-600: 175 80% 30%;
+
+  /* Text Colors */
+  --text-light: 210 40% 98%;
+  --text-dark: 202 80% 16%;
+
+  /* Hover States */
+  --hover-blue: 199 89% 42%;
+  --hover-cyan: 187 94% 38%;
+  --hover-teal: 175 80% 32%;
 }
 
-
+/* Utility Classes for Nautical Theme */
 @layer utilities {
-  
-  .text-black {
-    color: hsl(0, 0%, 0%);
+
+  /* Text Colors */
+  .text-light {
+    color: hsl(var(--text-light));
   }
-  .text-white {
-    color: hsl(0, 0%, 100%);
+
+  .text-dark {
+    color: hsl(var(--text-dark));
   }
-  
-  
-  .text-blue-50 { color: hsl(var(--blue-50)); }
-  .text-blue-100 { color: hsl(var(--blue-100)); }
-  .text-blue-200 { color: hsl(var(--blue-200)); }
-  .text-blue-300 { color: hsl(var(--blue-300)); }
-  .text-blue-400 { color: hsl(var(--blue-400)); }
-  .text-blue-500 { color: hsl(var(--blue-500)); }
-  .text-blue-600 { color: hsl(var(--blue-600)); }
-  .text-blue-700 { color: hsl(var(--blue-700)); }
-  .text-blue-800 { color: hsl(var(--blue-800)); }
-  .text-blue-900 { color: hsl(var(--blue-900)); }
-  .text-blue-950 { color: hsl(var(--blue-950)); }
-  
-  
-  .text-cyan-400 { color: hsl(var(--cyan-400)); }
-  .text-cyan-500 { color: hsl(var(--cyan-500)); }
-  .text-cyan-600 { color: hsl(var(--cyan-600)); }
-  
-  
-  .bg-blue-50 { background-color: hsl(var(--blue-50)); }
-  .bg-blue-100 { background-color: hsl(var(--blue-100)); }
-  .bg-blue-200 { background-color: hsl(var(--blue-200)); }
-  .bg-blue-300 { background-color: hsl(var(--blue-300)); }
-  .bg-blue-400 { background-color: hsl(var(--blue-400)); }
-  .bg-blue-500 { background-color: hsl(var(--blue-500)); }
-  .bg-blue-600 { background-color: hsl(var(--blue-600)); }
-  .bg-blue-700 { background-color: hsl(var(--blue-700)); }
-  .bg-blue-800 { background-color: hsl(var(--blue-800)); }
-  .bg-blue-900 { background-color: hsl(var(--blue-900)); }
-  .bg-blue-950 { background-color: hsl(var(--blue-950)); }
-  
-  
-  .bg-cyan-400 { background-color: hsl(var(--cyan-400)); }
-  .bg-cyan-500 { background-color: hsl(var(--cyan-500)); }
-  .bg-cyan-600 { background-color: hsl(var(--cyan-600)); }
-  
-  
-  .border-blue-500 { border-color: hsl(var(--blue-500)); }
-  .border-blue-600 { border-color: hsl(var(--blue-600)); }
-  .border-cyan-400 { border-color: hsl(var(--cyan-400)); }
-  
-  
-  .hover\:text-blue-500:hover { color: hsl(var(--hover-blue)); }
-  .hover\:text-cyan-400:hover { color: hsl(var(--hover-blue-dark)); }
-  .hover\:bg-blue-500:hover { background-color: hsl(var(--hover-blue)); }
-  .hover\:bg-cyan-400:hover { background-color: hsl(var(--hover-blue-dark)); }
-  .hover\:border-blue-500:hover { border-color: hsl(var(--hover-blue)); }
+
+  .text-blue-50 {
+    color: hsl(var(--blue-50));
+  }
+
+  .text-blue-100 {
+    color: hsl(var(--blue-100));
+  }
+
+  .text-blue-200 {
+    color: hsl(var(--blue-200));
+  }
+
+  .text-blue-300 {
+    color: hsl(var(--blue-300));
+  }
+
+  .text-blue-400 {
+    color: hsl(var(--blue-400));
+  }
+
+  .text-blue-500 {
+    color: hsl(var(--blue-500));
+  }
+
+  .text-blue-600 {
+    color: hsl(var(--blue-600));
+  }
+
+  .text-blue-700 {
+    color: hsl(var(--blue-700));
+  }
+
+  .text-blue-800 {
+    color: hsl(var(--blue-800));
+  }
+
+  .text-blue-900 {
+    color: hsl(var(--blue-900));
+  }
+
+  .text-blue-950 {
+    color: hsl(var(--blue-950));
+  }
+
+  .text-cyan-300 {
+    color: hsl(var(--cyan-300));
+  }
+
+  .text-cyan-400 {
+    color: hsl(var(--cyan-400));
+  }
+
+  .text-cyan-500 {
+    color: hsl(var(--cyan-500));
+  }
+
+  .text-cyan-600 {
+    color: hsl(var(--cyan-600));
+  }
+
+  .text-cyan-700 {
+    color: hsl(var(--cyan-700));
+  }
+
+  .text-teal-400 {
+    color: hsl(var(--teal-400));
+  }
+
+  .text-teal-500 {
+    color: hsl(var(--teal-500));
+  }
+
+  .text-teal-600 {
+    color: hsl(var(--teal-600));
+  }
+
+  /* Background Colors */
+  .bg-blue-50 {
+    background-color: hsl(var(--blue-50));
+  }
+
+  .bg-blue-100 {
+    background-color: hsl(var(--blue-100));
+  }
+
+  .bg-blue-200 {
+    background-color: hsl(var(--blue-200));
+  }
+
+  .bg-blue-300 {
+    background-color: hsl(var(--blue-300));
+  }
+
+  .bg-blue-400 {
+    background-color: hsl(var(--blue-400));
+  }
+
+  .bg-blue-500 {
+    background-color: hsl(var(--blue-500));
+  }
+
+  .bg-blue-600 {
+    background-color: hsl(var(--blue-600));
+  }
+
+  .bg-blue-700 {
+    background-color: hsl(var(--blue-700));
+  }
+
+  .bg-blue-800 {
+    background-color: hsl(var(--blue-800));
+  }
+
+  .bg-blue-900 {
+    background-color: hsl(var(--blue-900));
+  }
+
+  .bg-blue-950 {
+    background-color: hsl(var(--blue-950));
+  }
+
+  .bg-cyan-300 {
+    background-color: hsl(var(--cyan-300));
+  }
+
+  .bg-cyan-400 {
+    background-color: hsl(var(--cyan-400));
+  }
+
+  .bg-cyan-500 {
+    background-color: hsl(var(--cyan-500));
+  }
+
+  .bg-cyan-600 {
+    background-color: hsl(var(--cyan-600));
+  }
+
+  .bg-cyan-700 {
+    background-color: hsl(var(--cyan-700));
+  }
+
+  .bg-teal-400 {
+    background-color: hsl(var(--teal-400));
+  }
+
+  .bg-teal-500 {
+    background-color: hsl(var(--teal-500));
+  }
+
+  .bg-teal-600 {
+    background-color: hsl(var(--teal-600));
+  }
+
+  /* Border Colors */
+  .border-blue-500 {
+    border-color: hsl(var(--blue-500));
+  }
+
+  .border-blue-600 {
+    border-color: hsl(var(--blue-600));
+  }
+
+  .border-cyan-400 {
+    border-color: hsl(var(--cyan-400));
+  }
+
+  .border-cyan-500 {
+    border-color: hsl(var(--cyan-500));
+  }
+
+  .border-teal-500 {
+    border-color: hsl(var(--teal-500));
+  }
+
+  /* Hover Effects */
+  .hover\:bg-blue-500:hover {
+    background-color: hsl(var(--blue-500));
+  }
+
+  .hover\:bg-blue-600:hover {
+    background-color: hsl(var(--blue-600));
+  }
+
+  .hover\:bg-cyan-400:hover {
+    background-color: hsl(var(--cyan-400));
+  }
+
+  .hover\:bg-cyan-500:hover {
+    background-color: hsl(var(--cyan-500));
+  }
+
+  .hover\:bg-teal-500:hover {
+    background-color: hsl(var(--teal-500));
+  }
+
+  .hover\:text-blue-500:hover {
+    color: hsl(var(--blue-500));
+  }
+
+  .hover\:text-cyan-400:hover {
+    color: hsl(var(--cyan-400));
+  }
+
+  .hover\:text-teal-400:hover {
+    color: hsl(var(--teal-400));
+  }
+
+  .hover\:border-blue-500:hover {
+    border-color: hsl(var(--blue-500));
+  }
+
+  .hover\:border-cyan-400:hover {
+    border-color: hsl(var(--cyan-400));
+  }
 }
 
-
+/* Custom Scrollbar - Nautical Theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-800;
+  @apply bg-blue-100 dark:bg-blue-900;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  @apply bg-blue-300 dark:bg-blue-700 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400 dark:bg-gray-500;
+  @apply bg-blue-400 dark:bg-blue-600;
 }
 
+/* Ocean Gradient Backgrounds */
+.ocean-gradient-light {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+}
+
+.ocean-gradient-dark {
+  background: linear-gradient(135deg, #082f49 0%, #0c4a6e 50%, #0284c7 100%);
+}
 
 .ocean-gradient {
   background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #06b6d4 100%);
 }
 
-
+/* Wave Animation */
 @keyframes wave {
   0% {
     transform: translateX(0) translateZ(0) scaleY(1);
   }
+
   50% {
     transform: translateX(-25%) translateZ(0) scaleY(0.8);
   }
+
   100% {
     transform: translateX(-50%) translateZ(0) scaleY(1);
   }
@@ -247,71 +447,41 @@
   animation: wave 8s linear infinite;
 }
 
-:root {
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+/* Glass Morphism Effects for Nautical Theme */
+.glass-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+.glass-dark {
+  background: rgba(8, 47, 73, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+/* Nautical Card Styles */
+.card-nautical {
+  @apply rounded-lg shadow-lg transition-all duration-300;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+}
+
+.card-nautical:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: hsl(var(--primary));
+}
+
+/* Button Styles */
+.btn-nautical {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.btn-nautical:hover {
+  background: hsl(var(--accent));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
 }

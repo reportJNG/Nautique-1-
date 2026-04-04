@@ -41,11 +41,11 @@ export function FactureDetailActions({ factureId, locale }: FactureDetailActions
       style={{
         display: "inline-flex", alignItems: "center", gap: 8, justifyContent: "center",
         padding: "10px 16px", borderRadius: 9, width: "100%",
-        background: "linear-gradient(135deg, #10b981, #059669)",
-        border: "none", color: "#fff", fontSize: 13.5, fontWeight: 700,
+        background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8))",
+        border: "none", color: "hsl(var(--primary-foreground))", fontSize: 13.5, fontWeight: 700,
         cursor: loading ? "not-allowed" : "pointer",
         opacity: loading ? 0.7 : 1,
-        boxShadow: "0 2px 10px rgba(16,185,129,0.35)",
+        boxShadow: "0 2px 10px hsl(var(--primary)/0.35)",
         transition: "opacity 150ms ease, transform 150ms ease",
       }}
     >

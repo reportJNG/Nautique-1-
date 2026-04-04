@@ -29,29 +29,29 @@ export default async function ParametresPage({
 
         .par-card {
           border-radius: 14px;
-          border: 1px solid rgba(255,255,255,0.06);
-          background: rgba(13,21,38,0.72);
+          border: 1px solid hsl(var(--border)/0.5);
+          background: hsl(var(--card)/0.8);
           backdrop-filter: blur(12px);
           overflow: hidden;
           transition: border-color 200ms ease;
         }
-        .par-card:hover { border-color: rgba(6,182,212,0.12); }
+        .par-card:hover { border-color: hsl(var(--primary)/0.12); }
 
         .par-card-header {
           display: flex; align-items: center; gap: 10px;
           padding: 16px 20px 14px;
-          border-bottom: 1px solid rgba(255,255,255,0.04);
+          border-bottom: 1px solid hsl(var(--border)/0.3);
         }
         .par-card-icon {
           width: 34px; height: 34px; border-radius: 9px;
-          background: rgba(6,182,212,0.12);
-          border: 1px solid rgba(6,182,212,0.2);
+          background: hsl(var(--primary)/0.12);
+          border: 1px solid hsl(var(--primary)/0.2);
           display: flex; align-items: center; justify-content: center;
-          color: #06b6d4; flex-shrink: 0;
+          color: hsl(var(--primary)); flex-shrink: 0;
         }
         .par-card-icon svg { width: 16px; height: 16px; }
-        .par-card-title { font-size: 14px; font-weight: 600; color: #e2f0ff; }
-        .par-card-desc  { font-size: 12px; color: #7a93b4; margin-top: 2px; }
+        .par-card-title { font-size: 14px; font-weight: 600; color: hsl(var(--foreground)); }
+        .par-card-desc  { font-size: 12px; color: hsl(var(--muted-foreground)); margin-top: 2px; }
 
         .par-card-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
 
@@ -60,35 +60,35 @@ export default async function ParametresPage({
         @media (min-width: 480px) { .par-field-row { grid-template-columns: 1fr 1fr; } }
 
         .par-label {
-          font-size: 11.5px; font-weight: 600; color: #7a93b4;
+          font-size: 11.5px; font-weight: 600; color: hsl(var(--muted-foreground));
           text-transform: uppercase; letter-spacing: 0.07em;
           display: flex; align-items: center; gap: 5px;
         }
-        .par-label svg { color: #4a6280; }
+        .par-label svg { color: hsl(var(--muted-foreground)); }
 
         .par-input {
           width: 100%; padding: 9px 13px;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
+          background: hsl(var(--muted)/0.1);
+          border: 1px solid hsl(var(--border)/0.5);
           border-radius: 8px;
-          color: #e2f0ff; font-size: 13.5px;
+          color: hsl(var(--foreground)); font-size: 13.5px;
           transition: border-color 180ms ease, box-shadow 180ms ease;
           outline: none; box-sizing: border-box;
         }
-        .par-input::placeholder { color: #4a6280; }
+        .par-input::placeholder { color: hsl(var(--muted-foreground)); }
         .par-input:focus {
-          border-color: rgba(6,182,212,0.4);
-          box-shadow: 0 0 0 3px rgba(6,182,212,0.08);
+          border-color: hsl(var(--primary)/0.4);
+          box-shadow: 0 0 0 3px hsl(var(--primary)/0.08);
         }
         .par-input[type="number"] { font-variant-numeric: tabular-nums; }
 
         .par-save-btn {
           display: inline-flex; align-items: center; gap: 7px;
           padding: 10px 20px; border-radius: 8px;
-          background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-          color: #fff; font-size: 13.5px; font-weight: 600;
+          background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)/0.8));
+          color: hsl(var(--primary-foreground)); font-size: 13.5px; font-weight: 600;
           border: none; cursor: pointer;
-          box-shadow: 0 2px 12px rgba(6,182,212,0.35);
+          box-shadow: 0 2px 12px hsl(var(--primary)/0.35);
           transition: opacity 150ms ease, transform 150ms ease;
         }
         .par-save-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
@@ -97,14 +97,14 @@ export default async function ParametresPage({
 
         .par-info-card {
           border-radius: 12px;
-          border: 1px solid rgba(6,182,212,0.12);
-          background: rgba(6,182,212,0.05);
+          border: 1px solid hsl(var(--primary)/0.12);
+          background: hsl(var(--primary)/0.05);
           padding: 16px;
         }
-        .par-info-title { font-size: 12px; font-weight: 700; color: #22d3ee; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
-        .par-info-row { display: flex; align-items: flex-start; gap: 6px; font-size: 12px; color: #7a93b4; line-height: 1.5; padding: 3px 0; }
-        .par-info-row svg { color: #4a6280; margin-top: 2px; flex-shrink: 0; }
-        .par-divider { height: 1px; background: rgba(255,255,255,0.04); margin: 2px 0; }
+        .par-info-title { font-size: 12px; font-weight: 700; color: hsl(var(--primary)); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+        .par-info-row { display: flex; align-items: flex-start; gap: 6px; font-size: 12px; color: hsl(var(--muted-foreground)); line-height: 1.5; padding: 3px 0; }
+        .par-info-row svg { color: hsl(var(--muted-foreground)); margin-top: 2px; flex-shrink: 0; }
+        .par-divider { height: 1px; background: hsl(var(--border)/0.3); margin: 2px 0; }
       `}</style>
 
       <AdminPageHeader

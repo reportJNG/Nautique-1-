@@ -55,12 +55,12 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-    { id: "home",         labelKey: "home",         icon: Home,          sectionId: "accueil"      },
-    { id: "schedule",     labelKey: "schedule",     icon: Clock,         sectionId: "horaires"     },
-    { id: "disciplines",  labelKey: "disciplines",  icon: Zap,           sectionId: "disciplines"  },
-    { id: "gallery",      labelKey: "gallery",      icon: Images,        sectionId: "gallery"      },
+    { id: "home", labelKey: "home", icon: Home, sectionId: "accueil" },
+    { id: "schedule", labelKey: "schedule", icon: Clock, sectionId: "horaires" },
+    { id: "disciplines", labelKey: "disciplines", icon: Zap, sectionId: "disciplines" },
+    { id: "gallery", labelKey: "gallery", icon: Images, sectionId: "gallery" },
     { id: "testimonials", labelKey: "testimonials", icon: MessageCircle, sectionId: "testimonials" },
-    { id: "support",      labelKey: "support",      icon: LifeBuoy,      sectionId: "support"      },
+    { id: "support", labelKey: "support", icon: LifeBuoy, sectionId: "support" },
 ];
 
 /* ─── helpers ───────────────────────────────────────────────── */
@@ -91,7 +91,7 @@ function scrollToSection(id: SectionId, behavior: ScrollBehavior) {
 /* ─── scroll hook ───────────────────────────────────────────── */
 
 function useScrollMetrics() {
-    const [active, setActive]     = useState<SectionId>("accueil");
+    const [active, setActive] = useState<SectionId>("accueil");
     const [progress, setProgress] = useState(0);
     const [scrolled, setScrolled] = useState(false);
 
@@ -120,17 +120,17 @@ function useScrollMetrics() {
 /* ─── component ─────────────────────────────────────────────── */
 
 export function LandingNav() {
-    const t      = useTranslations("nav");
+    const t = useTranslations("nav");
     const locale = useLocale();
     const router = useRouter();
 
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [hovered, setHovered]       = useState<string | null>(null);
-    const [loading, setLoading]       = useState<"adherent" | "agent" | null>(null);
-    const [clickedId, setClickedId]   = useState<string | null>(null);
+    const [hovered, setHovered] = useState<string | null>(null);
+    const [loading, setLoading] = useState<"adherent" | "agent" | null>(null);
+    const [clickedId, setClickedId] = useState<string | null>(null);
 
     const menuRef = useRef<HTMLDivElement>(null);
-    const btnRef  = useRef<HTMLButtonElement>(null);
+    const btnRef = useRef<HTMLButtonElement>(null);
     const hashRef = useRef(false);
 
     const { active, progress, scrolled } = useScrollMetrics();
@@ -181,7 +181,7 @@ export function LandingNav() {
     const navigate = useCallback(
         (id: SectionId, behavior: ScrollBehavior) => {
             scrollToSection(id, behavior);
-            try { window.history.replaceState(null, "", sectionHref(locale, id)); } catch {}
+            try { window.history.replaceState(null, "", sectionHref(locale, id)); } catch { }
         },
         [locale],
     );
@@ -192,7 +192,7 @@ export function LandingNav() {
             setClickedId(id);
             navigate(id, "smooth");
             setMobileOpen(false);
-            
+
             // Reset clicked state after animation
             setTimeout(() => setClickedId(null), 300);
         },
@@ -202,8 +202,8 @@ export function LandingNav() {
     const wrapClass = useMemo(() => cn(
         "sticky top-0 z-50 w-full transition-all duration-500",
         scrolled
-            ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-black/[0.06] dark:border-white/[0.06] shadow-[0_1px_16px_0_rgba(0,0,0,0.06)]"
-            : "bg-white/0 dark:bg-gradient-to-b dark:from-black/55 dark:via-black/20 dark:to-transparent",
+            ? "bg-background/95 backdrop-blur-xl border-border shadow-[0_1px_16px_0_rgba(0,0,0,0.06)]"
+            : "bg-background/0 dark:bg-gradient-to-b dark:from-black/55 dark:via-black/20 dark:to-transparent",
     ), [scrolled]);
 
     /* ── small spinner ── */
@@ -213,9 +213,9 @@ export function LandingNav() {
 
     /* ── desktop nav item with enhanced href UI ── */
     const renderDesktop = (item: NavItem) => {
-        const Icon     = item.icon;
+        const Icon = item.icon;
         const isActive = active === item.sectionId;
-        const isHov    = hovered === item.id;
+        const isHov = hovered === item.id;
         const isClicked = clickedId === item.id;
 
         return (
@@ -234,16 +234,16 @@ export function LandingNav() {
                     "text-[10.5px] font-bold tracking-[0.07em] uppercase leading-none whitespace-nowrap",
                     // ── interaction ──
                     "cursor-pointer select-none transition-all duration-200",
-                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-1",
+                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1",
                     // ── color: scrolled ──
                     scrolled
                         ? isActive
-                            ? "text-cyan-700 dark:text-cyan-300"
-                            : "text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100"
+                            ? "text-primary dark:text-primary"
+                            : "text-muted-foreground hover:text-foreground"
                         // ── color: hero (theme-aware) ──
                         : isActive
-                            ? "text-cyan-600 dark:text-white"
-                            : "text-gray-600 dark:text-white/55 hover:text-gray-900 dark:hover:text-white",
+                            ? "text-primary dark:text-primary"
+                            : "text-muted-foreground/80 dark:text-white/55 hover:text-foreground",
                 )}
             >
                 {/* background pill — enhanced with gradient on hover */}
@@ -258,7 +258,9 @@ export function LandingNav() {
                             transition={{ duration: 0.15, ease: "easeOut" }}
                             className={cn(
                                 "absolute inset-0 rounded-full",
-                               
+                                isActive
+                                    ? "bg-primary/10 dark:bg-primary/15"
+                                    : "bg-muted/50 dark:bg-white/5"
                             )}
                         />
                     )}
@@ -270,13 +272,13 @@ export function LandingNav() {
                         initial={{ scale: 0.2, opacity: 0.8 }}
                         animate={{ scale: 2, opacity: 0 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className="absolute inset-0 rounded-full bg-cyan-400/30 dark:bg-cyan-400/40 pointer-events-none"
+                        className="absolute inset-0 rounded-full bg-primary/30 dark:bg-primary/40 pointer-events-none"
                     />
                 )}
 
                 {/* icon — enhanced animation */}
                 <motion.div
-                    animate={{ 
+                    animate={{
                         scale: (isActive || isHov) ? 1.8 : 1.3,
                         rotate: (isActive || isHov) ? [0, 5, 0] : 0
                     }}
@@ -286,23 +288,23 @@ export function LandingNav() {
                     <Icon
                         aria-hidden="true"
                         className={cn(
-                            "h-[12px] w-[7.5px] flex-shrink-0 transition-colors duration-200 ",
+                            "h-[12px] w-[7.5px] flex-shrink-0 transition-colors duration-200",
                             scrolled
                                 ? isActive
-                                    ? "text-cyan-500 dark:text-cyan-400"
-                                    : "text-stone-400 dark:text-stone-500"
+                                    ? "text-primary"
+                                    : "text-muted-foreground"
                                 : isActive
-                                    ? "text-cyan-500 dark:text-cyan-300"
-                                    : "text-gray-400 dark:text-white/40",
+                                    ? "text-primary"
+                                    : "text-muted-foreground/70",
                         )}
                     />
                 </motion.div>
 
                 {/* label with enhanced hover effect */}
-                <motion.span 
+                <motion.span
                     className="relative z-10"
-                    animate={{ 
-                        x: (isActive || isHov) ? 1 : 0 
+                    animate={{
+                        x: (isActive || isHov) ? 1 : 0
                     }}
                     transition={{ duration: 0.15 }}
                 >
@@ -316,7 +318,7 @@ export function LandingNav() {
                             layoutId="nav-dot"
                             className={cn(
                                 "absolute bottom-[3px] left-1/2 h-[2px] w-3 -translate-x-1/2 rounded-full",
-                                scrolled ? "bg-cyan-500 dark:bg-cyan-400" : "bg-cyan-500 dark:bg-cyan-300",
+                                "bg-primary"
                             )}
                             transition={{ type: "spring", stiffness: 440, damping: 34 }}
                         />
@@ -324,7 +326,7 @@ export function LandingNav() {
                         <motion.span
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 0.4 }}
-                            className="absolute -inset-x-1 -inset-y-0.5 rounded-full bg-cyan-500/20 dark:bg-cyan-400/20 blur-md pointer-events-none"
+                            className="absolute -inset-x-1 -inset-y-0.5 rounded-full bg-primary/20 dark:bg-primary/20 blur-md pointer-events-none"
                         />
                     </>
                 )}
@@ -334,7 +336,7 @@ export function LandingNav() {
 
     /* ── mobile nav item with enhanced href UI ── */
     const renderMobile = (item: NavItem, i: number) => {
-        const Icon     = item.icon;
+        const Icon = item.icon;
         const isActive = active === item.sectionId;
         const isClicked = clickedId === item.id;
 
@@ -353,8 +355,8 @@ export function LandingNav() {
                     className={cn(
                         "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 overflow-hidden",
                         isActive
-                            ? "bg-gradient-to-r from-cyan-50 to-cyan-100/50 dark:from-cyan-950/60 dark:to-cyan-900/30 text-cyan-700 dark:text-cyan-300"
-                            : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/8 hover:text-gray-900 dark:hover:text-gray-100",
+                            ? "bg-primary/10 dark:bg-primary/15 text-primary"
+                            : "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
                     )}
                 >
                     {/* Hover background animation */}
@@ -363,7 +365,7 @@ export function LandingNav() {
                             initial={{ x: '-100%' }}
                             whileHover={{ x: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="absolute inset-0 bg-gradient-to-r from-gray-100/0 via-gray-100/50 to-gray-100/0 dark:from-white/0 dark:via-white/5 dark:to-white/0 pointer-events-none"
+                            className="absolute inset-0 bg-gradient-to-r from-muted/0 via-muted/50 to-muted/0 dark:from-white/0 dark:via-white/5 dark:to-white/0 pointer-events-none"
                         />
                     )}
 
@@ -373,15 +375,15 @@ export function LandingNav() {
                             initial={{ scale: 0, opacity: 0.6 }}
                             animate={{ scale: 3, opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            className="absolute inset-0 rounded-xl bg-cyan-400/30 dark:bg-cyan-400/40 pointer-events-none"
+                            className="absolute inset-0 rounded-xl bg-primary/30 dark:bg-primary/40 pointer-events-none"
                         />
                     )}
-                    
+
                     <span className={cn(
                         "flex h-[26px] w-[26px] flex-shrink-0 items-center justify-center rounded-lg transition-all duration-200 relative z-10",
                         isActive
-                            ? "bg-gradient-to-br from-cyan-100 to-cyan-200 dark:from-cyan-900/80 dark:to-cyan-800/60 text-cyan-600 dark:text-cyan-400 shadow-sm"
-                            : "bg-gray-100 dark:bg-white/10 text-gray-400 dark:text-gray-500 group-hover:bg-gray-200/80 dark:group-hover:bg-white/20 group-hover:scale-105",
+                            ? "bg-primary/20 dark:bg-primary/25 text-primary shadow-sm"
+                            : "bg-muted text-muted-foreground group-hover:bg-muted/80 group-hover:scale-105",
                     )}>
                         <Icon className="h-3 w-3 transition-transform duration-200 group-hover:scale-110" aria-hidden="true" />
                     </span>
@@ -391,7 +393,7 @@ export function LandingNav() {
                     </span>
 
                     {isActive
-                        ? <Sparkles className="h-3 w-3 text-cyan-500 dark:text-cyan-400 animate-pulse" />
+                        ? <Sparkles className="h-3 w-3 text-primary animate-pulse" />
                         : <ChevronRight className="h-3 w-3 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-40" />
                     }
                 </motion.a>
@@ -408,7 +410,7 @@ export function LandingNav() {
                     <IntlLink
                         href="/"
                         aria-label={t("brand")}
-                        className="group flex shrink-0 items-center gap-[7px] rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:ring-offset-1"
+                        className="group flex shrink-0 items-center gap-[7px] rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
                     >
                         <motion.div
                             whileHover={{ rotate: 15, scale: 1.12 }}
@@ -418,28 +420,28 @@ export function LandingNav() {
                             <Waves
                                 className={cn(
                                     "h-[18px] w-[18px] transition-all duration-300",
-                                    scrolled 
-                                        ? "text-cyan-600 dark:text-cyan-500" 
-                                        : "text-cyan-600 dark:text-cyan-300",
+                                    scrolled
+                                        ? "text-primary"
+                                        : "text-primary",
                                 )}
                                 aria-hidden="true"
                             />
                         </motion.div>
-                        <motion.span 
+                        <motion.span
                             className={cn(
                                 "text-[13px] font-bold tracking-tight transition-all duration-300 relative",
-                                scrolled 
-                                    ? "text-gray-900 dark:text-white" 
-                                    : "text-gray-800 dark:text-white",
+                                scrolled
+                                    ? "text-foreground"
+                                    : "text-foreground",
                             )}
-                            whileHover={{ 
+                            whileHover={{
                                 letterSpacing: "0.01em",
                                 transition: { duration: 0.2 }
                             }}
                         >
                             {t("brand")}
-                            <motion.span 
-                                className="absolute -bottom-0.5 left-0 right-0 h-[1.5px] bg-gradient-to-r from-cyan-500 to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                            <motion.span
+                                className="absolute -bottom-0.5 left-0 right-0 h-[1.5px] bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
                             />
                         </motion.span>
                     </IntlLink>
@@ -455,7 +457,7 @@ export function LandingNav() {
                             "overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
                             "transition-all duration-500",
                             scrolled
-                                ? "rounded-full bg-stone-100/80 dark:bg-white/[0.05] px-[6px] py-[4px] ring-1 ring-inset ring-black/[0.07] dark:ring-white/[0.08]"
+                                ? "rounded-full bg-muted/50 px-[6px] py-[4px] ring-1 ring-inset ring-border"
                                 : "px-0 py-0",
                         )}>
                             {NAV_ITEMS.map(renderDesktop)}
@@ -464,19 +466,16 @@ export function LandingNav() {
 
                     {/* ── Desktop actions ── */}
                     <div className="hidden shrink-0 items-center gap-1.5 md:flex">
-                        <div className={cn(
-                            "flex items-center gap-0.5",
-                            
-                        )}>
+                        <div className="flex items-center gap-0.5">
                             <ThemeToggle />
                             <LanguageSwitcher />
                         </div>
 
                         <span className={cn(
                             "h-4 w-px transition-colors duration-300",
-                            scrolled 
-                                ? "bg-black/10 dark:bg-white/10" 
-                                : "bg-gray-300 dark:bg-white/20",
+                            scrolled
+                                ? "bg-border"
+                                : "bg-border/50",
                         )} />
 
                         {/* Member button with enhanced hover */}
@@ -490,39 +489,18 @@ export function LandingNav() {
                                 "inline-flex h-[26px] items-center gap-[5px] rounded-full px-3 cursor-pointer",
                                 "text-[10.5px] font-bold tracking-[0.06em] uppercase leading-none whitespace-nowrap",
                                 "border transition-all duration-200",
-                                "focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60",
+                                "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                                 "disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden group",
                                 scrolled
-                                    ? "border-black/[0.12] dark:border-white/[0.12] text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-white/[0.07]"
-                                    : "border-gray-300 dark:border-white/25 text-gray-700 dark:text-white/85 hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40",
+                                    ? "border-border text-foreground hover:bg-muted/50"
+                                    : "border-border text-foreground/90 hover:bg-muted/30",
                             )}
                         >
-                            <span className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
+                            <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
                             {loading === "adherent" ? <Spin /> : <User className="h-[10px] w-[10px]" />}
                             {t("loginAdherent")}
                         </motion.button>
 
-                        {/* Agent button with enhanced hover */}
-                        <motion.button
-                            type="button"
-                            onClick={() => handleAuth("agent")}
-                            disabled={loading !== null}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.97 }}
-                            className={cn(
-                                "inline-flex h-[26px] items-center gap-[5px] rounded-full px-3 cursor-pointer",
-                                "text-[10.5px] font-bold tracking-[0.06em] uppercase leading-none whitespace-nowrap text-white",
-                                "bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-700 hover:to-cyan-600",
-                                "dark:from-cyan-500 dark:to-cyan-400 dark:hover:from-cyan-600 dark:hover:to-cyan-500",
-                                "transition-all duration-200 shadow-sm hover:shadow-md",
-                                "focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/70 focus-visible:ring-offset-1",
-                                "disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden group",
-                            )}
-                        >
-                            <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
-                            {loading === "agent" ? <Spin /> : <Shield className="h-[10px] w-[10px]" />}
-                            {t("loginAgent")}
-                        </motion.button>
                     </div>
 
                     {/* ── Mobile toggle ── */}
@@ -537,10 +515,10 @@ export function LandingNav() {
                         className={cn(
                             "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg",
                             "transition-all duration-200 md:hidden",
-                            "focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60",
+                            "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                             scrolled
-                                ? "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/[0.07]"
-                                : "text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/[0.12]",
+                                ? "text-foreground hover:bg-muted/50"
+                                : "text-foreground hover:bg-muted/30",
                         )}
                     >
                         <AnimatePresence mode="wait" initial={false}>
@@ -567,7 +545,7 @@ export function LandingNav() {
                             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                             exit={{ opacity: 0, y: -8, filter: "blur(4px)" }}
                             transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            className="border-t border-black/[0.05] dark:border-white/[0.06] bg-white/98 dark:bg-gray-950/98 backdrop-blur-2xl md:hidden shadow-xl"
+                            className="border-t border-border bg-background/98 backdrop-blur-2xl md:hidden shadow-xl"
                         >
                             <div className="mx-auto flex max-h-[calc(100dvh-50px)] max-w-screen-xl flex-col overflow-y-auto px-4 py-3 pb-6">
                                 {/* nav links */}
@@ -576,13 +554,13 @@ export function LandingNav() {
                                 </div>
 
                                 {/* preferences row */}
-                                <motion.div 
+                                <motion.div
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.2 }}
-                                    className="mt-5 flex items-center justify-between border-t border-black/[0.06] dark:border-white/[0.06] pt-4"
+                                    className="mt-5 flex items-center justify-between border-t border-border pt-4"
                                 >
-                                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-600">
+                                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                                         Preferences
                                     </span>
                                     <div className="flex items-center gap-2">
@@ -592,7 +570,7 @@ export function LandingNav() {
                                 </motion.div>
 
                                 {/* auth buttons */}
-                                <motion.div 
+                                <motion.div
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.25 }}
@@ -604,43 +582,22 @@ export function LandingNav() {
                                         disabled={loading !== null}
                                         whileTap={{ scale: 0.97 }}
                                         className={cn(
-                                            "inline-flex items-center justify-center gap-2 rounded-xl ",
+                                            "inline-flex items-center justify-center gap-2 rounded-xl",
                                             "h-10 px-3 text-[13px] font-medium",
-                                            "border border-black/[0.1] dark:border-white/[0.1]",
-                                            "bg-white dark:bg-white/[0.04] text-gray-700 dark:text-gray-300",
-                                            "hover:bg-gray-50 dark:hover:bg-white/[0.07] transition-all duration-200",
-                                            "disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden group ",
+                                            "border border-border",
+                                            "bg-card text-foreground",
+                                            "hover:bg-muted/50 transition-all duration-200",
+                                            "disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden group",
                                         )}
                                     >
-                                        <span className="absolute inset-0 bg-gradient-to-r from-gray-100/0 via-gray-100/50 to-gray-100/0 dark:from-white/0 dark:via-white/10 dark:to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
+                                        <span className="absolute inset-0 bg-gradient-to-r from-muted/0 via-muted/50 to-muted/0 dark:from-white/0 dark:via-white/5 dark:to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
                                         {loading === "adherent"
                                             ? <span className="h-3.5 w-3.5 animate-spin rounded-full border-[1.5px] border-current border-t-transparent cursor-pointer" />
-                                            : <User className="h-3.5 w-3.5 " />
+                                            : <User className="h-3.5 w-3.5" />
                                         }
                                         {t("loginAdherent")}
                                     </motion.button>
 
-                                    <motion.button
-                                        type="button"
-                                        onClick={() => { setMobileOpen(false); handleAuth("agent"); }}
-                                        disabled={loading !== null}
-                                        whileTap={{ scale: 0.97 }}
-                                        className={cn(
-                                            "inline-flex items-center justify-center gap-2 rounded-xl",
-                                            "h-10 px-3 text-[13px] font-medium text-white",
-                                            "bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-700 hover:to-cyan-600",
-                                            "dark:from-cyan-500 dark:to-cyan-400 dark:hover:from-cyan-600 dark:hover:to-cyan-500",
-                                            "transition-all duration-200 shadow-sm",
-                                            "disabled:pointer-events-none disabled:opacity-50 relative overflow-hidden group",
-                                        )}
-                                    >
-                                        <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
-                                        {loading === "agent"
-                                            ? <span className="h-3.5 w-3.5 animate-spin rounded-full border-[1.5px] border-current border-t-transparent" />
-                                            : <Shield className="h-3.5 w-3.5" />
-                                        }
-                                        {t("loginAgent")}
-                                    </motion.button>
                                 </motion.div>
                             </div>
                         </motion.div>
@@ -651,12 +608,12 @@ export function LandingNav() {
             {/* ── Enhanced scroll progress bar with glow ── */}
             <motion.div
                 aria-hidden="true"
-                className="pointer-events-none fixed left-0 right-0 top-0 z-[60] h-[2px] origin-left bg-gradient-to-r from-cyan-500 via-cyan-400 to-teal-400"
+                className="pointer-events-none fixed left-0 right-0 top-0 z-[60] h-[2px] origin-left bg-gradient-to-r from-primary via-accent to-primary/60"
                 style={{ scaleX: progress }}
             />
             <motion.div
                 aria-hidden="true"
-                className="pointer-events-none fixed left-0 right-0 top-0 z-[59] h-[2px] origin-left bg-gradient-to-r from-cyan-500/20 via-cyan-400/20 to-teal-400/20 blur-sm"
+                className="pointer-events-none fixed left-0 right-0 top-0 z-[59] h-[2px] origin-left bg-gradient-to-r from-primary/30 via-accent/30 to-primary/20 blur-sm"
                 style={{ scaleX: progress }}
             />
         </>

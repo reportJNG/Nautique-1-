@@ -22,24 +22,24 @@ export default async function AgentsPage({
   const agents = await getAgents();
 
   const roleColors: Record<string, string> = {
-    ADMIN: "text-violet-400 ring-violet-500/30",
-    DIR: "text-cyan-400 ring-cyan-500/30",
-    "RESP-COM": "text-sky-400 ring-sky-500/30",
-    "AG-COM": "text-emerald-400 ring-emerald-500/30",
-    "AG-FIN": "text-amber-400 ring-amber-500/30",
+    ADMIN: "text-primary ring-primary/30",
+    DIR: "text-primary ring-primary/30",
+    "RESP-COM": "text-primary ring-primary/30",
+    "AG-COM": "text-primary ring-primary/30",
+    "AG-FIN": "text-accent ring-accent/30",
   };
 
   const getStatusBadge = (actif: number) => {
     if (actif === 1) {
       return {
         label: t("status.active"),
-        color: "text-emerald-400 ring-emerald-500/30",
+        color: "text-primary ring-primary/30",
         icon: <CheckCircle className="w-3 h-3 mr-1" />
       };
     }
     return {
       label: t("status.inactive"),
-      color: "text-slate-400 ring-slate-500/30",
+      color: "text-muted-foreground ring-border/30",
       icon: <XCircle className="w-3 h-3 mr-1" />
     };
   };
@@ -53,7 +53,7 @@ export default async function AgentsPage({
         actions={
           <Link
             href={`/${locale}/admin/agents/nouveau`}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/20 text-blue-400 text-sm font-semibold ring-1 ring-blue-500/40 hover:bg-blue-500/30 transition-all duration-200"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/20 text-primary text-sm font-semibold ring-1 ring-primary/40 hover:bg-primary/30 transition-all duration-200"
           >
             <Plus className="w-4 h-4" />
             {t("agentsUi.newButton")}
@@ -68,40 +68,40 @@ export default async function AgentsPage({
         <AdminDataTable>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="border-b border-slate-700/50">
+              <thead className="border-b border-border/50">
                 <tr>
-                  <th className="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <th className="text-left px-6 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     {t("agentsUi.table.name")}
                   </th>
-                  <th className="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <th className="text-left px-6 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     {t("agentsUi.table.role")}
                   </th>
-                  <th className="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <th className="text-left px-6 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     {t("agentsUi.table.email")}
                   </th>
-                  <th className="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  <th className="text-left px-6 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     {t("agentsUi.table.status")}
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-700/50">
+              <tbody className="divide-y divide-border/30">
                 {agents.map((agent) => {
                   const initials = `${agent.prenom?.[0] ?? ""}${agent.nom?.[0] ?? ""}`.toUpperCase();
                   const statusBadge = getStatusBadge(agent.actif);
                   const roleColorClass = roleColors[agent.role.code] ?? roleColors["AG-COM"];
 
                   return (
-                    <tr key={agent.id} className="hover:bg-slate-800/50 transition-colors">
+                    <tr key={agent.id} className="hover:bg-card/50 transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center ring-2 ring-blue-500/30 shadow-sm flex-shrink-0">
-                            <span className="text-xs font-bold text-white">{initials}</span>
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center ring-2 ring-primary/30 shadow-sm flex-shrink-0">
+                            <span className="text-xs font-bold text-primary-foreground">{initials}</span>
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-slate-200">
+                            <div className="text-sm font-semibold text-foreground">
                               {agent.prenom} {agent.nom}
                             </div>
-                            <div className="flex items-center gap-1 text-xs text-slate-500 font-mono mt-0.5">
+                            <div className="flex items-center gap-1 text-xs text-muted-foreground font-mono mt-0.5">
                               <Hash className="w-3 h-3" />
                               {agent.login}
                             </div>
@@ -114,8 +114,8 @@ export default async function AgentsPage({
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="flex items-center gap-2 text-sm text-slate-400">
-                          <Mail className="w-4 h-4 text-slate-500 flex-shrink-0" />
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Mail className="w-4 h-4 text-muted-foreground/50 flex-shrink-0" />
                           <span className="truncate">{agent.email}</span>
                         </div>
                       </td>
@@ -135,10 +135,10 @@ export default async function AgentsPage({
           {/* Empty State */}
           {agents.length === 0 && (
             <div className="text-center py-12">
-              <div className="w-12 h-12 rounded-full bg-slate-800/50 ring-1 ring-slate-700 flex items-center justify-center mx-auto mb-3">
-                <UserCog className="w-6 h-6 text-slate-500" />
+              <div className="w-12 h-12 rounded-full bg-card/50 ring-1 ring-border flex items-center justify-center mx-auto mb-3">
+                <UserCog className="w-6 h-6 text-muted-foreground/50" />
               </div>
-              <p className="text-sm text-slate-500">Aucun agent configuré</p>
+              <p className="text-sm text-muted-foreground/50">Aucun agent configuré</p>
             </div>
           )}
         </AdminDataTable>

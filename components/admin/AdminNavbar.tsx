@@ -76,23 +76,18 @@ function PageLabel({ locale }: { locale: string }) {
         <div className="flex items-center gap-1.5 select-none min-w-0">
             {parent && (
                 <>
-                    <span className="hidden sm:block text-[11.5px] text-[#2a4060] font-medium truncate">
+                    <span className="hidden sm:block text-[11.5px] text-muted-foreground font-medium truncate">
                         {parent.label}
                     </span>
-                    <Menu className="hidden sm:block w-3 h-3 text-[#1a2e48] flex-shrink-0 " />
+                    <Menu className="hidden sm:block w-3 h-3 text-muted-foreground/50 flex-shrink-0 " />
                 </>
             )}
-            <span className="text-[13.5px] font-bold text-[#c8dff5] tracking-tight truncate">
+            <span className="text-[13.5px] font-bold text-foreground tracking-tight truncate">
                 {current.label}
             </span>
         </div>
     );
 }
-
-/* ══════════════════════════════════════════════════════
-   Search bar
-══════════════════════════════════════════════════════ */
-
 
 /* ══════════════════════════════════════════════════════
    Icon button primitive
@@ -117,16 +112,16 @@ function NavIconBtn({
             aria-label={label}
             className={cn(
                 "relative flex items-center justify-center w-8 h-8 rounded-lg",
-                "text-[#405c7a] transition-all duration-150",
-                "hover:text-[#a8c8e8] hover:bg-white/[0.06]",
-                "focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/40",
+                "text-muted-foreground transition-all duration-150",
+                "hover:text-foreground hover:bg-muted/50",
+                "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
                 "active:scale-95",
-                active && "text-cyan-400 bg-cyan-500/10"
+                active && "text-primary bg-primary/10"
             )}
         >
             {children}
             {badge && badge > 0 ? (
-                <span className="absolute top-[5px] right-[5px] flex items-center justify-center min-w-[14px] h-[14px] px-0.5 rounded-full bg-cyan-500 text-[8.5px] font-bold text-[#030b18] ring-[1.5px] ring-[#090f1c]">
+                <span className="absolute top-[5px] right-[5px] flex items-center justify-center min-w-[14px] h-[14px] px-0.5 rounded-full bg-primary text-[8.5px] font-bold text-primary-foreground ring-[1.5px] ring-background">
                     {badge > 9 ? "9+" : badge}
                 </span>
             ) : null}
@@ -138,9 +133,9 @@ function NavIconBtn({
    Notification panel
 ══════════════════════════════════════════════════════ */
 const DEMO_NOTIFS = [
-    { id: 1, title: "Nouvel abonnement", body: "Ahmed Benali vient de s'inscrire.", time: "5 min", unread: true, icon: Sparkles, color: "text-cyan-400" },
-    { id: 2, title: "Facture en attente", body: "3 factures attendent un paiement.", time: "1h", unread: true, icon: AlertCircle, color: "text-amber-400" },
-    { id: 3, title: "Saison mise à jour", body: "La saison 2024/25 a été modifiée.", time: "Hier", unread: false, icon: CalendarClock, color: "text-sky-400" },
+    { id: 1, title: "Nouvel abonnement", body: "Ahmed Benali vient de s'inscrire.", time: "5 min", unread: true, icon: Sparkles, color: "text-primary" },
+    { id: 2, title: "Facture en attente", body: "3 factures attendent un paiement.", time: "1h", unread: true, icon: AlertCircle, color: "text-accent" },
+    { id: 3, title: "Saison mise à jour", body: "La saison 2024/25 a été modifiée.", time: "Hier", unread: false, icon: CalendarClock, color: "text-primary" },
 ];
 
 function NavBell() {
@@ -164,13 +159,13 @@ function NavBell() {
             </NavIconBtn>
 
             {open && (
-                <div className="absolute top-full mt-2.5 right-0 z-50 w-[320px] rounded-2xl border border-white/[0.07] bg-[#08111e]/98 backdrop-blur-xl shadow-[0_24px_60px_rgba(0,0,0,0.75),0_0_0_1px_rgba(255,255,255,0.03)_inset] animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute top-full mt-2.5 right-0 z-50 w-[320px] rounded-2xl border border-border/50 bg-card/98 backdrop-blur-xl shadow-[0_24px_60px_rgba(0,0,0,0.75),0_0_0_1px_rgba(255,255,255,0.03)_inset] animate-in fade-in slide-in-from-top-2 duration-200">
                     {/* Header */}
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.05]">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-border/30">
                         <div className="flex items-center gap-2">
-                            <span className="text-[13px] font-bold text-[#d8ecff]">Notifications</span>
+                            <span className="text-[13px] font-bold text-foreground">Notifications</span>
                             {unread > 0 && (
-                                <span className="flex items-center justify-center px-1.5 h-[18px] rounded-full bg-cyan-500/15 border border-cyan-500/20 text-[9.5px] font-bold text-cyan-400">
+                                <span className="flex items-center justify-center px-1.5 h-[18px] rounded-full bg-primary/15 border border-primary/20 text-[9.5px] font-bold text-primary">
                                     {unread}
                                 </span>
                             )}
@@ -179,20 +174,20 @@ function NavBell() {
                             {unread > 0 && (
                                 <button
                                     onClick={() => setNotifs((p) => p.map((n) => ({ ...n, unread: false })))}
-                                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] text-[#3a5a7a] hover:text-cyan-400 hover:bg-cyan-500/8 transition-all cursor-pointer"
+                                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] text-muted-foreground hover:text-primary hover:bg-primary/8 transition-all cursor-pointer"
                                 >
                                     <CheckCheck className="w-3 h-3" />
                                     Tout lire
                                 </button>
                             )}
-                            <button onClick={() => setOpen(false)} className="p-1 rounded-lg text-[#2a4060] hover:text-[#7a9ab8] hover:bg-white/5 transition-all cursor-pointer">
+                            <button onClick={() => setOpen(false)} className="p-1 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all cursor-pointer">
                                 <X className="w-3.5 h-3.5" />
                             </button>
                         </div>
                     </div>
 
                     {/* List */}
-                    <ul className="py-1.5 divide-y divide-white/[0.03]">
+                    <ul className="py-1.5 divide-y divide-border/20">
                         {notifs.map((n) => {
                             const Icon = n.icon;
                             return (
@@ -200,29 +195,29 @@ function NavBell() {
                                     key={n.id}
                                     className={cn(
                                         "relative flex items-start gap-3 px-4 py-3 cursor-pointer",
-                                        "hover:bg-white/[0.03] transition-colors",
-                                        n.unread && "bg-cyan-500/[0.025]"
+                                        "hover:bg-muted/30 transition-colors",
+                                        n.unread && "bg-primary/10"
                                     )}
                                     onClick={() => setNotifs((p) => p.map((x) => x.id === n.id ? { ...x, unread: false } : x))}
                                 >
                                     {n.unread && (
-                                        <span className="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(6,182,212,0.8)]" />
+                                        <span className="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_rgba(6,182,212,0.8)]" />
                                     )}
-                                    <div className={cn("w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-white/[0.05]", n.color)}>
+                                    <div className={cn("w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 bg-muted/50", n.color)}>
                                         <Icon className="w-3.5 h-3.5" />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-[12.5px] font-semibold text-[#c8dff5] leading-snug">{n.title}</p>
-                                        <p className="text-[11.5px] text-[#4a6a88] mt-0.5 leading-relaxed">{n.body}</p>
+                                        <p className="text-[12.5px] font-semibold text-foreground leading-snug">{n.title}</p>
+                                        <p className="text-[11.5px] text-muted-foreground mt-0.5 leading-relaxed">{n.body}</p>
                                     </div>
-                                    <span className="text-[10.5px] text-[#2a4060] flex-shrink-0 mt-0.5">{n.time}</span>
+                                    <span className="text-[10.5px] text-muted-foreground/50 flex-shrink-0 mt-0.5">{n.time}</span>
                                 </li>
                             );
                         })}
                     </ul>
 
-                    <div className="px-4 py-2.5 border-t border-white/[0.05]">
-                        <button className="w-full text-center text-[11.5px] text-[#2a4060] hover:text-cyan-400 transition-colors py-0.5 cursor-pointer">
+                    <div className="px-4 py-2.5 border-t border-border/30">
+                        <button className="w-full text-center text-[11.5px] text-muted-foreground hover:text-primary transition-colors py-0.5 cursor-pointer">
                             Voir toutes les notifications →
                         </button>
                     </div>
@@ -264,37 +259,37 @@ function NavProfile({ agent, locale }: { agent: AdminNavbarProps["agent"]; local
                 className={cn(
                     "flex items-center gap-2 h-8 pl-0.5 pr-2.5 rounded-lg cursor-pointer",
                     "transition-all duration-150",
-                    "hover:bg-white/[0.06]",
-                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/40",
+                    "hover:bg-muted/50",
+                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
                     "active:scale-95",
-                    open && "bg-white/[0.06]"
+                    open && "bg-muted/50"
                 )}
             >
                 {/* Avatar */}
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0 shadow-[0_0_10px_rgba(6,182,212,0.35)]">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-[10px] font-bold text-primary-foreground flex-shrink-0 shadow-[0_0_10px_rgba(6,182,212,0.35)]">
                     {initials}
                 </div>
                 <div className="hidden sm:flex flex-col items-start">
-                    <span className="text-[11.5px] font-semibold text-[#8aadcc] max-w-[80px] truncate leading-none">
+                    <span className="text-[11.5px] font-semibold text-foreground max-w-[80px] truncate leading-none">
                         {agent.prenom}
                     </span>
-                    <span className="text-[9.5px] text-[#2a4060] leading-none mt-0.5">{t(`roles.${agent.roleCode}`)}</span>
+                    <span className="text-[9.5px] text-muted-foreground leading-none mt-0.5">{t(`roles.${agent.roleCode}`)}</span>
                 </div>
 
             </button>
 
             {open && (
-                <div className="absolute top-full mt-2.5 right-0 z-50 w-[240px] rounded-2xl border border-white/[0.07] bg-[#08111e]/98 backdrop-blur-xl shadow-[0_24px_60px_rgba(0,0,0,0.75),0_0_0_1px_rgba(255,255,255,0.03)_inset] animate-in fade-in slide-in-from-top-2 duration-200 overflow-hidden">
+                <div className="absolute top-full mt-2.5 right-0 z-50 w-[240px] rounded-2xl border border-border/50 bg-card/98 backdrop-blur-xl shadow-[0_24px_60px_rgba(0,0,0,0.75),0_0_0_1px_rgba(255,255,255,0.03)_inset] animate-in fade-in slide-in-from-top-2 duration-200 overflow-hidden">
                     {/* Identity */}
-                    <div className="flex items-center gap-3 px-4 py-4 bg-gradient-to-b from-white/[0.03] to-transparent border-b border-white/[0.05]">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-500 to-cyan-400 flex items-center justify-center text-[12px] font-bold text-white flex-shrink-0 shadow-[0_0_14px_rgba(6,182,212,0.3)]">
+                    <div className="flex items-center gap-3 px-4 py-4 bg-gradient-to-b from-muted/30 to-transparent border-b border-border/30">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-[12px] font-bold text-primary-foreground flex-shrink-0 shadow-[0_0_14px_rgba(6,182,212,0.3)]">
                             {initials}
                         </div>
                         <div className="min-w-0">
-                            <p className="text-[13.5px] font-bold text-[#d8ecff] truncate leading-snug">
+                            <p className="text-[13.5px] font-bold text-foreground truncate leading-snug">
                                 {agent.prenom} {agent.nom}
                             </p>
-                            <span className="inline-flex mt-1 px-2 py-0.5 rounded-full text-[9.5px] font-bold bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 uppercase tracking-wider">
+                            <span className="inline-flex mt-1 px-2 py-0.5 rounded-full text-[9.5px] font-bold bg-primary/10 border border-primary/20 text-primary uppercase tracking-wider">
                                 {t(`roles.${agent.roleCode}`)}
                             </span>
                         </div>
@@ -310,7 +305,7 @@ function NavProfile({ agent, locale }: { agent: AdminNavbarProps["agent"]; local
                                 <Link
                                     href={`/${locale}${href}`}
                                     onClick={() => setOpen(false)}
-                                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[12.5px] text-[#4a6a88] hover:text-[#e2f0ff] hover:bg-white/[0.05] transition-all"
+                                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[12.5px] text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all"
                                 >
                                     <Icon className="w-3.5 h-3.5 flex-shrink-0" />
                                     {label}
@@ -320,13 +315,13 @@ function NavProfile({ agent, locale }: { agent: AdminNavbarProps["agent"]; local
                     </ul>
 
                     {/* Logout */}
-                    <div className="p-1.5 pt-0 border-t border-white/[0.05] mt-0.5">
+                    <div className="p-1.5 pt-0 border-t border-border/30 mt-0.5">
                         <form action={handleLogout}>
                             <button
                                 type="submit"
-                                className="group flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-[12.5px] text-[#4a6a88] hover:text-red-400 hover:bg-red-500/8 transition-all"
+                                className="group flex items-center gap-2.5 w-full px-3 py-2 rounded-xl text-[12.5px] text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all"
                             >
-                                <LogOut className="w-3.5 h-3.5 flex-shrink-0 group-hover:text-red-400 transition-colors" />
+                                <LogOut className="w-3.5 h-3.5 flex-shrink-0 group-hover:text-destructive transition-colors" />
                                 {tNav("logout")}
                             </button>
                         </form>
@@ -349,20 +344,20 @@ export function AdminNavbar({
     const locale = useLocale();
 
     return (
-        <header className="flex-shrink-0 flex items-center h-[54px] px-3 gap-2 bg-[#07101f]/95 backdrop-blur-sm border-b border-white/[0.05] z-10 relative">
+        <header className="flex-shrink-0 flex items-center h-[54px] px-3 gap-2 bg-card/95 backdrop-blur-sm border-b border-border/50 z-10 relative">
 
             {/* ── LEFT ─────────────────────────────────────────── */}
             <div className="flex items-center gap-2 flex-shrink-0">
                 {/* Mobile: logo mark */}
                 <div className="flex lg:hidden items-center gap-2 pl-1">
-                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-sky-500 to-cyan-400 flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.4)]">
-                        <Waves className="w-3.5 h-3.5 text-white" />
+                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.4)]">
+                        <Waves className="w-3.5 h-3.5 text-primary-foreground" />
                     </div>
                 </div>
 
                 {/* Mobile: hamburger */}
                 <button
-                    className="flex lg:hidden items-center justify-center w-8 h-8 rounded-lg text-[#405c7a] hover:text-[#a8c8e8] hover:bg-white/[0.06] transition-all active:scale-95"
+                    className="flex lg:hidden items-center justify-center w-8 h-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all active:scale-95"
                     onClick={onMobileMenuOpen}
                     aria-label="Ouvrir le menu"
                 >
@@ -371,7 +366,7 @@ export function AdminNavbar({
 
                 {/* Desktop: sidebar collapse toggle */}
                 <button
-                    className="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg text-[#405c7a] hover:text-[#a8c8e8] hover:bg-white/[0.06] transition-all active:scale-95 cursor-pointer"
+                    className="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all active:scale-95 cursor-pointer"
                     onClick={onToggleSidebar}
                     aria-label={sidebarCollapsed ? "Agrandir le menu" : "Réduire le menu"}
                 >
@@ -390,12 +385,12 @@ export function AdminNavbar({
             {/* ── RIGHT ────────────────────────────────────────── */}
             <div className="flex items-center gap-1 flex-shrink-0">
                 <NavBell />
-                <div className="w-px h-4 bg-white/[0.06] mx-0.5" />
+                <div className="w-px h-4 bg-border/50 mx-0.5" />
                 <div className="flex items-center gap-1">
                     <LanguageSwitcher />
                     <ThemeToggle />
                 </div>
-                <div className="w-px h-4 bg-white/[0.06] mx-0.5" />
+                <div className="w-px h-4 bg-border/50 mx-0.5" />
                 <NavProfile agent={agent} locale={locale} />
             </div>
         </header>

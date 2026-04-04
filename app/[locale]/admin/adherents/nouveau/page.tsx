@@ -1,4 +1,3 @@
-
 import { prisma } from "@/lib/db/prisma";
 import { NouvelAdherentClient } from "./NouvelAdherentClient";
 import { AdminPageShell } from "@/components/admin/AdminPage";

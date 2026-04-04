@@ -12,14 +12,6 @@ interface AbonnementDetailActionsProps {
   locale: string;
 }
 
-const BTN_BASE: React.CSSProperties = {
-  display: "inline-flex", alignItems: "center", gap: 8, justifyContent: "center",
-  padding: "9px 16px", borderRadius: 9, width: "100%",
-  fontSize: 13, fontWeight: 600, cursor: "pointer", border: "none",
-  transition: "opacity 150ms ease, transform 150ms ease",
-  marginBottom: 8,
-};
-
 export function AbonnementDetailActions({ abonnementId, statut, locale }: AbonnementDetailActionsProps) {
   const t = useTranslations("admin");
   const { toast } = useAdminToast();
@@ -52,11 +44,11 @@ export function AbonnementDetailActions({ abonnementId, statut, locale }: Abonne
   const btnDisabled = (action: string) => loading === action;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+    <div className="flex flex-col gap-1">
       {statut === "CRE" && (
         <button
           type="button"
-          style={{ ...BTN_BASE, background: "linear-gradient(135deg,#f59e0b,#d97706)", color: "#fff", boxShadow: "0 2px 10px rgba(245,158,11,0.3)" }}
+          className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg text-[13px] font-semibold cursor-pointer border-none transition-all duration-150 hover:opacity-90 hover:translate-y-[-1px] disabled:opacity-60 disabled:cursor-not-allowed mb-2 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-[0_2px_10px_hsl(var(--primary)/0.3)]"
           onClick={() => callAction("to_atp")}
           disabled={btnDisabled("to_atp")}
         >
@@ -68,7 +60,7 @@ export function AbonnementDetailActions({ abonnementId, statut, locale }: Abonne
       {(statut === "ATP" || statut === "ATT") && (
         <button
           type="button"
-          style={{ ...BTN_BASE, background: "linear-gradient(135deg,#10b981,#059669)", color: "#fff", boxShadow: "0 2px 10px rgba(16,185,129,0.3)" }}
+          className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg text-[13px] font-semibold cursor-pointer border-none transition-all duration-150 hover:opacity-90 hover:translate-y-[-1px] disabled:opacity-60 disabled:cursor-not-allowed mb-2 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-[0_2px_10px_hsl(var(--primary)/0.3)]"
           onClick={() => callAction("validate_payment")}
           disabled={btnDisabled("validate_payment")}
         >
@@ -80,7 +72,7 @@ export function AbonnementDetailActions({ abonnementId, statut, locale }: Abonne
       {statut === "APP" && (
         <button
           type="button"
-          style={{ ...BTN_BASE, background: "linear-gradient(135deg,#0ea5e9,#06b6d4)", color: "#fff", boxShadow: "0 2px 10px rgba(6,182,212,0.3)" }}
+          className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg text-[13px] font-semibold cursor-pointer border-none transition-all duration-150 hover:opacity-90 hover:translate-y-[-1px] disabled:opacity-60 disabled:cursor-not-allowed mb-2 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-[0_2px_10px_hsl(var(--primary)/0.3)]"
           onClick={() => callAction("activate")}
           disabled={btnDisabled("activate")}
         >
@@ -92,7 +84,7 @@ export function AbonnementDetailActions({ abonnementId, statut, locale }: Abonne
       {(statut !== "ANL" && statut !== "EXP") && (
         <button
           type="button"
-          style={{ ...BTN_BASE, background: "rgba(248,113,113,0.1)", border: "1px solid rgba(248,113,113,0.25)", color: "#f87171", marginBottom: 0 }}
+          className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg text-[13px] font-semibold cursor-pointer border border-destructive/25 transition-all duration-150 hover:opacity-90 hover:translate-y-[-1px] disabled:opacity-60 disabled:cursor-not-allowed bg-destructive/10 text-destructive"
           onClick={() => callAction("cancel")}
           disabled={btnDisabled("cancel")}
         >
@@ -102,7 +94,7 @@ export function AbonnementDetailActions({ abonnementId, statut, locale }: Abonne
       )}
 
       {(statut === "ANL" || statut === "EXP") && (
-        <div style={{ textAlign: "center", fontSize: 12, color: "#4a6280", padding: "12px 0" }}>
+        <div className="text-center text-xs text-muted-foreground py-3">
           {statut === "ANL" ? "Abonnement annulé" : "Abonnement expiré"}
         </div>
       )}

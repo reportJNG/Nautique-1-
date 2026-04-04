@@ -71,29 +71,29 @@ function NavLink({
           className={cn(
             "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors duration-150",
             isActive || childActive
-              ? "bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300"
-              : "text-gray-500 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+              ? "bg-primary/10 text-primary"
+              : "text-muted-foreground hover:bg-muted hover:text-foreground"
           )}
         >
           <item.icon
             className={cn(
               "h-4 w-4 shrink-0",
               isActive || childActive
-                ? "text-violet-500"
-                : "text-gray-400 dark:text-gray-500"
+                ? "text-primary"
+                : "text-muted-foreground"
             )}
           />
           <span className="flex-1 text-left">{item.label}</span>
           <ChevronRight
             className={cn(
-              "h-3.5 w-3.5 shrink-0 text-gray-300 transition-transform duration-200 dark:text-gray-600",
+              "h-3.5 w-3.5 shrink-0 text-muted-foreground/50 transition-transform duration-200",
               expanded && "rotate-90"
             )}
           />
         </button>
 
         {expanded && (
-          <ul className="ml-4 mt-0.5 space-y-0.5 border-l border-gray-100 pl-3 dark:border-gray-800">
+          <ul className="ml-4 mt-0.5 space-y-0.5 border-l border-border pl-3">
             {item.children!.map((child) => (
               <NavLink key={child.href} item={child} locale={locale} depth={depth + 1} />
             ))}
@@ -110,14 +110,14 @@ function NavLink({
         className={cn(
           "flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors duration-150",
           isActive
-            ? "bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300"
-            : "text-gray-500 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+            ? "bg-primary/10 text-primary"
+            : "text-muted-foreground hover:bg-muted hover:text-foreground"
         )}
       >
         <item.icon
           className={cn(
             "h-4 w-4 shrink-0",
-            isActive ? "text-violet-500" : "text-gray-400 dark:text-gray-500"
+            isActive ? "text-primary" : "text-muted-foreground"
           )}
         />
         <span className="flex-1">{item.label}</span>
@@ -127,8 +127,8 @@ function NavLink({
             className={cn(
               "flex h-4 min-w-4 items-center justify-center rounded-full px-1.5 text-[10px] font-bold",
               isActive
-                ? "bg-violet-200 text-violet-700 dark:bg-violet-800 dark:text-violet-200"
-                : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
+                ? "bg-primary/20 text-primary"
+                : "bg-muted text-muted-foreground"
             )}
           >
             {item.badge}
@@ -136,7 +136,7 @@ function NavLink({
         )}
 
         {isActive && item.badge === undefined && (
-          <span className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" />
+          <span className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
         )}
       </Link>
     </li>
@@ -199,29 +199,29 @@ export function EspaceSidebar({ adherent }: EspaceSidebarProps) {
   }
 
   return (
-    <aside className="flex h-full w-64 flex-col bg-white dark:bg-gray-900">
+    <aside className="flex h-full w-64 flex-col bg-card">
       {/* Logo */}
-      <div className="flex h-14 shrink-0 items-center gap-2.5 border-b border-gray-100 px-5 dark:border-gray-800">
-        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-600">
-          <Waves className="h-4 w-4 text-white" />
+      <div className="flex h-14 shrink-0 items-center gap-2.5 border-b border-border px-5">
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
+          <Waves className="h-4 w-4 text-primary-foreground" />
         </div>
-        <span className="text-sm font-bold tracking-wide text-gray-900 dark:text-white">
+        <span className="text-sm font-bold tracking-wide text-foreground">
           SONATRACH
         </span>
       </div>
 
       {/* User card */}
-      <div className="mx-3 my-3 flex items-center gap-3 rounded-xl bg-gray-50 px-3 py-2.5 dark:bg-gray-800/60">
-        <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-xs font-bold text-violet-600 dark:bg-violet-900/40 dark:text-violet-400">
+      <div className="mx-3 my-3 flex items-center gap-3 rounded-xl bg-muted/50 px-3 py-2.5">
+        <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/20 text-xs font-bold text-primary">
           {initials}
           {/* Online dot */}
-          <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-emerald-400 dark:border-gray-900" />
+          <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-background bg-green-500" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-gray-900 dark:text-white">
+          <p className="truncate text-sm font-semibold text-foreground">
             {adherent.prenom} {adherent.nom}
           </p>
-          <p className="truncate text-[11px] text-gray-400 dark:text-gray-500">
+          <p className="truncate text-[11px] text-muted-foreground">
             N° {adherent.numeroDossier}
           </p>
         </div>
@@ -231,7 +231,7 @@ export function EspaceSidebar({ adherent }: EspaceSidebarProps) {
       <nav className="flex-1 overflow-y-auto px-3 pb-2">
         {navGroups.map((group) => (
           <div key={group.label} className="mb-4">
-            <p className="mb-1 px-2 text-[10px] font-bold uppercase tracking-widest text-gray-300 dark:text-gray-700">
+            <p className="mb-1 px-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
               {group.label}
             </p>
             <ul className="space-y-0.5">
@@ -244,11 +244,11 @@ export function EspaceSidebar({ adherent }: EspaceSidebarProps) {
       </nav>
 
       {/* Logout */}
-      <div className="shrink-0 border-t border-gray-100 p-3 dark:border-gray-800">
+      <div className="shrink-0 border-t border-border p-3">
         <button
           onClick={handleLogout}
           disabled={loggingOut}
-          className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-gray-400 transition-colors hover:bg-red-50 hover:text-red-600 disabled:pointer-events-none disabled:opacity-60 dark:text-gray-500 dark:hover:bg-red-900/20 dark:hover:text-red-400 cursor-pointer"
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:pointer-events-none disabled:opacity-60 cursor-pointer"
         >
           {loggingOut ? (
             <Loader2 className="h-4 w-4 shrink-0 animate-spin" />

@@ -69,18 +69,18 @@ export function AdherentsFilters({
     const hasActiveFilters = initialStatus !== "all" || initialOrganisation !== "all";
 
     return (
-        <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-4">
+        <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30 p-4">
             <div className="flex flex-col sm:flex-row gap-4">
                 {/* Search */}
                 <div className="flex-1">
                     <form onSubmit={handleSearch} className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                         <input
                             type="search"
                             name="search"
                             defaultValue={initialSearch}
                             placeholder={labels.searchPlaceholder}
-                            className="w-full pl-9 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                            className="w-full pl-9 pr-3 py-2 bg-muted/20 border border-border/30 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
                         />
                     </form>
                 </div>
@@ -88,7 +88,7 @@ export function AdherentsFilters({
                 {/* Status Filter */}
                 <div className="sm:w-48">
                     <select
-                        className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-slate-200 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                        className="w-full px-3 py-2 bg-muted/20 border border-border/30 rounded-lg text-sm text-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
                         onChange={handleStatusChange}
                         value={initialStatus}
                     >
@@ -101,7 +101,7 @@ export function AdherentsFilters({
                 {/* Organisation Filter */}
                 <div className="sm:w-64">
                     <select
-                        className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-slate-200 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all"
+                        className="w-full px-3 py-2 bg-muted/20 border border-border/30 rounded-lg text-sm text-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
                         onChange={handleOrganisationChange}
                         value={initialOrganisation}
                     >
@@ -118,7 +118,7 @@ export function AdherentsFilters({
                 {hasActiveFilters && (
                     <button
                         onClick={handleReset}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-slate-400 hover:text-slate-200 transition-all"
+                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-muted/20 hover:bg-muted/30 rounded-lg text-sm text-muted-foreground hover:text-foreground transition-all"
                     >
                         <X className="w-3.5 h-3.5" />
                         {labels.reset}

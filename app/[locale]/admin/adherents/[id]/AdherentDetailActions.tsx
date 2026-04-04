@@ -49,13 +49,13 @@ export function AdherentDetailActions({ adherentId, isActive, locale }: Adherent
     <div className="space-y-3">
       {showConfirm ? (
         <div className="space-y-3">
-          <div className="flex items-start gap-2 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-            <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2 p-3 rounded-lg bg-accent/10 border border-accent/20">
+            <AlertTriangle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="text-sm text-amber-400 font-medium">
+              <p className="text-sm text-accent font-medium">
                 {isActive ? "Désactiver l'adhérent ?" : "Réactiver l'adhérent ?"}
               </p>
-              <p className="text-xs text-amber-500/70 mt-1">
+              <p className="text-xs text-accent/70 mt-1">
                 {isActive
                   ? "L'adhérent ne pourra plus se connecter ni réserver."
                   : "L'adhérent pourra à nouveau se connecter et réserver."}
@@ -66,7 +66,7 @@ export function AdherentDetailActions({ adherentId, isActive, locale }: Adherent
             <button
               onClick={handleToggle}
               disabled={loading}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 text-red-400 text-sm font-medium transition-all disabled:opacity-50"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-destructive/20 hover:bg-destructive/30 border border-destructive/30 text-destructive text-sm font-medium transition-all disabled:opacity-50"
             >
               {loading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -76,7 +76,7 @@ export function AdherentDetailActions({ adherentId, isActive, locale }: Adherent
             </button>
             <button
               onClick={() => setShowConfirm(false)}
-              className="flex-1 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 text-sm font-medium transition-all"
+              className="flex-1 px-3 py-2 rounded-lg bg-muted/20 hover:bg-muted/30 border border-border/30 text-muted-foreground text-sm font-medium transition-all"
             >
               Annuler
             </button>
@@ -87,8 +87,8 @@ export function AdherentDetailActions({ adherentId, isActive, locale }: Adherent
           type="button"
           onClick={() => setShowConfirm(true)}
           className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition-all ${isActive
-            ? 'bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400'
-            : 'bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-400'
+            ? 'bg-destructive/10 hover:bg-destructive/20 border border-destructive/20 text-destructive'
+            : 'bg-primary/10 hover:bg-primary/20 border border-primary/20 text-primary'
             }`}
         >
           {isActive ? (

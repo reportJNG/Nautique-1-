@@ -39,7 +39,7 @@ export default async function ModifierAdherentPage({
                 <div className="mb-6">
                     <Link
                         href={`/${locale}/admin/adherents/${id}`}
-                        className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
+                        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4" />
                         Retour au profil

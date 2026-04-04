@@ -69,36 +69,36 @@ const STYLES: Record<ToastVariant, {
   ring: string;
 }> = {
   success: {
-    border: "border-emerald-500/15",
-    icon: "text-emerald-400",
-    iconBg: "bg-emerald-500/10",
-    bar: "bg-gradient-to-b from-emerald-400 to-emerald-600",
-    progress: "bg-emerald-400/20",
-    ring: "focus:ring-emerald-500/40",
+    border: "border-primary/15",
+    icon: "text-primary",
+    iconBg: "bg-primary/10",
+    bar: "bg-gradient-to-b from-primary to-primary/80",
+    progress: "bg-primary/20",
+    ring: "focus:ring-primary/40",
   },
   error: {
-    border: "border-red-400/15",
-    icon: "text-red-400",
-    iconBg: "bg-red-500/10",
-    bar: "bg-gradient-to-b from-red-400 to-red-600",
-    progress: "bg-red-400/20",
-    ring: "focus:ring-red-500/40",
+    border: "border-destructive/15",
+    icon: "text-destructive",
+    iconBg: "bg-destructive/10",
+    bar: "bg-gradient-to-b from-destructive to-destructive/80",
+    progress: "bg-destructive/20",
+    ring: "focus:ring-destructive/40",
   },
   warning: {
-    border: "border-amber-500/15",
-    icon: "text-amber-400",
-    iconBg: "bg-amber-500/10",
-    bar: "bg-gradient-to-b from-amber-400 to-amber-600",
-    progress: "bg-amber-400/20",
-    ring: "focus:ring-amber-500/40",
+    border: "border-accent/15",
+    icon: "text-accent",
+    iconBg: "bg-accent/10",
+    bar: "bg-gradient-to-b from-accent to-accent/80",
+    progress: "bg-accent/20",
+    ring: "focus:ring-accent/40",
   },
   info: {
-    border: "border-cyan-500/15",
-    icon: "text-cyan-400",
-    iconBg: "bg-cyan-500/10",
-    bar: "bg-gradient-to-b from-cyan-400 to-cyan-600",
-    progress: "bg-cyan-400/20",
-    ring: "focus:ring-cyan-500/40",
+    border: "border-primary/15",
+    icon: "text-primary",
+    iconBg: "bg-primary/10",
+    bar: "bg-gradient-to-b from-primary to-primary/80",
+    progress: "bg-primary/20",
+    ring: "focus:ring-primary/40",
   },
 };
 
@@ -382,7 +382,7 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
       className={cn(
         "relative pointer-events-auto rounded-2xl border backdrop-blur-2xl",
         "p-3.5 pl-[14px] pr-3 flex items-start gap-3 overflow-hidden",
-        "bg-[#07111f]/96",
+        "bg-card/96",
         "shadow-[0_12px_40px_rgba(0,0,0,0.65),0_0_0_1px_rgba(255,255,255,0.03)_inset]",
         s.border,
         getAnimationClasses(),
@@ -419,11 +419,11 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
 
       {/* Text Content */}
       <div className="flex-1 min-w-0 pt-0.5">
-        <p className="text-[13px] font-bold text-[#f0f9ff] leading-snug">
+        <p className="text-[13px] font-bold text-foreground leading-snug">
           {toast.title}
         </p>
         {toast.description && (
-          <p className="text-[11.5px] text-[#3a5a7a] mt-0.5 leading-relaxed">
+          <p className="text-[11.5px] text-muted-foreground mt-0.5 leading-relaxed">
             {toast.description}
           </p>
         )}
@@ -435,7 +435,7 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
             onClick={handleAction}
             className={cn(
               "mt-2 text-[11px] font-medium px-2 py-1 rounded-lg",
-              "bg-white/5 hover:bg-white/10 transition-colors",
+              "bg-muted/50 hover:bg-muted/70 transition-colors",
               "focus:outline-none focus:ring-2",
               s.ring
             )}
@@ -452,8 +452,8 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
         aria-label="Fermer la notification"
         className={cn(
           "flex-shrink-0 mt-0.5 p-1 rounded-lg",
-          "text-[#253d56] transition-all duration-150",
-          "hover:text-[#e2f0ff] hover:bg-white/8",
+          "text-muted-foreground/70 transition-all duration-150",
+          "hover:text-foreground hover:bg-muted/50",
           "focus:outline-none focus:ring-2",
           s.ring,
           "active:scale-90"

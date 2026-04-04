@@ -59,18 +59,18 @@ export default async function AdminAbonnementsPage({
       ACT: {
         icon: CheckCircle,
         badgeClass:
-          "text-emerald-400 ring-emerald-500/30",
+          "text-cyan-400 ring-cyan-400/30",
         label: t("abonnementStatus.ACT"),
       },
       ATT: {
         icon: Clock,
         badgeClass:
-          "text-amber-400 ring-amber-500/30",
+          "text-accent ring-accent/30",
         label: t("abonnementStatus.ATT"),
       },
       EXP: {
         icon: AlertCircle,
-        badgeClass: "text-red-400 ring-red-500/30",
+        badgeClass: "text-destructive ring-destructive/30",
         label: t("abonnementStatus.EXP"),
       },
       RES: {
@@ -81,7 +81,7 @@ export default async function AdminAbonnementsPage({
       ANN: {
         icon: XCircle,
         badgeClass:
-          "text-slate-400 ring-slate-500/30",
+          "text-muted-foreground ring-border/30",
         label: t("abonnementStatus.ANN"),
       },
     };
@@ -99,22 +99,22 @@ export default async function AdminAbonnementsPage({
     {
       label: "Actifs",
       value: stats.actif,
-      valueClass: "text-emerald-400",
-      iconColor: "text-emerald-400",
+      valueClass: "text-cyan-400",
+      iconColor: "text-cyan-400",
       Icon: CheckCircle,
     },
     {
       label: "En attente",
       value: stats.attente,
-      valueClass: "text-amber-400",
-      iconColor: "text-amber-400",
+      valueClass: "text-accent",
+      iconColor: "text-accent",
       Icon: Clock,
     },
     {
       label: "Expirés",
       value: stats.expire,
-      valueClass: "text-red-400",
-      iconColor: "text-red-400",
+      valueClass: "text-destructive",
+      iconColor: "text-destructive",
       Icon: AlertCircle,
     },
   ];
@@ -187,7 +187,7 @@ export default async function AdminAbonnementsPage({
           {statCards.map(({ label, value, valueClass, iconColor, Icon }) => (
             <div
               key={label}
-              className="flex items-center gap-4 rounded-2xl border border-slate-700/50 bg-slate-900/50 p-4 shadow-lg backdrop-blur-sm"
+              className="flex items-center gap-4 rounded-2xl border border-border/50 bg-card/50 p-4 shadow-lg backdrop-blur-sm"
             >
               <div
                 className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-transparent ring-1 ${iconColor.replace('text', 'ring')}/20`}
@@ -195,7 +195,7 @@ export default async function AdminAbonnementsPage({
                 <Icon className={`h-5 w-5 ${iconColor}`} />
               </div>
               <div>
-                <p className="text-xs font-medium text-slate-400">{label}</p>
+                <p className="text-xs font-medium text-muted-foreground">{label}</p>
                 <p className={`text-2xl font-bold tabular-nums ${valueClass}`}>
                   {value}
                 </p>
@@ -206,20 +206,20 @@ export default async function AdminAbonnementsPage({
 
         {/* ── Table section ── */}
         <div className="pt-6">
-          <div className="overflow-hidden rounded-2xl border border-slate-700/50 bg-transparent shadow-sm">
+          <div className="overflow-hidden rounded-2xl border border-border/50 bg-transparent shadow-sm">
 
             {/* Table header */}
-            <div className="flex flex-col gap-3 border-b border-slate-700/50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-3 border-b border-border/50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 className="text-base font-semibold text-slate-200">
+                <h2 className="text-base font-semibold text-foreground">
                   Liste des abonnements
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-foreground0">
                   {stats.total} résultats
                 </p>
               </div>
               {/* Search input — client-side filtering can be added via a Client Component wrapper */}
-              <div className="flex items-center gap-2 rounded-xl border border-slate-700/50 bg-slate-800/30 px-3 py-2 text-sm text-slate-400 w-full sm:w-56">
+              <div className="flex items-center gap-2 rounded-xl border border-border/50 bg-card/30 px-3 py-2 text-sm text-muted-foreground w-full sm:w-56">
                 <Search className="h-3.5 w-3.5 flex-shrink-0" />
                 <span className="text-xs">Rechercher…</span>
               </div>
@@ -229,7 +229,7 @@ export default async function AdminAbonnementsPage({
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-700/50 bg-slate-800/20">
+                  <tr className="border-b border-border/50 bg-card/20">
                     {[
                       t("abonnementsUi.table.adherent"),
                       t("abonnementsUi.table.discipline"),
@@ -240,7 +240,7 @@ export default async function AdminAbonnementsPage({
                     ].map((col, i) => (
                       <th
                         key={col}
-                        className={`px-5 py-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400 ${i >= 4 ? "text-right" : "text-left"
+                        className={`px-5 py-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground ${i >= 4 ? "text-right" : "text-left"
                           }`}
                       >
                         {col}
@@ -259,7 +259,7 @@ export default async function AdminAbonnementsPage({
                     return (
                       <tr
                         key={abonnement.id}
-                        className="group transition-colors hover:bg-slate-800/30"
+                        className="group transition-colors hover:bg-card/30"
                       >
                         {/* Adherent */}
                         <td className="px-5 py-3.5">
@@ -268,11 +268,11 @@ export default async function AdminAbonnementsPage({
                               {initials || "?"}
                             </div>
                             <div>
-                              <p className="font-semibold text-slate-200">
+                              <p className="font-semibold text-foreground">
                                 {abonnement.adherent.prenom}{" "}
                                 {abonnement.adherent.nom}
                               </p>
-                              <p className="text-[11px] text-slate-500">
+                              <p className="text-[11px] text-foreground0">
                                 {abonnement.adherent.numeroDossier}
                               </p>
                             </div>
@@ -281,14 +281,14 @@ export default async function AdminAbonnementsPage({
 
                         {/* Discipline */}
                         <td className="px-5 py-3.5">
-                          <div className="flex items-center gap-1.5 text-slate-300">
-                            <Dumbbell className="h-3.5 w-3.5 flex-shrink-0 text-slate-500" />
+                          <div className="flex items-center gap-1.5 text-muted-foreground">
+                            <Dumbbell className="h-3.5 w-3.5 flex-shrink-0 text-foreground0" />
                             {abonnement.discipline.designation}
                           </div>
                         </td>
 
                         {/* Type */}
-                        <td className="px-5 py-3.5 text-slate-400">
+                        <td className="px-5 py-3.5 text-muted-foreground">
                           {abonnement.typeAbonnement}
                         </td>
 
@@ -304,11 +304,11 @@ export default async function AdminAbonnementsPage({
 
                         {/* Amount */}
                         <td className="px-5 py-3.5 text-right">
-                          <span className="font-bold tabular-nums text-slate-200">
+                          <span className="font-bold tabular-nums text-foreground">
                             {Number(abonnement.montantTtc).toLocaleString(
                               dateLocale
                             )}{" "}
-                            <span className="text-xs font-medium text-slate-500">
+                            <span className="text-xs font-medium text-foreground0">
                               DA
                             </span>
                           </span>
@@ -318,7 +318,7 @@ export default async function AdminAbonnementsPage({
                         <td className="px-5 py-3.5 text-right">
                           <Link
                             href={`/admin/abonnements/${abonnement.id}`}
-                            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-slate-400 ring-1 ring-slate-600 transition hover:bg-blue-600/20 hover:text-blue-400 hover:ring-blue-500/50"
+                            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-muted-foreground ring-1 ring-border transition hover:bg-blue-600/20 hover:text-blue-400 hover:ring-blue-500/50"
                           >
                             <ExternalLink className="h-3 w-3" />
                             {tc("view")}
@@ -337,7 +337,7 @@ export default async function AdminAbonnementsPage({
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-500/10 ring-1 ring-blue-500/20">
                   <Waves className="h-6 w-6 text-blue-400" />
                 </div>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-foreground0">
                   Aucun abonnement trouvé
                 </p>
               </div>

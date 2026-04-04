@@ -20,25 +20,6 @@ interface NouvelAbonnementClientProps {
   categories: CategorieAge[];
 }
 
-const FIELD_STYLE: React.CSSProperties = {
-  width: "100%", padding: "9px 13px",
-  background: "rgba(255,255,255,0.04)",
-  border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 8, color: "#e2f0ff", fontSize: 13.5,
-  outline: "none", boxSizing: "border-box",
-};
-const LABEL_STYLE: React.CSSProperties = {
-  display: "flex", alignItems: "center", gap: 5,
-  fontSize: 11.5, fontWeight: 600, color: "#7a93b4",
-  textTransform: "uppercase" as const, letterSpacing: "0.07em",
-  marginBottom: 6,
-};
-const CARD_STYLE: React.CSSProperties = {
-  borderRadius: 14, border: "1px solid rgba(255,255,255,0.06)",
-  background: "rgba(13,21,38,0.72)", backdropFilter: "blur(12px)",
-  overflow: "hidden", marginBottom: 14,
-};
-
 export function NouvelAbonnementClient({
   adherents, disciplines, saisons, categories,
 }: NouvelAbonnementClientProps) {
@@ -97,132 +78,93 @@ export function NouvelAbonnementClient({
 
   return (
     <AdminPageShell locale={locale}>
-      <style>{`
-        .nab-sel-item {
-          display: flex; align-items: center; gap: 10px;
-          padding: 9px 14px; cursor: pointer; border-radius: 8px;
-          transition: background 150ms;
-        }
-        .nab-sel-item:hover { background: rgba(6,182,212,0.07); }
-        .nab-sel-item.selected { background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.2); }
-        .nab-sel-init {
-          width: 30px; height: 30px; border-radius: 50%;
-          background: linear-gradient(135deg,#0ea5e9,#8b5cf6);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 10px; font-weight: 800; color: #fff; flex-shrink: 0;
-        }
-        .nab-sel-name { font-size: 13px; font-weight: 600; color: #e2f0ff; }
-        .nab-sel-dos  { font-size: 11px; color: #4a6280; font-family: monospace; }
-        .nab-search-wrap { position: relative; margin-bottom: 10px; }
-        .nab-search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: #4a6280; }
-        .nab-search-input {
-          width: 100%; padding: 8px 12px 8px 34px;
-          background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 8px; color: #e2f0ff; font-size: 13px; outline: none; box-sizing: border-box;
-        }
-        .nab-search-input:focus { border-color: rgba(6,182,212,0.35); }
-        .nab-search-input::placeholder { color: #4a6280; }
-        .nab-card-hdr {
-          display: flex; align-items: center; gap: 9px;
-          padding: 13px 18px 11px; border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .nab-card-icon {
-          width: 30px; height: 30px; border-radius: 8px;
-          background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.2);
-          display: flex; align-items: center; justify-content: center; color: #06b6d4; flex-shrink: 0;
-        }
-        .nab-card-icon svg { width: 14px; }
-        .nab-card-title { font-size: 13px; font-weight: 600; color: #e2f0ff; }
-        .nab-footer {
-          display: flex; align-items: center; gap: 10px; justify-content: flex-end;
-          padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.04);
-        }
-        .nab-submit {
-          display: inline-flex; align-items: center; gap: 8px;
-          padding: 10px 22px; border-radius: 9px;
-          background: linear-gradient(135deg,#0ea5e9,#06b6d4);
-          color: #fff; font-size: 13.5px; font-weight: 600;
-          border: none; cursor: pointer;
-          box-shadow: 0 2px 12px rgba(6,182,212,0.35);
-          transition: opacity 150ms, transform 150ms;
-        }
-        .nab-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-        .nab-back-btn {
-          display: inline-flex; align-items: center; gap: 7px;
-          padding: 7px 14px; border-radius: 8px;
-          background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-          color: #7a93b4; font-size: 13px; font-weight: 500;
-          text-decoration: none; margin-bottom: 24px;
-          transition: background 150ms, color 150ms;
-        }
-        .nab-back-btn:hover { background: rgba(255,255,255,0.08); color: #e2f0ff; }
-        .nab-form-grid { display: grid; gap: 14px; }
-        @media (min-width: 640px) { .nab-form-grid { grid-template-columns: 1fr 1fr; } }
-        .nab-field { display: flex; flex-direction: column; }
-        select.nab-select option { background: #0a1728; }
-      `}</style>
-
-      <Link href={`/${locale}/admin/abonnements`} className="nab-back-btn">
-        <ArrowLeft size={14} />
+      {/* Back button */}
+      <Link
+        href={`/${locale}/admin/abonnements`}
+        className="inline-flex w-fit items-center gap-2 px-3 py-1.5 rounded-lg bg-muted/10 border border-border/50 text-muted-foreground text-sm font-medium no-underline hover:bg-muted/15 hover:text-foreground transition-all duration-150 mb-6"
+      >
+        <ArrowLeft size={16} />
         {t("abonnementsUi.new.back")}
       </Link>
 
-      <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 26, fontWeight: 800, color: "#f0f9ff", letterSpacing: "-0.02em" }}>
+      {/* Page Title */}
+      <div className="mb-6">
+        <h1 className="text-[26px] font-extrabold text-foreground tracking-tight">
           {t("abonnementsUi.new.title")}
         </h1>
       </div>
 
       <form onSubmit={handleSubmit}>
         {/* Step 1 — Select adherent */}
-        <div style={CARD_STYLE}>
-          <div className="nab-card-hdr">
-            <div className="nab-card-icon"><User /></div>
-            <span className="nab-card-title">{t("abonnementsUi.new.selectAdherentTitle")}</span>
+        <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden mb-3.5">
+          <div className="flex items-center gap-2.5 px-[18px] pt-[13px] pb-[11px] border-b border-border/30">
+            <div className="w-[30px] h-[30px] rounded-lg bg-primary/12 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+              <User size={14} />
+            </div>
+            <span className="text-[13px] font-semibold text-foreground">
+              {t("abonnementsUi.new.selectAdherentTitle")}
+            </span>
           </div>
-          <div style={{ padding: 18 }}>
+
+          <div className="p-[18px]">
             {selectedAdherent ? (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "10px 14px", borderRadius: 10, background: "rgba(6,182,212,0.08)", border: "1px solid rgba(6,182,212,0.2)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div className="nab-sel-init" aria-hidden="true">
+              <div className="flex items-center justify-between gap-3 p-2.5 px-3.5 rounded-lg bg-primary/8 border border-primary/20">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-[30px] h-[30px] rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-[10px] font-extrabold text-primary-foreground shrink-0">
                     {selectedAdherent.prenom[0]}{selectedAdherent.nom[0]}
                   </div>
                   <div>
-                    <div className="nab-sel-name">{selectedAdherent.prenom} {selectedAdherent.nom}</div>
-                    <div className="nab-sel-dos">{selectedAdherent.numeroDossier}</div>
+                    <div className="text-[13px] font-semibold text-foreground">
+                      {selectedAdherent.prenom} {selectedAdherent.nom}
+                    </div>
+                    <div className="text-[11px] text-muted-foreground font-mono">
+                      {selectedAdherent.numeroDossier}
+                    </div>
                   </div>
                 </div>
-                <button type="button" onClick={() => setSelectedAdherent(null)} style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 7, color: "#7a93b4", padding: "4px 10px", fontSize: 12, cursor: "pointer" }}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedAdherent(null)}
+                  className="bg-muted/15 border border-border/50 rounded-md text-muted-foreground px-2.5 py-1 text-xs cursor-pointer hover:bg-muted/25 transition-colors"
+                >
                   Changer
                 </button>
               </div>
             ) : (
               <>
-                <div className="nab-search-wrap">
-                  <Search size={14} className="nab-search-icon" />
+                <div className="relative mb-2.5">
+                  <Search size={14} className="absolute left-[11px] top-1/2 -translate-y-1/2 text-muted-foreground" />
                   <input
                     type="text"
-                    className="nab-search-input"
+                    className="w-full py-2 px-3 pl-[34px] bg-muted/10 border border-border/50 rounded-lg text-foreground text-[13px] outline-none focus:border-primary/35 transition-colors placeholder:text-muted-foreground box-border"
                     placeholder={t("abonnementsUi.new.searchPlaceholder")}
                     value={adherentSearch}
                     onChange={(e) => setAdherentSearch(e.target.value)}
                     autoComplete="off"
                   />
                 </div>
-                <div style={{ maxHeight: 220, overflowY: "auto", display: "flex", flexDirection: "column", gap: 2 }}>
+                <div className="max-h-[220px] overflow-y-auto flex flex-col gap-0.5">
                   {filtered.length === 0 && (
-                    <div style={{ padding: "20px", textAlign: "center", fontSize: 12.5, color: "#4a6280" }}>Aucun résultat</div>
+                    <div className="py-5 text-center text-[12.5px] text-muted-foreground">
+                      Aucun résultat
+                    </div>
                   )}
                   {filtered.map((a) => (
                     <div
                       key={a.id}
-                      className="nab-sel-item"
+                      className="flex items-center gap-2.5 py-2.5 px-3.5 cursor-pointer rounded-lg hover:bg-primary/7 transition-colors"
                       onClick={() => { setSelectedAdherent(a); setAdherentSearch(""); }}
                     >
-                      <div className="nab-sel-init" aria-hidden="true">{a.prenom[0]}{a.nom[0]}</div>
+                      <div className="w-[30px] h-[30px] rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-[10px] font-extrabold text-primary-foreground shrink-0">
+                        {a.prenom[0]}{a.nom[0]}
+                      </div>
                       <div>
-                        <div className="nab-sel-name">{a.prenom} {a.nom}</div>
-                        <div className="nab-sel-dos">{a.numeroDossier}</div>
+                        <div className="text-[13px] font-semibold text-foreground">
+                          {a.prenom} {a.nom}
+                        </div>
+                        <div className="text-[11px] text-muted-foreground font-mono">
+                          {a.numeroDossier}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -233,25 +175,45 @@ export function NouvelAbonnementClient({
         </div>
 
         {/* Step 2 — Subscription details */}
-        <div style={CARD_STYLE}>
-          <div className="nab-card-hdr">
-            <div className="nab-card-icon"><Dumbbell /></div>
-            <span className="nab-card-title">Détails de l&apos;abonnement</span>
+        <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden mb-3.5">
+          <div className="flex items-center gap-2.5 px-[18px] pt-[13px] pb-[11px] border-b border-border/30">
+            <div className="w-[30px] h-[30px] rounded-lg bg-primary/12 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+              <Dumbbell size={14} />
+            </div>
+            <span className="text-[13px] font-semibold text-foreground">
+              Détails de l&apos;abonnement
+            </span>
           </div>
-          <div style={{ padding: 18, display: "flex", flexDirection: "column", gap: 16 }}>
-            <div className="nab-form-grid">
-              <div className="nab-field">
-                <label style={LABEL_STYLE}><Dumbbell size={12} />{t("abonnementsUi.new.disciplineLabel")}</label>
-                <select name="disciplineId" style={FIELD_STYLE} className="nab-select" defaultValue="">
+
+          <div className="p-[18px] flex flex-col gap-4">
+            {/* Row 1 */}
+            <div className="grid gap-3.5 sm:grid-cols-2">
+              <div className="flex flex-col">
+                <label className="flex items-center gap-1.5 text-[11.5px] font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">
+                  <Dumbbell size={12} />
+                  {t("abonnementsUi.new.disciplineLabel")}
+                </label>
+                <select
+                  name="disciplineId"
+                  className="w-full py-2.5 px-3.5 bg-muted/10 border border-border/50 rounded-lg text-foreground text-[13.5px] outline-none box-border"
+                  defaultValue=""
+                >
                   <option value="" disabled>{t("abonnementsUi.new.disciplineSelectPlaceholder")}</option>
                   {disciplines.map((d) => (
-                    <option key={d.id} value={d.id}>{d.designation}</option>
+                    <option key={d.id} value={d.id} className="bg-card">{d.designation}</option>
                   ))}
                 </select>
               </div>
-              <div className="nab-field">
-                <label style={LABEL_STYLE}>{t("abonnementsUi.new.subscriptionTypeLabel")}</label>
-                <select name="typeAbonnement" style={FIELD_STYLE} className="nab-select" defaultValue="">
+
+              <div className="flex flex-col">
+                <label className="flex items-center gap-1.5 text-[11.5px] font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">
+                  {t("abonnementsUi.new.subscriptionTypeLabel")}
+                </label>
+                <select
+                  name="typeAbonnement"
+                  className="w-full py-2.5 px-3.5 bg-muted/10 border border-border/50 rounded-lg text-foreground text-[13.5px] outline-none box-border"
+                  defaultValue=""
+                >
                   <option value="" disabled>Sélectionner</option>
                   <option value="OPN">{t("abonnementsUi.new.subscriptionTypeOptions.OPN")}</option>
                   <option value="DUR">{t("abonnementsUi.new.subscriptionTypeOptions.DUR")}</option>
@@ -260,45 +222,72 @@ export function NouvelAbonnementClient({
               </div>
             </div>
 
-            <div className="nab-form-grid">
-              <div className="nab-field">
-                <label style={LABEL_STYLE}>Saison</label>
-                <select name="saisonId" style={FIELD_STYLE} className="nab-select" defaultValue="">
+            {/* Row 2 */}
+            <div className="grid gap-3.5 sm:grid-cols-2">
+              <div className="flex flex-col">
+                <label className="flex items-center gap-1.5 text-[11.5px] font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">
+                  Saison
+                </label>
+                <select
+                  name="saisonId"
+                  className="w-full py-2.5 px-3.5 bg-muted/10 border border-border/50 rounded-lg text-foreground text-[13.5px] outline-none box-border"
+                  defaultValue=""
+                >
                   <option value="" disabled>Sélectionner</option>
                   {saisons.map((s) => (
-                    <option key={s.id} value={s.id}>{s.designation}</option>
+                    <option key={s.id} value={s.id} className="bg-card">{s.designation}</option>
                   ))}
                 </select>
               </div>
-              <div className="nab-field">
-                <label style={LABEL_STYLE}>Catégorie d&apos;âge <span style={{ color: "#f87171" }}>*</span></label>
-                <select name="categorieAgeId" style={FIELD_STYLE} className="nab-select" required defaultValue="">
+
+              <div className="flex flex-col">
+                <label className="flex items-center gap-1.5 text-[11.5px] font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">
+                  Catégorie d&apos;âge <span className="text-destructive">*</span>
+                </label>
+                <select
+                  name="categorieAgeId"
+                  className="w-full py-2.5 px-3.5 bg-muted/10 border border-border/50 rounded-lg text-foreground text-[13.5px] outline-none box-border"
+                  required
+                  defaultValue=""
+                >
                   <option value="" disabled>Sélectionner</option>
                   {categories.map((c) => (
-                    <option key={c.id} value={c.id}>{c.designation}</option>
+                    <option key={c.id} value={c.id} className="bg-card">{c.designation}</option>
                   ))}
                 </select>
               </div>
             </div>
 
-            <div className="nab-field" style={{ maxWidth: 280 }}>
-              <label style={LABEL_STYLE}><CreditCard size={12} />{t("abonnementsUi.new.subscriptionAmountLabel")}</label>
+            {/* Amount field */}
+            <div className="flex flex-col max-w-[280px]">
+              <label className="flex items-center gap-1.5 text-[11.5px] font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">
+                <CreditCard size={12} />
+                {t("abonnementsUi.new.subscriptionAmountLabel")}
+              </label>
               <input
                 name="montantTtc"
                 type="number"
                 step="0.01"
                 min="0"
-                style={FIELD_STYLE}
+                className="w-full py-2.5 px-3.5 bg-muted/10 border border-border/50 rounded-lg text-foreground text-[13.5px] outline-none box-border"
                 placeholder={t("abonnementsUi.new.amountPlaceholder")}
               />
             </div>
           </div>
 
-          <div className="nab-footer">
-            <Link href={`/${locale}/admin/abonnements`} style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 18px", borderRadius: 9, background: "transparent", border: "1px solid rgba(255,255,255,0.1)", color: "#7a93b4", fontSize: 13, fontWeight: 500, textDecoration: "none" }}>
+          {/* Footer Actions */}
+          <div className="flex items-center gap-2.5 justify-end px-5 py-4 border-t border-border/30">
+            <Link
+              href={`/${locale}/admin/abonnements`}
+              className="inline-flex items-center gap-1.5 py-2.5 px-[18px] rounded-lg bg-transparent border border-border/50 text-muted-foreground text-[13px] font-medium no-underline hover:bg-muted/5 transition-colors"
+            >
               {t("abonnementsUi.new.back")}
             </Link>
-            <button type="submit" className="nab-submit" disabled={loading}>
+            <button
+              type="submit"
+              className="inline-flex items-center gap-2 py-2.5 px-[22px] rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground text-[13.5px] font-semibold border-none cursor-pointer shadow-[0_2px_12px_hsl(var(--primary)/0.35)] hover:opacity-90 hover:translate-y-[-1px] transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
+              disabled={loading}
+            >
               <Save size={15} />
               {loading ? "..." : t("abonnementsUi.new.submit")}
             </button>

@@ -44,76 +44,76 @@ export default async function SaisonDetailPage({
         .sai-back {
           display: inline-flex; align-items: center; gap: 7px;
           padding: 7px 14px; border-radius: 8px;
-          background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-          color: #7a93b4; font-size: 13px; font-weight: 500;
+          background: hsl(var(--muted)/0.1); border: 1px solid hsl(var(--border)/0.5);
+          color: hsl(var(--muted-foreground)); font-size: 13px; font-weight: 500;
           text-decoration: none; margin-bottom: 24px;
           transition: background 150ms, color 150ms;
         }
-        .sai-back:hover { background: rgba(255,255,255,0.08); color: #e2f0ff; }
+        .sai-back:hover { background: hsl(var(--muted)/0.15); color: hsl(var(--foreground)); }
 
         .sai-hero {
           padding: 20px 24px; border-radius: 14px;
-          border: 1px solid rgba(255,255,255,0.06);
-          background: rgba(13,21,38,0.72); backdrop-filter: blur(12px);
+          border: 1px solid hsl(var(--border)/0.5);
+          background: hsl(var(--card)/0.8); backdrop-filter: blur(12px);
           margin-bottom: 16px; display: flex; align-items: flex-start;
           gap: 16px; position: relative; overflow: hidden;
         }
         .sai-hero::before {
           content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(6,182,212,0.4), transparent);
+          background: linear-gradient(90deg, transparent, hsl(var(--primary)/0.4), transparent);
         }
         .sai-hero-icon {
           width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
-          background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.2);
-          display: flex; align-items: center; justify-content: center; color: #06b6d4;
+          background: hsl(var(--primary)/0.12); border: 1px solid hsl(var(--primary)/0.2);
+          display: flex; align-items: center; justify-content: center; color: hsl(var(--primary));
         }
         .sai-hero-icon svg { width: 22px; height: 22px; }
-        .sai-hero-title { font-size: 20px; font-weight: 800; color: #f0f9ff; }
-        .sai-hero-dates { font-size: 12.5px; color: #7a93b4; margin-top: 4px; display: flex; align-items: center; gap: 5px; }
+        .sai-hero-title { font-size: 20px; font-weight: 800; color: hsl(var(--foreground)); }
+        .sai-hero-dates { font-size: 12.5px; color: hsl(var(--muted-foreground)); margin-top: 4px; display: flex; align-items: center; gap: 5px; }
         .sai-hero-badges { display: flex; gap: 8px; margin-top: 8px; }
-        .sai-stat-ouv { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;background:rgba(16,185,129,0.12);color:#10b981;border:1px solid rgba(16,185,129,0.25); }
-        .sai-stat-fer { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;background:rgba(100,116,139,0.12);color:#94a3b8;border:1px solid rgba(100,116,139,0.2); }
-        .sai-stat-clo { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;background:rgba(248,113,113,0.12);color:#f87171;border:1px solid rgba(248,113,113,0.25); }
-        .sai-count-chip { display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(14,165,233,0.1);color:#38bdf8;border:1px solid rgba(14,165,233,0.2); }
+        .sai-stat-ouv { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;background:hsl(var(--primary)/0.12);color:hsl(var(--primary));border:1px solid hsl(var(--primary)/0.25); }
+        .sai-stat-fer { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;background:hsl(var(--muted)/0.12);color:hsl(var(--muted-foreground));border:1px solid hsl(var(--muted)/0.2); }
+        .sai-stat-clo { display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;background:hsl(var(--destructive)/0.12);color:hsl(var(--destructive));border:1px solid hsl(var(--destructive)/0.25); }
+        .sai-count-chip { display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:hsl(var(--primary)/0.1);color:hsl(var(--primary));border:1px solid hsl(var(--primary)/0.2); }
 
         .sai-grid { display: grid; gap: 14px; }
         @media (min-width: 900px) { .sai-grid { grid-template-columns: 2fr 1fr; } }
 
         .sai-card {
-          border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);
-          background: rgba(13,21,38,0.72); backdrop-filter: blur(12px); overflow: hidden;
+          border-radius: 14px; border: 1px solid hsl(var(--border)/0.5);
+          background: hsl(var(--card)/0.8); backdrop-filter: blur(12px); overflow: hidden;
         }
         .sai-card-hdr {
           display: flex; align-items: center; gap: 9px;
-          padding: 13px 18px 11px; border-bottom: 1px solid rgba(255,255,255,0.04);
+          padding: 13px 18px 11px; border-bottom: 1px solid hsl(var(--border)/0.3);
         }
         .sai-card-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .sai-card-icon.cyan { background: rgba(6,182,212,0.12); color: #06b6d4; border: 1px solid rgba(6,182,212,0.2); }
-        .sai-card-icon.purple { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.2); }
+        .sai-card-icon.cyan { background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.2); }
+        .sai-card-icon.purple { background: hsl(var(--primary)/0.12); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.2); }
         .sai-card-icon svg { width: 14px; height: 14px; }
-        .sai-card-title { font-size: 13px; font-weight: 600; color: #e2f0ff; }
+        .sai-card-title { font-size: 13px; font-weight: 600; color: hsl(var(--foreground)); }
 
         /* Creneaux table */
         .apg-table { width: 100%; border-collapse: collapse; }
-        .apg-table thead th { padding: 10px 14px; font-size: 11px; font-weight: 700; color: #4a6280; text-transform: uppercase; letter-spacing: 0.08em; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); }
-        .apg-table tbody tr { border-bottom: 1px solid rgba(255,255,255,0.03); transition: background 120ms; }
-        .apg-table tbody tr:hover { background: rgba(6,182,212,0.03); }
+        .apg-table thead th { padding: 10px 14px; font-size: 11px; font-weight: 700; color: hsl(var(--muted-foreground)); text-transform: uppercase; letter-spacing: 0.08em; text-align: left; border-bottom: 1px solid hsl(var(--border)/0.3); background: hsl(var(--muted)/0.1); }
+        .apg-table tbody tr { border-bottom: 1px solid hsl(var(--border)/0.2); transition: background 120ms; }
+        .apg-table tbody tr:hover { background: hsl(var(--primary)/0.03); }
         .apg-table tbody tr:last-child { border-bottom: none; }
-        .apg-table td { padding: 10px 14px; font-size: 13px; color: #b8cfe8; vertical-align: middle; }
-        .apg-table td strong { color: #e2f0ff; font-weight: 600; }
-        .apg-table-empty { padding: 40px 20px; text-align: center; color: #4a6280; font-size: 13px; }
+        .apg-table td { padding: 10px 14px; font-size: 13px; color: hsl(var(--foreground)); vertical-align: middle; }
+        .apg-table td strong { color: hsl(var(--foreground)); font-weight: 600; }
+        .apg-table-empty { padding: 40px 20px; text-align: center; color: hsl(var(--muted-foreground)); font-size: 13px; }
 
         /* Day badge */
-        .sai-day-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; background: rgba(14,165,233,0.1); color: #38bdf8; border: 1px solid rgba(14,165,233,0.2); }
-        .sai-time { display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; color: #7a93b4; }
+        .sai-day-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; background: hsl(var(--primary)/0.1); color: hsl(var(--primary)); border: 1px solid hsl(var(--primary)/0.2); }
+        .sai-time { display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; color: hsl(var(--muted-foreground)); }
 
         /* Periods */
-        .sai-period { display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .sai-period { display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-bottom: 1px solid hsl(var(--border)/0.2); }
         .sai-period:last-child { border-bottom: none; }
-        .sai-period-icon { width: 28px; height: 28px; border-radius: 7px; background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.2); display: flex; align-items: center; justify-content: center; color: #a78bfa; flex-shrink: 0; }
+        .sai-period-icon { width: 28px; height: 28px; border-radius: 7px; background: hsl(var(--primary)/0.1); border: 1px solid hsl(var(--primary)/0.2); display: flex; align-items: center; justify-content: center; color: hsl(var(--primary)); flex-shrink: 0; }
         .sai-period-icon svg { width: 13px; }
-        .sai-period-text { font-size: 13px; color: #b8cfe8; }
-        .sai-period-empty { padding: 24px 18px; text-align: center; color: #4a6280; font-size: 13px; }
+        .sai-period-text { font-size: 13px; color: hsl(var(--foreground)); }
+        .sai-period-empty { padding: 24px 18px; text-align: center; color: hsl(var(--muted-foreground)); font-size: 13px; }
       `}</style>
 
       <Link href={`/${locale}/admin/saisons`} className="sai-back">
@@ -172,7 +172,7 @@ export default async function SaisonDetailPage({
                           {new Date(c.heureDebut).toTimeString().slice(0, 5)} – {new Date(c.heureFin).toTimeString().slice(0, 5)}
                         </span>
                       </td>
-                      <td>{c.groupe || <span style={{ color: "#4a6280" }}>—</span>}</td>
+                      <td>{c.groupe || <span style={{ color: "hsl(var(--muted-foreground))" }}>—</span>}</td>
                     </tr>
                   ))}
                 </tbody>
