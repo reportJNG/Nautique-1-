@@ -24,7 +24,7 @@ export async function updateProfile(formData: FormData) {
         const data = Object.fromEntries(formData);
         const parsed = updateSchema.safeParse(data);
         if (!parsed.success) {
-            return { error: parsed.error.errors[0].message };
+            return { error: parsed.error.issues[0].message };
         }
         const { nom, prenom, telephone, adresse } = parsed.data;
         await prisma.adherent.update({
@@ -50,7 +50,7 @@ export async function changePassword(formData: FormData) {
         const data = Object.fromEntries(formData);
         const parsed = passwordSchema.safeParse(data);
         if (!parsed.success) {
-            return { error: parsed.error.errors[0].message };
+            return { error: parsed.error.issues[0].message };
         }
         const { currentPassword, newPassword } = parsed.data;
         const adherent = await prisma.adherent.findUnique({

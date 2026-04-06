@@ -31,7 +31,7 @@ function SectionCard({
 }) {
   return (
     <div
-      className={`rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900 ${className}`}
+      className={`rounded-2xl border border-blue-200/50 bg-white/80 backdrop-blur-sm shadow-xl dark:border-blue-800/50 dark:bg-blue-950/80 ${className}`}
     >
       {children}
     </div>
@@ -42,8 +42,8 @@ function SectionHeader({
   icon: Icon,
   title,
   subtitle,
-  iconColor = "text-violet-500",
-  iconBg = "bg-violet-100 dark:bg-violet-900/40",
+  iconColor = "text-blue-500",
+  iconBg = "bg-blue-100 dark:bg-blue-900/40",
 }: {
   icon: React.ElementType;
   title: string;
@@ -52,16 +52,16 @@ function SectionHeader({
   iconBg?: string;
 }) {
   return (
-    <div className="flex items-center gap-3 border-b border-gray-100 px-6 py-4 dark:border-gray-800">
+    <div className="flex items-center gap-3 border-b border-blue-200/50 px-6 py-4 dark:border-blue-800/50">
       <div
         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${iconBg}`}
       >
         <Icon className={`h-4 w-4 ${iconColor}`} />
       </div>
       <div>
-        <p className="text-sm font-semibold text-gray-900 dark:text-white">{title}</p>
+        <p className="text-sm font-semibold text-blue-900 dark:text-white">{title}</p>
         {subtitle && (
-          <p className="text-xs text-gray-400 dark:text-gray-500">{subtitle}</p>
+          <p className="text-xs text-blue-500 dark:text-blue-400">{subtitle}</p>
         )}
       </div>
     </div>
@@ -82,7 +82,7 @@ function FieldLabel({
   return (
     <Label
       htmlFor={htmlFor}
-      className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500"
+      className="text-xs font-semibold uppercase tracking-wider text-blue-500 dark:text-blue-400"
     >
       {children}
     </Label>
@@ -91,7 +91,7 @@ function FieldLabel({
 
 function ReadonlyField({ value }: { value: string }) {
   return (
-    <div className="flex h-10 w-full items-center rounded-xl border border-gray-100 bg-gray-50 px-3 text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-800/60 dark:text-gray-400">
+    <div className="flex h-10 w-full items-center rounded-xl border border-blue-200/50 bg-blue-50/30 px-3 text-sm text-blue-600 dark:border-blue-800/50 dark:bg-blue-900/20 dark:text-blue-400">
       {value}
     </div>
   );
@@ -108,21 +108,21 @@ export default async function ProfilPage() {
     adherent.prenom.charAt(0).toUpperCase() + adherent.nom.charAt(0).toUpperCase();
 
   return (
-    <div className="min-h-screen bg-gray-50/60 px-4 py-8 dark:bg-gray-950 sm:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-50 dark:from-blue-950 dark:via-cyan-950 dark:to-blue-950 px-4 py-8 sm:px-8">
       {/* Page header */}
       <div className="mb-8 flex items-center gap-5">
         {/* Avatar */}
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-violet-100 text-xl font-bold text-violet-600 dark:bg-violet-900/40 dark:text-violet-400">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 text-xl font-bold text-white shadow-md">
           {initials}
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+          <p className="text-xs font-semibold uppercase tracking-widest text-blue-400 dark:text-blue-500">
             Espace membre
           </p>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-900 to-cyan-600 dark:from-white dark:to-cyan-400 bg-clip-text text-transparent">
             {adherent.prenom} {adherent.nom}
           </h1>
-          <p className="text-sm text-gray-400 dark:text-gray-500">
+          <p className="text-sm text-blue-500 dark:text-blue-400">
             {adherent.organisation.designation} &middot; N°{" "}
             {adherent.numeroDossier}
           </p>
@@ -144,7 +144,7 @@ export default async function ProfilPage() {
                 <Input
                   id="nom"
                   defaultValue={adherent.nom}
-                  className="rounded-xl border-gray-200 bg-white text-sm dark:border-gray-700 dark:bg-gray-800"
+                  className="rounded-xl border-blue-200/50 bg-white/80 text-sm text-blue-900 placeholder:text-blue-400 focus:border-blue-500 focus:ring-blue-500 dark:border-blue-800/50 dark:bg-blue-900/30 dark:text-white dark:placeholder:text-blue-500"
                 />
               </FieldGroup>
               <FieldGroup>
@@ -152,7 +152,7 @@ export default async function ProfilPage() {
                 <Input
                   id="prenom"
                   defaultValue={adherent.prenom}
-                  className="rounded-xl border-gray-200 bg-white text-sm dark:border-gray-700 dark:bg-gray-800"
+                  className="rounded-xl border-blue-200/50 bg-white/80 text-sm text-blue-900 placeholder:text-blue-400 focus:border-blue-500 focus:ring-blue-500 dark:border-blue-800/50 dark:bg-blue-900/30 dark:text-white dark:placeholder:text-blue-500"
                 />
               </FieldGroup>
             </div>
@@ -167,9 +167,9 @@ export default async function ProfilPage() {
                 id="email"
                 defaultValue={adherent.email || ""}
                 disabled
-                className="rounded-xl border-gray-100 bg-gray-50 text-sm text-gray-400 dark:border-gray-800 dark:bg-gray-800/60"
+                className="rounded-xl border-blue-200/50 bg-blue-50/30 text-sm text-blue-400 dark:border-blue-800/50 dark:bg-blue-900/20 dark:text-blue-500"
               />
-              <p className="flex items-center gap-1 text-[11px] text-gray-400 dark:text-gray-500">
+              <p className="flex items-center gap-1 text-[11px] text-blue-500 dark:text-blue-400">
                 <ShieldCheck className="h-3 w-3" />
                 L&apos;email ne peut pas être modifié
               </p>
@@ -184,7 +184,7 @@ export default async function ProfilPage() {
               <Input
                 id="telephone"
                 defaultValue={adherent.telephone || ""}
-                className="rounded-xl border-gray-200 bg-white text-sm dark:border-gray-700 dark:bg-gray-800"
+                className="rounded-xl border-blue-200/50 bg-white/80 text-sm text-blue-900 placeholder:text-blue-400 focus:border-blue-500 focus:ring-blue-500 dark:border-blue-800/50 dark:bg-blue-900/30 dark:text-white dark:placeholder:text-blue-500"
               />
             </FieldGroup>
 
@@ -197,12 +197,12 @@ export default async function ProfilPage() {
               <Input
                 id="adresse"
                 defaultValue={adherent.adresse || ""}
-                className="rounded-xl border-gray-200 bg-white text-sm dark:border-gray-700 dark:bg-gray-800"
+                className="rounded-xl border-blue-200/50 bg-white/80 text-sm text-blue-900 placeholder:text-blue-400 focus:border-blue-500 focus:ring-blue-500 dark:border-blue-800/50 dark:bg-blue-900/30 dark:text-white dark:placeholder:text-blue-500"
               />
             </FieldGroup>
 
             <div className="pt-2">
-              <Button className="rounded-xl bg-gray-900 text-sm text-white hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200">
+              <Button className="rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 text-sm text-white shadow-md transition-all hover:from-blue-700 hover:to-cyan-700 dark:from-blue-500 dark:to-cyan-500 dark:hover:from-blue-600 dark:hover:to-cyan-600">
                 Enregistrer les modifications
               </Button>
             </div>
@@ -215,8 +215,8 @@ export default async function ProfilPage() {
             icon={Building2}
             title="Informations du compte"
             subtitle="Données en lecture seule"
-            iconColor="text-sky-500"
-            iconBg="bg-sky-100 dark:bg-sky-900/40"
+            iconColor="text-cyan-500"
+            iconBg="bg-cyan-100 dark:bg-cyan-900/40"
           />
           <div className="space-y-4 p-6">
             <FieldGroup>
@@ -280,7 +280,7 @@ export default async function ProfilPage() {
               <Input
                 id="currentPassword"
                 type="password"
-                className="rounded-xl border-gray-200 bg-white text-sm dark:border-gray-700 dark:bg-gray-800"
+                className="rounded-xl border-blue-200/50 bg-white/80 text-sm text-blue-900 placeholder:text-blue-400 focus:border-blue-500 focus:ring-blue-500 dark:border-blue-800/50 dark:bg-blue-900/30 dark:text-white dark:placeholder:text-blue-500"
               />
             </FieldGroup>
             <FieldGroup>
@@ -288,7 +288,7 @@ export default async function ProfilPage() {
               <Input
                 id="newPassword"
                 type="password"
-                className="rounded-xl border-gray-200 bg-white text-sm dark:border-gray-700 dark:bg-gray-800"
+                className="rounded-xl border-blue-200/50 bg-white/80 text-sm text-blue-900 placeholder:text-blue-400 focus:border-blue-500 focus:ring-blue-500 dark:border-blue-800/50 dark:bg-blue-900/30 dark:text-white dark:placeholder:text-blue-500"
               />
             </FieldGroup>
             <FieldGroup>
@@ -296,13 +296,13 @@ export default async function ProfilPage() {
               <Input
                 id="confirmNewPassword"
                 type="password"
-                className="rounded-xl border-gray-200 bg-white text-sm dark:border-gray-700 dark:bg-gray-800"
+                className="rounded-xl border-blue-200/50 bg-white/80 text-sm text-blue-900 placeholder:text-blue-400 focus:border-blue-500 focus:ring-blue-500 dark:border-blue-800/50 dark:bg-blue-900/30 dark:text-white dark:placeholder:text-blue-500"
               />
             </FieldGroup>
             <div className="sm:col-span-3 pt-1">
               <Button
                 variant="outline"
-                className="rounded-xl border-gray-200 text-sm text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                className="rounded-xl border-blue-300/50 bg-white/50 text-sm text-blue-700 hover:bg-blue-50/80 dark:border-blue-700/50 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-800/50"
               >
                 <Lock className="mr-2 h-3.5 w-3.5" />
                 Changer le mot de passe
