@@ -343,7 +343,7 @@ export function EspaceTopbar({ onMenuClick, sidebarOpen, adherent }: EspaceTopba
                                 sideOffset={8}
                                 align="end"
                             >
-                                {/* User header */}
+
                                 <div className="border-b border-border/50 px-4 py-3 bg-gradient-to-r from-primary/5 to-transparent">
                                     <div className="flex items-center gap-3">
                                         <div className="relative">
