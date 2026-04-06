@@ -366,7 +366,7 @@ export function EspaceTopbar({ onMenuClick, sidebarOpen, adherent }: EspaceTopba
                                     </div>
                                 </div>
 
-                                {/* Items */}
+
                                 <div className="py-1.5">
                                     {[
                                         { label: "Mon profil", icon: User, path: "/espace/profil" },
