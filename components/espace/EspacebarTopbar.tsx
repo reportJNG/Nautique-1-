@@ -180,7 +180,7 @@ export function EspaceTopbar({ onMenuClick, sidebarOpen, adherent }: EspaceTopba
                     <button
                         onClick={onMenuClick}
                         aria-label={sidebarOpen ? "Fermer la barre latérale" : "Ouvrir la barre latérale"}
-                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-background/50 text-foreground transition-all duration-200 hover:bg-muted hover:scale-105 active:scale-95"
+                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-background/50 text-foreground transition-all duration-200 hover:bg-muted hover:scale-105 active:scale-95 cursor-pointer"
                     >
 
                         <Menu className="h-4 w-4" />
@@ -210,7 +210,7 @@ export function EspaceTopbar({ onMenuClick, sidebarOpen, adherent }: EspaceTopba
                     {/* Notifications */}
                     <Popover.Root open={showNotifications} onOpenChange={setShowNotifications}>
                         <Popover.Trigger asChild>
-                            <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-all duration-200 hover:bg-muted hover:text-foreground">
+                            <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-all duration-200 hover:bg-muted hover:text-foreground cursor-pointer">
                                 <Bell className="h-4 w-4" />
                                 {unreadCount > 0 && (
                                     <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[9px] font-bold text-destructive-foreground shadow-md">
