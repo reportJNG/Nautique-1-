@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   Calendar,
-  PlusCircle,
+  NewspaperIcon,
+  HelpCircleIcon,
   User,
   History,
   Settings,
@@ -16,6 +17,7 @@ import {
   Waves,
   ChevronRight,
   Loader2,
+  X,
 } from "lucide-react";
 import { logoutAction } from "@/lib/actions/auth.actions";
 
@@ -39,6 +41,8 @@ interface EspaceSidebarProps {
     prenom: string;
     numeroDossier: string;
   };
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 function NavLink({
@@ -53,10 +57,10 @@ function NavLink({
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  const isActive =
-    item.exact
-      ? pathname === item.href
-      : pathname === item.href || pathname.startsWith(`${item.href}/`);
+  const isActive = item.exact
+    ? pathname === item.href
+    : pathname === item.href || pathname.startsWith(`${item.href}/`);
+
   const hasChildren = !!item.children?.length;
   const childActive = item.children?.some(
     (c) => pathname === c.href || pathname.startsWith(`${c.href}/`)
@@ -69,31 +73,29 @@ function NavLink({
         <button
           onClick={() => setOpen((v) => !v)}
           className={cn(
-            "flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors duration-150",
+            "flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
             isActive || childActive
               ? "bg-primary/10 text-primary"
-              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
           )}
         >
           <item.icon
             className={cn(
               "h-4 w-4 shrink-0",
-              isActive || childActive
-                ? "text-primary"
-                : "text-muted-foreground"
+              isActive || childActive ? "text-primary" : "text-muted-foreground"
             )}
           />
           <span className="flex-1 text-left">{item.label}</span>
           <ChevronRight
             className={cn(
-              "h-3.5 w-3.5 shrink-0 text-muted-foreground/50 transition-transform duration-200",
+              "h-3.5 w-3.5 shrink-0 text-muted-foreground/40 transition-transform duration-200",
               expanded && "rotate-90"
             )}
           />
         </button>
 
         {expanded && (
-          <ul className="ml-4 mt-0.5 space-y-0.5 border-l border-border pl-3">
+          <ul className="ml-4 mt-1 space-y-0.5 border-l border-border/60 pl-3">
             {item.children!.map((child) => (
               <NavLink key={child.href} item={child} locale={locale} depth={depth + 1} />
             ))}
@@ -108,16 +110,16 @@ function NavLink({
       <Link
         href={`/${locale}${item.href}`}
         className={cn(
-          "flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors duration-150",
+          "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
           isActive
-            ? "bg-primary/10 text-primary"
-            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            ? "bg-primary/10 text-primary shadow-sm"
+            : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
         )}
       >
         <item.icon
           className={cn(
             "h-4 w-4 shrink-0",
-            isActive ? "text-primary" : "text-muted-foreground"
+            isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
           )}
         />
         <span className="flex-1">{item.label}</span>
@@ -125,10 +127,8 @@ function NavLink({
         {item.badge !== undefined && (
           <span
             className={cn(
-              "flex h-4 min-w-4 items-center justify-center rounded-full px-1.5 text-[10px] font-bold",
-              isActive
-                ? "bg-primary/20 text-primary"
-                : "bg-muted text-muted-foreground"
+              "flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[10px] font-bold tabular-nums",
+              isActive ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
             )}
           >
             {item.badge}
@@ -143,7 +143,7 @@ function NavLink({
   );
 }
 
-export function EspaceSidebar({ adherent }: EspaceSidebarProps) {
+export function EspaceSidebar({ adherent, isOpen, onClose }: EspaceSidebarProps) {
   const t = useTranslations("adherent");
   const locale = useLocale();
   const [, startTransition] = useTransition();
@@ -160,22 +160,22 @@ export function EspaceSidebar({ adherent }: EspaceSidebarProps) {
           exact: true,
         },
         {
+          href: "/espace/news",
+          label: 'News',
+          icon: NewspaperIcon,
+          exact: true,
+        },
+        {
           href: "/espace/abonnements",
           label: t("abonnements"),
           icon: Calendar,
-          children: [
-            {
-              href: "/espace/abonnements/nouveau",
-              label: t("newAbonnement"),
-              icon: PlusCircle,
-            },
-          ],
         },
         {
           href: "/espace/acces",
           label: t("access"),
           icon: History,
         },
+
       ],
     },
     {
@@ -183,6 +183,11 @@ export function EspaceSidebar({ adherent }: EspaceSidebarProps) {
       items: [
         { href: "/espace/profil", label: t("profile"), icon: User },
         { href: "/espace/parametres", label: t("settings"), icon: Settings },
+        {
+          href: "/espace/support",
+          label: "Aide & Support",
+          icon: HelpCircleIcon,
+        },
       ],
     },
   ];
@@ -199,39 +204,46 @@ export function EspaceSidebar({ adherent }: EspaceSidebarProps) {
   }
 
   return (
-    <aside className="flex h-full w-64 flex-col bg-card">
-      {/* Logo */}
-      <div className="flex h-14 shrink-0 items-center gap-2.5 border-b border-border px-5">
-        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
-          <Waves className="h-4 w-4 text-primary-foreground" />
+    /* Sidebar slides fully off-screen when closed — no overlay, no backdrop.
+       The main content expands to fill the freed space (handled by EspaceShell margin). */
+    <aside
+      className={cn(
+        "fixed inset-y-0 left-0 z-50 flex h-full w-72 flex-col",
+        "bg-card border-r border-border/60 shadow-xl",
+        "transition-transform duration-300 ease-out will-change-transform",
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      )}
+      aria-hidden={!isOpen}
+    >
+      {/* ── Brand header with inline close button ── */}
+      <div className="flex h-16 shrink-0 items-center justify-between border-b border-border/60 px-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary shadow-sm">
+            <Waves className="h-4 w-4 text-primary-foreground" />
+          </div>
+          <div>
+            <p className="text-sm font-bold tracking-wide text-foreground">SONATRACH</p>
+            <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              Espace adhérent
+            </p>
+          </div>
         </div>
-        <span className="text-sm font-bold tracking-wide text-foreground">
-          SONATRACH
-        </span>
+
+        {/* Close button — the only way to close (besides topbar toggle) */}
+        <button
+          onClick={onClose}
+          aria-label="Fermer la barre latérale"
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
+        >
+          <X className="h-4 w-4" />
+        </button>
       </div>
 
-      {/* User card */}
-      <div className="mx-3 my-3 flex items-center gap-3 rounded-xl bg-muted/50 px-3 py-2.5">
-        <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/20 text-xs font-bold text-primary">
-          {initials}
-          {/* Online dot */}
-          <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-background bg-green-500" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-foreground">
-            {adherent.prenom} {adherent.nom}
-          </p>
-          <p className="truncate text-[11px] text-muted-foreground">
-            N° {adherent.numeroDossier}
-          </p>
-        </div>
-      </div>
-
-      {/* Nav */}
-      <nav className="flex-1 overflow-y-auto px-3 pb-2">
+      {/* ── Navigation ── */}
+      <nav className="flex-1 overflow-y-auto px-3 py-2" aria-label="Navigation principale">
         {navGroups.map((group) => (
-          <div key={group.label} className="mb-4">
-            <p className="mb-1 px-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">
+          <div key={group.label} className="mb-5">
+            <p className="mb-2 px-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
               {group.label}
             </p>
             <ul className="space-y-0.5">
@@ -243,19 +255,19 @@ export function EspaceSidebar({ adherent }: EspaceSidebarProps) {
         ))}
       </nav>
 
-      {/* Logout */}
-      <div className="shrink-0 border-t border-border p-3">
+      {/* ── Logout ── */}
+      <div className="shrink-0 border-t border-border/60 p-3">
         <button
           onClick={handleLogout}
           disabled={loggingOut}
-          className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:pointer-events-none disabled:opacity-60 cursor-pointer"
+          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:pointer-events-none disabled:opacity-60"
         >
           {loggingOut ? (
             <Loader2 className="h-4 w-4 shrink-0 animate-spin" />
           ) : (
             <LogOut className="h-4 w-4 shrink-0" />
           )}
-          {loggingOut ? "Déconnexion…" : t("logout")}
+          <span>{loggingOut ? "Déconnexion…" : t("logout")}</span>
         </button>
       </div>
     </aside>
