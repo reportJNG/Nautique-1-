@@ -106,20 +106,6 @@ export default async function EspaceDashboardPage({
   return (
     <div className="min-h-full bg-muted/30 dark:bg-background px-4 py-8 sm:px-8">
 
-      {/* ── Page header ── */}
-      <div className="mb-8">
-        <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          Espace membre
-        </p>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-          Bonjour, {adherent.prenom} 👋
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Bienvenue sur votre tableau de bord.
-        </p>
-      </div>
-
-      {/* ── Stat cards ── */}
       <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {cards.map(({ label, value, icon: Icon, colorClass, bgClass, badgeClass, trend }) => (
           <div
@@ -160,7 +146,7 @@ export default async function EspaceDashboardPage({
             <p className="mt-0.5 text-xs text-muted-foreground">3 derniers abonnements</p>
           </div>
           <Link href={`/${locale}/espace/abonnements/nouveau`}>
-            <Button size="sm" className="gap-1.5 rounded-xl">
+            <Button size="sm" className="gap-1.5 rounded-xl cursor-pointer">
               <Plus className="h-3.5 w-3.5" />
               Nouvel abonnement
             </Button>
@@ -179,12 +165,7 @@ export default async function EspaceDashboardPage({
                   Commencez par créer votre premier abonnement.
                 </p>
               </div>
-              <Link href={`/${locale}/espace/abonnements/nouveau`}>
-                <Button size="sm" variant="outline" className="mt-1 gap-1.5 rounded-xl">
-                  <Plus className="h-3.5 w-3.5" />
-                  Créer un abonnement
-                </Button>
-              </Link>
+
             </div>
           ) : (
             data.recentAbonnements.map((abonnement) => {
