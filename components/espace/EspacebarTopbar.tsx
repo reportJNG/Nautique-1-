@@ -184,7 +184,7 @@ export function EspaceTopbar({
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/95 backdrop-blur-2xl">
       <div className="relative mx-auto flex h-14 max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <div className="flex min-w-0 flex-1 items-center gap-3">
-          {!sidebarOpen ? (
+          {!sidebarOpen && (
             <button
               type="button"
               onClick={onMenuClick}
@@ -192,12 +192,10 @@ export function EspaceTopbar({
               title={t("openMenuTitle")}
               aria-expanded={false}
               aria-controls="espace-sidebar"
-              className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background/80 text-foreground transition-all duration-150 ease-out hover:bg-muted active:scale-95"
+              className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background/80 text-foreground transition-all duration-150 ease-out hover:bg-muted active:scale-95 cursor-pointer"
             >
               <MenuIcon className="size-4" />
             </button>
-          ) : (
-            <div className="size-9 shrink-0" aria-hidden="true" />
           )}
 
           <div className="min-w-0">
@@ -414,21 +412,6 @@ export function EspaceTopbar({
                       icon: User,
                     },
                     {
-                      label: t("profileMenu.dashboard"),
-                      href: "/espace",
-                      icon: LayoutDashboard,
-                    },
-                    {
-                      label: t("profileMenu.invoices"),
-                      href: "/espace/factures",
-                      icon: CreditCard,
-                    },
-                    {
-                      label: t("profileMenu.planning"),
-                      href: "/espace/planning",
-                      icon: CalendarDays,
-                    },
-                    {
                       label: t("profileMenu.settings"),
                       href: "/espace/parametres",
                       icon: Globe2,
@@ -445,25 +428,6 @@ export function EspaceTopbar({
                   ))}
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 px-2 pb-2">
-                  <div className="rounded-2xl border border-border/50 bg-background/70 p-3">
-                    <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                      {t("activeSubscriptions")}
-                    </p>
-                    <p className="mt-1 text-lg font-semibold text-foreground">
-                      {stats.activeAbonnements}
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-border/50 bg-background/70 p-3">
-                    <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                      {t("pendingInvoices")}
-                    </p>
-                    <p className="mt-1 text-lg font-semibold text-foreground">
-                      {stats.pendingFactures}
-                    </p>
-                  </div>
-                </div>
-
                 <div className="flex items-center gap-2 border-t border-border/60 px-2 pt-2">
                   <button
                     type="button"
@@ -474,7 +438,7 @@ export function EspaceTopbar({
                       })
                     }
                     disabled={isLoggingOut}
-                    className="ml-auto inline-flex items-center gap-2 rounded-2xl bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-100 active:scale-95 disabled:opacity-60 dark:bg-rose-950/20 dark:text-rose-300"
+                    className="ml-auto inline-flex items-center gap-2 rounded-2xl bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-100 active:scale-95 disabled:opacity-60 dark:bg-rose-950/20 dark:text-rose-300 cursor-pointer"
                   >
                     <LogOut className="size-4" />
                     {isLoggingOut ? t("loggingOut") : t("logout")}
