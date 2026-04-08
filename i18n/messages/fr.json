@@ -1275,6 +1275,107 @@
     "creneauxUi": {
       "pageTitle": "Gestion des créneaux",
       "description": "Suivez les créneaux hebdomadaires, leur capacité et leur niveau de remplissage.",
+      "newButton": "Nouveau créneau",
+      "seasonDialog": {
+        "guardrails": {
+          "accessLabel": "Accès",
+          "accessValue": "Admin uniquement",
+          "validationLabel": "Validation",
+          "validationValue": "Zod côté client et serveur",
+          "safetyLabel": "Sécurité",
+          "safetyValue": "Contrôles sur les doublons et la saison ouverte"
+        }
+      },
+      "form": {
+        "title": "Créer un nouveau créneau",
+        "description": "Ajoutez un créneau lié à une saison et à une discipline, avec son rythme hebdomadaire et sa capacité.",
+        "adminOnlyBadge": "Admin uniquement",
+        "sections": {
+          "selection": "Paramétrage",
+          "schedule": "Planning hebdomadaire",
+          "capacity": "Capacité et détails"
+        },
+        "fields": {
+          "saison": "Saison",
+          "discipline": "Discipline",
+          "day": "Jour",
+          "heureDebut": "Heure de début",
+          "heureFin": "Heure de fin",
+          "nombreMin": "Capacité minimale",
+          "nombreMax": "Capacité maximale",
+          "groupe": "Groupe",
+          "observations": "Observations"
+        },
+        "placeholders": {
+          "saison": "Sélectionnez une saison",
+          "discipline": "Sélectionnez une discipline",
+          "groupe": "Ex. Ados A",
+          "observations": "Notes internes optionnelles"
+        },
+        "hints": {
+          "selection": "Choisissez d'abord la saison et la discipline avant de définir le rythme du créneau.",
+          "schedule": "Définissez le jour et la plage horaire utilisés chaque semaine.",
+          "capacity": "La capacité pilote l'expérience d'inscription et le nombre de places disponibles."
+        },
+        "preview": {
+          "eyebrow": "Aperçu",
+          "title": "Résumé du créneau",
+          "live": "Temps réel",
+          "seasonLabel": "Saison",
+          "emptySeason": "Sélectionnez une saison",
+          "disciplineLabel": "Discipline",
+          "emptyDiscipline": "Sélectionnez une discipline",
+          "scheduleLabel": "Planning",
+          "capacityLabel": "Capacité",
+          "notSet": "Non défini",
+          "noGroup": "Aucun groupe"
+        },
+        "notes": {
+          "adminTitle": "Création réservée aux administrateurs",
+          "adminDescription": "Le bouton reste masqué pour les autres rôles et le serveur bloque aussi toute tentative directe en dehors du rôle Admin."
+        },
+        "emptyData": {
+          "title": "Données préalables manquantes",
+          "description": "Ajoutez au moins une saison et une discipline avant de créer un créneau."
+        },
+        "actions": {
+          "cancel": "Annuler",
+          "submit": "Créer le créneau",
+          "submitting": "Création..."
+        },
+        "validation": {
+          "saisonRequired": "Veuillez choisir une saison.",
+          "disciplineRequired": "Veuillez choisir une discipline.",
+          "dayRequired": "Veuillez choisir un jour.",
+          "heureDebutRequired": "L'heure de début est obligatoire.",
+          "heureFinRequired": "L'heure de fin est obligatoire.",
+          "invalidTime": "Veuillez saisir une heure valide.",
+          "endBeforeStart": "L'heure de fin doit être postérieure à l'heure de début.",
+          "nombreMinRequired": "La capacité minimale est obligatoire.",
+          "nombreMaxRequired": "La capacité maximale est obligatoire.",
+          "minCapacityInvalid": "La capacité minimale doit être supérieure ou égale à 1.",
+          "maxCapacityInvalid": "La capacité maximale doit être supérieure ou égale à 1.",
+          "maxLessThanMin": "La capacité maximale doit être supérieure ou égale à la capacité minimale.",
+          "groupeMax": "Le nom du groupe ne peut pas dépasser 40 caractères.",
+          "observationsMax": "Les observations ne peuvent pas dépasser 255 caractères."
+        },
+        "feedback": {
+          "invalidForm": "Certaines informations sont invalides. Corrigez le formulaire puis réessayez.",
+          "duplicateSlot": "Un créneau identique existe déjà pour cette saison, cette discipline et cet horaire.",
+          "seasonMissing": "La saison sélectionnée n'existe plus.",
+          "disciplineMissing": "La discipline sélectionnée n'existe plus.",
+          "missingReferences": "Vous avez besoin d'au moins une saison et d'une discipline avant de créer un créneau.",
+          "forbidden": "Seul un administrateur peut créer un créneau.",
+          "unexpected": "Une erreur est survenue lors de la création du créneau."
+        },
+        "toasts": {
+          "validationTitle": "Formulaire incomplet",
+          "validationDescription": "Merci de corriger les champs signalés avant de continuer.",
+          "errorTitle": "Création impossible",
+          "successTitle": "Créneau créé",
+          "successDescription": "Le nouveau créneau a été ajouté avec succès."
+        }
+      },
       "stats": {
         "totalSlots": "Créneaux",
         "totalCapacity": "Capacité totale",

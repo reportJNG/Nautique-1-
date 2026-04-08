@@ -1205,6 +1205,107 @@
     "creneauxUi": {
       "pageTitle": "إدارة الفترات الزمنية",
       "description": "تابع الفترات الزمنية الأسبوعية وسعتها ونسبة الإشغال فيها.",
+      "newButton": "فترة زمنية جديدة",
+      "seasonDialog": {
+        "guardrails": {
+          "accessLabel": "الوصول",
+          "accessValue": "للمدير فقط",
+          "validationLabel": "التحقق",
+          "validationValue": "Zod على العميل والخادم",
+          "safetyLabel": "الأمان",
+          "safetyValue": "فحوص التكرار والموسم المفتوح"
+        }
+      },
+      "form": {
+        "title": "إنشاء فترة زمنية جديدة",
+        "description": "أضف فترة زمنية مرتبطة بموسم وتخصص مع جدولها الأسبوعي وسعتها.",
+        "adminOnlyBadge": "للمدير فقط",
+        "sections": {
+          "selection": "الإعداد",
+          "schedule": "الجدول الأسبوعي",
+          "capacity": "السعة والتفاصيل"
+        },
+        "fields": {
+          "saison": "الموسم",
+          "discipline": "التخصص",
+          "day": "اليوم",
+          "heureDebut": "وقت البداية",
+          "heureFin": "وقت النهاية",
+          "nombreMin": "الحد الأدنى",
+          "nombreMax": "الحد الأقصى",
+          "groupe": "المجموعة",
+          "observations": "ملاحظات"
+        },
+        "placeholders": {
+          "saison": "اختر موسمًا",
+          "discipline": "اختر تخصصًا",
+          "groupe": "مثال: مجموعة الناشئين A",
+          "observations": "ملاحظات داخلية اختيارية"
+        },
+        "hints": {
+          "selection": "اختر الموسم والتخصص أولاً قبل ضبط إيقاع الفترة الزمنية.",
+          "schedule": "حدد اليوم والفترة الزمنية المستخدمة كل أسبوع.",
+          "capacity": "تتحكم السعة في تجربة الاشتراك وعدد الأماكن المتاحة."
+        },
+        "preview": {
+          "eyebrow": "معاينة",
+          "title": "ملخص الفترة",
+          "live": "مباشر",
+          "seasonLabel": "الموسم",
+          "emptySeason": "اختر موسمًا",
+          "disciplineLabel": "التخصص",
+          "emptyDiscipline": "اختر تخصصًا",
+          "scheduleLabel": "الجدول",
+          "capacityLabel": "السعة",
+          "notSet": "غير محدد",
+          "noGroup": "بدون مجموعة"
+        },
+        "notes": {
+          "adminTitle": "الإنشاء محصور بالمدير",
+          "adminDescription": "يبقى الزر مخفيًا عن بقية الأدوار كما أن الخادم يمنع أي محاولة مباشرة للإنشاء خارج دور Admin."
+        },
+        "emptyData": {
+          "title": "بيانات أساسية مفقودة",
+          "description": "أضف موسمًا واحدًا على الأقل وتخصصًا واحدًا قبل إنشاء فترة زمنية."
+        },
+        "actions": {
+          "cancel": "إلغاء",
+          "submit": "إنشاء الفترة",
+          "submitting": "جارٍ الإنشاء..."
+        },
+        "validation": {
+          "saisonRequired": "يرجى اختيار موسم.",
+          "disciplineRequired": "يرجى اختيار تخصص.",
+          "dayRequired": "يرجى اختيار يوم.",
+          "heureDebutRequired": "وقت البداية مطلوب.",
+          "heureFinRequired": "وقت النهاية مطلوب.",
+          "invalidTime": "يرجى إدخال وقت صحيح.",
+          "endBeforeStart": "يجب أن يكون وقت النهاية بعد وقت البداية.",
+          "nombreMinRequired": "الحد الأدنى مطلوب.",
+          "nombreMaxRequired": "الحد الأقصى مطلوب.",
+          "minCapacityInvalid": "يجب أن يكون الحد الأدنى 1 على الأقل.",
+          "maxCapacityInvalid": "يجب أن يكون الحد الأقصى 1 على الأقل.",
+          "maxLessThanMin": "يجب أن يكون الحد الأقصى أكبر من أو مساويًا للحد الأدنى.",
+          "groupeMax": "لا يمكن أن يتجاوز اسم المجموعة 40 حرفًا.",
+          "observationsMax": "لا يمكن أن تتجاوز الملاحظات 255 حرفًا."
+        },
+        "feedback": {
+          "invalidForm": "بعض المعلومات غير صالحة. صحح النموذج ثم أعد المحاولة.",
+          "duplicateSlot": "توجد فترة زمنية مطابقة بالفعل لهذا الموسم والتخصص والموعد.",
+          "seasonMissing": "الموسم المحدد لم يعد موجودًا.",
+          "disciplineMissing": "التخصص المحدد لم يعد موجودًا.",
+          "missingReferences": "تحتاج إلى موسم واحد على الأقل وتخصص واحد قبل إنشاء فترة زمنية.",
+          "forbidden": "يمكن للمدير فقط إنشاء فترة زمنية.",
+          "unexpected": "حدث خطأ أثناء إنشاء الفترة الزمنية."
+        },
+        "toasts": {
+          "validationTitle": "النموذج غير مكتمل",
+          "validationDescription": "يرجى تصحيح الحقول المشار إليها قبل المتابعة.",
+          "errorTitle": "تعذر إنشاء الفترة الزمنية",
+          "successTitle": "تم إنشاء الفترة الزمنية",
+          "successDescription": "تمت إضافة الفترة الزمنية الجديدة بنجاح."
+        }
+      },
       "stats": {
         "totalSlots": "الفترات الزمنية",
         "totalCapacity": "السعة الإجمالية",

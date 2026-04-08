@@ -1275,6 +1275,107 @@
     "creneauxUi": {
       "pageTitle": "Time slot management",
       "description": "Track weekly time slots, their capacity and how full they are.",
+      "newButton": "New time slot",
+      "seasonDialog": {
+        "guardrails": {
+          "accessLabel": "Access",
+          "accessValue": "Admin only",
+          "validationLabel": "Validation",
+          "validationValue": "Zod on client and server",
+          "safetyLabel": "Safety",
+          "safetyValue": "Duplicate and open-season checks"
+        }
+      },
+      "form": {
+        "title": "Create a new time slot",
+        "description": "Add a slot linked to a season and a discipline, with its weekly schedule and capacity.",
+        "adminOnlyBadge": "Admin only",
+        "sections": {
+          "selection": "Setup",
+          "schedule": "Weekly schedule",
+          "capacity": "Capacity and details"
+        },
+        "fields": {
+          "saison": "Season",
+          "discipline": "Discipline",
+          "day": "Day",
+          "heureDebut": "Start time",
+          "heureFin": "End time",
+          "nombreMin": "Min participants",
+          "nombreMax": "Max participants",
+          "groupe": "Group",
+          "observations": "Observations"
+        },
+        "placeholders": {
+          "saison": "Select a season",
+          "discipline": "Select a discipline",
+          "groupe": "Ex. Teens A",
+          "observations": "Optional notes for admins"
+        },
+        "hints": {
+          "selection": "Choose where this slot belongs before setting the weekly timetable.",
+          "schedule": "Pick the day and time range used for this weekly slot.",
+          "capacity": "Capacity controls the subscription experience and available seats."
+        },
+        "preview": {
+          "eyebrow": "Preview",
+          "title": "Slot summary",
+          "live": "Live",
+          "seasonLabel": "Season",
+          "emptySeason": "Select a season",
+          "disciplineLabel": "Discipline",
+          "emptyDiscipline": "Select a discipline",
+          "scheduleLabel": "Schedule",
+          "capacityLabel": "Capacity",
+          "notSet": "Not set",
+          "noGroup": "No group"
+        },
+        "notes": {
+          "adminTitle": "Creation is limited to administrators",
+          "adminDescription": "The button stays hidden for other roles and the server blocks direct creation attempts outside the Admin role."
+        },
+        "emptyData": {
+          "title": "Missing prerequisite data",
+          "description": "Add at least one season and one discipline before creating a time slot."
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "submit": "Create time slot",
+          "submitting": "Creating..."
+        },
+        "validation": {
+          "saisonRequired": "Please choose a season.",
+          "disciplineRequired": "Please choose a discipline.",
+          "dayRequired": "Please choose a day.",
+          "heureDebutRequired": "Start time is required.",
+          "heureFinRequired": "End time is required.",
+          "invalidTime": "Please enter a valid time.",
+          "endBeforeStart": "End time must be after the start time.",
+          "nombreMinRequired": "Minimum capacity is required.",
+          "nombreMaxRequired": "Maximum capacity is required.",
+          "minCapacityInvalid": "Minimum capacity must be at least 1.",
+          "maxCapacityInvalid": "Maximum capacity must be at least 1.",
+          "maxLessThanMin": "Maximum capacity must be greater than or equal to the minimum.",
+          "groupeMax": "Group name cannot exceed 40 characters.",
+          "observationsMax": "Observations cannot exceed 255 characters."
+        },
+        "feedback": {
+          "invalidForm": "Some information is invalid. Fix the form and try again.",
+          "duplicateSlot": "A matching time slot already exists for this season, discipline and schedule.",
+          "seasonMissing": "The selected season no longer exists.",
+          "disciplineMissing": "The selected discipline no longer exists.",
+          "missingReferences": "You need at least one season and one discipline before creating a time slot.",
+          "forbidden": "Only an administrator can create a time slot.",
+          "unexpected": "An error occurred while creating the time slot."
+        },
+        "toasts": {
+          "validationTitle": "Incomplete form",
+          "validationDescription": "Please fix the highlighted fields before continuing.",
+          "errorTitle": "Unable to create time slot",
+          "successTitle": "Time slot created",
+          "successDescription": "The new time slot has been added successfully."
+        }
+      },
       "stats": {
         "totalSlots": "Time slots",
         "totalCapacity": "Total capacity",

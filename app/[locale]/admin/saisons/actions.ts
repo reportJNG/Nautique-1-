@@ -125,6 +125,7 @@ export async function createSaison(
     });
 
     revalidatePath("/[locale]");
+    revalidatePath("/[locale]/admin/creneaux");
     revalidatePath("/[locale]/admin/saisons");
     revalidatePath("/[locale]/espace/abonnements/nouveau");
 

@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import {
   AlertTriangle,
   ArrowRight,
-  CalendarDays,
   CheckCircle2,
   Clock3,
   Lock,
@@ -29,10 +28,6 @@ import {
 } from "@/lib/validators/saison";
 import { createSaison } from "./actions";
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 type CreateSaisonDialogProps = {
   locale: string;
   defaultStatus: SaisonStatusValue;
@@ -42,16 +37,9 @@ type CreateSaisonDialogProps = {
 
 type FormErrors = Partial<Record<keyof CreateSaisonInput, string>>;
 
-// ---------------------------------------------------------------------------
-// Status config
-// ---------------------------------------------------------------------------
-
 const STATUS_CONFIG = {
   PRE: {
     icon: Clock3,
-    label: "Pre-season",
-    description:
-      "The season is being prepared. Registrations are not yet accessible.",
     pillStyle: {
       background: "#EEEDFE",
       color: "#3C3489",
@@ -60,9 +48,6 @@ const STATUS_CONFIG = {
   },
   OUV: {
     icon: CheckCircle2,
-    label: "Open",
-    description:
-      "The season is active. Registrations and matches are in progress.",
     pillStyle: {
       background: "#E1F5EE",
       color: "#085041",
@@ -71,9 +56,6 @@ const STATUS_CONFIG = {
   },
   FER: {
     icon: Shield,
-    label: "Closed",
-    description:
-      "The season has ended. Data is read-only; no further changes accepted.",
     pillStyle: {
       background: "#F1EFE8",
       color: "#444441",
@@ -82,9 +64,6 @@ const STATUS_CONFIG = {
   },
   CLO: {
     icon: Lock,
-    label: "Locked",
-    description:
-      "The season is archived and fully locked. Contact support to unlock.",
     pillStyle: {
       background: "#FCEBEB",
       color: "#791F1F",
@@ -95,16 +74,10 @@ const STATUS_CONFIG = {
   SaisonStatusValue,
   {
     icon: React.ElementType;
-    label: string;
-    description: string;
     pillStyle: React.CSSProperties;
     accentColor: string;
   }
 >;
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
 
 function getDateLocale(locale: string) {
   if (locale === "en") return "en-US";
@@ -114,6 +87,7 @@ function getDateLocale(locale: string) {
 
 function formatDateShort(value: string, locale: string) {
   if (!isValidDateInput(value)) return null;
+
   return new Intl.DateTimeFormat(getDateLocale(locale), {
     day: "numeric",
     month: "short",
@@ -146,10 +120,6 @@ function buildDefaultValues(
     statut: defaultStatus,
   };
 }
-
-// ---------------------------------------------------------------------------
-// CharRing — SVG progress ring for character count
-// ---------------------------------------------------------------------------
 
 function CharRing({ count, max }: { count: number; max: number }) {
   const r = 9;
@@ -185,22 +155,28 @@ function CharRing({ count, max }: { count: number; max: number }) {
   );
 }
 
-// ---------------------------------------------------------------------------
-// PreviewStrip
-// ---------------------------------------------------------------------------
-
 function PreviewStrip({
   designation,
   dateDebut,
   dateFin,
   statut,
   locale,
+  statusLabel,
+  designationLabel,
+  rangeLabel,
+  statusTextLabel,
+  emptyDesignation,
 }: {
   designation: string;
   dateDebut: string;
   dateFin: string;
   statut: SaisonStatusValue;
   locale: string;
+  statusLabel: string;
+  designationLabel: string;
+  rangeLabel: string;
+  statusTextLabel: string;
+  emptyDesignation: string;
 }) {
   const startFmt = formatDateShort(dateDebut, locale);
   const endFmt = formatDateShort(dateFin, locale);
@@ -210,10 +186,10 @@ function PreviewStrip({
     <div className="flex shrink-0 items-center gap-0 overflow-hidden border-b border-border/30 bg-muted/30 px-6 py-3">
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
-          Designation
+          {designationLabel}
         </span>
         <span className="truncate text-[13px] font-medium text-foreground">
-          {designation.trim() || "—"}
+          {designation.trim() || emptyDesignation}
         </span>
       </div>
 
@@ -221,40 +197,46 @@ function PreviewStrip({
 
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
-          Period
+          {rangeLabel}
         </span>
-        <span className="truncate text-[13px] font-medium text-foreground">
-          {startFmt && endFmt ? `${startFmt} → ${endFmt}` : "—"}
-        </span>
+        {startFmt && endFmt ? (
+          <span className="inline-flex items-center gap-1.5 truncate text-[13px] font-medium text-foreground">
+            <span className="truncate">{startFmt}</span>
+            <ArrowRight className="h-3 w-3 shrink-0 text-muted-foreground" />
+            <span className="truncate">{endFmt}</span>
+          </span>
+        ) : (
+          <span className="truncate text-[13px] font-medium text-muted-foreground">
+            -
+          </span>
+        )}
       </div>
 
       <div className="mx-4 h-8 w-px shrink-0 bg-border/40" />
 
       <div className="flex shrink-0 flex-col gap-0.5">
         <span className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
-          Status
+          {statusTextLabel}
         </span>
         <span
           className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium"
           style={cfg.pillStyle}
         >
-          {cfg.label}
+          {statusLabel}
         </span>
       </div>
     </div>
   );
 }
 
-// ---------------------------------------------------------------------------
-// SegmentedControl
-// ---------------------------------------------------------------------------
-
 function SegmentedControl({
   value,
   onChange,
+  getStatusLabel,
 }: {
   value: SaisonStatusValue;
-  onChange: (v: SaisonStatusValue) => void;
+  onChange: (value: SaisonStatusValue) => void;
+  getStatusLabel: (status: SaisonStatusValue) => string;
 }) {
   const options = Object.entries(STATUS_CONFIG) as [
     SaisonStatusValue,
@@ -262,20 +244,21 @@ function SegmentedControl({
   ][];
 
   return (
-    <div className="flex rounded-full border border-border/50 bg-muted/40 p-1 gap-1">
-      {options.map(([val, cfg]) => {
+    <div className="flex gap-1 rounded-full border border-border/50 bg-muted/40 p-1">
+      {options.map(([status, cfg]) => {
         const Icon = cfg.icon;
-        const active = value === val;
+        const active = value === status;
+
         return (
           <button
-            key={val}
+            key={status}
             type="button"
-            onClick={() => onChange(val)}
+            onClick={() => onChange(status)}
             className={cn(
               "flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-[12px] font-medium transition-all duration-150",
               active
                 ? "bg-background text-foreground shadow-sm ring-1 ring-border/30"
-                : "text-muted-foreground hover:text-foreground hover:bg-background/50",
+                : "text-muted-foreground hover:bg-background/50 hover:text-foreground",
             )}
           >
             <Icon
@@ -284,7 +267,7 @@ function SegmentedControl({
                 active ? "opacity-100" : "opacity-60",
               )}
             />
-            <span className="hidden sm:inline">{cfg.label}</span>
+            <span className="hidden sm:inline">{getStatusLabel(status)}</span>
           </button>
         );
       })}
@@ -292,11 +275,15 @@ function SegmentedControl({
   );
 }
 
-// ---------------------------------------------------------------------------
-// StatusInfo
-// ---------------------------------------------------------------------------
-
-function StatusInfo({ statut }: { statut: SaisonStatusValue }) {
+function StatusInfo({
+  statut,
+  label,
+  description,
+}: {
+  statut: SaisonStatusValue;
+  label: string;
+  description: string;
+}) {
   const cfg = STATUS_CONFIG[statut];
   const Icon = cfg.icon;
 
@@ -307,29 +294,22 @@ function StatusInfo({ statut }: { statut: SaisonStatusValue }) {
     >
       <Icon className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
       <div>
-        <p className="text-[12px] font-medium text-foreground">{cfg.label}</p>
+        <p className="text-[12px] font-medium text-foreground">{label}</p>
         <p className="mt-0.5 text-[12px] leading-5 text-muted-foreground">
-          {cfg.description}
+          {description}
         </p>
       </div>
     </div>
   );
 }
 
-// ---------------------------------------------------------------------------
-// FieldError
-// ---------------------------------------------------------------------------
-
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
+
   return (
     <p className="mt-1.5 text-[11px] font-medium text-destructive">{message}</p>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Main component
-// ---------------------------------------------------------------------------
 
 export function CreateSaisonDialog({
   locale,
@@ -339,6 +319,8 @@ export function CreateSaisonDialog({
 }: CreateSaisonDialogProps) {
   const router = useRouter();
   const t = useTranslations("admin.saisonsUi");
+  const statusT = useTranslations("admin.saisonStatus");
+  const uiT = useTranslations("common.ui");
   const validationT = useTranslations("admin.saisonsUi.form.validation");
   const { toast } = useAdminToast();
 
@@ -359,6 +341,13 @@ export function CreateSaisonDialog({
   );
 
   const charCount = values.designation.length;
+  const activeStatusLabel = statusT(values.statut);
+  const activeStatusDescription = t(
+    `form.statusOptions.${values.statut}.description`,
+  );
+  const openSeasonLabel =
+    openSeasonDesignation?.trim() || t("form.notes.anotherSeason");
+  const openSeasonConflict = hasOpenSeason && values.statut === "OUV";
 
   const resetForm = React.useCallback(() => {
     setValues(buildDefaultValues(defaultStatus));
@@ -369,34 +358,36 @@ export function CreateSaisonDialog({
     if (submitting) return;
     setOpen(false);
     setTimeout(resetForm, 300);
-  }, [submitting, resetForm]);
+  }, [resetForm, submitting]);
 
   const handleFieldChange = React.useCallback(
     <K extends keyof CreateSaisonInput>(
       field: K,
       value: CreateSaisonInput[K],
     ) => {
-      setValues((cur) => ({ ...cur, [field]: value }));
-      setErrors((cur) => {
-        if (!cur[field]) return cur;
-        return { ...cur, [field]: undefined };
+      setValues((current) => ({ ...current, [field]: value }));
+      setErrors((current) => {
+        if (!current[field]) return current;
+        return { ...current, [field]: undefined };
       });
     },
     [],
   );
 
   const handleSubmit = React.useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+    async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
 
       const parsed = schema.safeParse(values);
+
       if (!parsed.success) {
         const flattened = parsed.error.flatten().fieldErrors;
         const nextErrors = Object.fromEntries(
           Object.entries(flattened)
-            .map(([field, msgs]) => [field, msgs?.[0]])
+            .map(([field, messages]) => [field, messages?.[0]])
             .filter((entry): entry is [string, string] => Boolean(entry[1])),
         ) as FormErrors;
+
         setErrors(nextErrors);
         toast({
           variant: "error",
@@ -406,14 +397,32 @@ export function CreateSaisonDialog({
         return;
       }
 
+      if (openSeasonConflict) {
+        const conflictMessage = t("form.feedback.openSeasonExists", {
+          designation: openSeasonLabel,
+        });
+
+        setErrors((current) => ({ ...current, statut: conflictMessage }));
+        toast({
+          variant: "error",
+          title: t("form.toasts.errorTitle"),
+          description: conflictMessage,
+        });
+        return;
+      }
+
       setSubmitting(true);
       setErrors({});
 
       const result = await createSaison(locale, parsed.data);
+
       setSubmitting(false);
 
       if (!result.success) {
-        if (result.fieldErrors) setErrors(result.fieldErrors);
+        if (result.fieldErrors) {
+          setErrors(result.fieldErrors);
+        }
+
         toast({
           variant: "error",
           title: t("form.toasts.errorTitle"),
@@ -431,20 +440,32 @@ export function CreateSaisonDialog({
       handleClose();
       React.startTransition(() => router.refresh());
     },
-    [handleClose, locale, router, schema, t, toast, values],
+    [
+      handleClose,
+      locale,
+      openSeasonConflict,
+      openSeasonLabel,
+      router,
+      schema,
+      t,
+      toast,
+      values,
+    ],
   );
 
-  // Trap focus + close on Escape
   React.useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") handleClose();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, handleClose]);
 
-  // Prevent body scroll while open
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [handleClose, open]);
+
   React.useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -452,9 +473,13 @@ export function CreateSaisonDialog({
     };
   }, [open]);
 
+  const getStatusLabel = React.useCallback(
+    (status: SaisonStatusValue) => statusT(status),
+    [statusT],
+  );
+
   return (
     <>
-      {/* Trigger */}
       <Button
         type="button"
         onClick={() => setOpen(true)}
@@ -464,7 +489,6 @@ export function CreateSaisonDialog({
         {t("newButton")}
       </Button>
 
-      {/* Overlay + Drawer */}
       {open && (
         <div
           className="fixed inset-0 z-50 flex items-stretch justify-end"
@@ -472,41 +496,36 @@ export function CreateSaisonDialog({
           aria-modal="true"
           aria-label={t("form.title")}
         >
-          {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/30 backdrop-blur-[2px]"
             onClick={handleClose}
             aria-hidden
           />
 
-          {/* Drawer panel */}
           <div
             className={cn(
               "relative z-10 flex h-full w-full flex-col bg-background shadow-2xl",
-              "sm:w-[480px] sm:border-l sm:border-border/40",
               "animate-in slide-in-from-right duration-300",
+              "sm:w-[480px] sm:border-l sm:border-border/40",
             )}
           >
-            {/* ── Header ─────────────────────────────────────── */}
             <div className="shrink-0 border-b border-border/30 px-6 py-5">
-              {/* Admin badge row */}
               <div className="mb-3 flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-primary" />
                 <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
-                  Admin only
+                  {t("form.adminOnlyBadge")}
                 </span>
                 <button
                   type="button"
                   onClick={handleClose}
                   disabled={submitting}
-                  aria-label="Close"
+                  aria-label={uiT("close")}
                   className="ml-auto flex h-7 w-7 items-center justify-center rounded-full border border-border/40 text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground"
                 >
                   <X className="h-3.5 w-3.5" />
                 </button>
               </div>
 
-              {/* Title with left accent */}
               <div className="flex items-start gap-3">
                 <div className="mt-1 h-6 w-0.5 shrink-0 rounded-full bg-primary" />
                 <div>
@@ -520,35 +539,36 @@ export function CreateSaisonDialog({
               </div>
             </div>
 
-            {/* ── Live preview strip ──────────────────────────── */}
             <PreviewStrip
               designation={values.designation}
               dateDebut={values.dateDebut}
               dateFin={values.dateFin}
               statut={values.statut}
               locale={locale}
+              statusLabel={activeStatusLabel}
+              designationLabel={t("form.preview.designationLabel")}
+              rangeLabel={t("form.preview.rangeLabel")}
+              statusTextLabel={t("form.preview.statusLabel")}
+              emptyDesignation={t("form.preview.emptyDesignation")}
             />
 
-            {/* ── Scrollable body ─────────────────────────────── */}
             <form
               onSubmit={handleSubmit}
               className="flex min-h-0 flex-1 flex-col"
               noValidate
             >
               <div className="flex-1 overflow-y-auto px-6 py-6">
-                {/* Section: Identity */}
                 <p className="mb-4 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                  Identity
+                  {t("form.sections.identity")}
                 </p>
 
-                {/* Designation */}
                 <div className="mb-5">
                   <Label
                     htmlFor="designation"
                     className="mb-1.5 flex items-center justify-between text-[12px] font-medium text-muted-foreground"
                   >
                     <span>
-                      Designation{" "}
+                      {t("form.fields.designation")}{" "}
                       <span className="text-destructive" aria-hidden>
                         *
                       </span>
@@ -570,11 +590,12 @@ export function CreateSaisonDialog({
                   <Input
                     id="designation"
                     value={values.designation}
-                    onChange={(e) =>
-                      handleFieldChange("designation", e.target.value)
+                    onChange={(event) =>
+                      handleFieldChange("designation", event.target.value)
                     }
                     placeholder={t("form.placeholders.designation")}
                     maxLength={80}
+                    aria-invalid={Boolean(errors.designation)}
                     className={cn(
                       "h-10 rounded-lg border-border/50 bg-background text-[13px] placeholder:text-muted-foreground/50 focus-visible:ring-primary/30",
                       errors.designation && "border-destructive/60",
@@ -586,23 +607,23 @@ export function CreateSaisonDialog({
                   <FieldError message={errors.designation} />
                 </div>
 
-                {/* Date range */}
                 <div className="mb-5">
-                  <Label className="mb-1.5 block text-[12px] font-medium text-muted-foreground">
-                    Date range{" "}
-                    <span className="text-destructive" aria-hidden>
-                      *
-                    </span>
-                  </Label>
                   <div className="flex items-center gap-2">
                     <div className="flex-1">
+                      <Label
+                        htmlFor="dateDebut"
+                        className="mb-1.5 block text-[12px] font-medium text-muted-foreground"
+                      >
+                        {t("form.fields.dateDebut")}
+                      </Label>
                       <Input
                         id="dateDebut"
                         type="date"
                         value={values.dateDebut}
-                        onChange={(e) =>
-                          handleFieldChange("dateDebut", e.target.value)
+                        onChange={(event) =>
+                          handleFieldChange("dateDebut", event.target.value)
                         }
+                        aria-invalid={Boolean(errors.dateDebut)}
                         className={cn(
                           "h-10 rounded-lg border-border/50 bg-background text-[13px] focus-visible:ring-primary/30",
                           errors.dateDebut && "border-destructive/60",
@@ -610,15 +631,25 @@ export function CreateSaisonDialog({
                       />
                       <FieldError message={errors.dateDebut} />
                     </div>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground/50" />
+
+                    <ArrowRight className="mt-7 h-4 w-4 shrink-0 text-muted-foreground/50" />
+
                     <div className="flex-1">
+                      <Label
+                        htmlFor="dateFin"
+                        className="mb-1.5 block text-[12px] font-medium text-muted-foreground"
+                      >
+                        {t("form.fields.dateFin")}
+                      </Label>
                       <Input
                         id="dateFin"
                         type="date"
                         value={values.dateFin}
-                        onChange={(e) =>
-                          handleFieldChange("dateFin", e.target.value)
+                        min={values.dateDebut || undefined}
+                        onChange={(event) =>
+                          handleFieldChange("dateFin", event.target.value)
                         }
+                        aria-invalid={Boolean(errors.dateFin)}
                         className={cn(
                           "h-10 rounded-lg border-border/50 bg-background text-[13px] focus-visible:ring-primary/30",
                           errors.dateFin && "border-destructive/60",
@@ -632,24 +663,26 @@ export function CreateSaisonDialog({
                   </p>
                 </div>
 
-                {/* Divider */}
                 <div className="my-6 border-t border-border/30" />
 
-                {/* Section: Status */}
                 <p className="mb-4 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                  Status
+                  {t("form.sections.status")}
                 </p>
 
                 <SegmentedControl
                   value={values.statut}
-                  onChange={(v) => handleFieldChange("statut", v)}
+                  onChange={(status) => handleFieldChange("statut", status)}
+                  getStatusLabel={getStatusLabel}
                 />
 
                 <FieldError message={errors.statut} />
 
-                <StatusInfo statut={values.statut} />
+                <StatusInfo
+                  statut={values.statut}
+                  label={activeStatusLabel}
+                  description={activeStatusDescription}
+                />
 
-                {/* Open season warning */}
                 {hasOpenSeason && values.statut === "OUV" && (
                   <div className="mt-4 flex items-start gap-3 border-l-[3px] border-amber-400 py-3 pl-4">
                     <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
@@ -659,16 +692,13 @@ export function CreateSaisonDialog({
                       </p>
                       <p className="mt-0.5 text-[12px] leading-5 text-muted-foreground">
                         {t("form.notes.openSeasonDescription", {
-                          designation:
-                            openSeasonDesignation ??
-                            t("form.notes.anotherSeason"),
+                          designation: openSeasonLabel,
                         })}
                       </p>
                     </div>
                   </div>
                 )}
 
-                {/* Admin note */}
                 <div className="mt-5 flex items-start gap-3 rounded-lg bg-muted/30 px-4 py-3">
                   <Shield className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
                   <div>
@@ -682,7 +712,6 @@ export function CreateSaisonDialog({
                 </div>
               </div>
 
-              {/* ── Footer ─────────────────────────────────────── */}
               <div className="shrink-0 border-t border-border/30 bg-background px-6 py-4">
                 <div className="flex items-center gap-3">
                   <button
@@ -696,7 +725,7 @@ export function CreateSaisonDialog({
                   <Button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 h-10 rounded-lg bg-primary text-[13px] font-medium text-primary-foreground transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
+                    className="h-10 flex-1 rounded-lg bg-primary text-[13px] font-medium text-primary-foreground transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
                   >
                     {submitting
                       ? t("form.actions.submitting")
