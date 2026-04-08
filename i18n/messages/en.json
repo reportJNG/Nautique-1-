@@ -1544,16 +1544,123 @@
     },
     "moniteursUi": {
       "pageTitle": "Instructors management",
+      "pageDescription": "Registered instructors: {count}",
       "newButton": "New instructor",
+      "empty": "No instructors yet.",
+      "cards": {
+        "assignments": "Slots: {count}",
+        "view": "Open"
+      },
       "status": {
         "active": "Active",
         "inactive": "Inactive"
+      },
+      "newPage": {
+        "title": "Create instructor",
+        "description": "Add a new instructor and complete the profile before assigning slots."
+      },
+      "detail": {
+        "back": "Back to instructors",
+        "assignmentCount": "Assigned slots: {count}",
+        "assignmentsTitle": "Assigned slots ({count})",
+        "emptyAssignments": "No slots are assigned to this instructor."
+      },
+      "form": {
+        "sections": {
+          "identity": "Identity",
+          "contact": "Contact",
+          "professional": "Professional details"
+        },
+        "fields": {
+          "prenom": "First name",
+          "nom": "Last name",
+          "sexe": "Gender",
+          "actif": "Status",
+          "email": "Email",
+          "telephone": "Phone",
+          "specialite": "Specialty"
+        },
+        "placeholders": {
+          "prenom": "Instructor first name",
+          "nom": "Instructor last name",
+          "email": "instructor@email.com",
+          "telephone": "+213 5XX XX XX XX",
+          "specialite": "Swimming, aquagym, water polo..."
+        },
+        "options": {
+          "sexe": {
+            "M": "Male",
+            "F": "Female"
+          },
+          "status": {
+            "active": "Active",
+            "inactive": "Inactive"
+          }
+        },
+        "hints": {
+          "specialite": "Leave this empty if the instructor does not have a specialty yet."
+        },
+        "preview": {
+          "title": "Quick preview",
+          "emptyName": "Unnamed instructor",
+          "specialite": "Specialty",
+          "contact": "Contact",
+          "summary": "Summary",
+          "assignmentsLabel": "Assignments",
+          "assignments": "{count}",
+          "contactLine": "Contact line",
+          "none": "Not provided"
+        },
+        "security": {
+          "title": "Administrator access",
+          "description": "Only administrator accounts can create, edit, or delete an instructor profile."
+        },
+        "deleteCard": {
+          "title": "Delete this instructor",
+          "description": "This permanently removes the profile and also clears {count} slot assignment(s)."
+        },
+        "deleteDialog": {
+          "title": "Delete this instructor?",
+          "description": "The profile will be permanently deleted and {count} slot assignment(s) will be cleared."
+        },
+        "validation": {
+          "nomRequired": "Last name is required.",
+          "nomMin": "Last name must be at least 2 characters.",
+          "nomMax": "Last name cannot exceed 60 characters.",
+          "prenomRequired": "First name is required.",
+          "prenomMin": "First name must be at least 2 characters.",
+          "prenomMax": "First name cannot exceed 60 characters.",
+          "sexeRequired": "Select a gender.",
+          "telephoneMax": "Phone cannot exceed 20 characters.",
+          "emailInvalid": "Please enter a valid email address.",
+          "specialiteMax": "Specialty cannot exceed 80 characters.",
+          "statusRequired": "Select a status."
+        },
+        "feedback": {
+          "invalidForm": "The form contains invalid information.",
+          "forbidden": "You are not allowed to manage instructors.",
+          "unexpected": "An unexpected error occurred. Please try again.",
+          "notFound": "Instructor not found."
+        },
+        "toasts": {
+          "validationTitle": "Incomplete form",
+          "validationDescription": "Fix the highlighted fields before continuing.",
+          "errorTitle": "Action failed",
+          "createSuccessTitle": "Instructor created",
+          "createSuccessDescription": "The instructor profile has been saved.",
+          "updateSuccessTitle": "Changes saved",
+          "updateSuccessDescription": "The instructor information has been updated.",
+          "deleteSuccessTitle": "Instructor deleted",
+          "deleteSuccessDescription": "The profile was deleted and {count} slot assignment(s) were cleared."
+        }
       }
     },
     "agentsUi": {
       "pageTitle": "Staff management",
+      "pageDescription": "{count} staff account(s) available in the admin area.",
       "newButton": "New staff",
       "listTitle": "Staff list",
+      "noEmail": "No email provided",
       "table": {
         "name": "Name",
         "login": "Login",
@@ -1561,7 +1668,138 @@
         "email": "Email",
         "status": "Status"
       },
-      "empty": "No agent configured"
+      "empty": "No agent configured",
+      "newPage": {
+        "title": "Create a staff account",
+        "description": "Add a new staff member and assign a non-admin role."
+      },
+      "detail": {
+        "back": "Back to staff",
+        "subtitle": "Account {login}",
+        "createdAt": "Created on {date}",
+        "updatedAt": "Updated on {date}",
+        "activityTitle": "Account activity",
+        "activityDescription": "Overview of records already linked to this staff account.",
+        "stats": {
+          "adherentsCreated": "Members created",
+          "abonnementsCreated": "Subscriptions created",
+          "facturesCreated": "Invoices created",
+          "facturesValidated": "Invoices validated"
+        }
+      },
+      "form": {
+        "sections": {
+          "identity": "Identity",
+          "access": "Access and role",
+          "security": "Security"
+        },
+        "fields": {
+          "prenom": "First name",
+          "nom": "Last name",
+          "login": "Login",
+          "email": "Email",
+          "role": "Role",
+          "actif": "Account status",
+          "password": "Password",
+          "confirmPassword": "Confirm password"
+        },
+        "placeholders": {
+          "prenom": "Staff first name",
+          "nom": "Staff last name",
+          "login": "agent.commercial",
+          "email": "staff@center.dz",
+          "password": "Secure password",
+          "confirmPassword": "Confirm the password"
+        },
+        "hints": {
+          "role": "The Administrator role is not available in this screen.",
+          "status": "Disable an account to block sign-in.",
+          "passwordCreate": "A password is required when creating an account.",
+          "passwordEdit": "Leave blank to keep the current password.",
+          "adminRoleLocked": "Administrator roles are protected and cannot be changed here.",
+          "selfRoleLocked": "Your own role cannot be changed from this page.",
+          "adminStatusLocked": "The administrator account stays active.",
+          "selfStatusLocked": "You cannot deactivate your own account."
+        },
+        "preview": {
+          "title": "Quick preview",
+          "emptyName": "Unnamed staff member",
+          "login": "Login",
+          "contact": "Contact",
+          "references": "Existing links",
+          "referencesValue": "{count} linked record(s)",
+          "none": "Not provided"
+        },
+        "security": {
+          "title": "Administrator access",
+          "description": "Only administrators can create, edit, disable, or delete staff accounts."
+        },
+        "protectedCard": {
+          "title": "Protected account",
+          "description": "The administrator account remains visible, but its sensitive permissions cannot be removed from this screen."
+        },
+        "selfCard": {
+          "title": "Signed-in account",
+          "description": "To prevent lockouts, your own role and status stay locked here."
+        },
+        "passwordCard": {
+          "title": "Password management",
+          "description": "You can reset the password at any time by filling in both security fields."
+        },
+        "deleteCard": {
+          "title": "Delete this account",
+          "description": "This permanently removes the account and also detaches {count} linked record(s)."
+        },
+        "deleteDialog": {
+          "title": "Delete this account?",
+          "description": "The account will be permanently deleted and {count} linked record(s) will be detached."
+        },
+        "validation": {
+          "nomRequired": "Last name is required.",
+          "nomMin": "Last name must be at least 2 characters.",
+          "nomMax": "Last name cannot exceed 60 characters.",
+          "prenomRequired": "First name is required.",
+          "prenomMin": "First name must be at least 2 characters.",
+          "prenomMax": "First name cannot exceed 60 characters.",
+          "loginRequired": "Login is required.",
+          "loginMin": "Login must be at least 3 characters.",
+          "loginMax": "Login cannot exceed 60 characters.",
+          "loginPattern": "Login can only contain letters, digits, dashes, underscores, and dots.",
+          "emailInvalid": "Please enter a valid email address.",
+          "roleRequired": "Select a role.",
+          "statusRequired": "Select a status.",
+          "passwordRequired": "Password is required.",
+          "passwordMin": "Password must be at least 8 characters.",
+          "passwordMax": "Password cannot exceed 128 characters.",
+          "passwordPattern": "Password must include an uppercase letter, a lowercase letter, and a digit.",
+          "confirmPasswordRequired": "Password confirmation is required.",
+          "confirmPasswordMismatch": "Passwords do not match.",
+          "adminRoleForbidden": "The Administrator role cannot be assigned here."
+        },
+        "feedback": {
+          "invalidForm": "The form contains invalid information.",
+          "forbidden": "You are not allowed to manage staff accounts.",
+          "unexpected": "An unexpected error occurred. Please try again.",
+          "notFound": "Staff account not found.",
+          "loginTaken": "This login is already in use.",
+          "roleUnavailable": "The selected role is not available.",
+          "protectedAdmin": "The administrator account is protected and cannot be disabled or deleted here.",
+          "selfDeleteForbidden": "You cannot delete your own account.",
+          "selfDeactivateForbidden": "You cannot deactivate your own account.",
+          "selfRoleForbidden": "You cannot change your own role."
+        },
+        "toasts": {
+          "validationTitle": "Incomplete form",
+          "validationDescription": "Fix the highlighted fields before continuing.",
+          "errorTitle": "Action failed",
+          "createSuccessTitle": "Staff account created",
+          "createSuccessDescription": "The staff account has been saved.",
+          "updateSuccessTitle": "Changes saved",
+          "updateSuccessDescription": "The staff account information has been updated.",
+          "deleteSuccessTitle": "Staff account deleted",
+          "deleteSuccessDescription": "The account was deleted and {count} linked record(s) were detached."
+        }
+      }
     },
     "accessUi": {
       "title": "Access control",

@@ -1544,16 +1544,123 @@
     },
     "moniteursUi": {
       "pageTitle": "Gestion des moniteurs",
+      "pageDescription": "Moniteurs enregistres : {count}",
       "newButton": "Nouveau moniteur",
+      "empty": "Aucun moniteur pour le moment.",
+      "cards": {
+        "assignments": "Creneaux : {count}",
+        "view": "Ouvrir"
+      },
       "status": {
         "active": "Actif",
         "inactive": "Inactif"
+      },
+      "newPage": {
+        "title": "Creer un moniteur",
+        "description": "Ajoutez un nouveau moniteur et completez sa fiche avant de l'affecter a des creneaux."
+      },
+      "detail": {
+        "back": "Retour aux moniteurs",
+        "assignmentCount": "Creneaux assignes : {count}",
+        "assignmentsTitle": "Creneaux affectes ({count})",
+        "emptyAssignments": "Aucun creneau n'est affecte a ce moniteur."
+      },
+      "form": {
+        "sections": {
+          "identity": "Identite",
+          "contact": "Contact",
+          "professional": "Informations professionnelles"
+        },
+        "fields": {
+          "prenom": "Prenom",
+          "nom": "Nom",
+          "sexe": "Sexe",
+          "actif": "Statut",
+          "email": "Email",
+          "telephone": "Telephone",
+          "specialite": "Specialite"
+        },
+        "placeholders": {
+          "prenom": "Prenom du moniteur",
+          "nom": "Nom du moniteur",
+          "email": "moniteur@email.com",
+          "telephone": "+213 5XX XX XX XX",
+          "specialite": "Natation, aquagym, water-polo..."
+        },
+        "options": {
+          "sexe": {
+            "M": "Masculin",
+            "F": "Feminin"
+          },
+          "status": {
+            "active": "Actif",
+            "inactive": "Inactif"
+          }
+        },
+        "hints": {
+          "specialite": "Laissez vide si aucune specialite n'est encore definie."
+        },
+        "preview": {
+          "title": "Apercu rapide",
+          "emptyName": "Moniteur sans nom",
+          "specialite": "Specialite",
+          "contact": "Contact",
+          "summary": "Resume",
+          "assignmentsLabel": "Affectations",
+          "assignments": "{count}",
+          "contactLine": "Ligne de contact",
+          "none": "Non renseigne"
+        },
+        "security": {
+          "title": "Acces administrateur",
+          "description": "Seuls les comptes administrateurs peuvent creer, modifier ou supprimer une fiche moniteur."
+        },
+        "deleteCard": {
+          "title": "Supprimer ce moniteur",
+          "description": "Cette action supprime definitivement la fiche et retire aussi {count} affectation(s) de creneau."
+        },
+        "deleteDialog": {
+          "title": "Supprimer ce moniteur ?",
+          "description": "La fiche sera supprimee definitivement et {count} affectation(s) de creneau seront retirees."
+        },
+        "validation": {
+          "nomRequired": "Le nom est requis.",
+          "nomMin": "Le nom doit contenir au moins 2 caracteres.",
+          "nomMax": "Le nom ne peut pas depasser 60 caracteres.",
+          "prenomRequired": "Le prenom est requis.",
+          "prenomMin": "Le prenom doit contenir au moins 2 caracteres.",
+          "prenomMax": "Le prenom ne peut pas depasser 60 caracteres.",
+          "sexeRequired": "Selectionnez un sexe.",
+          "telephoneMax": "Le telephone ne peut pas depasser 20 caracteres.",
+          "emailInvalid": "Veuillez saisir une adresse email valide.",
+          "specialiteMax": "La specialite ne peut pas depasser 80 caracteres.",
+          "statusRequired": "Selectionnez un statut."
+        },
+        "feedback": {
+          "invalidForm": "Le formulaire contient des informations invalides.",
+          "forbidden": "Vous n'etes pas autorise a gerer les moniteurs.",
+          "unexpected": "Une erreur inattendue est survenue. Reessayez.",
+          "notFound": "Moniteur introuvable."
+        },
+        "toasts": {
+          "validationTitle": "Formulaire incomplet",
+          "validationDescription": "Corrigez les champs signales avant de continuer.",
+          "errorTitle": "Action impossible",
+          "createSuccessTitle": "Moniteur cree",
+          "createSuccessDescription": "La fiche du moniteur a bien ete enregistree.",
+          "updateSuccessTitle": "Modifications enregistrees",
+          "updateSuccessDescription": "Les informations du moniteur ont bien ete mises a jour.",
+          "deleteSuccessTitle": "Moniteur supprime",
+          "deleteSuccessDescription": "La fiche a ete supprimee et {count} affectation(s) ont ete retirees."
+        }
       }
     },
     "agentsUi": {
       "pageTitle": "Gestion des agents",
+      "pageDescription": "{count} compte(s) agent dans l'espace d'administration.",
       "newButton": "Nouvel agent",
       "listTitle": "Liste des agents",
+      "noEmail": "Email non renseigne",
       "table": {
         "name": "Nom",
         "login": "Login",
@@ -1561,7 +1668,138 @@
         "email": "Email",
         "status": "Statut"
       },
-      "empty": "Aucun agent configure"
+      "empty": "Aucun agent configure",
+      "newPage": {
+        "title": "Creer un agent",
+        "description": "Ajoutez un nouveau compte agent avec un role non administrateur."
+      },
+      "detail": {
+        "back": "Retour aux agents",
+        "subtitle": "Compte {login}",
+        "createdAt": "Cree le {date}",
+        "updatedAt": "Mis a jour le {date}",
+        "activityTitle": "Activite du compte",
+        "activityDescription": "Suivi des enregistrements deja relies a cet agent.",
+        "stats": {
+          "adherentsCreated": "Adherents crees",
+          "abonnementsCreated": "Abonnements crees",
+          "facturesCreated": "Factures creees",
+          "facturesValidated": "Factures validees"
+        }
+      },
+      "form": {
+        "sections": {
+          "identity": "Identite",
+          "access": "Acces et role",
+          "security": "Securite"
+        },
+        "fields": {
+          "prenom": "Prenom",
+          "nom": "Nom",
+          "login": "Login",
+          "email": "Email",
+          "role": "Role",
+          "actif": "Statut du compte",
+          "password": "Mot de passe",
+          "confirmPassword": "Confirmer le mot de passe"
+        },
+        "placeholders": {
+          "prenom": "Prenom de l'agent",
+          "nom": "Nom de l'agent",
+          "login": "agent.commercial",
+          "email": "agent@centre.dz",
+          "password": "Mot de passe securise",
+          "confirmPassword": "Confirmez le mot de passe"
+        },
+        "hints": {
+          "role": "Le role Administrateur n'est pas disponible dans cette interface.",
+          "status": "Desactivez un compte pour bloquer sa connexion.",
+          "passwordCreate": "Le mot de passe est obligatoire a la creation.",
+          "passwordEdit": "Laissez vide pour conserver le mot de passe actuel.",
+          "adminRoleLocked": "Le role administrateur est protege et ne peut pas etre modifie ici.",
+          "selfRoleLocked": "Votre propre role ne peut pas etre modifie depuis cette page.",
+          "adminStatusLocked": "Le compte administrateur principal reste actif.",
+          "selfStatusLocked": "Vous ne pouvez pas desactiver votre propre compte."
+        },
+        "preview": {
+          "title": "Apercu rapide",
+          "emptyName": "Agent sans nom",
+          "login": "Login",
+          "contact": "Contact",
+          "references": "Liens existants",
+          "referencesValue": "{count} enregistrement(s) relies",
+          "none": "Non renseigne"
+        },
+        "security": {
+          "title": "Acces administrateur",
+          "description": "Seuls les administrateurs peuvent creer, modifier, desactiver ou supprimer un compte agent."
+        },
+        "protectedCard": {
+          "title": "Compte protege",
+          "description": "Le compte administrateur reste visible mais ses droits sensibles ne peuvent pas etre retires depuis cette interface."
+        },
+        "selfCard": {
+          "title": "Compte connecte",
+          "description": "Pour eviter de vous bloquer, votre propre role et votre statut restent verrouilles ici."
+        },
+        "passwordCard": {
+          "title": "Mot de passe",
+          "description": "Vous pouvez redefinir le mot de passe a tout moment en renseignant les deux champs de securite."
+        },
+        "deleteCard": {
+          "title": "Supprimer ce compte",
+          "description": "Cette action supprime definitivement le compte et detachera aussi {count} enregistrement(s) deja relies a cet agent."
+        },
+        "deleteDialog": {
+          "title": "Supprimer ce compte ?",
+          "description": "Le compte sera supprime definitivement et {count} enregistrement(s) relies seront detaches."
+        },
+        "validation": {
+          "nomRequired": "Le nom est requis.",
+          "nomMin": "Le nom doit contenir au moins 2 caracteres.",
+          "nomMax": "Le nom ne peut pas depasser 60 caracteres.",
+          "prenomRequired": "Le prenom est requis.",
+          "prenomMin": "Le prenom doit contenir au moins 2 caracteres.",
+          "prenomMax": "Le prenom ne peut pas depasser 60 caracteres.",
+          "loginRequired": "Le login est requis.",
+          "loginMin": "Le login doit contenir au moins 3 caracteres.",
+          "loginMax": "Le login ne peut pas depasser 60 caracteres.",
+          "loginPattern": "Le login ne peut contenir que des lettres, chiffres, tirets, underscores et points.",
+          "emailInvalid": "Veuillez saisir une adresse email valide.",
+          "roleRequired": "Selectionnez un role.",
+          "statusRequired": "Selectionnez un statut.",
+          "passwordRequired": "Le mot de passe est requis.",
+          "passwordMin": "Le mot de passe doit contenir au moins 8 caracteres.",
+          "passwordMax": "Le mot de passe ne peut pas depasser 128 caracteres.",
+          "passwordPattern": "Le mot de passe doit contenir une majuscule, une minuscule et un chiffre.",
+          "confirmPasswordRequired": "La confirmation du mot de passe est requise.",
+          "confirmPasswordMismatch": "Les mots de passe ne correspondent pas.",
+          "adminRoleForbidden": "Le role Administrateur ne peut pas etre attribue ici."
+        },
+        "feedback": {
+          "invalidForm": "Le formulaire contient des informations invalides.",
+          "forbidden": "Vous n'etes pas autorise a gerer les agents.",
+          "unexpected": "Une erreur inattendue est survenue. Reessayez.",
+          "notFound": "Agent introuvable.",
+          "loginTaken": "Ce login est deja utilise.",
+          "roleUnavailable": "Le role selectionne n'est pas disponible.",
+          "protectedAdmin": "Le compte administrateur est protege et ne peut pas etre desactive ou supprime ici.",
+          "selfDeleteForbidden": "Vous ne pouvez pas supprimer votre propre compte.",
+          "selfDeactivateForbidden": "Vous ne pouvez pas desactiver votre propre compte.",
+          "selfRoleForbidden": "Vous ne pouvez pas modifier votre propre role."
+        },
+        "toasts": {
+          "validationTitle": "Formulaire incomplet",
+          "validationDescription": "Corrigez les champs signales avant de continuer.",
+          "errorTitle": "Action impossible",
+          "createSuccessTitle": "Agent cree",
+          "createSuccessDescription": "Le compte agent a bien ete enregistre.",
+          "updateSuccessTitle": "Modifications enregistrees",
+          "updateSuccessDescription": "Les informations du compte agent ont bien ete mises a jour.",
+          "deleteSuccessTitle": "Agent supprime",
+          "deleteSuccessDescription": "Le compte a ete supprime et {count} enregistrement(s) relies ont ete detaches."
+        }
+      }
     },
     "accessUi": {
       "title": "Contrôle d'accès",
