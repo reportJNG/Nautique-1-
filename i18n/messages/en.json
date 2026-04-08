@@ -1749,6 +1749,10 @@
           "noGroup": "No group",
           "openBadge": "Open access",
           "openMessage": "Open access — no fixed slot required."
+          ,
+          "selectionLimit": "Select up to {max} slots for this plan.",
+          "selectionCount": "{count}/{max} selected",
+          "limitReached": "You reached the limit for this plan. Deselect a slot to choose another one."
         },
         "amount": {
           "label": "Amount incl. tax (DZD)",

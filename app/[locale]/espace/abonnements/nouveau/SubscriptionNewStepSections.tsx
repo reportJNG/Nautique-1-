@@ -200,6 +200,8 @@ export function BuilderStep({
   filteredCreneaux,
   creneauxByDay,
   selectedCreneauIds,
+  maxSelectableCreneaux,
+  hasReachedCreneauLimit,
   suggestedAmount,
   onSelectEspace,
   onSelectDiscipline,
@@ -228,6 +230,8 @@ export function BuilderStep({
     items: CreneauShape[];
   }>;
   selectedCreneauIds: number[];
+  maxSelectableCreneaux: number | null;
+  hasReachedCreneauLimit: boolean;
   suggestedAmount: number;
   onSelectEspace: (id: number) => void;
   onSelectDiscipline: (id: number) => void;
@@ -237,6 +241,23 @@ export function BuilderStep({
   onToggleCreneau: (id: number) => void;
   formatAmount: (value: number, digits?: number) => string;
 }) {
+  const renderSlotButton = (creneau: CreneauShape) => {
+    const checked = selectedCreneauIds.includes(creneau.id);
+    const disabled =
+      !checked && hasReachedCreneauLimit && maxSelectableCreneaux !== null;
+
+    return (
+      <ScheduleSlotButton
+        key={creneau.id}
+        checked={checked}
+        disabled={disabled}
+        onClick={() => onToggleCreneau(creneau.id)}
+        time={`${creneau.heureDebut} - ${creneau.heureFin}`}
+        group={creneau.groupe || t("slots.noGroup")}
+      />
+    );
+  };
+
   return (
     <>
       <SectionHeading
@@ -368,6 +389,13 @@ export function BuilderStep({
             <Badge className="rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300">
               {t("slots.openBadge")}
             </Badge>
+          ) : maxSelectableCreneaux ? (
+            <Badge className="rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300">
+              {t("slots.selectionCount", {
+                count: selectedCreneauIds.length,
+                max: maxSelectableCreneaux,
+              })}
+            </Badge>
           ) : null}
         </div>
 
@@ -393,23 +421,29 @@ export function BuilderStep({
           </div>
         ) : (
           <>
+            {maxSelectableCreneaux ? (
+              <div className="rounded-[24px] border border-cyan-200/70 bg-cyan-50/70 p-4 dark:border-cyan-900/50 dark:bg-cyan-950/15">
+                <p className="text-sm font-semibold text-cyan-900 dark:text-cyan-100">
+                  {t("slots.selectionLimit", { max: maxSelectableCreneaux })}
+                </p>
+                <p className="mt-1 text-sm text-cyan-900/80 dark:text-cyan-100/80">
+                  {hasReachedCreneauLimit
+                    ? t("slots.limitReached")
+                    : t("slots.selectionCount", {
+                        count: selectedCreneauIds.length,
+                        max: maxSelectableCreneaux,
+                      })}
+                </p>
+              </div>
+            ) : null}
+
             <div className="hidden gap-3 lg:grid lg:grid-cols-7">
               {creneauxByDay.map((day) => (
                 <div key={day.key} className="space-y-3">
                   <p className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                     {day.label}
                   </p>
-                  <div className="space-y-2">
-                    {day.items.map((creneau) => (
-                      <ScheduleSlotButton
-                        key={creneau.id}
-                        checked={selectedCreneauIds.includes(creneau.id)}
-                        onClick={() => onToggleCreneau(creneau.id)}
-                        time={`${creneau.heureDebut} - ${creneau.heureFin}`}
-                        group={creneau.groupe || t("slots.noGroup")}
-                      />
-                    ))}
-                  </div>
+                  <div className="space-y-2">{day.items.map(renderSlotButton)}</div>
                 </div>
               ))}
             </div>
@@ -422,17 +456,7 @@ export function BuilderStep({
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                       {day.label}
                     </p>
-                    <div className="space-y-2">
-                      {day.items.map((creneau) => (
-                        <ScheduleSlotButton
-                          key={creneau.id}
-                          checked={selectedCreneauIds.includes(creneau.id)}
-                          onClick={() => onToggleCreneau(creneau.id)}
-                          time={`${creneau.heureDebut} - ${creneau.heureFin}`}
-                          group={creneau.groupe || t("slots.noGroup")}
-                        />
-                      ))}
-                    </div>
+                    <div className="space-y-2">{day.items.map(renderSlotButton)}</div>
                   </div>
                 ))}
             </div>

@@ -14,6 +14,10 @@ export default async function FacturesPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "espace.invoices" });
+  const tPayment = await getTranslations({
+    locale,
+    namespace: "espace.client.abonnementPayment",
+  });
   const session = await getSession();
 
   if (!session || session.type !== "adherent") {
@@ -98,7 +102,16 @@ export default async function FacturesPage({
                     <InfoCard label={t("cards.amount")} value={facture.amount} />
                     <InfoCard label={t("cards.created")} value={facture.createdAt} />
                     <InfoCard label={t("cards.payment")} value={facture.paidAt ?? t("cards.pending")} />
-                    <InfoCard label={t("cards.mode")} value={facture.mode} />
+                    <InfoCard
+                      label={t("cards.mode")}
+                      value={
+                        facture.statusCode === "PAY"
+                          ? facture.mode === "CRD"
+                            ? tPayment("payment.card.title")
+                            : tPayment("payment.cash.title")
+                          : t("cards.pending")
+                      }
+                    />
                   </div>
                 </div>
 

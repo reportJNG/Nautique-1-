@@ -1654,6 +1654,10 @@
           "noGroup": "Sans groupe",
           "openBadge": "Accès libre",
           "openMessage": "Accès libre — aucun créneau fixe requis."
+          ,
+          "selectionLimit": "Sélectionnez jusqu'à {max} créneaux pour cette formule.",
+          "selectionCount": "{count}/{max} sélectionnés",
+          "limitReached": "Vous avez atteint la limite pour cette formule. Désélectionnez un créneau pour en choisir un autre."
         },
         "amount": {
           "label": "Montant TTC (DZD)",

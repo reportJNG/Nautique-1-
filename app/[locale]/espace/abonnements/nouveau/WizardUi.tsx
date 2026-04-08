@@ -272,11 +272,13 @@ export function TypeCard({
 
 export function ScheduleSlotButton({
   checked,
+  disabled = false,
   time,
   group,
   onClick,
 }: {
   checked: boolean;
+  disabled?: boolean;
   time: string;
   group: string;
   onClick: () => void;
@@ -284,12 +286,16 @@ export function ScheduleSlotButton({
   return (
     <button
       type="button"
+      disabled={disabled}
       onClick={onClick}
       className={cn(
         "w-full rounded-[22px] border p-3 text-left transition-all",
         checked
           ? "border-cyan-500 bg-cyan-500 text-white shadow-sm"
           : "border-border/50 bg-background/70 hover:border-cyan-200 hover:bg-cyan-50/40 dark:hover:border-cyan-900/60 dark:hover:bg-cyan-950/20",
+        disabled &&
+          !checked &&
+          "cursor-not-allowed opacity-55 hover:border-border/50 hover:bg-background/70 dark:hover:border-border/50 dark:hover:bg-background/70",
       )}
     >
       <div className="flex items-start justify-between gap-3">

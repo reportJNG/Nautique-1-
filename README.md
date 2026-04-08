@@ -16,8 +16,6 @@ Système de gestion des adhésions, abonnements, plannings, paiements et contrô
 
 ## Structure du Projet
 
-d
-
 ```
 centre-nautique/
 ├── app/[locale]/           # Routes avec internationalisation

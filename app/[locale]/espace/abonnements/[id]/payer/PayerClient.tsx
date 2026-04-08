@@ -3,13 +3,11 @@
 import { useMemo, useState, useTransition } from "react";
 import {
   ArrowLeft,
-  Building2,
   Check,
   CheckCircle2,
   CreditCard,
   Lock,
   Receipt,
-  Wallet,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -49,14 +47,10 @@ interface Props {
   abonnementId: number;
   data: PaymentData;
 }
-
-type PaymentMode = "CRD" | "CSH";
-
 export function PayerClient({ locale, abonnementId: _abonnementId, data }: Props) {
   const router = useRouter();
   const t = useTranslations("espace.client.abonnementPayment");
   const [pending, startTransition] = useTransition();
-  const [mode, setMode] = useState<PaymentMode>("CRD");
   const [holderName, setHolderName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
@@ -91,9 +85,7 @@ export function PayerClient({ locale, abonnementId: _abonnementId, data }: Props
 
   const buttonLabel = paymentDisabled
     ? t("payment.unavailable")
-    : mode === "CRD"
-      ? t("payment.confirmCardAmount", { value: formattedAmountValue })
-      : t("payment.confirmCash");
+    : t("payment.confirmCardAmount", { value: formattedAmountValue });
 
   function handleConfirm() {
     if (paymentDisabled) {
@@ -103,7 +95,7 @@ export function PayerClient({ locale, abonnementId: _abonnementId, data }: Props
     startTransition(async () => {
       const result = await confirmPayment({
         factureId: data.facture.id,
-        modePaiement: mode,
+        modePaiement: "CRD",
       });
 
       if (result.error) {
@@ -197,9 +189,11 @@ export function PayerClient({ locale, abonnementId: _abonnementId, data }: Props
               <InvoiceMetaRow
                 label={t("invoice.paymentMethod")}
                 value={
-                  data.facture.modePaiement === "CRD"
+                  data.facture.statusCode === "PAY"
+                    ? data.facture.modePaiement === "CRD"
                     ? t("payment.card.title")
                     : t("payment.cash.title")
+                    : t("invoice.pendingReceipt")
                 }
               />
               <InvoiceMetaRow
@@ -244,90 +238,68 @@ export function PayerClient({ locale, abonnementId: _abonnementId, data }: Props
             </div>
           ) : (
             <>
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="mt-6">
                 <PaymentModeCard
-                  active={mode === "CRD"}
+                  active
                   title={t("payment.card.title")}
                   description={t("payment.card.description")}
                   icon={CreditCard}
-                  onClick={() => setMode("CRD")}
-                />
-                <PaymentModeCard
-                  active={mode === "CSH"}
-                  title={t("payment.cash.title")}
-                  description={t("payment.cash.description")}
-                  icon={Building2}
-                  onClick={() => setMode("CSH")}
+                  onClick={() => undefined}
                 />
               </div>
 
-              {mode === "CRD" ? (
-                <>
-                  <div className="mt-6 overflow-hidden rounded-[30px] bg-[linear-gradient(135deg,rgba(8,145,178,0.98),rgba(14,116,144,0.92),rgba(2,132,199,0.9))] p-5 text-white shadow-[0_20px_50px_rgba(8,145,178,0.2)]">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-50/90">
-                        {t("payment.preview.label")}
-                      </div>
-                      <CreditCard className="size-5 text-cyan-50" />
-                    </div>
-                    <p className="mt-8 text-2xl font-semibold tracking-[0.18em]">
-                      {maskedCardNumber}
-                    </p>
-                    <div className="mt-8 flex items-end justify-between gap-4">
-                      <div>
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-50/70">
-                          {t("payment.fields.name")}
-                        </p>
-                        <p className="mt-1 text-sm font-medium">{displayHolder}</p>
-                      </div>
-                      <div>
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-50/70">
-                          {t("payment.fields.expiry")}
-                        </p>
-                        <p className="mt-1 text-sm font-medium">{maskedExpiry}</p>
-                      </div>
-                    </div>
+              <div className="mt-6 overflow-hidden rounded-[30px] bg-[linear-gradient(135deg,rgba(8,145,178,0.98),rgba(14,116,144,0.92),rgba(2,132,199,0.9))] p-5 text-white shadow-[0_20px_50px_rgba(8,145,178,0.2)]">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-50/90">
+                    {t("payment.preview.label")}
                   </div>
-
-                  <div className="mt-6 grid gap-4 md:grid-cols-2">
-                    <Field
-                      label={t("payment.fields.name")}
-                      value={holderName}
-                      onChange={setHolderName}
-                      placeholder={t("payment.placeholders.name")}
-                    />
-                    <Field
-                      label={t("payment.fields.number")}
-                      value={cardNumber.replace(/\D/g, "").slice(0, 16).replace(/(\d{4})(?=\d)/g, "$1 ").trim()}
-                      onChange={setCardNumber}
-                      placeholder={t("payment.placeholders.number")}
-                    />
-                    <Field
-                      label={t("payment.fields.expiry")}
-                      value={expiry.replace(/\D/g, "").slice(0, 4)}
-                      onChange={setExpiry}
-                      placeholder={t("payment.placeholders.expiry")}
-                    />
-                    <Field
-                      label={t("payment.fields.cvv")}
-                      value={cvv.replace(/\D/g, "").slice(0, 3)}
-                      onChange={setCvv}
-                      placeholder={t("payment.placeholders.cvv")}
-                    />
-                  </div>
-                </>
-              ) : (
-                <div className="mt-6 rounded-[28px] border border-border/50 bg-background/70 p-5">
-                  <div className="flex items-start gap-3">
-                    <div className="flex size-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-700 dark:text-cyan-300">
-                      <Wallet className="size-4" />
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      {t("payment.cash.instructions")}
+                  <CreditCard className="size-5 text-cyan-50" />
+                </div>
+                <p className="mt-8 text-2xl font-semibold tracking-[0.18em]">
+                  {maskedCardNumber}
+                </p>
+                <div className="mt-8 flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-50/70">
+                      {t("payment.fields.name")}
                     </p>
+                    <p className="mt-1 text-sm font-medium">{displayHolder}</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-cyan-50/70">
+                      {t("payment.fields.expiry")}
+                    </p>
+                    <p className="mt-1 text-sm font-medium">{maskedExpiry}</p>
                   </div>
                 </div>
-              )}
+              </div>
+
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                <Field
+                  label={t("payment.fields.name")}
+                  value={holderName}
+                  onChange={setHolderName}
+                  placeholder={t("payment.placeholders.name")}
+                />
+                <Field
+                  label={t("payment.fields.number")}
+                  value={cardNumber.replace(/\D/g, "").slice(0, 16).replace(/(\d{4})(?=\d)/g, "$1 ").trim()}
+                  onChange={setCardNumber}
+                  placeholder={t("payment.placeholders.number")}
+                />
+                <Field
+                  label={t("payment.fields.expiry")}
+                  value={expiry.replace(/\D/g, "").slice(0, 4)}
+                  onChange={setExpiry}
+                  placeholder={t("payment.placeholders.expiry")}
+                />
+                <Field
+                  label={t("payment.fields.cvv")}
+                  value={cvv.replace(/\D/g, "").slice(0, 3)}
+                  onChange={setCvv}
+                  placeholder={t("payment.placeholders.cvv")}
+                />
+              </div>
 
               <div className="mt-6 flex flex-col items-start gap-3">
                 <Button

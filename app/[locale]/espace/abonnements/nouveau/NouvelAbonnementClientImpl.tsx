@@ -104,6 +104,10 @@ export type TypeOption = {
 };
 
 const DAY_KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] as const;
+const MAX_CRENEAUX_BY_TYPE: Partial<Record<AbonnementType, number>> = {
+  DUR: 2,
+  SEA: 3,
+};
 
 export function NouvelAbonnementClient({ locale, data }: Props) {
   const router = useRouter();
@@ -256,6 +260,11 @@ export function NouvelAbonnementClient({ locale, data }: Props) {
     () => typeOptions.find((option) => option.id === selectedType) ?? null,
     [selectedType, typeOptions],
   );
+  const maxSelectableCreneaux =
+    selectedType === "OPN" ? null : (MAX_CRENEAUX_BY_TYPE[selectedType] ?? null);
+  const hasReachedCreneauLimit =
+    maxSelectableCreneaux !== null &&
+    selectedCreneaux.length >= maxSelectableCreneaux;
 
   const suggestedAmount = useMemo(() => {
     const base = selectedTypeOption?.baseAmount ?? 0;
@@ -319,6 +328,15 @@ export function NouvelAbonnementClient({ locale, data }: Props) {
   useEffect(() => {
     if (selectedType === "OPN") setSelectedCreneauIds([]);
   }, [selectedType]);
+
+  useEffect(() => {
+    if (!maxSelectableCreneaux) return;
+    setSelectedCreneauIds((items) =>
+      items.length > maxSelectableCreneaux
+        ? items.slice(0, maxSelectableCreneaux)
+        : items,
+    );
+  }, [maxSelectableCreneaux]);
 
   useEffect(() => {
     setSelectedCreneauIds((items) =>
@@ -586,6 +604,8 @@ export function NouvelAbonnementClient({ locale, data }: Props) {
                     filteredCreneaux={filteredCreneaux}
                     creneauxByDay={creneauxByDay}
                     selectedCreneauIds={selectedCreneauIds}
+                    maxSelectableCreneaux={maxSelectableCreneaux}
+                    hasReachedCreneauLimit={hasReachedCreneauLimit}
                     suggestedAmount={suggestedAmount}
                     onSelectEspace={(id) => {
                       setSelectedEspaceId(id);
@@ -608,11 +628,18 @@ export function NouvelAbonnementClient({ locale, data }: Props) {
                     onSelectType={setSelectedType}
                     onToggleCreneau={(id) => {
                       if (selectedType === "OPN") return;
-                      setSelectedCreneauIds((items) =>
-                        items.includes(id)
-                          ? items.filter((value) => value !== id)
-                          : [...items, id],
-                      );
+                      setSelectedCreneauIds((items) => {
+                        if (items.includes(id)) {
+                          return items.filter((value) => value !== id);
+                        }
+                        if (
+                          maxSelectableCreneaux !== null &&
+                          items.length >= maxSelectableCreneaux
+                        ) {
+                          return items;
+                        }
+                        return [...items, id];
+                      });
                     }}
                     formatAmount={formatAmount}
                   />
