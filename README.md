@@ -16,6 +16,8 @@ Système de gestion des adhésions, abonnements, plannings, paiements et contrô
 
 ## Structure du Projet
 
+d
+
 ```
 centre-nautique/
 ├── app/[locale]/           # Routes avec internationalisation
@@ -45,28 +47,33 @@ centre-nautique/
 ## Installation
 
 1. **Cloner le projet**
+
 ```bash
 cd centre-nautique
 ```
 
 2. **Installer les dépendances**
+
 ```bash
 npm install
 ```
 
 3. **Configurer l'environnement**
+
 ```bash
 cp .env.example .env
 # Éditer .env avec vos paramètres
 ```
 
 4. **Initialiser la base de données**
+
 ```bash
 npx prisma db push
 npx prisma db seed
 ```
 
 5. **Lancer le serveur de développement**
+
 ```bash
 npm run dev
 ```
@@ -74,25 +81,29 @@ npm run dev
 ## Comptes de Test
 
 ### Agents (Staff)
-| Login | Mot de passe | Rôle |
-|-------|--------------|------|
-| admin | Admin@2026 | Administrateur |
-| commercial | Com@2026 | Agent Commercial |
-| financier | Fin@2026 | Agent Financier |
+
+| Login      | Mot de passe | Rôle             |
+| ---------- | ------------ | ---------------- |
+| admin      | Admin@2026   | Administrateur   |
+| commercial | Com@2026     | Agent Commercial |
+| financier  | Fin@2026     | Agent Financier  |
 
 ### Adhérents
-| Email | Mot de passe |
-|-------|--------------|
-| ahmed@test.dz | Test@2026 |
+
+| Email         | Mot de passe |
+| ------------- | ------------ |
+| ahmed@test.dz | Test@2026    |
 
 ## Fonctionnalités
 
 ### Espace Public
+
 - Page d'accueil avec présentation des disciplines
 - Visualisation des créneaux de la saison active
 - Formulaire d'inscription adhérent
 
 ### Espace Adhérent
+
 - Tableau de bord personnel
 - Gestion des abonnements
 - Création de nouveaux abonnements (3 étapes)
@@ -100,6 +111,7 @@ npm run dev
 - Historique d'accès
 
 ### Espace Administration
+
 - Tableau de bord avec statistiques
 - Gestion des adhérents (CRUD)
 - Gestion des abonnements et statuts
@@ -113,19 +125,19 @@ npm run dev
 
 ## Rôles et Permissions
 
-| Section | ADMIN | DIR | RESP-COM | AG-COM | AG-FIN |
-|---------|:-----:|:---:|:--------:|:------:|:------:|
-| Dashboard | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Adhérents | ✓ | ✓ | ✓ | ✓ | - |
-| Abonnements | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Saisons | ✓ | ✓ | ✓ | - | - |
-| Créneaux | ✓ | ✓ | ✓ | ✓ | - |
-| Disciplines | ✓ | ✓ | ✓ | - | - |
-| Moniteurs | ✓ | ✓ | ✓ | ✓ | - |
-| Agents | ✓ | ✓ | - | - | - |
-| Caisse | ✓ | ✓ | - | - | ✓ |
-| Accès | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Paramètres | ✓ | - | - | - | - |
+| Section     | ADMIN | DIR | RESP-COM | AG-COM | AG-FIN |
+| ----------- | :---: | :-: | :------: | :----: | :----: |
+| Dashboard   |   ✓   |  ✓  |    ✓     |   ✓    |   ✓    |
+| Adhérents   |   ✓   |  ✓  |    ✓     |   ✓    |   -    |
+| Abonnements |   ✓   |  ✓  |    ✓     |   ✓    |   ✓    |
+| Saisons     |   ✓   |  ✓  |    ✓     |   -    |   -    |
+| Créneaux    |   ✓   |  ✓  |    ✓     |   ✓    |   -    |
+| Disciplines |   ✓   |  ✓  |    ✓     |   -    |   -    |
+| Moniteurs   |   ✓   |  ✓  |    ✓     |   ✓    |   -    |
+| Agents      |   ✓   |  ✓  |    -     |   -    |   -    |
+| Caisse      |   ✓   |  ✓  |    -     |   -    |   ✓    |
+| Accès       |   ✓   |  ✓  |    ✓     |   ✓    |   ✓    |
+| Paramètres  |   ✓   |  -  |    -     |   -    |   -    |
 
 ## Statuts des Abonnements
 
