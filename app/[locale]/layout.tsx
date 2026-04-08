@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import "../globals.css";
 
-export const metadata: Metadata = {
-  title: "Centre Nautique SONATRACH",
-  description: "Systeme de gestion des adhesions et abonnements",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default async function LocaleLayout({
   children,

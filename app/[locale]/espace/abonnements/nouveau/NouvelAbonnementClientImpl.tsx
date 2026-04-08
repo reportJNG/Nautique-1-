@@ -165,7 +165,10 @@ export function NouvelAbonnementClient({ locale, data }: Props) {
     () => data.espaces.find((item) => item.id === selectedEspaceId) ?? null,
     [data.espaces, selectedEspaceId],
   );
-  const availableDisciplines = selectedEspace?.disciplines ?? [];
+  const availableDisciplines = useMemo(
+    () => selectedEspace?.disciplines ?? [],
+    [selectedEspace],
+  );
   const selectedDiscipline = useMemo(
     () =>
       availableDisciplines.find((item) => item.id === selectedDisciplineId) ??
@@ -420,7 +423,7 @@ export function NouvelAbonnementClient({ locale, data }: Props) {
       toast.success(t("toasts.createSuccess"), {
         description: t("toasts.createSuccessDescription"),
       });
-      router.push(`/${locale}/espace/abonnements`);
+      router.push("/espace/abonnements");
       router.refresh();
     });
   }

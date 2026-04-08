@@ -352,6 +352,7 @@ export function ProfilClient({ profile }: Props) {
         {/* Profile Form - Glass card */}
         <motion.form
           ref={formRef}
+          onSubmit={handleProfileSubmit}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -413,7 +414,7 @@ export function ProfilClient({ profile }: Props) {
               value={profileForm.telephone}
               onChange={(value) => handleFieldChange("telephone", value)}
               type="tel"
-              placeholder="+33 6 12 34 56 78"
+              placeholder={t("fields.phonePlaceholder")}
             />
             <div className="sm:col-span-2">
               <Field
@@ -645,7 +646,9 @@ export function ProfilClient({ profile }: Props) {
                   onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
                   aria-label={
-                    showCurrentPassword ? "Hide password" : "Show password"
+                    showCurrentPassword
+                      ? t("passwordToggle.hide")
+                      : t("passwordToggle.show")
                   }
                 >
                   {showCurrentPassword ? (
@@ -681,7 +684,9 @@ export function ProfilClient({ profile }: Props) {
                   onClick={() => setShowNewPassword(!showNewPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
                   aria-label={
-                    showNewPassword ? "Hide password" : "Show password"
+                    showNewPassword
+                      ? t("passwordToggle.hide")
+                      : t("passwordToggle.show")
                   }
                 >
                   {showNewPassword ? (
@@ -761,7 +766,9 @@ export function ProfilClient({ profile }: Props) {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
                   aria-label={
-                    showConfirmPassword ? "Hide password" : "Show password"
+                    showConfirmPassword
+                      ? t("passwordToggle.hide")
+                      : t("passwordToggle.show")
                   }
                 >
                   {showConfirmPassword ? (

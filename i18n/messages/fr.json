@@ -19,12 +19,15 @@
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
     "toggleMenu": "Ouvrir/fermer le menu",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "preferences": "Préférences"
   },
   "hero": {
     "title": "Centre Nautique SONATRACH",
     "subtitle": "Votre espace aquatique et fitness",
-    "cta": "Découvrir nos activités"
+    "cta": "Découvrir nos activités",
+    "imageAlt": "Piscine du Centre Nautique SONATRACH",
+    "seasonBadge": "Saison 2026 - 2027"
   },
   "landing": {
     "disciplines": {
@@ -121,185 +124,228 @@
       "title": "Ce qu'ils disent de nous",
       "subtitle": "Des milliers de membres satisfaits à travers le pays.",
       "ariaLabel": "Avis clients",
-      
-        "items": {
-          "amira": {
-            "name": "Amira Benali",
-            "date": "Mars 2024",
-            "location": "Alger, Algérie",
-            "tags": {
-              "tag1": "Performance",
-              "tag2": "Coaching"
-            },
-            "role": "Nageuse compétitive",
-            "content": "Coaching exceptionnel ! Je me suis améliorée en quelques mois comme jamais auparavant."
+      "items": {
+        "amira": {
+          "name": "Amira Benali",
+          "date": "Mars 2024",
+          "location": "Alger, Algérie",
+          "tags": {
+            "tag1": "Performance",
+            "tag2": "Coaching"
           },
-          "youcef": {
-            "name": "Youcef Merad",
-            "date": "Février 2024",
-            "location": "Oran, Algérie",
-            "tags": {
-              "tag1": "Esprit d'équipe",
-              "tag2": "Compétition"
-            },
-            "role": "Membre water-polo",
-            "content": "Une atmosphère familiale et compétitive à la fois. Je recommande vivement ce centre."
+          "role": "Nageuse compétitive",
+          "content": "Coaching exceptionnel ! Je me suis améliorée en quelques mois comme jamais auparavant."
+        },
+        "youcef": {
+          "name": "Youcef Merad",
+          "date": "Février 2024",
+          "location": "Oran, Algérie",
+          "tags": {
+            "tag1": "Esprit d'équipe",
+            "tag2": "Compétition"
           },
-          "meriem": {
-            "name": "Meriem Khelifi",
-            "date": "Janvier 2024",
-            "location": "Constantine, Algérie",
-            "tags": {
-              "tag1": "Bien-être",
-              "tag2": "Forme"
-            },
-            "role": "Aquagym",
-            "content": "Les cours d'aquagym sont excellents ; je me sens en pleine forme après chaque séance."
+          "role": "Membre water-polo",
+          "content": "Une atmosphère familiale et compétitive à la fois. Je recommande vivement ce centre."
+        },
+        "meriem": {
+          "name": "Meriem Khelifi",
+          "date": "Janvier 2024",
+          "location": "Constantine, Algérie",
+          "tags": {
+            "tag1": "Bien-être",
+            "tag2": "Forme"
           },
-          "bilal": {
-            "name": "Bilal Hadj",
-            "date": "Décembre 2023",
-            "location": "Annaba, Algérie",
-            "tags": {
-              "tag1": "Installations",
-              "tag2": "Accueil"
-            },
-            "role": "Nageur loisir",
-            "content": "Des installations propres, un personnel accueillant — je me sens vraiment chez moi."
+          "role": "Aquagym",
+          "content": "Les cours d'aquagym sont excellents ; je me sens en pleine forme après chaque séance."
+        },
+        "bilal": {
+          "name": "Bilal Hadj",
+          "date": "Décembre 2023",
+          "location": "Annaba, Algérie",
+          "tags": {
+            "tag1": "Installations",
+            "tag2": "Accueil"
           },
-          "sabrina": {
-            "name": "Sabrina Touati",
-            "date": "Novembre 2023",
-            "location": "Tlemcen, Algérie",
-            "tags": {
-              "tag1": "Enfants",
-              "tag2": "Pédagogie"
-            },
-            "role": "Parent",
-            "content": "Mon fils adore les cours de natation. Merci pour votre patience et votre professionnalisme."
+          "role": "Nageur loisir",
+          "content": "Des installations propres, un personnel accueillant — je me sens vraiment chez moi."
+        },
+        "sabrina": {
+          "name": "Sabrina Touati",
+          "date": "Novembre 2023",
+          "location": "Tlemcen, Algérie",
+          "tags": {
+            "tag1": "Enfants",
+            "tag2": "Pédagogie"
           },
-          "karim": {
-            "name": "Karim Bensalem",
-            "date": "Octobre 2023",
-            "location": "Blida, Algérie",
-            "tags": { "tag1": "Endurance", "tag2": "Progrès" },
-            "role": "Nageur adulte",
-            "content": "Le suivi des coachs est précis. J'ai gagné en endurance et en technique en quelques semaines."
+          "role": "Parent",
+          "content": "Mon fils adore les cours de natation. Merci pour votre patience et votre professionnalisme."
+        },
+        "karim": {
+          "name": "Karim Bensalem",
+          "date": "Octobre 2023",
+          "location": "Blida, Algérie",
+          "tags": {
+            "tag1": "Endurance",
+            "tag2": "Progrès"
           },
-          "naima": {
-            "name": "Naima Zerrouki",
-            "date": "Septembre 2023",
-            "location": "Sétif, Algérie",
-            "tags": { "tag1": "Santé", "tag2": "Aquaforme" },
-            "role": "Aquaforme",
-            "content": "Les séances sont dynamiques et adaptées. Je me sens mieux physiquement et mentalement."
+          "role": "Nageur adulte",
+          "content": "Le suivi des coachs est précis. J'ai gagné en endurance et en technique en quelques semaines."
+        },
+        "naima": {
+          "name": "Naima Zerrouki",
+          "date": "Septembre 2023",
+          "location": "Sétif, Algérie",
+          "tags": {
+            "tag1": "Santé",
+            "tag2": "Aquaforme"
           },
-          "ryad": {
-            "name": "Ryad Hamdani",
-            "date": "Août 2023",
-            "location": "Béjaïa, Algérie",
-            "tags": { "tag1": "Discipline", "tag2": "Résultats" },
-            "role": "Jeune compétiteur",
-            "content": "L'encadrement est sérieux et motivant. J'ai amélioré mes temps de course cette saison."
+          "role": "Aquaforme",
+          "content": "Les séances sont dynamiques et adaptées. Je me sens mieux physiquement et mentalement."
+        },
+        "ryad": {
+          "name": "Ryad Hamdani",
+          "date": "Août 2023",
+          "location": "Béjaïa, Algérie",
+          "tags": {
+            "tag1": "Discipline",
+            "tag2": "Résultats"
           },
-          "lina": {
-            "name": "Lina Bouchareb",
-            "date": "Juillet 2023",
-            "location": "Mostaganem, Algérie",
-            "tags": { "tag1": "Confiance", "tag2": "Débutants" },
-            "role": "Débutante",
-            "content": "Je partais de zéro et maintenant je nage avec confiance. L'équipe est très bienveillante."
+          "role": "Jeune compétiteur",
+          "content": "L'encadrement est sérieux et motivant. J'ai amélioré mes temps de course cette saison."
+        },
+        "lina": {
+          "name": "Lina Bouchareb",
+          "date": "Juillet 2023",
+          "location": "Mostaganem, Algérie",
+          "tags": {
+            "tag1": "Confiance",
+            "tag2": "Débutants"
           },
-          "yacine": {
-            "name": "Yacine Khelaf",
-            "date": "Juin 2023",
-            "location": "Boumerdès, Algérie",
-            "tags": { "tag1": "Structure", "tag2": "Planning" },
-            "role": "Membre régulier",
-            "content": "Les horaires sont bien organisés et les infrastructures sont toujours propres."
+          "role": "Débutante",
+          "content": "Je partais de zéro et maintenant je nage avec confiance. L'équipe est très bienveillante."
+        },
+        "yacine": {
+          "name": "Yacine Khelaf",
+          "date": "Juin 2023",
+          "location": "Boumerdès, Algérie",
+          "tags": {
+            "tag1": "Structure",
+            "tag2": "Planning"
           },
-          "samira": {
-            "name": "Samira Ouali",
-            "date": "Mai 2023",
-            "location": "Tizi Ouzou, Algérie",
-            "tags": { "tag1": "Famille", "tag2": "Ambiance" },
-            "role": "Maman de deux adhérents",
-            "content": "Mes enfants adorent venir ici. Le centre combine sécurité, pédagogie et bonne ambiance."
+          "role": "Membre régulier",
+          "content": "Les horaires sont bien organisés et les infrastructures sont toujours propres."
+        },
+        "samira": {
+          "name": "Samira Ouali",
+          "date": "Mai 2023",
+          "location": "Tizi Ouzou, Algérie",
+          "tags": {
+            "tag1": "Famille",
+            "tag2": "Ambiance"
           },
-          "farid": {
-            "name": "Farid Rahmani",
-            "date": "Avril 2023",
-            "location": "Skikda, Algérie",
-            "tags": { "tag1": "Reprise", "tag2": "Coaching" },
-            "role": "Nageur loisir",
-            "content": "Après une longue pause, j'ai repris le sport sans stress grâce à l'accompagnement progressif."
+          "role": "Maman de deux adhérents",
+          "content": "Mes enfants adorent venir ici. Le centre combine sécurité, pédagogie et bonne ambiance."
+        },
+        "farid": {
+          "name": "Farid Rahmani",
+          "date": "Avril 2023",
+          "location": "Skikda, Algérie",
+          "tags": {
+            "tag1": "Reprise",
+            "tag2": "Coaching"
           },
-          "ines": {
-            "name": "Ines Djelloul",
-            "date": "Mars 2023",
-            "location": "Ghardaïa, Algérie",
-            "tags": { "tag1": "Technique", "tag2": "Motivation" },
-            "role": "Nageuse intermédiaire",
-            "content": "Les corrections techniques sont claires et efficaces. Je vois une vraie différence dans ma nage."
+          "role": "Nageur loisir",
+          "content": "Après une longue pause, j'ai repris le sport sans stress grâce à l'accompagnement progressif."
+        },
+        "ines": {
+          "name": "Ines Djelloul",
+          "date": "Mars 2023",
+          "location": "Ghardaïa, Algérie",
+          "tags": {
+            "tag1": "Technique",
+            "tag2": "Motivation"
           },
-          "nadir": {
-            "name": "Nadir Mecheri",
-            "date": "Février 2023",
-            "location": "Biskra, Algérie",
-            "tags": { "tag1": "Hygiène", "tag2": "Accueil" },
-            "role": "Abonné mensuel",
-            "content": "Très bon accueil, vestiaires propres, et une équipe toujours disponible pour aider."
+          "role": "Nageuse intermédiaire",
+          "content": "Les corrections techniques sont claires et efficaces. Je vois une vraie différence dans ma nage."
+        },
+        "nadir": {
+          "name": "Nadir Mecheri",
+          "date": "Février 2023",
+          "location": "Biskra, Algérie",
+          "tags": {
+            "tag1": "Hygiène",
+            "tag2": "Accueil"
           },
-          "hocine": {
-            "name": "Hocine Belkacem",
-            "date": "Janvier 2023",
-            "location": "Chlef, Algérie",
-            "tags": { "tag1": "Performance", "tag2": "Compétition" },
-            "role": "Membre triathlon",
-            "content": "La qualité d'entraînement en natation m'a permis de mieux performer en triathlon."
+          "role": "Abonné mensuel",
+          "content": "Très bon accueil, vestiaires propres, et une équipe toujours disponible pour aider."
+        },
+        "hocine": {
+          "name": "Hocine Belkacem",
+          "date": "Janvier 2023",
+          "location": "Chlef, Algérie",
+          "tags": {
+            "tag1": "Performance",
+            "tag2": "Compétition"
           },
-          "malika": {
-            "name": "Malika Ait Ali",
-            "date": "Décembre 2022",
-            "location": "Batna, Algérie",
-            "tags": { "tag1": "Bien-être", "tag2": "Régularité" },
-            "role": "Aqua détente",
-            "content": "Un excellent espace pour garder une routine saine. Je ne rate presque aucune séance."
+          "role": "Membre triathlon",
+          "content": "La qualité d'entraînement en natation m'a permis de mieux performer en triathlon."
+        },
+        "malika": {
+          "name": "Malika Ait Ali",
+          "date": "Décembre 2022",
+          "location": "Batna, Algérie",
+          "tags": {
+            "tag1": "Bien-être",
+            "tag2": "Régularité"
           },
-          "mourad": {
-            "name": "Mourad Saadi",
-            "date": "Novembre 2022",
-            "location": "Jijel, Algérie",
-            "tags": { "tag1": "Énergie", "tag2": "Équipe" },
-            "role": "Membre fitness aquatique",
-            "content": "Les cours en groupe sont motivants et donnent beaucoup d'énergie pour toute la semaine."
+          "role": "Aqua détente",
+          "content": "Un excellent espace pour garder une routine saine. Je ne rate presque aucune séance."
+        },
+        "mourad": {
+          "name": "Mourad Saadi",
+          "date": "Novembre 2022",
+          "location": "Jijel, Algérie",
+          "tags": {
+            "tag1": "Énergie",
+            "tag2": "Équipe"
           },
-          "asma": {
-            "name": "Asma Gherbi",
-            "date": "Octobre 2022",
-            "location": "Sidi Bel Abbès, Algérie",
-            "tags": { "tag1": "Professionnalisme", "tag2": "Suivi" },
-            "role": "Nageuse confirmée",
-            "content": "Le niveau de professionnalisme est remarquable, surtout dans le suivi personnalisé."
+          "role": "Membre fitness aquatique",
+          "content": "Les cours en groupe sont motivants et donnent beaucoup d'énergie pour toute la semaine."
+        },
+        "asma": {
+          "name": "Asma Gherbi",
+          "date": "Octobre 2022",
+          "location": "Sidi Bel Abbès, Algérie",
+          "tags": {
+            "tag1": "Professionnalisme",
+            "tag2": "Suivi"
           },
-          "nassim": {
-            "name": "Nassim Benyahia",
-            "date": "Septembre 2022",
-            "location": "Médéa, Algérie",
-            "tags": { "tag1": "Accessibilité", "tag2": "Confort" },
-            "role": "Nageur loisir",
-            "content": "Le centre est accessible, confortable et parfait pour pratiquer régulièrement."
+          "role": "Nageuse confirmée",
+          "content": "Le niveau de professionnalisme est remarquable, surtout dans le suivi personnalisé."
+        },
+        "nassim": {
+          "name": "Nassim Benyahia",
+          "date": "Septembre 2022",
+          "location": "Médéa, Algérie",
+          "tags": {
+            "tag1": "Accessibilité",
+            "tag2": "Confort"
           },
-          "souad": {
-            "name": "Souad Messaoudi",
-            "date": "Août 2022",
-            "location": "Saïda, Algérie",
-            "tags": { "tag1": "Convivialité", "tag2": "Confiance" },
-            "role": "Parent",
-            "content": "L'ambiance est conviviale et rassurante. Toute la famille est en confiance."
-          }
+          "role": "Nageur loisir",
+          "content": "Le centre est accessible, confortable et parfait pour pratiquer régulièrement."
+        },
+        "souad": {
+          "name": "Souad Messaoudi",
+          "date": "Août 2022",
+          "location": "Saïda, Algérie",
+          "tags": {
+            "tag1": "Convivialité",
+            "tag2": "Confiance"
+          },
+          "role": "Parent",
+          "content": "L'ambiance est conviviale et rassurante. Toute la famille est en confiance."
         }
-      
+      }
     },
     "newsletter": {
       "title": "Restez informé",
@@ -489,7 +535,8 @@
           "title": "Échec de l'inscription"
         },
         "success": {
-          "title": "Inscription réussie !"
+          "title": "Inscription réussie !",
+          "message": "Votre compte a ete cree avec succes."
         },
         "unexpected": {
           "title": "Erreur inattendue",
@@ -609,6 +656,22 @@
         "title": "Mot de passe réinitialisé !",
         "message": "Votre mot de passe a été modifié avec succès. Vous pouvez maintenant vous connecter avec vos nouveaux identifiants."
       }
+    },
+    "staffGate": {
+      "eyebrow": "Administration",
+      "title": "Acces securise",
+      "subtitle": "Reserve au personnel autorise",
+      "passwordLabel": "Mot de passe administrateur",
+      "passwordPlaceholder": "********",
+      "error": "Mot de passe incorrect",
+      "checking": "Verification...",
+      "submit": "Acceder",
+      "footer": "Acces journalise et surveille - usage interne uniquement",
+      "authenticating": "Authentification...",
+      "toast": {
+        "title": "Acces refuse",
+        "description": "Mot de passe administrateur incorrect."
+      }
     }
   },
   "adherent": {
@@ -662,11 +725,16 @@
       "closeOverlaySr": "Fermer le panneau",
       "collapseDesktopSr": "Réduire le menu latéral",
       "expandDesktopSr": "Agrandir le menu latéral",
-      "mainContentLabel": "Contenu principal"
+      "mainContentLabel": "Contenu principal",
+      "sidebarNavigation": "Navigation laterale",
+      "mobileNavigationDrawer": "Tiroir de navigation mobile",
+      "errorTitle": "Une erreur est survenue",
+      "errorDescription": "Actualisez la page ou contactez le support."
     },
     "footer": {
       "copyright": "© {year} Centre nautique",
-      "tagline": "Espace d'administration — pilotage des adherents, abonnements et planning"
+      "tagline": "Espace d'administration — pilotage des adherents, abonnements et planning",
+      "navigationAria": "Navigation du pied de page"
     },
     "roles": {
       "ADMIN": "Administrateur",
@@ -690,23 +758,74 @@
       "noData": "Aucune donnée disponible"
     },
     "toast": {
-      "createSuccess": { "title": "Créé avec succès", "desc": "L'enregistrement a été ajouté." },
-      "createError":   { "title": "Erreur de création", "desc": "Impossible de créer l'enregistrement. Veuillez réessayer." },
-      "updateSuccess": { "title": "Modifications enregistrées", "desc": "Les informations ont été mises à jour." },
-      "updateError":   { "title": "Erreur de mise à jour", "desc": "Impossible d'enregistrer les modifications." },
-      "deleteSuccess": { "title": "Supprimé", "desc": "L'enregistrement a été supprimé." },
-      "deleteError":   { "title": "Erreur de suppression", "desc": "Impossible de supprimer cet enregistrement." },
-      "toggleSuccess": { "title": "Statut mis à jour", "desc": "Le statut a été modifié." },
-      "toggleError":   { "title": "Erreur", "desc": "Impossible de modifier le statut." },
-      "paymentSuccess": { "title": "Paiement validé ✓", "desc": "Le paiement a été enregistré et l'abonnement activé." },
-      "paymentError":   { "title": "Erreur de paiement", "desc": "Impossible de valider ce paiement." },
-      "accessGranted":  { "title": "Accès autorisé ✓", "desc": "L'adhérent a été enregistré." },
-      "accessDenied":   { "title": "Accès refusé", "desc": "Abonnement non valide ou expiré." },
-      "accessError":    { "title": "Erreur", "desc": "Impossible de traiter cette demande." },
-      "settingsSaved":  { "title": "Paramètres sauvegardés", "desc": "La configuration du centre a été mise à jour." },
-      "settingsError":  { "title": "Erreur", "desc": "Impossible de sauvegarder les paramètres." },
-      "validationError": { "title": "Formulaire incomplet", "desc": "Veuillez remplir tous les champs obligatoires." },
-      "emailExists":    { "title": "Email déjà utilisé", "desc": "Un compte avec cet email existe déjà." }
+      "createSuccess": {
+        "title": "Créé avec succès",
+        "desc": "L'enregistrement a été ajouté."
+      },
+      "createError": {
+        "title": "Erreur de création",
+        "desc": "Impossible de créer l'enregistrement. Veuillez réessayer."
+      },
+      "updateSuccess": {
+        "title": "Modifications enregistrées",
+        "desc": "Les informations ont été mises à jour."
+      },
+      "updateError": {
+        "title": "Erreur de mise à jour",
+        "desc": "Impossible d'enregistrer les modifications."
+      },
+      "deleteSuccess": {
+        "title": "Supprimé",
+        "desc": "L'enregistrement a été supprimé."
+      },
+      "deleteError": {
+        "title": "Erreur de suppression",
+        "desc": "Impossible de supprimer cet enregistrement."
+      },
+      "toggleSuccess": {
+        "title": "Statut mis à jour",
+        "desc": "Le statut a été modifié."
+      },
+      "toggleError": {
+        "title": "Erreur",
+        "desc": "Impossible de modifier le statut."
+      },
+      "paymentSuccess": {
+        "title": "Paiement validé ✓",
+        "desc": "Le paiement a été enregistré et l'abonnement activé."
+      },
+      "paymentError": {
+        "title": "Erreur de paiement",
+        "desc": "Impossible de valider ce paiement."
+      },
+      "accessGranted": {
+        "title": "Accès autorisé ✓",
+        "desc": "L'adhérent a été enregistré."
+      },
+      "accessDenied": {
+        "title": "Accès refusé",
+        "desc": "Abonnement non valide ou expiré."
+      },
+      "accessError": {
+        "title": "Erreur",
+        "desc": "Impossible de traiter cette demande."
+      },
+      "settingsSaved": {
+        "title": "Paramètres sauvegardés",
+        "desc": "La configuration du centre a été mise à jour."
+      },
+      "settingsError": {
+        "title": "Erreur",
+        "desc": "Impossible de sauvegarder les paramètres."
+      },
+      "validationError": {
+        "title": "Formulaire incomplet",
+        "desc": "Veuillez remplir tous les champs obligatoires."
+      },
+      "emailExists": {
+        "title": "Email déjà utilisé",
+        "desc": "Un compte avec cet email existe déjà."
+      }
     },
     "abonnementStatus": {
       "CRE": "Créé",
@@ -721,6 +840,7 @@
       "NPY": "Non Payé"
     },
     "saisonStatus": {
+      "PRE": "Préparation",
       "OUV": "Ouverte",
       "FER": "Fermée",
       "CLO": "Clôturée"
@@ -788,7 +908,27 @@
           "PAR": "Membres particuliers",
           "CLB": "Club sportif"
         },
-        "submit": "Créer l'adhérent"
+        "submit": "Créer l'adhérent",
+        "formErrorDescription": "Veuillez corriger les erreurs dans le formulaire.",
+        "placeholders": {
+          "email": "adherent@email.com",
+          "phone": "+213 5XX XX XX XX",
+          "password": "********"
+        },
+        "passwordHint": "Minimum 8 caracteres",
+        "cancel": "Annuler",
+        "creating": "Creation...",
+        "validation": {
+          "emailRequired": "L'email est requis",
+          "emailInvalid": "Email invalide",
+          "passwordRequired": "Le mot de passe est requis",
+          "passwordMin": "Au moins 8 caracteres",
+          "required": "Ce champ est requis",
+          "birthDateRequired": "La date de naissance est requise",
+          "minAge": "L'adherent doit avoir au moins 12 ans",
+          "maxAge": "Age invalide"
+        },
+        "organization": "Organisation"
       },
       "detail": {
         "title": "Détail de l'adhérent",
@@ -805,8 +945,102 @@
           "birthDate": "Né(e) le",
           "organization": "Organisation"
         },
-        "emptySubscriptions": "Aucun abonnement"
-      }
+        "emptySubscriptions": "Aucun abonnement",
+        "back": "Retour a la liste",
+        "memberSince": "Membre depuis {date}",
+        "personalInfo": "Informations personnelles",
+        "gender": "Sexe",
+        "genderOptions": {
+          "M": "Masculin",
+          "F": "Feminin"
+        },
+        "address": "Adresse",
+        "subscriptionsTitle": "Abonnements ({count})",
+        "noSubscriptions": "Aucun abonnement trouve",
+        "start": "Debut: {date}",
+        "end": "Fin: {date}",
+        "actionsTitle": "Actions",
+        "newSubscription": "Nouvel abonnement",
+        "editInfo": "Modifier les informations",
+        "actions": {
+          "confirmDeactivateTitle": "Désactiver l'adhérent ?",
+          "confirmReactivateTitle": "Réactiver l'adhérent ?",
+          "confirmDeactivateDescription": "L'adherent ne pourra plus se connecter ni reserver.",
+          "confirmReactivateDescription": "L'adherent pourra a nouveau se connecter et reserver.",
+          "deactivate": "Désactiver",
+          "reactivate": "Réactiver",
+          "deactivateMember": "Désactiver l'adhérent",
+          "reactivateMember": "Réactiver l'adhérent"
+        }
+      },
+      "edit": {
+        "backToProfile": "Retour au profil",
+        "unknownError": "Une erreur est survenue",
+        "memberSinceLabel": "Membre depuis",
+        "successMessage": "Modifications enregistrées avec succès ! Redirection en cours...",
+        "sections": {
+          "identity": {
+            "title": "Identite",
+            "subtitle": "Informations personnelles"
+          },
+          "contact": {
+            "title": "Contact",
+            "subtitle": "Coordonnees et adresse"
+          },
+          "organisation": {
+            "title": "Organisation",
+            "subtitle": "Affiliation et statut"
+          },
+          "security": {
+            "title": "Securite",
+            "subtitle": "Securite du compte"
+          }
+        },
+        "status": {
+          "active": "Actif",
+          "inactive": "Inactif",
+          "activeOption": "Actif",
+          "inactiveOption": "Inactif"
+        },
+        "fields": {
+          "firstName": "Prenom *",
+          "lastName": "Nom *",
+          "birthDate": "Date de naissance *",
+          "gender": "Sexe *",
+          "employeeNumber": "N° matricule",
+          "status": "Statut",
+          "email": "Email",
+          "phone": "Telephone",
+          "address": "Adresse",
+          "organisation": "Organisation *",
+          "newPassword": "Nouveau mot de passe"
+        },
+        "placeholders": {
+          "firstName": "Prenom",
+          "lastName": "Nom de famille",
+          "employeeNumber": "Optionnel",
+          "email": "email@exemple.com",
+          "phone": "+213 ...",
+          "address": "Adresse complete (optionnel)",
+          "newPassword": "Laisser vide pour ne pas modifier"
+        },
+        "genderOptions": {
+          "M": "Masculin",
+          "F": "Feminin"
+        },
+        "organisationHint": "Selectionnez l'organisation a laquelle cet adherent est rattache",
+        "passwordHint": "Laissez vide pour conserver le mot de passe actuel",
+        "cancel": "Annuler",
+        "save": "Enregistrer les modifications",
+        "saving": "Enregistrement..."
+      },
+      "filters": {
+        "allStatuses": "Tous les statuts",
+        "allOrganisations": "Toutes les organisations",
+        "reset": "Réinitialiser"
+      },
+      "resultsCount": "{count, plural, one {# resultat} other {# resultats}}",
+      "noResults": "Aucun adherent trouve"
     },
     "abonnementsUi": {
       "pageTitle": "Gestion des abonnements",
@@ -840,7 +1074,17 @@
         },
         "subscriptionAmountLabel": "Montant (DA)",
         "amountPlaceholder": "0.00",
-        "submit": "Créer l'abonnement"
+        "submit": "Créer l'abonnement",
+        "validationSelectAdherent": "Selectionnez un adherent.",
+        "change": "Changer",
+        "noResults": "Aucun resultat",
+        "detailsTitle": "Details de l'abonnement",
+        "subscriptionTypePlaceholder": "Selectionner",
+        "seasonLabel": "Saison",
+        "seasonPlaceholder": "Selectionner",
+        "ageCategoryLabel": "Categorie d'age",
+        "ageCategoryPlaceholder": "Selectionner",
+        "creating": "Creation..."
       },
       "detail": {
         "title": "Détail de l'abonnement",
@@ -854,14 +1098,30 @@
           "discipline": "Discipline",
           "space": "Espace",
           "status": "Statut",
-          "amount": "Montant"
+          "amount": "Montant",
+          "season": "Saison",
+          "type": "Type"
         },
         "actions": {
           "metToATP": "Mettre ATP",
           "validatePayment": "Valider paiement",
           "activate": "Activer",
           "cancel": "Annuler"
-        }
+        },
+        "invoicesTitle": "Factures ({count})",
+        "noInvoices": "Aucune facture",
+        "cancelled": "Abonnement annule",
+        "expired": "Abonnement expire"
+      },
+      "heroBadge": "Club nautique",
+      "listTitle": "Liste des abonnements",
+      "resultsCount": "{count} resultats",
+      "empty": "Aucun abonnement trouve",
+      "stats": {
+        "total": "Total abonnements",
+        "active": "Actifs",
+        "pending": "En attente",
+        "expired": "Expires"
       }
     },
     "facturesUi": {
@@ -922,13 +1182,114 @@
           "group": "Groupe"
         },
         "emptyPeriods": "Aucune période définie",
-        "dateRange": "Du {start} au {end}"
+        "dateRange": "Du {start} au {end}",
+        "slotCount": "{count, plural, one {# creneau} other {# creneaux}}",
+        "periodCount": "{count, plural, one {# periode} other {# periodes}}",
+        "emptySlots": "Aucun creneau dans cette saison"
+      },
+      "pageDescription": "{count, plural, one {# saison} other {# saisons}}",
+      "form": {
+        "title": "Créer une nouvelle saison",
+        "description": "Ajoutez une saison bien cadrée avec sa période et son statut, directement depuis cette vue d'ensemble.",
+        "adminOnlyBadge": "Admin uniquement",
+        "sections": {
+          "identity": "Informations principales",
+          "status": "Statut de lancement"
+        },
+        "fields": {
+          "designation": "Désignation",
+          "dateDebut": "Date de début",
+          "dateFin": "Date de fin"
+        },
+        "placeholders": {
+          "designation": "Ex. Saison 2026-2027"
+        },
+        "hints": {
+          "designation": "Choisissez un intitulé clair pour retrouver la saison rapidement dans les abonnements et les créneaux.",
+          "dateRange": "Ces dates alimentent l'affichage des saisons, les créneaux associés et les parcours qui dépendent d'une saison active."
+        },
+        "statusOptions": {
+          "PRE": {
+            "description": "Saison prête côté administration, mais pas encore ouverte aux parcours qui exigent une saison active."
+          },
+          "OUV": {
+            "description": "Saison immédiatement exploitable pour les parcours qui lisent la saison ouverte."
+          },
+          "FER": {
+            "description": "Saison enregistrée, mais fermée aux nouvelles opérations jusqu'à réouverture."
+          },
+          "CLO": {
+            "description": "Saison finalisée pour l'archive et le suivi historique."
+          }
+        },
+        "preview": {
+          "eyebrow": "Aperçu",
+          "title": "Résumé instantané",
+          "live": "Temps réel",
+          "designationLabel": "Nom de la saison",
+          "emptyDesignation": "Nouvelle saison",
+          "seasonYear": "Cycle {years}",
+          "seasonYearFallback": "Les années se déduisent automatiquement des dates choisies.",
+          "rangeLabel": "Période",
+          "emptyRange": "Sélectionnez les dates pour visualiser la période.",
+          "statusLabel": "Statut"
+        },
+        "notes": {
+          "adminTitle": "Création réservée aux administrateurs",
+          "adminDescription": "Le bouton est masqué pour les autres rôles et le serveur bloque aussi toute tentative directe en dehors du rôle Admin.",
+          "openSeasonTitle": "Une saison ouverte existe déjà",
+          "openSeasonDescription": "Le statut Ouverte sera refusé tant que {designation} reste ouverte.",
+          "anotherSeason": "une autre saison"
+        },
+        "actions": {
+          "cancel": "Annuler",
+          "submit": "Créer la saison",
+          "submitting": "Création..."
+        },
+        "validation": {
+          "designationRequired": "La désignation est obligatoire.",
+          "designationMin": "La désignation doit contenir au moins 3 caractères.",
+          "designationMax": "La désignation ne peut pas dépasser 80 caractères.",
+          "dateDebutRequired": "La date de début est obligatoire.",
+          "dateFinRequired": "La date de fin est obligatoire.",
+          "invalidDate": "Veuillez saisir une date valide.",
+          "endBeforeStart": "La date de fin doit être postérieure ou égale à la date de début.",
+          "statusRequired": "Veuillez choisir un statut."
+        },
+        "feedback": {
+          "invalidForm": "Certaines informations sont invalides. Corrigez le formulaire puis réessayez.",
+          "duplicateDesignation": "Une saison avec cette désignation existe déjà.",
+          "openSeasonExists": "La saison {designation} est déjà ouverte. Fermez-la ou choisissez un autre statut.",
+          "forbidden": "Seul un administrateur peut créer une saison.",
+          "unexpected": "Une erreur est survenue lors de la création de la saison."
+        },
+        "toasts": {
+          "validationTitle": "Formulaire incomplet",
+          "validationDescription": "Merci de corriger les champs signalés avant de continuer.",
+          "errorTitle": "Création impossible",
+          "successTitle": "Saison créée",
+          "successDescription": "La nouvelle saison a été ajoutée avec succès."
+        }
       }
     },
     "creneauxUi": {
       "pageTitle": "Gestion des créneaux",
+      "description": "Suivez les créneaux hebdomadaires, leur capacité et leur niveau de remplissage.",
+      "stats": {
+        "totalSlots": "Créneaux",
+        "totalCapacity": "Capacité totale",
+        "enrolled": "Inscrits actifs",
+        "fillRate": "Taux de remplissage"
+      },
+      "status": {
+        "available": "Disponible",
+        "limited": "Places limitées",
+        "almostFull": "Presque complet",
+        "full": "Complet"
+      },
       "table": {
         "title": "Liste des créneaux",
+        "count": "{count, plural, one {# créneau} other {# créneaux}}",
         "discipline": "Discipline",
         "space": "Espace",
         "day": "Jour",
@@ -936,6 +1297,7 @@
         "group": "Groupe",
         "enrolled": "Inscrits"
       },
+      "empty": "Aucun créneau disponible",
       "detail": {
         "notFound": "Créneau non trouvé",
         "title": "Détail du créneau",
@@ -968,7 +1330,10 @@
         "designation": "Désignation",
         "space": "Espace",
         "status": "Statut"
-      }
+      },
+      "pageDescription": "{spaces} espaces - {disciplines} disciplines",
+      "listDescription": "{count} disciplines enregistrées",
+      "empty": "Aucune discipline configurée"
     },
     "moniteursUi": {
       "pageTitle": "Gestion des moniteurs",
@@ -988,24 +1353,37 @@
         "role": "Rôle",
         "email": "Email",
         "status": "Statut"
-      }
+      },
+      "empty": "Aucun agent configure"
     },
     "accessUi": {
       "title": "Contrôle d'accès",
       "card": {
         "save": "Enregistrer un accès",
-        "journal": "Journal d'accès"
+        "journal": "Journal d'accès",
+        "subtitle": "Saisir un numero de dossier ou scanner un badge",
+        "description": "Historique des acces de la journee"
       },
       "searchPlaceholder": "N° dossier ou code barre...",
       "button": {
         "validate": "Valider l'accès"
       },
-      "emptyJournal": "Aucun accès enregistré aujourd'hui"
+      "emptyJournal": "Aucun accès enregistré aujourd'hui",
+      "pageDescription": "Controle d'acces en temps reel",
+      "validationRequired": "Saisissez un numero de dossier.",
+      "stats": {
+        "grantedToday": "Entrees aujourd'hui",
+        "denied": "Refuses",
+        "totalScans": "Total scans"
+      },
+      "systemActive": "Système <strong>actif</strong> - appuyez sur Entrée pour scanner",
+      "realtime": "Temps réel"
     },
     "parametresUi": {
       "title": "Paramètres globaux",
       "card": {
-        "title": "Configuration du centre"
+        "title": "Configuration du centre",
+        "centerInfo": "Informations du centre nautique"
       },
       "labels": {
         "designationCentre": "Désignation du centre",
@@ -1017,6 +1395,72 @@
       },
       "button": {
         "saveChanges": "Enregistrer les modifications"
+      },
+      "placeholders": {
+        "designationCentre": "Ex: Centre Nautique Municipal",
+        "emailCentre": "contact@centre.dz",
+        "telephoneCentre": "+213 xx xx xx xx",
+        "adresseCentre": "Adresse complete du centre"
+      },
+      "accessCard": {
+        "title": "Controle d'acces",
+        "subtitle": "Tolerances horaires pour les entrees"
+      },
+      "about": {
+        "title": "A propos",
+        "description": "Ces parametres s'appliquent a l'ensemble du systeme.",
+        "advanceTolerance": "La tolerance d'avance permet aux adherents d'entrer avant l'heure de debut du creneau.",
+        "delayTolerance": "La tolerance de retard permet l'entree apres le debut du creneau."
+      },
+      "system": {
+        "title": "Informations systeme",
+        "id": "ID: {value}"
+      }
+    },
+    "navbar": {
+      "segments": {
+        "new": "Nouveau",
+        "edit": "Modifier",
+        "details": "Details",
+        "profile": "Mon profil"
+      },
+      "notifications": {
+        "label": "Notifications",
+        "title": "Notifications",
+        "markAllRead": "Tout lire",
+        "close": "Fermer les notifications",
+        "viewAll": "Voir toutes les notifications",
+        "items": {
+          "subscription": {
+            "title": "Nouvel abonnement",
+            "body": "Ahmed Benali vient de s'inscrire.",
+            "time": "5 min"
+          },
+          "invoice": {
+            "title": "Facture en attente",
+            "body": "3 factures attendent un paiement.",
+            "time": "1 h"
+          },
+          "season": {
+            "title": "Saison mise a jour",
+            "body": "La saison 2024/25 a ete modifiee.",
+            "time": "Hier"
+          }
+        }
+      },
+      "profile": {
+        "label": "Profil",
+        "menu": {
+          "profile": "Mon profil",
+          "settings": "Parametres"
+        }
+      }
+    },
+    "page": {
+      "status": {
+        "operational": "Tous les services opérationnels",
+        "degraded": "Performance dégradée",
+        "outage": "Interruption de service"
       }
     }
   },
@@ -1042,7 +1486,28 @@
     "print": "Imprimer",
     "select": "Sélectionner",
     "vsLastMonth": "vs mois précédent",
-    "total": "total"
+    "total": "total",
+    "recentSubscriptionsTable": {
+      "empty": "Aucun abonnement recent",
+      "columns": {
+        "member": "Adherent",
+        "discipline": "Discipline",
+        "type": "Type",
+        "status": "Statut",
+        "amount": "Montant",
+        "startDate": "Date debut",
+        "actions": "Actions"
+      }
+    },
+    "ui": {
+      "close": "Fermer",
+      "notificationRegion": "Notifications",
+      "closeNotification": "Fermer la notification",
+      "carousel": {
+        "previousSlide": "Diapositive precedente",
+        "nextSlide": "Diapositive suivante"
+      }
+    }
   },
   "espace": {
     "news": {
@@ -1135,7 +1600,38 @@
         "successTitle": "Feedback envoyé",
         "successDescription": "Votre message a été placé dans la file admin simulée. Position approximative : {count}.",
         "errorTitle": "Envoi impossible"
-      }
+      },
+      "cards": {
+        "admin": {
+          "title": "Assistance administrative",
+          "description": "Pour une question de dossier, d'activation ou d'organisation des saisons."
+        },
+        "hotline": {
+          "title": "Hotline du centre",
+          "description": "Contact rapide pour un souci d'acces, de badge ou de seance."
+        },
+        "subscriptions": {
+          "title": "Gerer mes offres",
+          "description": "Besoin d'ajouter un abonnement ou de vérifier une facture en attente ?",
+          "action": "Voir mes abonnements"
+        }
+      },
+      "faq": {
+        "items": {
+          "invoice": "Comment régler une facture en attente ? Rendez-vous dans vos abonnements, puis contactez le centre si le statut n'a pas évolué.",
+          "access": "Je ne vois pas mon acces du jour. L'enregistrement peut arriver apres validation a l'accueil ou lecture du badge.",
+          "planChange": "Je veux changer de formule. Creez une nouvelle demande ou contactez l'assistance administrative pour arbitrer."
+        }
+      },
+      "contactLabels": {
+        "centre": "Centre",
+        "email": "Email",
+        "phone": "Telephone",
+        "queue": "Queue admin fake"
+      },
+      "fallbackCentre": "Centre Nautique SONATRACH",
+      "unavailable": "Non renseigne",
+      "queueDescription": "Messages actuellement stockes pour la revue admin simulee."
     },
     "dashboard": {
       "hero": {
@@ -1525,7 +2021,10 @@
           "organization": "Organisation",
           "birthDate": "Date de naissance",
           "employeeNumber": "Numéro matricule",
-          "fileNumber": "Numéro dossier"
+          "fileNumber": "Numéro dossier",
+          "emailTooltip": "L adresse e-mail est geree depuis votre compte",
+          "addressPlaceholder": "Votre adresse complete",
+          "phonePlaceholder": "+213 5XX XX XX XX"
         },
         "passwordFields": {
           "current": "Mot de passe actuel",
@@ -1537,7 +2036,10 @@
           "saving": "Enregistrement...",
           "saveProfile": "Enregistrer mes modifications",
           "updatingPassword": "Mise à jour...",
-          "changePassword": "Changer le mot de passe"
+          "changePassword": "Changer le mot de passe",
+          "cancel": "Annuler",
+          "keepEditing": "Continuer la modification",
+          "discard": "Ignorer"
         },
         "toasts": {
           "profileError": "Mise à jour impossible",
@@ -1545,9 +2047,47 @@
           "profileSavedDescription": "Vos informations de contact ont bien été mises à jour.",
           "passwordError": "Changement refusé",
           "passwordChanged": "Mot de passe modifié",
-          "passwordChangedDescription": "Votre sécurité a bien été renforcée."
+          "passwordChangedDescription": "Votre sécurité a bien été renforcée.",
+          "validationError": "Formulaire incomplet",
+          "requiredFields": "Le nom et le prenom sont obligatoires.",
+          "passwordWeak": "Mot de passe trop faible",
+          "passwordWeakDescription": "Merci de satisfaire toutes les exigences du mot de passe.",
+          "changesDiscarded": "Modifications annulees",
+          "changesDiscardedDescription": "Le formulaire du profil a ete reinitialise."
         },
-        "noRecentActivity": "Aucune activité récente."
+        "noRecentActivity": "Aucune activité récente.",
+        "unsavedChanges": "Modifications non enregistrées",
+        "validation": {
+          "required": "Ce champ est obligatoire"
+        },
+        "security": {
+          "status": "Securite",
+          "protected": "Votre compte est protege",
+          "active": "Active"
+        },
+        "passwordDialog": {
+          "title": "Changer le mot de passe",
+          "description": "Choisissez un nouveau mot de passe securise pour votre compte."
+        },
+        "passwordStrength": "Force du mot de passe",
+        "strong": "Fort",
+        "medium": "Moyen",
+        "weak": "Faible",
+        "passwordValidation": {
+          "minLength": "Au moins 8 caracteres",
+          "uppercase": "Une lettre majuscule",
+          "lowercase": "Une lettre minuscule",
+          "number": "Un chiffre",
+          "match": "Les mots de passe ne correspondent pas"
+        },
+        "passwordToggle": {
+          "show": "Afficher le mot de passe",
+          "hide": "Masquer le mot de passe"
+        },
+        "cancelDialog": {
+          "title": "Ignorer vos modifications ?",
+          "description": "Vos modifications non enregistrées seront perdues."
+        }
       },
       "subscriptionNew": {
         "backToSubscriptions": "Retour aux abonnements",
@@ -1653,8 +2193,7 @@
           "dayEmpty": "Aucun créneau",
           "noGroup": "Sans groupe",
           "openBadge": "Accès libre",
-          "openMessage": "Accès libre — aucun créneau fixe requis."
-          ,
+          "openMessage": "Accès libre — aucun créneau fixe requis.",
           "selectionLimit": "Sélectionnez jusqu'à {max} créneaux pour cette formule.",
           "selectionCount": "{count}/{max} sélectionnés",
           "limitReached": "Vous avez atteint la limite pour cette formule. Désélectionnez un créneau pour en choisir un autre."
@@ -1789,7 +2328,8 @@
   "theme": {
     "light": "Clair",
     "dark": "Sombre",
-    "system": "Système"
+    "system": "Système",
+    "toggle": "Changer le thème"
   },
   "language": {
     "fr": "Français",

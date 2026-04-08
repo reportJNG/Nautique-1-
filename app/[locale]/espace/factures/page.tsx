@@ -57,7 +57,7 @@ export default async function FacturesPage({
             <p className="mt-1 text-3xl font-semibold text-foreground">{data.outstandingAmount}</p>
           </div>
           <Button asChild variant="outline" className="h-11 rounded-2xl">
-            <Link href={`/${locale}/espace/support`}>{t("outstanding.cta")}</Link>
+            <Link href="/espace/support">{t("outstanding.cta")}</Link>
           </Button>
         </div>
       </section>
@@ -123,7 +123,7 @@ export default async function FacturesPage({
                       : t("quickAction.paidDescription")}
                   </p>
                   <Button asChild variant="ghost" className="mt-4 rounded-2xl px-0 text-cyan-700 dark:text-cyan-300">
-                    <Link href={`/${locale}/espace/support`}>
+                    <Link href="/espace/support">
                       {t("quickAction.cta")}
                     </Link>
                   </Button>

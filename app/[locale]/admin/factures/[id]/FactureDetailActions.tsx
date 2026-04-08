@@ -12,7 +12,7 @@ interface FactureDetailActionsProps {
   locale: string;
 }
 
-export function FactureDetailActions({ factureId, locale }: FactureDetailActionsProps) {
+export function FactureDetailActions({ factureId }: FactureDetailActionsProps) {
   const t = useTranslations("admin");
   const { toast } = useAdminToast();
   const router = useRouter();

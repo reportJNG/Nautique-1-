@@ -20,7 +20,7 @@ const createSchema = z.object({
     password: z.string().min(8),
 });
 export async function toggleAdherentStatus(formData: FormData) {
-    const session = await requireAgent();
+    await requireAgent();
     try {
         const data = Object.fromEntries(formData);
         const parsed = toggleSchema.safeParse(data);

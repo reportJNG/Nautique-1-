@@ -1,16 +1,24 @@
-// app/[locale]/admin/adherents/nouveau/NouvelAdherentClient.tsx
 "use client";
 
-import { useRouter } from "@/i18n/navigation";
+import React from "react";
+import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
+import {
+  ArrowLeft,
+  User,
+  Mail,
+  Phone,
+  Calendar,
+  Lock,
+  Building2,
+  Save,
+  AlertCircle,
+  Eye,
+  EyeOff,
+} from "lucide-react";
+import { useRouter } from "@/i18n/navigation";
 import { useAdminToast } from "@/components/admin/AdminToast";
 import { createAdherent } from "../actions";
-import {
-  ArrowLeft, User, Mail, Phone, Calendar, Lock, Building2, Save,
-  AlertCircle, Eye, EyeOff
-} from "lucide-react";
-import Link from "next/link";
-import React from "react";
 
 interface Organisation {
   id: number;
@@ -22,7 +30,9 @@ interface NouvelAdherentClientProps {
   organisations: Organisation[];
 }
 
-export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProps) {
+export function NouvelAdherentClient({
+  organisations,
+}: NouvelAdherentClientProps) {
   const locale = useLocale();
   const t = useTranslations("admin");
   const { toast } = useAdminToast();
@@ -30,58 +40,65 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
   const [loading, setLoading] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const [formData, setFormData] = React.useState({
-    nom: '',
-    prenom: '',
-    email: '',
-    telephone: '',
-    dateNaissance: '',
-    sexe: '',
-    organisationId: '',
-    password: ''
+    nom: "",
+    prenom: "",
+    email: "",
+    telephone: "",
+    dateNaissance: "",
+    sexe: "",
+    organisationId: "",
+    password: "",
   });
   const [errors, setErrors] = React.useState<Record<string, string>>({});
 
   const validateField = (name: string, value: string) => {
     switch (name) {
-      case 'email':
+      case "email": {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!value) return "L'email est requis";
-        if (!emailRegex.test(value)) return "Email invalide";
-        return '';
-      case 'password':
-        if (!value) return "Le mot de passe est requis";
-        if (value.length < 8) return "Au moins 8 caractères";
-        return '';
-      case 'nom':
-      case 'prenom':
-        if (!value) return "Ce champ est requis";
-        return '';
-      case 'dateNaissance':
-        if (!value) return "La date de naissance est requise";
+        if (!value) return t("adherentsUi.new.validation.emailRequired");
+        if (!emailRegex.test(value)) return t("adherentsUi.new.validation.emailInvalid");
+        return "";
+      }
+      case "password":
+        if (!value) return t("adherentsUi.new.validation.passwordRequired");
+        if (value.length < 8) return t("adherentsUi.new.validation.passwordMin");
+        return "";
+      case "nom":
+      case "prenom":
+      case "organisationId":
+      case "sexe":
+        if (!value) return t("adherentsUi.new.validation.required");
+        return "";
+      case "dateNaissance": {
+        if (!value) return t("adherentsUi.new.validation.birthDateRequired");
         const age = new Date().getFullYear() - new Date(value).getFullYear();
-        if (age < 12) return "L'adhérent doit avoir au moins 12 ans";
-        if (age > 100) return "Âge invalide";
-        return '';
+        if (age < 12) return t("adherentsUi.new.validation.minAge");
+        if (age > 100) return t("adherentsUi.new.validation.maxAge");
+        return "";
+      }
       default:
-        return '';
+        return "";
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
     const error = validateField(name, value);
-    setErrors(prev => ({ ...prev, [name]: error }));
+    setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-    // Validate all fields
     const newErrors: Record<string, string> = {};
-    Object.keys(formData).forEach(key => {
+    Object.keys(formData).forEach((key) => {
       const error = validateField(key, formData[key as keyof typeof formData]);
-      if (error) newErrors[key] = error;
+      if (error) {
+        newErrors[key] = error;
+      }
     });
 
     if (Object.keys(newErrors).length > 0) {
@@ -89,18 +106,20 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
       toast({
         variant: "warning",
         title: t("toast.validationError.title"),
-        description: "Veuillez corriger les erreurs dans le formulaire"
+        description: t("adherentsUi.new.formErrorDescription"),
       });
       return;
     }
 
     setLoading(true);
-    const fd = new FormData();
+    const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      if (value) fd.append(key, value);
+      if (value) {
+        formDataToSend.append(key, value);
+      }
     });
 
-    const result = await createAdherent(fd);
+    const result = await createAdherent(formDataToSend);
     setLoading(false);
 
     if (result?.error) {
@@ -113,36 +132,37 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
       return;
     }
 
-    toast({ variant: "success", title: t("toast.createSuccess.title"), description: t("toast.createSuccess.desc") });
-    router.push(`/${locale}/admin/adherents`);
+    toast({
+      variant: "success",
+      title: t("toast.createSuccess.title"),
+      description: t("toast.createSuccess.desc"),
+    });
+    router.push("/admin/adherents");
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Back Button */}
+    <div className="mx-auto max-w-4xl space-y-6">
       <Link
         href={`/${locale}/admin/adherents`}
-        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/20 hover:bg-muted/30 border border-border/30 text-muted-foreground hover:text-foreground text-sm transition-all"
+        className="inline-flex items-center gap-2 rounded-lg border border-border/30 bg-muted/20 px-3 py-2 text-sm text-muted-foreground transition-all hover:bg-muted/30 hover:text-foreground"
       >
         <ArrowLeft className="w-4 h-4" />
         {t("adherentsUi.new.back")}
       </Link>
 
-      {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+        <h1 className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-3xl font-bold text-transparent">
           {t("adherentsUi.new.title")}
         </h1>
-        <p className="text-muted-foreground text-sm">
+        <p className="text-sm text-muted-foreground">
           {t("adherentsUi.new.infoTitle")}
         </p>
       </div>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30 overflow-hidden">
-          <div className="flex items-center gap-3 px-6 py-4 border-b border-border/30 bg-muted/20">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+        <div className="overflow-hidden rounded-xl border border-border/30 bg-card/20 backdrop-blur-sm">
+          <div className="flex items-center gap-3 border-b border-border/30 bg-muted/20 px-6 py-4">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/20 bg-primary/10">
               <User className="w-4 h-4 text-primary" />
             </div>
             <h2 className="text-sm font-semibold text-foreground">
@@ -150,12 +170,11 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
             </h2>
           </div>
 
-          <div className="p-6 space-y-6">
-            {/* Name Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-6 p-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  <User className="w-3.5 h-3.5" />
+                <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  <User className="h-3.5 w-3.5" />
                   {t("adherentsUi.new.nom")}
                   <span className="text-destructive">*</span>
                 </label>
@@ -164,23 +183,24 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="nom"
                   value={formData.nom}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 transition-all ${errors.nom
-                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
-                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
-                    }`}
+                  className={`w-full rounded-lg border bg-muted/20 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all focus:outline-none focus:ring-1 ${
+                    errors.nom
+                      ? "border-destructive/50 focus:border-destructive focus:ring-destructive/20"
+                      : "border-border/30 focus:border-primary/50 focus:ring-primary/20"
+                  }`}
                   placeholder={t("adherentsUi.new.nom")}
                 />
                 {errors.nom && (
-                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
-                    <AlertCircle className="w-3 h-3" />
+                  <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+                    <AlertCircle className="h-3 w-3" />
                     {errors.nom}
                   </p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  <User className="w-3.5 h-3.5" />
+                <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  <User className="h-3.5 w-3.5" />
                   {t("adherentsUi.new.prenom")}
                   <span className="text-destructive">*</span>
                 </label>
@@ -189,26 +209,26 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="prenom"
                   value={formData.prenom}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 transition-all ${errors.prenom
-                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
-                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
-                    }`}
+                  className={`w-full rounded-lg border bg-muted/20 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all focus:outline-none focus:ring-1 ${
+                    errors.prenom
+                      ? "border-destructive/50 focus:border-destructive focus:ring-destructive/20"
+                      : "border-border/30 focus:border-primary/50 focus:ring-primary/20"
+                  }`}
                   placeholder={t("adherentsUi.new.prenom")}
                 />
                 {errors.prenom && (
-                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
-                    <AlertCircle className="w-3 h-3" />
+                  <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+                    <AlertCircle className="h-3 w-3" />
                     {errors.prenom}
                   </p>
                 )}
               </div>
             </div>
 
-            {/* Contact Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  <Mail className="w-3.5 h-3.5" />
+                <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  <Mail className="h-3.5 w-3.5" />
                   {t("adherentsUi.new.email")}
                   <span className="text-destructive">*</span>
                 </label>
@@ -217,23 +237,24 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 transition-all ${errors.email
-                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
-                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
-                    }`}
-                  placeholder="adherent@email.com"
+                  className={`w-full rounded-lg border bg-muted/20 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all focus:outline-none focus:ring-1 ${
+                    errors.email
+                      ? "border-destructive/50 focus:border-destructive focus:ring-destructive/20"
+                      : "border-border/30 focus:border-primary/50 focus:ring-primary/20"
+                  }`}
+                  placeholder={t("adherentsUi.new.placeholders.email")}
                 />
                 {errors.email && (
-                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
-                    <AlertCircle className="w-3 h-3" />
+                  <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+                    <AlertCircle className="h-3 w-3" />
                     {errors.email}
                   </p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  <Phone className="w-3.5 h-3.5" />
+                <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  <Phone className="h-3.5 w-3.5" />
                   {t("adherentsUi.new.telephone")}
                 </label>
                 <input
@@ -241,17 +262,16 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="telephone"
                   value={formData.telephone}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 bg-muted/20 border border-border/30 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                  placeholder="+213 5XX XX XX XX"
+                  className="w-full rounded-lg border border-border/30 bg-muted/20 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+                  placeholder={t("adherentsUi.new.placeholders.phone")}
                 />
               </div>
             </div>
 
-            {/* Identity Row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  <Calendar className="w-3.5 h-3.5" />
+                <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  <Calendar className="h-3.5 w-3.5" />
                   {t("adherentsUi.new.birthDate")}
                   <span className="text-destructive">*</span>
                 </label>
@@ -260,22 +280,23 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="dateNaissance"
                   value={formData.dateNaissance}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground focus:outline-none focus:ring-1 transition-all ${errors.dateNaissance
-                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
-                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
-                    }`}
+                  className={`w-full rounded-lg border bg-muted/20 px-3 py-2 text-sm text-foreground transition-all focus:outline-none focus:ring-1 ${
+                    errors.dateNaissance
+                      ? "border-destructive/50 focus:border-destructive focus:ring-destructive/20"
+                      : "border-border/30 focus:border-primary/50 focus:ring-primary/20"
+                  }`}
                 />
                 {errors.dateNaissance && (
-                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
-                    <AlertCircle className="w-3 h-3" />
+                  <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+                    <AlertCircle className="h-3 w-3" />
                     {errors.dateNaissance}
                   </p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  <User className="w-3.5 h-3.5" />
+                <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  <User className="h-3.5 w-3.5" />
                   {t("adherentsUi.new.sexe")}
                   <span className="text-destructive">*</span>
                 </label>
@@ -283,26 +304,29 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="sexe"
                   value={formData.sexe}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground focus:outline-none focus:ring-1 transition-all ${errors.sexe
-                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
-                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
-                    }`}
+                  className={`w-full rounded-lg border bg-muted/20 px-3 py-2 text-sm text-foreground transition-all focus:outline-none focus:ring-1 ${
+                    errors.sexe
+                      ? "border-destructive/50 focus:border-destructive focus:ring-destructive/20"
+                      : "border-border/30 focus:border-primary/50 focus:ring-primary/20"
+                  }`}
                 >
-                  <option value="" disabled>Sélectionner</option>
-                  <option value="M">Masculin</option>
-                  <option value="F">Féminin</option>
+                  <option value="" disabled>
+                    {t("adherentsUi.new.select")}
+                  </option>
+                  <option value="M">{t("adherentsUi.new.sexeOptions.M")}</option>
+                  <option value="F">{t("adherentsUi.new.sexeOptions.F")}</option>
                 </select>
                 {errors.sexe && (
-                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
-                    <AlertCircle className="w-3 h-3" />
+                  <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+                    <AlertCircle className="h-3 w-3" />
                     {errors.sexe}
                   </p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  <Building2 className="w-3.5 h-3.5" />
+                <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  <Building2 className="h-3.5 w-3.5" />
                   {t("adherentsUi.new.organisation")}
                   <span className="text-destructive">*</span>
                 </label>
@@ -310,21 +334,24 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="organisationId"
                   value={formData.organisationId}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground focus:outline-none focus:ring-1 transition-all ${errors.organisationId
-                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
-                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
-                    }`}
+                  className={`w-full rounded-lg border bg-muted/20 px-3 py-2 text-sm text-foreground transition-all focus:outline-none focus:ring-1 ${
+                    errors.organisationId
+                      ? "border-destructive/50 focus:border-destructive focus:ring-destructive/20"
+                      : "border-border/30 focus:border-primary/50 focus:ring-primary/20"
+                  }`}
                 >
-                  <option value="" disabled>Sélectionner</option>
-                  {organisations.map((org) => (
-                    <option key={org.id} value={org.id}>
-                      {org.code} - {org.designation}
+                  <option value="" disabled>
+                    {t("adherentsUi.new.select")}
+                  </option>
+                  {organisations.map((organisation) => (
+                    <option key={organisation.id} value={organisation.id}>
+                      {organisation.code} - {organisation.designation}
                     </option>
                   ))}
                 </select>
                 {errors.organisationId && (
-                  <p className="text-xs text-destructive flex items-center gap-1 mt-1">
-                    <AlertCircle className="w-3 h-3" />
+                  <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+                    <AlertCircle className="h-3 w-3" />
                     {errors.organisationId}
                   </p>
                 )}
@@ -333,10 +360,9 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
 
             <div className="h-px bg-border/30" />
 
-            {/* Password */}
             <div className="max-w-md space-y-2">
-              <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                <Lock className="w-3.5 h-3.5" />
+              <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <Lock className="h-3.5 w-3.5" />
                 {t("adherentsUi.new.motDePasseInitial")}
                 <span className="text-destructive">*</span>
               </label>
@@ -346,49 +372,53 @@ export function NouvelAdherentClient({ organisations }: NouvelAdherentClientProp
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-muted/20 border rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 transition-all ${errors.password
-                    ? 'border-destructive/50 focus:border-destructive focus:ring-destructive/20'
-                    : 'border-border/30 focus:border-primary/50 focus:ring-primary/20'
-                    }`}
-                  placeholder="••••••••"
+                  className={`w-full rounded-lg border bg-muted/20 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all focus:outline-none focus:ring-1 ${
+                    errors.password
+                      ? "border-destructive/50 focus:border-destructive focus:ring-destructive/20"
+                      : "border-border/30 focus:border-primary/50 focus:ring-primary/20"
+                  }`}
+                  placeholder={t("adherentsUi.new.placeholders.password")}
                 />
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 transition-colors hover:text-muted-foreground"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
                 </button>
               </div>
               {errors.password && (
-                <p className="text-xs text-destructive flex items-center gap-1 mt-1">
-                  <AlertCircle className="w-3 h-3" />
+                <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+                  <AlertCircle className="h-3 w-3" />
                   {errors.password}
                 </p>
               )}
               <p className="text-xs text-muted-foreground/50">
-                Minimum 8 caractères
+                {t("adherentsUi.new.passwordHint")}
               </p>
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="flex justify-end gap-3 px-6 py-4 border-t border-border/30 bg-muted/20">
+          <div className="flex justify-end gap-3 border-t border-border/30 bg-muted/20 px-6 py-4">
             <Link
               href={`/${locale}/admin/adherents`}
-              className="px-4 py-2 rounded-lg bg-muted/20 hover:bg-muted/30 border border-border/30 text-muted-foreground hover:text-foreground text-sm font-medium transition-all"
+              className="rounded-lg border border-border/30 bg-muted/20 px-4 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted/30 hover:text-foreground"
             >
-              Annuler
+              {t("adherentsUi.new.cancel")}
             </Link>
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center gap-2 px-6 py-2 rounded-lg bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/30 hover:opacity-90 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 transition-all"
+              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary/80 px-6 py-2 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition-all hover:-translate-y-0.5 hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
             >
               {loading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                  Création...
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/30 border-t-primary-foreground" />
+                  {t("adherentsUi.new.creating")}
                 </>
               ) : (
                 <>

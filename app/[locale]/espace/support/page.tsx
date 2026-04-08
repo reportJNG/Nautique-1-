@@ -32,24 +32,24 @@ export default async function SupportPage({
 
   const supportCards = [
     {
-      title: "Assistance administrative",
-      description: "Pour une question de dossier, d'activation ou d'organisation des saisons.",
+      title: t("cards.admin.title"),
+      description: t("cards.admin.description"),
       action: shellData.centre?.emailCentre ?? "support@centre-nautique.local",
       href: `mailto:${shellData.centre?.emailCentre ?? "support@centre-nautique.local"}`,
       icon: Mail,
     },
     {
-      title: "Hotline du centre",
-      description: "Contact rapide pour un souci d'acces, de badge ou de seance.",
+      title: t("cards.hotline.title"),
+      description: t("cards.hotline.description"),
       action: shellData.centre?.telephoneCentre ?? "+213 000 000 000",
       href: `tel:${shellData.centre?.telephoneCentre ?? "+213000000000"}`,
       icon: Phone,
     },
     {
-      title: "Gerer mes offres",
-      description: "Besoin d'ajouter une souscription ou de verifier une facture en attente ?",
-      action: "Voir mes abonnements",
-      href: `/${locale}/espace/abonnements`,
+      title: t("cards.subscriptions.title"),
+      description: t("cards.subscriptions.description"),
+      action: t("cards.subscriptions.action"),
+      href: "/espace/abonnements",
       icon: CalendarDays,
     },
   ];
@@ -102,9 +102,9 @@ export default async function SupportPage({
             </div>
             <div className="mt-6 space-y-3">
               {[
-                "Comment regler une facture en attente ? Rendez-vous dans vos abonnements, puis contactez le centre si le statut n'a pas evolue.",
-                "Je ne vois pas mon acces du jour. L'enregistrement peut arriver apres validation a l'accueil ou lecture du badge.",
-                "Je veux changer de formule. Creez une nouvelle demande ou contactez l'assistance administrative pour arbitrer.",
+                t("faq.items.invoice"),
+                t("faq.items.access"),
+                t("faq.items.planChange"),
               ].map((item) => (
                 <div key={item} className="rounded-[24px] border border-border/50 bg-background/70 p-4 text-sm text-foreground">
                   {item}
@@ -144,28 +144,28 @@ export default async function SupportPage({
 
           <div className="mt-6 space-y-4">
             <div className="rounded-[24px] border border-white/10 bg-white/10 p-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-cyan-50/70">Centre</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-cyan-50/70">{t("contactLabels.centre")}</p>
               <p className="mt-2 text-sm font-medium">
-                {shellData.centre?.designationCentre ?? "Centre Nautique SONATRACH"}
+                {shellData.centre?.designationCentre ?? t("fallbackCentre")}
               </p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-white/10 p-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-cyan-50/70">Email</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-cyan-50/70">{t("contactLabels.email")}</p>
               <p className="mt-2 text-sm font-medium">
-                {shellData.centre?.emailCentre ?? "Non renseigne"}
+                {shellData.centre?.emailCentre ?? t("unavailable")}
               </p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-white/10 p-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-cyan-50/70">Telephone</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-cyan-50/70">{t("contactLabels.phone")}</p>
               <p className="mt-2 text-sm font-medium">
-                {shellData.centre?.telephoneCentre ?? "Non renseigne"}
+                {shellData.centre?.telephoneCentre ?? t("unavailable")}
               </p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-slate-950/15 p-4">
-              <p className="text-xs uppercase tracking-[0.18em] text-cyan-50/70">Queue admin fake</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-cyan-50/70">{t("contactLabels.queue")}</p>
               <p className="mt-2 text-2xl font-semibold">{feedback.length}</p>
               <p className="mt-1 text-sm text-cyan-50/80">
-                Messages currently stored for simulated admin review.
+                {t("queueDescription")}
               </p>
             </div>
           </div>

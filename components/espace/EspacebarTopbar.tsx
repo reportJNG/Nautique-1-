@@ -7,11 +7,8 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import * as Popover from "@radix-ui/react-popover";
 import {
   Bell,
-  CalendarDays,
   ChevronDown,
-  CreditCard,
   Globe2,
-  LayoutDashboard,
   LogOut,
   MenuIcon,
   ShieldCheck,
@@ -85,7 +82,6 @@ export function EspaceTopbar({
   sidebarOpen,
   adherent,
   centre,
-  stats,
   notifications,
 }: Props) {
   const pathname = usePathname();
@@ -321,7 +317,7 @@ export function EspaceTopbar({
                     localNotifications.map((item) => (
                       <Link
                         key={item.id}
-                        href={`/${locale}${item.href}`}
+                        href={item.href}
                         className={cn(
                           "block rounded-2xl border p-3 transition hover:shadow-sm",
                           variantClasses[item.variant],
@@ -419,7 +415,7 @@ export function EspaceTopbar({
                   ].map((item) => (
                     <DropdownMenu.Item
                       key={item.href}
-                      onClick={() => router.push(`/${locale}${item.href}`)}
+                      onClick={() => router.push(item.href)}
                       className="flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-2.5 text-sm outline-none transition hover:bg-muted"
                     >
                       <item.icon className="size-4 text-muted-foreground" />

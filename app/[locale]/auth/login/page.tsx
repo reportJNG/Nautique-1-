@@ -2,8 +2,8 @@
 
 import { AdminGate } from "./AdminGate";
 import { useState, useEffect, useRef, type ChangeEvent, type KeyboardEvent } from "react";
-import { useRouter, Link } from "@/i18n/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,7 +35,6 @@ function FieldError({ message }: { message: string }) {
 function AgentLoginForm() {
   const t = useTranslations("auth");
   const router = useRouter();
-  const locale = useLocale();
   const redirectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -110,7 +109,7 @@ function AgentLoginForm() {
     }
   };
 
-  async function handleSubmit(fd: FormData) {
+  async function handleSubmit() {
     if (!isValid) {
       setTouched({ login: true, password: true });
       return;
@@ -121,7 +120,7 @@ function AgentLoginForm() {
       const result = agentLoginSchema.safeParse(formData);
       if (!result.success) {
         const errors: Partial<AgentLoginInput> = {};
-        result.error.issues.forEach((err: any) => {
+        result.error.issues.forEach((err) => {
           if (err.path.length > 0) errors[err.path[0] as keyof AgentLoginInput] = err.message;
         });
         setFieldErrors(errors);
@@ -146,9 +145,11 @@ function AgentLoginForm() {
         setIsPending(false);
         loginInputRef.current?.focus();
       } else {
-        rememberMe
-          ? localStorage.setItem("remembered_staff_login", formData.login)
-          : localStorage.removeItem("remembered_staff_login");
+        if (rememberMe) {
+          localStorage.setItem("remembered_staff_login", formData.login);
+        } else {
+          localStorage.removeItem("remembered_staff_login");
+        }
 
         toast.success(t("toast.login.success.title"), {
           description: t("toast.login.success.description"),

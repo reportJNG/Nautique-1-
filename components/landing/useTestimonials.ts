@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import {
     TESTIMONIAL_IDS,
     SOCIAL_STATS,
@@ -12,7 +12,6 @@ import {
 
 export function useTestimonials(): Testimonial[] {
     const t = useTranslations("landing.testimonials");
-    const locale = useLocale();
 
     return useMemo(
         () =>
@@ -29,6 +28,6 @@ export function useTestimonials(): Testimonial[] {
                 tags: [t(`items.${id}.tags.tag1`), t(`items.${id}.tags.tag2`)],
                 social: SOCIAL_STATS[id],
             })),
-        [t, locale],
+        [t],
     );
 }

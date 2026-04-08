@@ -65,12 +65,8 @@ interface Props {
 }
 
 export function EspaceSidebar({
-  adherent: _adherent,
-  centre: _centre,
-  stats: _stats,
-  context: _context,
   isOpen,
-  desktop: _desktop,
+  desktop,
   onClose,
 }: Props) {
   const pathname = usePathname();
@@ -171,14 +167,16 @@ export function EspaceSidebar({
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label={t("closeAria")}
-            className="inline-flex size-8 items-center justify-center rounded-lg bg-secondary text-muted-foreground transition-all duration-200 ease-out hover:bg-accent hover:text-accent-foreground active:scale-[0.96] cursor-pointer"
-          >
-            <X className="size-4" />
-          </button>
+          {!desktop ? (
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={t("closeAria")}
+              className="inline-flex size-8 items-center justify-center rounded-lg bg-secondary text-muted-foreground transition-all duration-200 ease-out hover:bg-accent hover:text-accent-foreground active:scale-[0.96] cursor-pointer"
+            >
+              <X className="size-4" />
+            </button>
+          ) : null}
         </div>
 
         <div className="espace-sidebar-scroll flex-1 overflow-y-hidden px-3 py-4 hover:overflow-y-auto">

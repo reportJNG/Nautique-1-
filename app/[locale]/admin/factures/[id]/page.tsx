@@ -2,9 +2,10 @@ import { prisma } from "@/lib/db/prisma";
 import { getTranslations } from "next-intl/server";
 import { AdminPageShell } from "@/components/admin/AdminPage";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Printer, FileText, User, Hash, Dumbbell, CreditCard, CheckCircle2, Clock } from "lucide-react";
+import { ArrowLeft, User, Hash, Dumbbell, CreditCard, CheckCircle2, Clock } from "lucide-react";
 import Link from "next/link";
 import { FactureDetailActions } from "./FactureDetailActions";
+import { PrintFactureButton } from "./PrintFactureButton";
 
 async function getFacture(id: number) {
   return prisma.facture.findUnique({
@@ -20,6 +21,7 @@ export default async function FactureDetailPage({
 }) {
   const { locale, id } = await params;
   const t = await getTranslations({ locale, namespace: "admin" });
+  const tc = await getTranslations({ locale, namespace: "common" });
   const dateLocale = locale === "en" ? "en-US" : locale === "ar" ? "ar-DZ" : "fr-FR";
   const facture = await getFacture(parseInt(id));
   if (!facture) notFound();
@@ -44,7 +46,7 @@ export default async function FactureDetailPage({
           {/* Receipt Header */}
           <div className="relative text-center px-7 pt-6 pb-5 bg-gradient-to-br from-primary/8 to-primary/4 border-b border-border/30">
             <div className="text-[11px] font-extrabold tracking-[0.15em] text-primary uppercase mb-1">
-              Centre Nautique SONATRACH
+              {t("facturesUi.detail.receipt.headerTitle")}
             </div>
             <div className="text-xl font-extrabold text-foreground">
               {t("facturesUi.detail.receipt.headerTitle")}
@@ -133,20 +135,15 @@ export default async function FactureDetailPage({
         <div className="flex flex-col gap-2.5 min-w-[200px]">
           <div className="rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden">
             <div className="px-4 pt-3 pb-2.5 border-b border-border/30 text-xs font-bold text-muted-foreground tracking-wide uppercase">
-              Actions
+              {tc("actions")}
             </div>
             <div className="p-3.5 flex flex-col gap-2">
               {!isPaid && (
                 <FactureDetailActions factureId={facture.id} locale={locale} />
               )}
-              <button
-                type="button"
-                className="inline-flex items-center gap-1.5 justify-center py-2.5 px-4 rounded-lg w-full bg-muted/10 border border-border/50 text-muted-foreground text-[13px] font-medium cursor-pointer transition-all duration-150 hover:bg-muted/15 hover:text-foreground [&_svg]:w-[14px]"
-                onClick={() => window.print()}
-              >
-                <Printer size={14} />
+              <PrintFactureButton className="inline-flex items-center gap-1.5 justify-center py-2.5 px-4 rounded-lg w-full bg-muted/10 border border-border/50 text-muted-foreground text-[13px] font-medium cursor-pointer transition-all duration-150 hover:bg-muted/15 hover:text-foreground [&_svg]:w-[14px]">
                 {t("facturesUi.detail.print")}
-              </button>
+              </PrintFactureButton>
             </div>
           </div>
         </div>

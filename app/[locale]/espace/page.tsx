@@ -87,7 +87,7 @@ export default async function EspaceDashboardPage({
                 asChild
                 className="h-11 rounded-2xl bg-white text-slate-900 hover:bg-cyan-50"
               >
-                <Link href={`/${locale}/espace/abonnements/nouveau`}>
+                <Link href="/espace/abonnements/nouveau">
                   {t("hero.primaryCta")}
                 </Link>
               </Button>
@@ -96,7 +96,7 @@ export default async function EspaceDashboardPage({
                 variant="outline"
                 className="h-11 rounded-2xl border-white/20 bg-white/10 text-white hover:bg-white/15"
               >
-                <Link href={`/${locale}/espace/acces`}>
+                <Link href="/espace/acces">
                   {t("hero.secondaryCta")}
                 </Link>
               </Button>
@@ -171,7 +171,7 @@ export default async function EspaceDashboardPage({
               </p>
             </div>
             <Button asChild variant="ghost" className="rounded-2xl">
-              <Link href={`/${locale}/espace/abonnements`}>
+              <Link href="/espace/abonnements">
                 {t("subscriptions.viewAll")}
                 <ArrowRight className="size-4" />
               </Link>

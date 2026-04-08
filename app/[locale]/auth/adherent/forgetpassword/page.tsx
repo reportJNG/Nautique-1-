@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect, useCallback, type ChangeEvent, type KeyboardEvent, type ClipboardEvent, } from "react";
+import { useState, useRef, useEffect, useCallback, type KeyboardEvent, type ClipboardEvent, } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -11,7 +11,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Waves, ArrowLeft, Mail, Lock, Eye, EyeOff, Loader2, CheckCircle2, AlertCircle, ShieldCheck, RotateCcw, Check, X, KeyRound, } from "lucide-react";
 import { requestPasswordResetAction, verifyOTPAction, resetPasswordAction, } from "./actions";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { forgotPasswordSchema, resetPasswordSchema, type ForgotPasswordInput, type ResetPasswordInput } from "@/lib/validators/auth";
+import { forgotPasswordSchema, resetPasswordSchema, type ResetPasswordInput } from "@/lib/validators/auth";
 type Step = "email" | "otp" | "reset" | "done";
 function FieldError({ message }: {
   message: string;
@@ -242,7 +242,11 @@ export default function ForgotPasswordPage() {
   const handleGoBack = () => {
     if (step === "email") {
       setIsNavigating(true);
-      window.history.length > 1 ? router.back() : router.push(`/${locale}`);
+      if (window.history.length > 1) {
+        router.back();
+      } else {
+        router.push("/");
+      }
     }
     else if (step === "otp")
       setStep("email");
@@ -261,7 +265,7 @@ export default function ForgotPasswordPage() {
       description: t("forgotPassword.notifications.resent.message"),
       duration: 5000,
     });
-  }, [email]);
+  }, [email, t]);
   async function handleEmailSubmit(e: React.FormEvent) {
     e.preventDefault();
     setEmailTouched(true);
@@ -336,7 +340,7 @@ export default function ForgotPasswordPage() {
     const result = resetPasswordSchema.safeParse(resetData);
     if (!result.success) {
       const errors: Partial<ResetPasswordInput> = {};
-      result.error.issues.forEach((error: any) => {
+      result.error.issues.forEach((error) => {
         if (error.path.length > 0) {
           const field = error.path[0] as keyof ResetPasswordInput;
           errors[field] = error.message;
@@ -574,7 +578,7 @@ export default function ForgotPasswordPage() {
                     {t("forgotPassword.done.message")}
                   </p>
                 </div>
-                <Button onClick={() => { setIsNavigating(true); router.push(`/${locale}/auth/adherent/login`); }} className="w-full cursor-pointer bg-gradient-to-r from-primary to-primary/80 py-6 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all duration-200 hover:scale-[1.01] hover:shadow-lg active:scale-[0.99]">
+                <Button onClick={() => { setIsNavigating(true); router.push("/auth/adherent/login"); }} className="w-full cursor-pointer bg-gradient-to-r from-primary to-primary/80 py-6 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all duration-200 hover:scale-[1.01] hover:shadow-lg active:scale-[0.99]">
                   {t("login")}
                 </Button>
               </motion.div>)}

@@ -1,5 +1,18 @@
+import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import ClientSaisonSection from "./SaisonSectionClient";
+
+type SaisonWithCreneaux = Prisma.SaisonGetPayload<{
+    include: {
+        creneaux: {
+            include: {
+                discipline: true;
+            };
+        };
+    };
+}>;
+
+type CreneauWithDiscipline = SaisonWithCreneaux["creneaux"][number];
 
 export async function SaisonSection({ locale }: {
     locale: string;
@@ -15,7 +28,7 @@ export async function SaisonSection({ locale }: {
         },
     });
 
-    const creneauxByDiscipline = saison?.creneaux.reduce((acc, creneau) => {
+    const creneauxByDiscipline = saison?.creneaux.reduce<Record<string, CreneauWithDiscipline[]>>((acc, creneau) => {
         const discName = creneau.discipline.designation;
         if (!acc[discName]) acc[discName] = [];
         acc[discName].push(creneau);
@@ -24,7 +37,7 @@ export async function SaisonSection({ locale }: {
 
     return (
         <ClientSaisonSection
-            saison={saison as any}
+            saison={saison}
             creneauxByDiscipline={creneauxByDiscipline}
             locale={locale}
         />

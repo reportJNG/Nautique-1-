@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db/prisma";
 import { cn } from "@/lib/utils";
 import { AdminPageHeader, AdminSection, AdminPageShell } from "@/components/admin/AdminPage";
 import { getTranslations } from "next-intl/server";
+import type { Prisma } from "@prisma/client";
 import {
   Users,
   Calendar,
@@ -12,7 +13,6 @@ import {
   ArrowDownRight,
   Minus,
   AlertCircle,
-  RefreshCw,
 } from "lucide-react";
 import { cache } from "react";
 import { unstable_noStore as noStore } from "next/cache";
@@ -34,7 +34,7 @@ interface DashboardStats {
 interface RecentAbonnement {
   id: number;
   createdAt: Date;
-  montantTtc: any;
+  montantTtc: Prisma.Decimal;
   statut: StatusCode;
   typeAbonnement: string;
   adherent: {
@@ -284,12 +284,10 @@ const EmptyState = ({ message }: { message: string }) => (
 /* ─── Main Page Component ────────────────────────────────────── */
 interface AdminDashboardPageProps {
   params: Promise<{ locale: string }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function AdminDashboardPage({
-  params,
-  searchParams
+  params
 }: AdminDashboardPageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "admin" });

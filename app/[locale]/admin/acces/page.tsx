@@ -1,6 +1,6 @@
-import { AdminPageHeader, AdminPageShell } from "@/components/admin/AdminPage";
 import { getTranslations } from "next-intl/server";
 import { ShieldCheck } from "lucide-react";
+import { AdminPageHeader, AdminPageShell } from "@/components/admin/AdminPage";
 import { AccesClient } from "./AccesClient";
 
 export default async function AccesPage({
@@ -15,7 +15,7 @@ export default async function AccesPage({
     <AdminPageShell locale={locale}>
       <AdminPageHeader
         title={t("accessUi.title")}
-        description="Contrôle d'accès en temps réel"
+        description={t("accessUi.pageDescription")}
         icon={<ShieldCheck />}
       />
       <AccesClient />

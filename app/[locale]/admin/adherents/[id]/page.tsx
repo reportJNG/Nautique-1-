@@ -1,14 +1,26 @@
-// app/[locale]/admin/adherents/[id]/page.tsx
-import { prisma } from "@/lib/db/prisma";
-import { getTranslations } from "next-intl/server";
-import { AdminPageShell } from "@/components/admin/AdminPage";
-import { notFound } from "next/navigation";
-import {
-  User, Mail, Phone, Calendar, Building2, ArrowLeft, Dumbbell,
-  CheckCircle, Clock, XCircle, FileText, Hash, CalendarDays,
-  CreditCard, Award, MapPin, AtSign, Briefcase
-} from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import {
+  User,
+  Mail,
+  Phone,
+  Calendar,
+  Building2,
+  ArrowLeft,
+  Dumbbell,
+  CheckCircle,
+  XCircle,
+  FileText,
+  Hash,
+  CalendarDays,
+  CreditCard,
+  Award,
+  MapPin,
+  Briefcase,
+} from "lucide-react";
+import { prisma } from "@/lib/db/prisma";
+import { AdminPageShell } from "@/components/admin/AdminPage";
 import { AdherentDetailActions } from "./AdherentDetailActions";
 
 async function getAdherent(id: number) {
@@ -31,12 +43,16 @@ export default async function AdherentDetailPage({
 }) {
   const { locale, id } = await params;
   const t = await getTranslations({ locale, namespace: "admin" });
-  const tc = await getTranslations({ locale, namespace: "common" });
   const dateLocale = locale === "en" ? "en-US" : locale === "ar" ? "ar-DZ" : "fr-FR";
-  const adherent = await getAdherent(parseInt(id));
-  if (!adherent) notFound();
+  const adherent = await getAdherent(Number.parseInt(id, 10));
 
-  const initials = `${adherent.prenom?.[0] ?? ""}${adherent.nom?.[0] ?? ""}`.toUpperCase();
+  if (!adherent) {
+    notFound();
+  }
+
+  const initials =
+    `${adherent.prenom?.[0] ?? ""}${adherent.nom?.[0] ?? ""}`.toUpperCase();
+
   const statusStyles: Record<string, string> = {
     ACT: "bg-primary/10 text-primary border-primary/20",
     CRE: "bg-primary/10 text-primary border-primary/20",
@@ -48,37 +64,41 @@ export default async function AdherentDetailPage({
 
   return (
     <AdminPageShell locale={locale}>
-      <div className="max-w-5xl mx-auto space-y-6">
-        {/* Back Button */}
+      <div className="mx-auto max-w-5xl space-y-6">
         <Link
           href={`/${locale}/admin/adherents`}
-          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/20 hover:bg-muted/30 border border-border/30 text-muted-foreground hover:text-foreground text-sm transition-all w-fit"
+          className="inline-flex w-fit items-center gap-2 rounded-lg border border-border/30 bg-muted/20 px-3 py-2 text-sm text-muted-foreground transition-all hover:bg-muted/30 hover:text-foreground"
         >
           <ArrowLeft className="w-4 h-4" />
-          Retour à la liste
+          {t("adherentsUi.detail.back")}
         </Link>
 
-        {/* Hero Section */}
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-card/50 to-card/80 backdrop-blur-sm border border-border/30 p-6">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-          <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+        <div className="relative overflow-hidden rounded-xl border border-border/30 bg-gradient-to-r from-card/50 to-card/80 p-6 backdrop-blur-sm">
+          <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
+          <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
             <div className="relative">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-r from-primary to-primary/80 flex items-center justify-center text-3xl font-bold text-primary-foreground shadow-xl ring-4 ring-primary/20">
+              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary/80 text-3xl font-bold text-primary-foreground shadow-xl ring-4 ring-primary/20">
                 {initials || "?"}
               </div>
-              <div className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-2 border-border ${adherent.actif === 1 ? 'bg-primary' : 'bg-card'
-                }`} />
+              <div
+                className={`absolute -bottom-1 -right-1 h-6 w-6 rounded-full border-2 border-border ${
+                  adherent.actif === 1 ? "bg-primary" : "bg-card"
+                }`}
+              />
             </div>
 
             <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-3 mb-2">
-                <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+              <div className="mb-2 flex flex-wrap items-center gap-3">
+                <h1 className="text-2xl font-bold text-foreground md:text-3xl">
                   {adherent.prenom} {adherent.nom}
                 </h1>
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${adherent.actif === 1
-                  ? 'bg-primary/10 text-primary border border-primary/20'
-                  : 'bg-muted/10 text-muted-foreground border border-border/20'
-                  }`}>
+                <span
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
+                    adherent.actif === 1
+                      ? "border border-primary/20 bg-primary/10 text-primary"
+                      : "border border-border/20 bg-muted/10 text-muted-foreground"
+                  }`}
+                >
                   {adherent.actif === 1 ? (
                     <CheckCircle className="w-3 h-3" />
                   ) : (
@@ -99,78 +119,93 @@ export default async function AdherentDetailPage({
                 </div>
                 <div className="flex items-center gap-1.5">
                   <CalendarDays className="w-3.5 h-3.5" />
-                  <span>Membre depuis {new Date(adherent.createdAt).toLocaleDateString(dateLocale)}</span>
+                  <span>
+                    {t("adherentsUi.detail.memberSince", {
+                      date: new Date(adherent.createdAt).toLocaleDateString(dateLocale),
+                    })}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - Personal Info */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Personal Information Card */}
-            <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30 overflow-hidden">
-              <div className="flex items-center gap-3 px-6 py-4 border-b border-border/30 bg-muted/20">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          <div className="space-y-6 lg:col-span-2">
+            <div className="overflow-hidden rounded-xl border border-border/30 bg-card/20 backdrop-blur-sm">
+              <div className="flex items-center gap-3 border-b border-border/30 bg-muted/20 px-6 py-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/20 bg-primary/10">
                   <User className="w-4 h-4 text-primary" />
                 </div>
                 <h2 className="text-sm font-semibold text-foreground">
-                  Informations personnelles
+                  {t("adherentsUi.detail.personalInfo")}
                 </h2>
               </div>
 
-              <div className="p-6 space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-4 p-6">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="flex items-start gap-3">
-                    <Mail className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <Mail className="mt-0.5 w-4 h-4 text-muted-foreground" />
                     <div>
-                      <p className="text-xs text-muted-foreground mb-0.5">Email</p>
+                      <p className="mb-0.5 text-xs text-muted-foreground">
+                        {t("adherentsUi.detail.labels.email")}
+                      </p>
                       <p className="text-sm text-foreground">{adherent.email}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Phone className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <Phone className="mt-0.5 w-4 h-4 text-muted-foreground" />
                     <div>
-                      <p className="text-xs text-muted-foreground mb-0.5">Téléphone</p>
+                      <p className="mb-0.5 text-xs text-muted-foreground">
+                        {t("adherentsUi.detail.labels.phone")}
+                      </p>
                       <p className="text-sm text-foreground">
-                        {adherent.telephone || <span className="text-muted-foreground italic">Non renseigné</span>}
+                        {adherent.telephone || (
+                          <span className="italic text-muted-foreground">
+                            {t("adherentsUi.detail.labels.telephoneUnknown")}
+                          </span>
+                        )}
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Calendar className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <Calendar className="mt-0.5 w-4 h-4 text-muted-foreground" />
                     <div>
-                      <p className="text-xs text-muted-foreground mb-0.5">Date de naissance</p>
+                      <p className="mb-0.5 text-xs text-muted-foreground">
+                        {t("adherentsUi.detail.labels.birthDate")}
+                      </p>
                       <p className="text-sm text-foreground">
                         {new Date(adherent.dateNaissance).toLocaleDateString(dateLocale, {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
                         })}
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <Award className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <Award className="mt-0.5 w-4 h-4 text-muted-foreground" />
                     <div>
-                      <p className="text-xs text-muted-foreground mb-0.5">Sexe</p>
+                      <p className="mb-0.5 text-xs text-muted-foreground">
+                        {t("adherentsUi.detail.gender")}
+                      </p>
                       <p className="text-sm text-foreground">
-                        {adherent.sexe === 'M' ? 'Masculin' : 'Féminin'}
+                        {t(`adherentsUi.detail.genderOptions.${adherent.sexe}`)}
                       </p>
                     </div>
                   </div>
                 </div>
 
                 {adherent.adresse && (
-                  <div className="flex items-start gap-3 pt-2 border-t border-border/20">
-                    <MapPin className="w-4 h-4 text-muted-foreground mt-0.5" />
+                  <div className="flex items-start gap-3 border-t border-border/20 pt-2">
+                    <MapPin className="mt-0.5 w-4 h-4 text-muted-foreground" />
                     <div className="flex-1">
-                      <p className="text-xs text-muted-foreground mb-0.5">Adresse</p>
+                      <p className="mb-0.5 text-xs text-muted-foreground">
+                        {t("adherentsUi.detail.address")}
+                      </p>
                       <p className="text-sm text-foreground">{adherent.adresse}</p>
                     </div>
                   </div>
@@ -178,45 +213,65 @@ export default async function AdherentDetailPage({
               </div>
             </div>
 
-            {/* Subscriptions Card */}
-            <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30 overflow-hidden">
-              <div className="flex items-center gap-3 px-6 py-4 border-b border-border/30 bg-muted/20">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+            <div className="overflow-hidden rounded-xl border border-border/30 bg-card/20 backdrop-blur-sm">
+              <div className="flex items-center gap-3 border-b border-border/30 bg-muted/20 px-6 py-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/20 bg-primary/10">
                   <Dumbbell className="w-4 h-4 text-primary" />
                 </div>
                 <h2 className="text-sm font-semibold text-foreground">
-                  Abonnements ({adherent.abonnements.length})
+                  {t("adherentsUi.detail.subscriptionsTitle", {
+                    count: adherent.abonnements.length,
+                  })}
                 </h2>
               </div>
 
               <div className="p-6">
                 {adherent.abonnements.length === 0 ? (
-                  <div className="text-center py-8">
-                    <CreditCard className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
-                    <p className="text-muted-foreground text-sm">
-                      Aucun abonnement trouvé
+                  <div className="py-8 text-center">
+                    <CreditCard className="mx-auto mb-3 h-12 w-12 text-muted-foreground" />
+                    <p className="text-sm text-muted-foreground">
+                      {t("adherentsUi.detail.noSubscriptions")}
                     </p>
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {adherent.abonnements.map((abo) => (
-                      <div key={abo.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/20 border border-border/30">
+                    {adherent.abonnements.map((abonnement) => (
+                      <div
+                        key={abonnement.id}
+                        className="flex items-center justify-between rounded-lg border border-border/30 bg-muted/20 p-3"
+                      >
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
+                          <div className="mb-1 flex items-center gap-2">
                             <span className="text-sm font-semibold text-foreground">
-                              {abo.discipline.designation}
+                              {abonnement.discipline.designation}
                             </span>
                             <span className="text-xs text-muted-foreground">
-                              {abo.saison.designation}
+                              {abonnement.saison.designation}
                             </span>
                           </div>
                           <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                            <span>Début: {new Date(abo.dateDebut).toLocaleDateString(dateLocale)}</span>
-                            <span>Fin: {new Date(abo.dateFin).toLocaleDateString(dateLocale)}</span>
+                            <span>
+                              {t("adherentsUi.detail.start", {
+                                date: new Date(abonnement.dateDebut).toLocaleDateString(
+                                  dateLocale,
+                                ),
+                              })}
+                            </span>
+                            <span>
+                              {t("adherentsUi.detail.end", {
+                                date: new Date(abonnement.dateFin).toLocaleDateString(
+                                  dateLocale,
+                                ),
+                              })}
+                            </span>
                           </div>
                         </div>
-                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${statusStyles[abo.statut] || statusStyles.ANL}`}>
-                          {t(`abonnementStatus.${abo.statut}`)}
+                        <span
+                          className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
+                            statusStyles[abonnement.statut] || statusStyles.ANL
+                          }`}
+                        >
+                          {t(`abonnementStatus.${abonnement.statut}`)}
                         </span>
                       </div>
                     ))}
@@ -226,39 +281,37 @@ export default async function AdherentDetailPage({
             </div>
           </div>
 
-          {/* Right Column - Actions */}
           <div className="space-y-6">
-            <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30 overflow-hidden sticky top-6">
-              <div className="flex items-center gap-3 px-6 py-4 border-b border-border/30 bg-muted/20">
-                <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
+            <div className="sticky top-6 overflow-hidden rounded-xl border border-border/30 bg-card/20 backdrop-blur-sm">
+              <div className="flex items-center gap-3 border-b border-border/30 bg-muted/20 px-6 py-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-accent/20 bg-accent/10">
                   <FileText className="w-4 h-4 text-accent" />
                 </div>
                 <h2 className="text-sm font-semibold text-foreground">
-                  Actions
+                  {t("adherentsUi.detail.actionsTitle")}
                 </h2>
               </div>
 
-              <div className="p-6 space-y-4">
+              <div className="space-y-4 p-6">
                 <AdherentDetailActions
                   adherentId={adherent.id}
                   isActive={adherent.actif === 1}
-                  locale={locale}
                 />
 
                 <Link
                   href={`/${locale}/admin/abonnements/nouveau?adherent=${adherent.id}`}
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-muted/20 hover:bg-muted/30 border border-border/30 text-muted-foreground hover:text-primary text-sm font-medium transition-all"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border/30 bg-muted/20 px-4 py-2.5 text-sm font-medium text-muted-foreground transition-all hover:bg-muted/30 hover:text-primary"
                 >
                   <CreditCard className="w-4 h-4" />
-                  Nouvel abonnement
+                  {t("adherentsUi.detail.newSubscription")}
                 </Link>
 
                 <Link
                   href={`/${locale}/admin/adherents/${adherent.id}/modifier`}
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-muted/20 hover:bg-muted/30 border border-border/30 text-muted-foreground hover:text-primary text-sm font-medium transition-all"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border/30 bg-muted/20 px-4 py-2.5 text-sm font-medium text-muted-foreground transition-all hover:bg-muted/30 hover:text-primary"
                 >
                   <Briefcase className="w-4 h-4" />
-                  Modifier les informations
+                  {t("adherentsUi.detail.editInfo")}
                 </Link>
               </div>
             </div>

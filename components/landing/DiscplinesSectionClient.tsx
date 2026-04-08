@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Waves, Dumbbell, ArrowRight, Clock, Users, Trophy, Calendar, Star } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 interface Discipline {
   id: number;
   code: string;

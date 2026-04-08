@@ -62,7 +62,7 @@ export default async function AccesPage({
             {t("empty.description")}
           </p>
           <Button asChild variant="ghost" className="mt-6 rounded-2xl">
-            <Link href={`/${locale}/espace/abonnements`}>
+            <Link href="/espace/abonnements">
               {t("empty.cta")}
               <ChevronRight className="size-4" />
             </Link>

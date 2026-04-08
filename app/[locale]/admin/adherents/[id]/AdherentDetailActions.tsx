@@ -1,21 +1,23 @@
 // app/[locale]/admin/adherents/[id]/AdherentDetailActions.tsx
 "use client";
 
-import { useAdminToast } from "@/components/admin/AdminToast";
-import { useTranslations } from "next-intl";
-import { toggleAdherentStatus } from "../actions";
-import { useRouter } from "@/i18n/navigation";
-import { ToggleLeft, ToggleRight, Loader2, AlertTriangle } from "lucide-react";
 import React from "react";
+import { AlertTriangle, Loader2, ToggleLeft, ToggleRight } from "lucide-react";
+import { useTranslations } from "next-intl";
+
+import { useRouter } from "@/i18n/navigation";
+import { useAdminToast } from "@/components/admin/AdminToast";
+
+import { toggleAdherentStatus } from "../actions";
 
 interface AdherentDetailActionsProps {
   adherentId: number;
   isActive: boolean;
-  locale: string;
 }
 
-export function AdherentDetailActions({ adherentId, isActive, locale }: AdherentDetailActionsProps) {
+export function AdherentDetailActions({ adherentId, isActive }: AdherentDetailActionsProps) {
   const t = useTranslations("admin");
+  const tc = useTranslations("common");
   const { toast } = useAdminToast();
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
@@ -23,8 +25,10 @@ export function AdherentDetailActions({ adherentId, isActive, locale }: Adherent
 
   async function handleToggle() {
     setLoading(true);
+
     const fd = new FormData();
     fd.set("id", String(adherentId));
+
     const result = await toggleAdherentStatus(fd);
     setLoading(false);
     setShowConfirm(false);
@@ -33,13 +37,13 @@ export function AdherentDetailActions({ adherentId, isActive, locale }: Adherent
       toast({
         variant: "error",
         title: t("toast.toggleError.title"),
-        description: t("toast.toggleError.desc")
+        description: t("toast.toggleError.desc"),
       });
     } else {
       toast({
         variant: "success",
         title: t("toast.toggleSuccess.title"),
-        description: t("toast.toggleSuccess.desc")
+        description: t("toast.toggleSuccess.desc"),
       });
       router.refresh();
     }
@@ -49,16 +53,18 @@ export function AdherentDetailActions({ adherentId, isActive, locale }: Adherent
     <div className="space-y-3">
       {showConfirm ? (
         <div className="space-y-3">
-          <div className="flex items-start gap-2 p-3 rounded-lg bg-accent/10 border border-accent/20">
-            <AlertTriangle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2 rounded-lg border border-accent/20 bg-accent/10 p-3">
+            <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent" />
             <div className="flex-1">
-              <p className="text-sm text-accent font-medium">
-                {isActive ? "Désactiver l'adhérent ?" : "Réactiver l'adhérent ?"}
-              </p>
-              <p className="text-xs text-accent/70 mt-1">
+              <p className="text-sm font-medium text-accent">
                 {isActive
-                  ? "L'adhérent ne pourra plus se connecter ni réserver."
-                  : "L'adhérent pourra à nouveau se connecter et réserver."}
+                  ? t("adherentsUi.detail.actions.confirmDeactivateTitle")
+                  : t("adherentsUi.detail.actions.confirmReactivateTitle")}
+              </p>
+              <p className="mt-1 text-xs text-accent/70">
+                {isActive
+                  ? t("adherentsUi.detail.actions.confirmDeactivateDescription")
+                  : t("adherentsUi.detail.actions.confirmReactivateDescription")}
               </p>
             </div>
           </div>
@@ -66,19 +72,21 @@ export function AdherentDetailActions({ adherentId, isActive, locale }: Adherent
             <button
               onClick={handleToggle}
               disabled={loading}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-destructive/20 hover:bg-destructive/30 border border-destructive/30 text-destructive text-sm font-medium transition-all disabled:opacity-50"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-destructive/30 bg-destructive/20 px-3 py-2 text-sm font-medium text-destructive transition-all hover:bg-destructive/30 disabled:opacity-50"
             >
               {loading ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : isActive ? (
+                t("adherentsUi.detail.actions.deactivate")
               ) : (
-                isActive ? "Désactiver" : "Réactiver"
+                t("adherentsUi.detail.actions.reactivate")
               )}
             </button>
             <button
               onClick={() => setShowConfirm(false)}
-              className="flex-1 px-3 py-2 rounded-lg bg-muted/20 hover:bg-muted/30 border border-border/30 text-muted-foreground text-sm font-medium transition-all"
+              className="flex-1 rounded-lg border border-border/30 bg-muted/20 px-3 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted/30"
             >
-              Annuler
+              {tc("cancel")}
             </button>
           </div>
         </div>
@@ -86,20 +94,19 @@ export function AdherentDetailActions({ adherentId, isActive, locale }: Adherent
         <button
           type="button"
           onClick={() => setShowConfirm(true)}
-          className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition-all ${isActive
-            ? 'bg-destructive/10 hover:bg-destructive/20 border border-destructive/20 text-destructive'
-            : 'bg-primary/10 hover:bg-primary/20 border border-primary/20 text-primary'
-            }`}
+          className={`inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all ${isActive
+            ? "border border-destructive/20 bg-destructive/10 text-destructive hover:bg-destructive/20"
+            : "border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20"}`}
         >
           {isActive ? (
             <>
-              <ToggleLeft className="w-4 h-4" />
-              Désactiver l'adhérent
+              <ToggleLeft className="h-4 w-4" />
+              {t("adherentsUi.detail.actions.deactivateMember")}
             </>
           ) : (
             <>
-              <ToggleRight className="w-4 h-4" />
-              Réactiver l'adhérent
+              <ToggleRight className="h-4 w-4" />
+              {t("adherentsUi.detail.actions.reactivateMember")}
             </>
           )}
         </button>

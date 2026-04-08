@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminNavbar } from "./AdminNavbar";
@@ -34,11 +34,6 @@ const BREAKPOINTS = {
   md: 768,
 } as const;
 
-const ANIMATION_DURATION = {
-  sidebar: 300,
-  backdrop: 300,
-} as const;
-
 const SIDEBAR_WIDTHS = {
   collapsed: 0,
   expanded: 256,
@@ -60,8 +55,6 @@ function useSidebarState(): SidebarState & {
     isCollapsed: true,
   });
 
-  const [isHydrated, setIsHydrated] = useState(false);
-
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -75,7 +68,6 @@ function useSidebarState(): SidebarState & {
     } catch {
       // Fallback to default
     }
-    setIsHydrated(true);
   }, []);
 
   const setMobileOpen = useCallback((isMobileOpen: boolean) => {
@@ -217,13 +209,14 @@ const DesktopSidebar = ({
   isCollapsed: boolean;
   setCollapsed: (collapsed: boolean) => void;
 }) => {
+  const t = useTranslations("admin.shell");
   const width = isCollapsed ? SIDEBAR_WIDTHS.collapsed : SIDEBAR_WIDTHS.expanded;
 
   return (
     <aside
       className="hidden lg:flex h-full flex-shrink-0 relative z-20"
       style={{ width: `${width}px` }}
-      aria-label="Sidebar navigation"
+      aria-label={t("sidebarNavigation")}
       suppressHydrationWarning
     >
       <div className="absolute inset-0 transition-[width] duration-300 ease-in-out">
@@ -246,6 +239,7 @@ const MobileDrawer = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
+  const t = useTranslations("admin.shell");
   return (
     <aside
       className={cn(
@@ -253,7 +247,7 @@ const MobileDrawer = ({
         "transition-transform duration-300 ease-in-out shadow-2xl",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
-      aria-label="Mobile navigation drawer"
+      aria-label={t("mobileNavigationDrawer")}
       aria-hidden={!isOpen}
       role="dialog"
       aria-modal={isOpen}
@@ -295,10 +289,6 @@ export function AdminShellClient({ agent, children }: AdminShellClientProps) {
   useBodyScrollLock(isMobileOpen);
   useResponsiveSidebar(isMobileOpen, setMobileOpen);
   useKeyboardShortcuts(isMobileOpen, closeMobile, toggleCollapsed);
-
-  const sidebarWidth = useMemo(() => {
-    return isCollapsed ? SIDEBAR_WIDTHS.collapsed : SIDEBAR_WIDTHS.expanded;
-  }, [isCollapsed]);
 
   return (
     <AdminToastProvider position="bottom" maxToasts={5}>
@@ -345,6 +335,19 @@ export function AdminShellClient({ agent, children }: AdminShellClientProps) {
 /* ══════════════════════════════════════════════════════
    Error Boundary
 ══════════════════════════════════════════════════════ */
+function AdminShellErrorFallback() {
+  const t = useTranslations("admin.shell");
+
+  return (
+    <div className="flex h-screen items-center justify-center bg-background text-foreground">
+      <div className="text-center">
+        <h2 className="mb-2 text-xl font-bold">{t("errorTitle")}</h2>
+        <p className="text-muted-foreground">{t("errorDescription")}</p>
+      </div>
+    </div>
+  );
+}
+
 export class AdminShellErrorBoundary extends React.Component<{ children: React.ReactNode; fallback?: React.ReactNode },
   { hasError: boolean }> {
   constructor(props: { children: React.ReactNode; fallback?: React.ReactNode }) {
@@ -362,18 +365,7 @@ export class AdminShellErrorBoundary extends React.Component<{ children: React.R
 
   render(): React.ReactNode {
     if (this.state.hasError) {
-      return (
-        this.props.fallback || (
-          <div className="flex items-center justify-center h-screen bg-background text-foreground">
-            <div className="text-center">
-              <h2 className="text-xl font-bold mb-2">Something went wrong</h2>
-              <p className="text-muted-foreground">
-                Please refresh the page or contact support.
-              </p>
-            </div>
-          </div>
-        )
-      );
+      return this.props.fallback || <AdminShellErrorFallback />;
     }
 
     return this.props.children;

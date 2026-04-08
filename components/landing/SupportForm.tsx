@@ -41,7 +41,6 @@ const inputClass = (invalid: boolean) =>
 
 export function SupportForm() {
     const t = useTranslations("landing.support");
-    const tNav = useTranslations("nav");
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [problemType, setProblemType] = useState("");

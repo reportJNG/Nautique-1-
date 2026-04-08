@@ -1,57 +1,62 @@
-// app/[locale]/admin/adherents/[id]/modifier/page.tsx
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/db/prisma";
 import { AdminPageShell } from "@/components/admin/AdminPage";
-import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { ModifierAdherentClient } from "./ModifierAdherentClient";
 
 async function getAdherent(id: number) {
-    return prisma.adherent.findUnique({
-        where: { id },
-        include: { organisation: true },
-    });
+  return prisma.adherent.findUnique({
+    where: { id },
+    include: { organisation: true },
+  });
 }
 
 async function getOrganisations() {
-    return prisma.organisation.findMany({ orderBy: { designation: "asc" } });
+  return prisma.organisation.findMany({ orderBy: { designation: "asc" } });
 }
 
 export default async function ModifierAdherentPage({
-    params,
+  params,
 }: {
-    params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }) {
-    const { locale, id } = await params;
+  const { locale, id } = await params;
+  const t = await getTranslations({ locale, namespace: "admin" });
 
-    if (!id || isNaN(parseInt(id))) notFound();
+  if (!id || Number.isNaN(Number.parseInt(id, 10))) {
+    notFound();
+  }
 
-    const [adherent, organisations] = await Promise.all([
-        getAdherent(parseInt(id)),
-        getOrganisations(),
-    ]);
+  const [adherent, organisations] = await Promise.all([
+    getAdherent(Number.parseInt(id, 10)),
+    getOrganisations(),
+  ]);
 
-    if (!adherent) notFound();
+  if (!adherent) {
+    notFound();
+  }
 
-    return (
-        <AdminPageShell locale={locale}>
-            <div className="max-w-2xl mx-auto py-8">
-                <div className="mb-6">
-                    <Link
-                        href={`/${locale}/admin/adherents/${id}`}
-                        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                        <ArrowLeft className="w-4 h-4" />
-                        Retour au profil
-                    </Link>
-                </div>
+  return (
+    <AdminPageShell locale={locale}>
+      <div className="mx-auto max-w-2xl py-8">
+        <div className="mb-6">
+          <Link
+            href={`/${locale}/admin/adherents/${id}`}
+            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            {t("adherentsUi.edit.backToProfile")}
+          </Link>
+        </div>
 
-                <ModifierAdherentClient
-                    adherent={adherent}
-                    organisations={organisations}
-                    locale={locale}
-                />
-            </div>
-        </AdminPageShell>
-    );
+        <ModifierAdherentClient
+          adherent={adherent}
+          organisations={organisations}
+          locale={locale}
+        />
+      </div>
+    </AdminPageShell>
+  );
 }

@@ -18,7 +18,6 @@ import {
   LogOut,
   Waves,
   X,
-  ChevronRight,
 } from "lucide-react";
 import { logoutAction } from "@/lib/actions/auth.actions";
 
@@ -48,7 +47,6 @@ export function AdminSidebar({
   collapsed = false,
   onNavigate,
   onClose,
-  isMobileOpen = false,
   setCollapsed,
 }: AdminSidebarProps) {
   const t = useTranslations("admin");
@@ -99,9 +97,6 @@ export function AdminSidebar({
       ],
     },
   ];
-
-  const initials =
-    `${agent.prenom?.[0] ?? ""}${agent.nom?.[0] ?? ""}`.toUpperCase() || "AG";
 
   async function handleLogout() {
     await logoutAction();

@@ -2,6 +2,7 @@
 "use client";
 
 import { Search, X } from "lucide-react";
+import type { Route } from "next";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
@@ -44,8 +45,9 @@ export function AdherentsFilters({
         if (organisation && organisation !== "all") params.set("organisation", organisation);
 
         const queryString = params.toString();
-        router.push(`/admin/adherents${queryString ? `?${queryString}` : ""}` as any);
-    }, [initialSearch, initialStatus, initialOrganisation, router]);
+        const href = (`/${locale}/admin/adherents${queryString ? `?${queryString}` : ""}`) as Route;
+        router.push(href);
+    }, [initialOrganisation, initialSearch, initialStatus, locale, router]);
 
     const handleSearch = useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -63,10 +65,10 @@ export function AdherentsFilters({
     }, [updateFilters]);
 
     const handleReset = useCallback(() => {
-        router.push(`/admin/adherents` as any);
+        router.push((`/${locale}/admin/adherents`) as Route);
     }, [locale, router]);
 
-    const hasActiveFilters = initialStatus !== "all" || initialOrganisation !== "all";
+    const hasActiveFilters = Boolean(initialSearch) || initialStatus !== "all" || initialOrganisation !== "all";
 
     return (
         <div className="bg-card/20 backdrop-blur-sm rounded-xl border border-border/30 p-4">

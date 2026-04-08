@@ -19,12 +19,15 @@
     "openMenu": "فتح القائمة",
     "closeMenu": "إغلاق القائمة",
     "toggleMenu": "تبديل القائمة",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "preferences": "التفضيلات"
   },
   "hero": {
     "title": "مركز السباحه سوناطراك",
     "subtitle": "فضائك المائي والرياضي",
-    "cta": "اكتشف أنشطتنا"
+    "cta": "اكتشف أنشطتنا",
+    "imageAlt": "مسبح المركز البحري سوناطراك",
+    "seasonBadge": "موسم 2026 - 2027"
   },
   "landing": {
     "disciplines": {
@@ -532,7 +535,8 @@
           "title": "فشل التسجيل"
         },
         "success": {
-          "title": "تم التسجيل بنجاح!"
+          "title": "تم التسجيل بنجاح!",
+          "message": "تم إنشاء حسابك بنجاح."
         },
         "unexpected": {
           "title": "خطأ غير متوقع",
@@ -652,6 +656,22 @@
         "title": "تمت إعادة تعيين كلمة المرور!",
         "message": "تم تغيير كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول ببياناتك الجديدة."
       }
+    },
+    "staffGate": {
+      "eyebrow": "الإدارة",
+      "title": "دخول آمن",
+      "subtitle": "مخصص للموظفين المصرح لهم",
+      "passwordLabel": "كلمة مرور المسؤول",
+      "passwordPlaceholder": "********",
+      "error": "كلمة المرور غير صحيحة",
+      "checking": "جارٍ التحقق...",
+      "submit": "دخول",
+      "footer": "يتم تسجيل كل دخول ومراقبته - للاستخدام الداخلي فقط",
+      "authenticating": "جارٍ المصادقة...",
+      "toast": {
+        "title": "تم رفض الوصول",
+        "description": "كلمة مرور المسؤول غير صحيحة."
+      }
     }
   },
   "adherent": {
@@ -705,11 +725,16 @@
       "closeOverlaySr": "إغلاق لوحة الشريط الجانبي",
       "collapseDesktopSr": "تصغير الشريط الجانبي",
       "expandDesktopSr": "توسيع الشريط الجانبي",
-      "mainContentLabel": "المحتوى الرئيسي"
+      "mainContentLabel": "المحتوى الرئيسي",
+      "sidebarNavigation": "تنقل الشريط الجانبي",
+      "mobileNavigationDrawer": "درج التنقل للجوال",
+      "errorTitle": "حدث خطأ ما",
+      "errorDescription": "أعد تحميل الصفحة أو تواصل مع الدعم."
     },
     "footer": {
       "copyright": "© {year} المركز البحري",
-      "tagline": "فضاء الإدارة — إدارة الأعضاء والاشتراكات والتخطيط"
+      "tagline": "فضاء الإدارة — إدارة الأعضاء والاشتراكات والتخطيط",
+      "navigationAria": "تنقل التذييل"
     },
     "roles": {
       "ADMIN": "مدير النظام",
@@ -745,6 +770,7 @@
       "NPY": "غير مدفوع"
     },
     "saisonStatus": {
+      "PRE": "قيد التحضير",
       "OUV": "مفتوح",
       "FER": "مغلق",
       "CLO": "مغلق/نهائي"
@@ -813,7 +839,26 @@
           "CLB": "نادي رياضي"
         },
         "submit": "إنشاء العضو",
-        "organisation": "المنظمة"
+        "organisation": "المنظمة",
+        "formErrorDescription": "يرجى تصحيح أخطاء النموذج.",
+        "placeholders": {
+          "email": "member@email.com",
+          "phone": "+213 5XX XX XX XX",
+          "password": "********"
+        },
+        "passwordHint": "8 أحرف على الأقل",
+        "cancel": "إلغاء",
+        "creating": "جارٍ الإنشاء...",
+        "validation": {
+          "emailRequired": "البريد الإلكتروني مطلوب",
+          "emailInvalid": "بريد إلكتروني غير صالح",
+          "passwordRequired": "كلمة المرور مطلوبة",
+          "passwordMin": "8 أحرف على الأقل",
+          "required": "هذا الحقل مطلوب",
+          "birthDateRequired": "تاريخ الميلاد مطلوب",
+          "minAge": "يجب أن يكون المنخرط بعمر 12 سنة على الأقل",
+          "maxAge": "عمر غير صالح"
+        }
       },
       "detail": {
         "title": "تفاصيل العضو",
@@ -830,8 +875,102 @@
           "birthDate": "تاريخ الميلاد",
           "organization": "المنظمة"
         },
-        "emptySubscriptions": "لا توجد اشتراكات"
-      }
+        "emptySubscriptions": "لا توجد اشتراكات",
+        "back": "العودة إلى القائمة",
+        "memberSince": "منخرط منذ {date}",
+        "personalInfo": "المعلومات الشخصية",
+        "gender": "الجنس",
+        "genderOptions": {
+          "M": "ذكر",
+          "F": "أنثى"
+        },
+        "address": "العنوان",
+        "subscriptionsTitle": "الاشتراكات ({count})",
+        "noSubscriptions": "لم يتم العثور على أي اشتراك",
+        "start": "البداية: {date}",
+        "end": "النهاية: {date}",
+        "actionsTitle": "الإجراءات",
+        "newSubscription": "اشتراك جديد",
+        "editInfo": "تعديل المعلومات",
+        "actions": {
+          "confirmDeactivateTitle": "تعطيل المنخرط؟",
+          "confirmReactivateTitle": "إعادة تفعيل المنخرط؟",
+          "confirmDeactivateDescription": "لن يتمكن المنخرط بعد الآن من تسجيل الدخول أو الحجز.",
+          "confirmReactivateDescription": "سيتمكن المنخرط من تسجيل الدخول والحجز مجددًا.",
+          "deactivate": "تعطيل",
+          "reactivate": "إعادة تفعيل",
+          "deactivateMember": "تعطيل المنخرط",
+          "reactivateMember": "إعادة تفعيل المنخرط"
+        }
+      },
+      "edit": {
+        "backToProfile": "العودة إلى الملف الشخصي",
+        "unknownError": "حدث خطأ",
+        "memberSinceLabel": "منذ",
+        "successMessage": "تم حفظ التعديلات بنجاح! جارٍ إعادة التوجيه...",
+        "sections": {
+          "identity": {
+            "title": "الهوية",
+            "subtitle": "المعلومات الشخصية"
+          },
+          "contact": {
+            "title": "التواصل",
+            "subtitle": "بيانات الاتصال والعنوان"
+          },
+          "organisation": {
+            "title": "المنظمة",
+            "subtitle": "الانتماء والحالة"
+          },
+          "security": {
+            "title": "الأمان",
+            "subtitle": "أمان الحساب"
+          }
+        },
+        "status": {
+          "active": "نشط",
+          "inactive": "غير نشط",
+          "activeOption": "نشط",
+          "inactiveOption": "غير نشط"
+        },
+        "fields": {
+          "firstName": "الاسم *",
+          "lastName": "اللقب *",
+          "birthDate": "تاريخ الميلاد *",
+          "gender": "الجنس *",
+          "employeeNumber": "رقم الموظف",
+          "status": "الحالة",
+          "email": "البريد الإلكتروني",
+          "phone": "الهاتف",
+          "address": "العنوان",
+          "organisation": "المنظمة *",
+          "newPassword": "كلمة مرور جديدة"
+        },
+        "placeholders": {
+          "firstName": "الاسم",
+          "lastName": "اللقب",
+          "employeeNumber": "اختياري",
+          "email": "email@example.com",
+          "phone": "+213 ...",
+          "address": "العنوان الكامل (اختياري)",
+          "newPassword": "اتركه فارغًا للإبقاء عليه كما هو"
+        },
+        "genderOptions": {
+          "M": "ذكر",
+          "F": "أنثى"
+        },
+        "organisationHint": "اختر المنظمة التي ينتمي إليها هذا المنخرط",
+        "passwordHint": "اتركه فارغًا للإبقاء على كلمة المرور الحالية",
+        "cancel": "إلغاء",
+        "save": "حفظ التعديلات",
+        "saving": "جارٍ الحفظ..."
+      },
+      "filters": {
+        "allStatuses": "كل الحالات",
+        "allOrganisations": "كل المنظمات",
+        "reset": "إعادة التعيين"
+      },
+      "resultsCount": "{count} نتيجة",
+      "noResults": "لم يتم العثور على أي منخرط"
     },
     "abonnementsUi": {
       "pageTitle": "إدارة الاشتراكات",
@@ -865,7 +1004,17 @@
         },
         "subscriptionAmountLabel": "المبلغ (دج)",
         "amountPlaceholder": "0.00",
-        "submit": "إنشاء الاشتراك"
+        "submit": "إنشاء الاشتراك",
+        "validationSelectAdherent": "اختر منخرطًا.",
+        "change": "تغيير",
+        "noResults": "لا توجد نتائج",
+        "detailsTitle": "تفاصيل الاشتراك",
+        "subscriptionTypePlaceholder": "اختر",
+        "seasonLabel": "الموسم",
+        "seasonPlaceholder": "اختر",
+        "ageCategoryLabel": "الفئة العمرية",
+        "ageCategoryPlaceholder": "اختر",
+        "creating": "جارٍ الإنشاء..."
       },
       "detail": {
         "title": "تفاصيل الاشتراك",
@@ -879,14 +1028,30 @@
           "discipline": "التخصص",
           "space": "المكان",
           "status": "الحالة",
-          "amount": "المبلغ"
+          "amount": "المبلغ",
+          "season": "الموسم",
+          "type": "النوع"
         },
         "actions": {
           "metToATP": "تعيين ATP",
           "validatePayment": "تأكيد الدفع",
           "activate": "تفعيل",
           "cancel": "إلغاء"
-        }
+        },
+        "invoicesTitle": "الفواتير ({count})",
+        "noInvoices": "لا توجد فاتورة",
+        "cancelled": "تم إلغاء الاشتراك",
+        "expired": "انتهت صلاحية الاشتراك"
+      },
+      "heroBadge": "النادي البحري",
+      "listTitle": "قائمة الاشتراكات",
+      "resultsCount": "{count} نتيجة",
+      "empty": "لم يتم العثور على أي اشتراك",
+      "stats": {
+        "total": "إجمالي الاشتراكات",
+        "active": "نشط",
+        "pending": "قيد الانتظار",
+        "expired": "منتهي"
       }
     },
     "facturesUi": {
@@ -947,13 +1112,114 @@
           "group": "المجموعة"
         },
         "emptyPeriods": "لا توجد فترات محددة",
-        "dateRange": "من {start} إلى {end}"
+        "dateRange": "من {start} إلى {end}",
+        "slotCount": "{count} حصة",
+        "periodCount": "{count} فترة",
+        "emptySlots": "لا توجد حصص في هذا الموسم"
+      },
+      "pageDescription": "{count} موسم",
+      "form": {
+        "title": "إنشاء موسم جديد",
+        "description": "أضف موسماً منظماً مع الفترة الزمنية والحالة مباشرة من صفحة المواسم.",
+        "adminOnlyBadge": "للمدير فقط",
+        "sections": {
+          "identity": "المعلومات الأساسية",
+          "status": "حالة الإطلاق"
+        },
+        "fields": {
+          "designation": "التسمية",
+          "dateDebut": "تاريخ البداية",
+          "dateFin": "تاريخ النهاية"
+        },
+        "placeholders": {
+          "designation": "مثال: موسم 2026-2027"
+        },
+        "hints": {
+          "designation": "استخدم تسمية واضحة ليسهل العثور على الموسم داخل الاشتراكات والحصص.",
+          "dateRange": "تؤثر هذه التواريخ على عرض المواسم والحصص المرتبطة وكل المسارات التي تعتمد على موسم نشط."
+        },
+        "statusOptions": {
+          "PRE": {
+            "description": "الموسم جاهز للإدارة لكنه غير مفتوح بعد للمسارات التي تتطلب موسماً نشطاً."
+          },
+          "OUV": {
+            "description": "الموسم متاح مباشرة لكل المسارات التي تعتمد على الموسم المفتوح."
+          },
+          "FER": {
+            "description": "الموسم موجود لكنه مغلق حالياً أمام العمليات الجديدة حتى تتم إعادة فتحه."
+          },
+          "CLO": {
+            "description": "الموسم منتهٍ ومغلق من أجل الأرشفة والمتابعة التاريخية."
+          }
+        },
+        "preview": {
+          "eyebrow": "معاينة",
+          "title": "ملخص فوري",
+          "live": "مباشر",
+          "designationLabel": "اسم الموسم",
+          "emptyDesignation": "موسم جديد",
+          "seasonYear": "الدورة {years}",
+          "seasonYearFallback": "يتم استنتاج السنوات تلقائياً من التواريخ المختارة.",
+          "rangeLabel": "الفترة",
+          "emptyRange": "اختر التواريخ لعرض الفترة.",
+          "statusLabel": "الحالة"
+        },
+        "notes": {
+          "adminTitle": "الإنشاء محصور بالمدير",
+          "adminDescription": "الزر مخفي عن بقية الأدوار كما أن الخادم يمنع أيضاً أي محاولة مباشرة للإنشاء خارج دور Admin.",
+          "openSeasonTitle": "يوجد موسم مفتوح بالفعل",
+          "openSeasonDescription": "سيتم رفض حالة مفتوح ما دام {designation} ما زال مفتوحاً.",
+          "anotherSeason": "موسم آخر"
+        },
+        "actions": {
+          "cancel": "إلغاء",
+          "submit": "إنشاء الموسم",
+          "submitting": "جارٍ الإنشاء..."
+        },
+        "validation": {
+          "designationRequired": "التسمية مطلوبة.",
+          "designationMin": "يجب أن تحتوي التسمية على 3 أحرف على الأقل.",
+          "designationMax": "لا يمكن أن تتجاوز التسمية 80 حرفاً.",
+          "dateDebutRequired": "تاريخ البداية مطلوب.",
+          "dateFinRequired": "تاريخ النهاية مطلوب.",
+          "invalidDate": "يرجى إدخال تاريخ صحيح.",
+          "endBeforeStart": "يجب أن يكون تاريخ النهاية بعد أو مساوياً لتاريخ البداية.",
+          "statusRequired": "يرجى اختيار الحالة."
+        },
+        "feedback": {
+          "invalidForm": "بعض المعلومات غير صالحة. صحح النموذج ثم أعد المحاولة.",
+          "duplicateDesignation": "يوجد موسم آخر بنفس التسمية.",
+          "openSeasonExists": "الموسم {designation} مفتوح بالفعل. أغلقه أو اختر حالة أخرى.",
+          "forbidden": "يمكن للمدير فقط إنشاء موسم جديد.",
+          "unexpected": "حدث خطأ أثناء إنشاء الموسم."
+        },
+        "toasts": {
+          "validationTitle": "النموذج غير مكتمل",
+          "validationDescription": "يرجى تصحيح الحقول المشار إليها قبل المتابعة.",
+          "errorTitle": "تعذر إنشاء الموسم",
+          "successTitle": "تم إنشاء الموسم",
+          "successDescription": "تمت إضافة الموسم الجديد بنجاح."
+        }
       }
     },
     "creneauxUi": {
       "pageTitle": "إدارة الفترات الزمنية",
+      "description": "تابع الفترات الزمنية الأسبوعية وسعتها ونسبة الإشغال فيها.",
+      "stats": {
+        "totalSlots": "الفترات الزمنية",
+        "totalCapacity": "السعة الإجمالية",
+        "enrolled": "المسجلون النشطون",
+        "fillRate": "نسبة الإشغال"
+      },
+      "status": {
+        "available": "متاح",
+        "limited": "أماكن محدودة",
+        "almostFull": "شبه مكتمل",
+        "full": "مكتمل"
+      },
       "table": {
         "title": "قائمة الفترات الزمنية",
+        "count": "{count} فترة زمنية",
         "discipline": "التخصص",
         "space": "المكان",
         "day": "اليوم",
@@ -961,6 +1227,7 @@
         "group": "المجموعة",
         "enrolled": "المسجلون"
       },
+      "empty": "لا توجد فترات زمنية متاحة",
       "detail": {
         "notFound": "لم يتم العثور على فترة زمنية",
         "title": "تفاصيل الفترة الزمنية",
@@ -993,7 +1260,10 @@
         "designation": "التسمية",
         "space": "المكان",
         "status": "الحالة"
-      }
+      },
+      "pageDescription": "{spaces} فضاءات - {disciplines} تخصصات",
+      "listDescription": "{count} تخصصًا مسجلًا",
+      "empty": "لا يوجد تخصص مهيأ"
     },
     "moniteursUi": {
       "pageTitle": "إدارة المدربين",
@@ -1013,24 +1283,37 @@
         "role": "الدور",
         "email": "البريد الإلكتروني",
         "status": "الحالة"
-      }
+      },
+      "empty": "لا يوجد موظف مهيأ"
     },
     "accessUi": {
       "title": "مراقبة الدخول",
       "card": {
         "save": "تسجيل دخول",
-        "journal": "سجل الدخول"
+        "journal": "سجل الدخول",
+        "subtitle": "أدخل رقم الملف أو امسح الشارة",
+        "description": "سجل الوصول الخاص باليوم"
       },
       "searchPlaceholder": "رقم الملف أو رمز الشريط...",
       "button": {
         "validate": "تأكيد الدخول"
       },
-      "emptyJournal": "لا يوجد دخول مسجل اليوم"
+      "emptyJournal": "لا يوجد دخول مسجل اليوم",
+      "pageDescription": "مراقبة الوصول في الوقت الفعلي",
+      "validationRequired": "أدخل رقم ملف.",
+      "stats": {
+        "grantedToday": "دخول اليوم",
+        "denied": "مرفوض",
+        "totalScans": "إجمالي عمليات المسح"
+      },
+      "systemActive": "النظام <strong>نشط</strong> - اضغط على Enter للمسح",
+      "realtime": "آني"
     },
     "parametresUi": {
       "title": "الإعدادات العامة",
       "card": {
-        "title": "إعدادات المركز"
+        "title": "إعدادات المركز",
+        "centerInfo": "معلومات المركز البحري"
       },
       "labels": {
         "designationCentre": "اسم المركز",
@@ -1042,6 +1325,26 @@
       },
       "button": {
         "saveChanges": "حفظ التغييرات"
+      },
+      "placeholders": {
+        "designationCentre": "مثال: المركز البحري البلدي",
+        "emailCentre": "contact@centre.dz",
+        "telephoneCentre": "+213 xx xx xx xx",
+        "adresseCentre": "العنوان الكامل للمركز"
+      },
+      "accessCard": {
+        "title": "التحكم في الدخول",
+        "subtitle": "هوامش الوقت للدخول"
+      },
+      "about": {
+        "title": "حول",
+        "description": "تنطبق هذه الإعدادات على كامل النظام.",
+        "advanceTolerance": "يسمح هامش التبكير بدخول المنخرط قبل وقت بداية الحصة.",
+        "delayTolerance": "يسمح هامش التأخير بدخول المنخرط بعد بدء الحصة."
+      },
+      "system": {
+        "title": "معلومات النظام",
+        "id": "المعرف: {value}"
       }
     },
     "toast": {
@@ -1113,6 +1416,52 @@
         "title": "البريد الإلكتروني مستخدم بالفعل",
         "desc": "يوجد حساب بهذا البريد الإلكتروني بالفعل."
       }
+    },
+    "navbar": {
+      "segments": {
+        "new": "جديد",
+        "edit": "تعديل",
+        "details": "التفاصيل",
+        "profile": "ملفي"
+      },
+      "notifications": {
+        "label": "الإشعارات",
+        "title": "الإشعارات",
+        "markAllRead": "تعيين الكل كمقروء",
+        "close": "إغلاق الإشعارات",
+        "viewAll": "عرض كل الإشعارات",
+        "items": {
+          "subscription": {
+            "title": "اشتراك جديد",
+            "body": "قام أحمد بن علي بالتسجيل للتو.",
+            "time": "5 د"
+          },
+          "invoice": {
+            "title": "فاتورة معلقة",
+            "body": "هناك 3 فواتير بانتظار الدفع.",
+            "time": "1 س"
+          },
+          "season": {
+            "title": "تم تحديث الموسم",
+            "body": "تم تحديث موسم 2024/25.",
+            "time": "أمس"
+          }
+        }
+      },
+      "profile": {
+        "label": "الملف الشخصي",
+        "menu": {
+          "profile": "ملفي",
+          "settings": "الإعدادات"
+        }
+      }
+    },
+    "page": {
+      "status": {
+        "operational": "جميع الخدمات تعمل",
+        "degraded": "الأداء متراجع",
+        "outage": "انقطاع في الخدمة"
+      }
     }
   },
   "common": {
@@ -1137,7 +1486,28 @@
     "print": "طباعة",
     "select": "تحديد",
     "vsLastMonth": "مقارنة بالشهر الماضي",
-    "total": "إجمالي"
+    "total": "إجمالي",
+    "recentSubscriptionsTable": {
+      "empty": "لا يوجد اشتراك حديث",
+      "columns": {
+        "member": "المنخرط",
+        "discipline": "التخصص",
+        "type": "النوع",
+        "status": "الحالة",
+        "amount": "المبلغ",
+        "startDate": "تاريخ البدء",
+        "actions": "الإجراءات"
+      }
+    },
+    "ui": {
+      "close": "إغلاق",
+      "notificationRegion": "الإشعارات",
+      "closeNotification": "إغلاق الإشعار",
+      "carousel": {
+        "previousSlide": "الشريحة السابقة",
+        "nextSlide": "الشريحة التالية"
+      }
+    }
   },
   "espace": {
     "news": {
@@ -1230,7 +1600,38 @@
         "successTitle": "تم إرسال الملاحظة",
         "successDescription": "تمت إضافة رسالتك إلى قائمة الإدارة التجريبية. الترتيب التقريبي: {count}.",
         "errorTitle": "تعذر الإرسال"
-      }
+      },
+      "cards": {
+        "admin": {
+          "title": "المساعدة الإدارية",
+          "description": "لأسئلة الملف أو التفعيل أو تنظيم المواسم."
+        },
+        "hotline": {
+          "title": "الخط الساخن للمركز",
+          "description": "تواصل سريع بخصوص مشاكل الدخول أو الشارة أو الحصة."
+        },
+        "subscriptions": {
+          "title": "إدارة عروضي",
+          "description": "هل تحتاج إلى إضافة اشتراك أو التحقق من فاتورة معلقة؟",
+          "action": "عرض اشتراكاتي"
+        }
+      },
+      "faq": {
+        "items": {
+          "invoice": "كيف أسدد فاتورة معلقة؟ انتقل إلى اشتراكاتك ثم تواصل مع المركز إذا لم تتغير الحالة.",
+          "access": "لا أرى دخول اليوم. قد يظهر السجل بعد تأكيد الاستقبال أو مسح الشارة.",
+          "planChange": "أريد تغيير الصيغة. أنشئ طلبًا جديدًا أو تواصل مع الدعم الإداري للمساعدة."
+        }
+      },
+      "contactLabels": {
+        "centre": "المركز",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
+        "queue": "طابور الإدارة التجريبي"
+      },
+      "fallbackCentre": "المركز البحري سوناطراك",
+      "unavailable": "غير متوفر",
+      "queueDescription": "الرسائل المخزنة حاليًا للمراجعة الإدارية التجريبية."
     },
     "dashboard": {
       "hero": {
@@ -1620,7 +2021,10 @@
           "organization": "المؤسسة",
           "birthDate": "تاريخ الميلاد",
           "employeeNumber": "رقم الموظف",
-          "fileNumber": "رقم الملف"
+          "fileNumber": "رقم الملف",
+          "emailTooltip": "عنوان البريد الإلكتروني يُدار من حسابك",
+          "addressPlaceholder": "عنوانك الكامل",
+          "phonePlaceholder": "+213 5XX XX XX XX"
         },
         "passwordFields": {
           "current": "كلمة المرور الحالية",
@@ -1632,7 +2036,10 @@
           "saving": "جارٍ الحفظ...",
           "saveProfile": "حفظ تعديلاتي",
           "updatingPassword": "جارٍ التحديث...",
-          "changePassword": "تغيير كلمة المرور"
+          "changePassword": "تغيير كلمة المرور",
+          "cancel": "إلغاء",
+          "keepEditing": "متابعة التعديل",
+          "discard": "تجاهل"
         },
         "toasts": {
           "profileError": "تعذر التحديث",
@@ -1640,9 +2047,47 @@
           "profileSavedDescription": "تم تحديث معلومات الاتصال الخاصة بك.",
           "passwordError": "تم رفض التغيير",
           "passwordChanged": "تم تغيير كلمة المرور",
-          "passwordChangedDescription": "تم تعزيز أمان حسابك."
+          "passwordChangedDescription": "تم تعزيز أمان حسابك.",
+          "validationError": "النموذج غير مكتمل",
+          "requiredFields": "الاسم واللقب مطلوبان.",
+          "passwordWeak": "كلمة المرور ضعيفة",
+          "passwordWeakDescription": "يرجى استيفاء جميع متطلبات كلمة المرور.",
+          "changesDiscarded": "تم تجاهل التغييرات",
+          "changesDiscardedDescription": "تمت إعادة ضبط نموذج الملف الشخصي."
         },
-        "noRecentActivity": "لا يوجد نشاط حديث."
+        "noRecentActivity": "لا يوجد نشاط حديث.",
+        "unsavedChanges": "تغييرات غير محفوظة",
+        "validation": {
+          "required": "هذا الحقل مطلوب"
+        },
+        "security": {
+          "status": "حالة الأمان",
+          "protected": "حسابك محمي",
+          "active": "نشط"
+        },
+        "passwordDialog": {
+          "title": "تغيير كلمة المرور",
+          "description": "اختر كلمة مرور جديدة وآمنة لحسابك."
+        },
+        "passwordStrength": "قوة كلمة المرور",
+        "strong": "قوية",
+        "medium": "متوسطة",
+        "weak": "ضعيفة",
+        "passwordValidation": {
+          "minLength": "8 أحرف على الأقل",
+          "uppercase": "حرف كبير واحد",
+          "lowercase": "حرف صغير واحد",
+          "number": "رقم واحد",
+          "match": "كلمتا المرور غير متطابقتين"
+        },
+        "passwordToggle": {
+          "show": "إظهار كلمة المرور",
+          "hide": "إخفاء كلمة المرور"
+        },
+        "cancelDialog": {
+          "title": "تجاهل التغييرات؟",
+          "description": "ستفقد تعديلاتك غير المحفوظة."
+        }
       },
       "subscriptionNew": {
         "backToSubscriptions": "العودة إلى الاشتراكات",
@@ -1748,8 +2193,7 @@
           "dayEmpty": "لا توجد حصة",
           "noGroup": "بدون مجموعة",
           "openBadge": "دخول حر",
-          "openMessage": "دخول حر — لا حاجة إلى حصة ثابتة."
-          ,
+          "openMessage": "دخول حر — لا حاجة إلى حصة ثابتة.",
           "selectionLimit": "اختر حتى {max} حصص لهذه الصيغة.",
           "selectionCount": "تم اختيار {count} من {max}",
           "limitReached": "تم الوصول إلى الحد الأقصى لهذه الصيغة. أزل اختيار حصة لاختيار أخرى."
@@ -1884,7 +2328,8 @@
   "theme": {
     "light": "فاتح",
     "dark": "داكن",
-    "system": "النظام"
+    "system": "النظام",
+    "toggle": "تغيير السمة"
   },
   "language": {
     "fr": "Français",

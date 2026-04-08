@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, type ChangeEvent, type KeyboardEvent, } from "react";
 import { useRouter, Link } from "@/i18n/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,7 +23,6 @@ function FieldError({ message }: {
 export default function AdherentLoginPage() {
   const t = useTranslations("auth");
   const router = useRouter();
-  const locale = useLocale();
   const redirectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [isPending, setIsPending] = useState(false);
@@ -97,7 +96,7 @@ export default function AdherentLoginPage() {
   const handleGoBack = () => {
     router.push('/');
   };
-  async function handleSubmit(fd: FormData) {
+  async function handleSubmit() {
     if (!isValid) {
       setTouched({ email: true, password: true });
       return;
@@ -108,7 +107,7 @@ export default function AdherentLoginPage() {
       const result = adherentLoginSchema.safeParse(formData);
       if (!result.success) {
         const errors: Partial<AdherentLoginInput> = {};
-        result.error.issues.forEach((error: any) => {
+        result.error.issues.forEach((error) => {
           if (error.path.length > 0) {
             errors[error.path[0] as keyof AdherentLoginInput] = error.message;
           }

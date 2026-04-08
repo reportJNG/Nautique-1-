@@ -38,8 +38,6 @@ export async function Footer(props: {
   const quickLinks = [
     { href: "/auth/adherent/login", label: t("footer.memberArea") },
     { href: "/auth/login", label: t("footer.staffArea") },
-    { href: "/privacy", label: t("footer.privacyPolicy") },
-    { href: "/terms", label: t("footer.termsOfUse") },
   ];
   return (<footer id="contact" className="relative overflow-hidden bg-card text-foreground" style={{ fontFamily: "'DM Sans', sans-serif" }}>
 

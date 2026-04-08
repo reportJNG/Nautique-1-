@@ -77,7 +77,7 @@ export async function signupAction(formData: FormData) {
     if (!parsed.success) {
         return { error: parsed.error.issues[0].message };
     }
-    const { confirmPassword, ...data } = parsed.data;
+    const data = parsed.data;
     try {
         const existing = await prisma.adherent.findFirst({
             where: { email: data.email },

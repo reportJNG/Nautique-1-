@@ -18,12 +18,8 @@ import {
     MessageCircle,
     LifeBuoy,
     User,
-    Shield,
-    Mail,
     ChevronRight,
     Sparkles,
-    ArrowUpRight,
-    Circle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -561,7 +557,7 @@ export function LandingNav() {
                                     className="mt-5 flex items-center justify-between border-t border-border pt-4"
                                 >
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                                        Preferences
+                                        {t("preferences")}
                                     </span>
                                     <div className="flex items-center gap-2">
                                         <ThemeToggle />

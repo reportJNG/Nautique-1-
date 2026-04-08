@@ -35,7 +35,6 @@ export function AbonnementActionCard({
   abonnementId,
   factureId,
   statutCode,
-  locale: _locale,
   invoiceNumber,
   invoiceStatus,
   invoiceMode,

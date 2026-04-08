@@ -769,7 +769,31 @@ export async function getEspacePlanningData(adherentId: number) {
       day,
       slots: slots
         .sort((a, b) => a.startSortValue - b.startSortValue)
-        .map(({ startSortValue, ...slot }) => slot),
+        .map(
+          ({
+            id,
+            discipline,
+            espace,
+            season,
+            category,
+            coaches,
+            group,
+            start,
+            end,
+            status,
+          }) => ({
+            id,
+            discipline,
+            espace,
+            season,
+            category,
+            coaches,
+            group,
+            start,
+            end,
+            status,
+          }),
+        ),
     };
   });
 

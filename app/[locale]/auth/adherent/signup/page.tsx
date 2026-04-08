@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect, type ChangeEvent, type KeyboardEvent, } from "react";
+import { useState, useRef, useEffect, type ChangeEvent, } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
@@ -9,22 +9,12 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Waves, Eye, EyeOff, ArrowLeft, User, Mail, Phone, MapPin, Lock, IdCard, CalendarDays, Loader2, AlertCircle, Check, X, } from "lucide-react";
-import { signupAction, type SignupFieldErrors } from "./actions";
+import { signupAction } from "./actions";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { adherentSignupSchema, type AdherentSignupInput } from "@/lib/validators/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
-type FormFields = {
-  nom: string;
-  prenom: string;
-  email: string;
-  telephone: string;
-  sexe: string;
-  dateNaissance: string;
-  adresse: string;
-  numeroMatricule: string;
-  password: string;
-  confirmPassword: string;
-};
+
+type AdherentSignupFieldErrors = Partial<Record<keyof AdherentSignupInput, string>>;
 function FieldError({ message }: {
   message: string;
 }) {
@@ -76,7 +66,7 @@ export default function AdherentSignupPage() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<Partial<AdherentSignupInput>>({});
+  const [fieldErrors, setFieldErrors] = useState<AdherentSignupFieldErrors>({});
   const [touched, setTouched] = useState<Partial<Record<keyof AdherentSignupInput, boolean>>>({});
   const [formData, setFormData] = useState<AdherentSignupInput>({
     nom: "",
@@ -140,7 +130,7 @@ export default function AdherentSignupPage() {
   const handleGoBack = () => {
     router.push(`/`);
   };
-  async function handleSubmit(fd: FormData) {
+  async function handleSubmit() {
     const required: (keyof AdherentSignupInput)[] = [
       "nom", "prenom", "email", "sexe", "dateNaissance", "password", "confirmPassword",
     ];
@@ -149,8 +139,8 @@ export default function AdherentSignupPage() {
 
     const result = adherentSignupSchema.safeParse(formData);
     if (!result.success) {
-      const errors: Partial<AdherentSignupInput> = {};
-      result.error.issues.forEach((error: any) => {
+      const errors: AdherentSignupFieldErrors = {};
+      result.error.issues.forEach((error) => {
         if (error.path.length > 0) {
           errors[error.path[0] as keyof AdherentSignupInput] = error.message;
         }
@@ -190,7 +180,8 @@ export default function AdherentSignupPage() {
       }
       else {
         toast.success(t("adherentSignup.notifications.success.title"), {
-          description: signupResult.message || "Inscription réussie",
+          description:
+            signupResult.message || t("adherentSignup.notifications.success.message"),
           duration: 5000,
         });
         setTimeout(() => {

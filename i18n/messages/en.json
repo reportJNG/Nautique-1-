@@ -19,12 +19,15 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "toggleMenu": "Toggle menu",
-    "logout": "Logout"
+    "logout": "Logout",
+    "preferences": "Preferences"
   },
   "hero": {
     "title": "SONATRACH Nautical Center",
     "subtitle": "Your aquatic and fitness space",
-    "cta": "Discover our activities"
+    "cta": "Discover our activities",
+    "imageAlt": "SONATRACH Nautical Center pool",
+    "seasonBadge": "Season 2026 - 2027"
   },
   "landing": {
     "disciplines": {
@@ -532,7 +535,8 @@
           "title": "Signup failed"
         },
         "success": {
-          "title": "Signup successful!"
+          "title": "Signup successful!",
+          "message": "Your account has been created successfully."
         },
         "unexpected": {
           "title": "Unexpected error",
@@ -652,6 +656,22 @@
         "title": "Password reset!",
         "message": "Your password has been changed successfully. You can now sign in with your new credentials."
       }
+    },
+    "staffGate": {
+      "eyebrow": "Administration",
+      "title": "Secure access",
+      "subtitle": "Reserved for authorized staff",
+      "passwordLabel": "Administrator password",
+      "passwordPlaceholder": "********",
+      "error": "Incorrect password",
+      "checking": "Checking...",
+      "submit": "Enter",
+      "footer": "Access is logged and monitored - internal use only",
+      "authenticating": "Authenticating...",
+      "toast": {
+        "title": "Access denied",
+        "description": "Incorrect administrator password."
+      }
     }
   },
   "adherent": {
@@ -705,11 +725,16 @@
       "collapseDesktopSr": "Collapse sidebar",
       "expandDesktopSr": "Expand sidebar",
       "closeOverlaySr": "Close sidebar panel",
-      "mainContentLabel": "Main content"
+      "mainContentLabel": "Main content",
+      "sidebarNavigation": "Sidebar navigation",
+      "mobileNavigationDrawer": "Mobile navigation drawer",
+      "errorTitle": "Something went wrong",
+      "errorDescription": "Refresh the page or contact support."
     },
     "footer": {
       "copyright": "© {year} Nautical Center",
-      "tagline": "Administration area — managing members, subscriptions and planning"
+      "tagline": "Administration area — managing members, subscriptions and planning",
+      "navigationAria": "Footer navigation"
     },
     "roles": {
       "ADMIN": "Administrator",
@@ -815,6 +840,7 @@
       "NPY": "Not paid"
     },
     "saisonStatus": {
+      "PRE": "In preparation",
       "OUV": "Open",
       "FER": "Closed",
       "CLO": "Closed/Final"
@@ -883,7 +909,26 @@
           "CLB": "Sports club"
         },
         "submit": "Create member",
-        "organisation": "Organization"
+        "organisation": "Organization",
+        "formErrorDescription": "Please fix the form errors.",
+        "placeholders": {
+          "email": "member@email.com",
+          "phone": "+213 5XX XX XX XX",
+          "password": "********"
+        },
+        "passwordHint": "Minimum 8 characters",
+        "cancel": "Cancel",
+        "creating": "Creating...",
+        "validation": {
+          "emailRequired": "Email is required",
+          "emailInvalid": "Invalid email",
+          "passwordRequired": "Password is required",
+          "passwordMin": "At least 8 characters",
+          "required": "This field is required",
+          "birthDateRequired": "Birth date is required",
+          "minAge": "The member must be at least 12 years old",
+          "maxAge": "Invalid age"
+        }
       },
       "detail": {
         "title": "Member details",
@@ -900,8 +945,102 @@
           "birthDate": "Born on",
           "organization": "Organization"
         },
-        "emptySubscriptions": "No subscriptions"
-      }
+        "emptySubscriptions": "No subscriptions",
+        "back": "Back to list",
+        "memberSince": "Member since {date}",
+        "personalInfo": "Personal information",
+        "gender": "Gender",
+        "genderOptions": {
+          "M": "Male",
+          "F": "Female"
+        },
+        "address": "Address",
+        "subscriptionsTitle": "Subscriptions ({count})",
+        "noSubscriptions": "No subscription found",
+        "start": "Start: {date}",
+        "end": "End: {date}",
+        "actionsTitle": "Actions",
+        "newSubscription": "New subscription",
+        "editInfo": "Edit information",
+        "actions": {
+          "confirmDeactivateTitle": "Deactivate member?",
+          "confirmReactivateTitle": "Reactivate member?",
+          "confirmDeactivateDescription": "The member will no longer be able to sign in or book.",
+          "confirmReactivateDescription": "The member will be able to sign in and book again.",
+          "deactivate": "Deactivate",
+          "reactivate": "Reactivate",
+          "deactivateMember": "Deactivate member",
+          "reactivateMember": "Reactivate member"
+        }
+      },
+      "edit": {
+        "backToProfile": "Back to profile",
+        "unknownError": "An error occurred",
+        "memberSinceLabel": "Member since",
+        "successMessage": "Changes saved successfully! Redirecting...",
+        "sections": {
+          "identity": {
+            "title": "Identity",
+            "subtitle": "Personal information"
+          },
+          "contact": {
+            "title": "Contact",
+            "subtitle": "Contact details and address"
+          },
+          "organisation": {
+            "title": "Organization",
+            "subtitle": "Affiliation and status"
+          },
+          "security": {
+            "title": "Security",
+            "subtitle": "Account security"
+          }
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "activeOption": "Active",
+          "inactiveOption": "Inactive"
+        },
+        "fields": {
+          "firstName": "First name *",
+          "lastName": "Last name *",
+          "birthDate": "Birth date *",
+          "gender": "Gender *",
+          "employeeNumber": "Employee number",
+          "status": "Status",
+          "email": "Email",
+          "phone": "Phone",
+          "address": "Address",
+          "organisation": "Organization *",
+          "newPassword": "New password"
+        },
+        "placeholders": {
+          "firstName": "First name",
+          "lastName": "Last name",
+          "employeeNumber": "Optional",
+          "email": "email@example.com",
+          "phone": "+213 ...",
+          "address": "Full address (optional)",
+          "newPassword": "Leave blank to keep unchanged"
+        },
+        "genderOptions": {
+          "M": "Male",
+          "F": "Female"
+        },
+        "organisationHint": "Select the organization this member belongs to",
+        "passwordHint": "Leave blank to keep the current password",
+        "cancel": "Cancel",
+        "save": "Save changes",
+        "saving": "Saving..."
+      },
+      "filters": {
+        "allStatuses": "All statuses",
+        "allOrganisations": "All organizations",
+        "reset": "Reset"
+      },
+      "resultsCount": "{count, plural, one {# result} other {# results}}",
+      "noResults": "No member found"
     },
     "abonnementsUi": {
       "pageTitle": "Manage subscriptions",
@@ -935,7 +1074,17 @@
         },
         "subscriptionAmountLabel": "Amount (DA)",
         "amountPlaceholder": "0.00",
-        "submit": "Create subscription"
+        "submit": "Create subscription",
+        "validationSelectAdherent": "Select a member.",
+        "change": "Change",
+        "noResults": "No results",
+        "detailsTitle": "Subscription details",
+        "subscriptionTypePlaceholder": "Select",
+        "seasonLabel": "Season",
+        "seasonPlaceholder": "Select",
+        "ageCategoryLabel": "Age category",
+        "ageCategoryPlaceholder": "Select",
+        "creating": "Creating..."
       },
       "detail": {
         "title": "Subscription details",
@@ -949,14 +1098,30 @@
           "discipline": "Discipline",
           "space": "Space",
           "status": "Status",
-          "amount": "Amount"
+          "amount": "Amount",
+          "season": "Season",
+          "type": "Type"
         },
         "actions": {
           "metToATP": "Set to ATP",
           "validatePayment": "Validate payment",
           "activate": "Activate",
           "cancel": "Cancel"
-        }
+        },
+        "invoicesTitle": "Invoices ({count})",
+        "noInvoices": "No invoice",
+        "cancelled": "Subscription cancelled",
+        "expired": "Subscription expired"
+      },
+      "heroBadge": "Nautical club",
+      "listTitle": "Subscription list",
+      "resultsCount": "{count} results",
+      "empty": "No subscription found",
+      "stats": {
+        "total": "Total subscriptions",
+        "active": "Active",
+        "pending": "Pending",
+        "expired": "Expired"
       }
     },
     "facturesUi": {
@@ -1017,13 +1182,114 @@
           "group": "Group"
         },
         "emptyPeriods": "No period defined",
-        "dateRange": "From {start} to {end}"
+        "dateRange": "From {start} to {end}",
+        "slotCount": "{count, plural, one {# time slot} other {# time slots}}",
+        "periodCount": "{count, plural, one {# period} other {# periods}}",
+        "emptySlots": "No time slots in this season"
+      },
+      "pageDescription": "{count, plural, one {# season} other {# seasons}}",
+      "form": {
+        "title": "Create a new season",
+        "description": "Add a well-structured season with its date range and launch status directly from the list view.",
+        "adminOnlyBadge": "Admin only",
+        "sections": {
+          "identity": "Core information",
+          "status": "Launch status"
+        },
+        "fields": {
+          "designation": "Designation",
+          "dateDebut": "Start date",
+          "dateFin": "End date"
+        },
+        "placeholders": {
+          "designation": "Ex. Season 2026-2027"
+        },
+        "hints": {
+          "designation": "Use a clear label so the season stays easy to find across subscriptions and time slots.",
+          "dateRange": "These dates drive season displays, linked time slots and any flows that depend on an active season."
+        },
+        "statusOptions": {
+          "PRE": {
+            "description": "Season is prepared for staff, but not yet open for flows that require an active season."
+          },
+          "OUV": {
+            "description": "Season is immediately available for any flow that reads the open season."
+          },
+          "FER": {
+            "description": "Season exists, but new operations stay blocked until it is reopened."
+          },
+          "CLO": {
+            "description": "Season is finalized for archive and historical tracking."
+          }
+        },
+        "preview": {
+          "eyebrow": "Preview",
+          "title": "Instant summary",
+          "live": "Live",
+          "designationLabel": "Season name",
+          "emptyDesignation": "New season",
+          "seasonYear": "Cycle {years}",
+          "seasonYearFallback": "Years are inferred automatically from the selected dates.",
+          "rangeLabel": "Date range",
+          "emptyRange": "Choose dates to preview the range.",
+          "statusLabel": "Status"
+        },
+        "notes": {
+          "adminTitle": "Creation is limited to administrators",
+          "adminDescription": "The button is hidden for other roles and the server also blocks direct creation attempts outside the Admin role.",
+          "openSeasonTitle": "An open season already exists",
+          "openSeasonDescription": "The Open status will be rejected while {designation} stays open.",
+          "anotherSeason": "another season"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "submit": "Create season",
+          "submitting": "Creating..."
+        },
+        "validation": {
+          "designationRequired": "Designation is required.",
+          "designationMin": "Designation must contain at least 3 characters.",
+          "designationMax": "Designation cannot exceed 80 characters.",
+          "dateDebutRequired": "Start date is required.",
+          "dateFinRequired": "End date is required.",
+          "invalidDate": "Please enter a valid date.",
+          "endBeforeStart": "End date must be on or after the start date.",
+          "statusRequired": "Please choose a status."
+        },
+        "feedback": {
+          "invalidForm": "Some information is invalid. Fix the form and try again.",
+          "duplicateDesignation": "A season with this designation already exists.",
+          "openSeasonExists": "The season {designation} is already open. Close it or choose another status.",
+          "forbidden": "Only an administrator can create a season.",
+          "unexpected": "An error occurred while creating the season."
+        },
+        "toasts": {
+          "validationTitle": "Incomplete form",
+          "validationDescription": "Please fix the highlighted fields before continuing.",
+          "errorTitle": "Unable to create season",
+          "successTitle": "Season created",
+          "successDescription": "The new season has been added successfully."
+        }
       }
     },
     "creneauxUi": {
       "pageTitle": "Time slot management",
+      "description": "Track weekly time slots, their capacity and how full they are.",
+      "stats": {
+        "totalSlots": "Time slots",
+        "totalCapacity": "Total capacity",
+        "enrolled": "Active enrollments",
+        "fillRate": "Fill rate"
+      },
+      "status": {
+        "available": "Available",
+        "limited": "Limited",
+        "almostFull": "Almost full",
+        "full": "Full"
+      },
       "table": {
         "title": "Time slots list",
+        "count": "{count, plural, one {# time slot} other {# time slots}}",
         "discipline": "Discipline",
         "space": "Space",
         "day": "Day",
@@ -1031,6 +1297,7 @@
         "group": "Group",
         "enrolled": "Enrolled"
       },
+      "empty": "No time slot available",
       "detail": {
         "notFound": "Time slot not found",
         "title": "Time slot details",
@@ -1063,7 +1330,10 @@
         "designation": "Name",
         "space": "Space",
         "status": "Status"
-      }
+      },
+      "pageDescription": "{spaces} spaces - {disciplines} disciplines",
+      "listDescription": "{count} disciplines configured",
+      "empty": "No discipline configured"
     },
     "moniteursUi": {
       "pageTitle": "Instructors management",
@@ -1083,24 +1353,37 @@
         "role": "Role",
         "email": "Email",
         "status": "Status"
-      }
+      },
+      "empty": "No agent configured"
     },
     "accessUi": {
       "title": "Access control",
       "card": {
         "save": "Register an access",
-        "journal": "Access log"
+        "journal": "Access log",
+        "subtitle": "Enter a file number or scan a badge",
+        "description": "Today's access history"
       },
       "searchPlaceholder": "File No. or barcode...",
       "button": {
         "validate": "Validate access"
       },
-      "emptyJournal": "No access recorded today"
+      "emptyJournal": "No access recorded today",
+      "pageDescription": "Real-time access control",
+      "validationRequired": "Enter a file number.",
+      "stats": {
+        "grantedToday": "Entries today",
+        "denied": "Denied",
+        "totalScans": "Total scans"
+      },
+      "systemActive": "System <strong>active</strong> - press Enter to scan",
+      "realtime": "Real-time"
     },
     "parametresUi": {
       "title": "Global settings",
       "card": {
-        "title": "Center configuration"
+        "title": "Center configuration",
+        "centerInfo": "Nautical center information"
       },
       "labels": {
         "designationCentre": "Center name",
@@ -1112,6 +1395,72 @@
       },
       "button": {
         "saveChanges": "Save changes"
+      },
+      "placeholders": {
+        "designationCentre": "Example: Municipal Nautical Center",
+        "emailCentre": "contact@centre.dz",
+        "telephoneCentre": "+213 xx xx xx xx",
+        "adresseCentre": "Full center address"
+      },
+      "accessCard": {
+        "title": "Access control",
+        "subtitle": "Time tolerances for entries"
+      },
+      "about": {
+        "title": "About",
+        "description": "These settings apply to the entire system.",
+        "advanceTolerance": "The early tolerance lets members enter before the slot start time.",
+        "delayTolerance": "The late tolerance lets members enter after the slot has started."
+      },
+      "system": {
+        "title": "System information",
+        "id": "ID: {value}"
+      }
+    },
+    "navbar": {
+      "segments": {
+        "new": "New",
+        "edit": "Edit",
+        "details": "Details",
+        "profile": "My profile"
+      },
+      "notifications": {
+        "label": "Notifications",
+        "title": "Notifications",
+        "markAllRead": "Mark all as read",
+        "close": "Close notifications",
+        "viewAll": "View all notifications",
+        "items": {
+          "subscription": {
+            "title": "New subscription",
+            "body": "Ahmed Benali has just signed up.",
+            "time": "5 min"
+          },
+          "invoice": {
+            "title": "Invoice pending",
+            "body": "3 invoices are waiting for payment.",
+            "time": "1h"
+          },
+          "season": {
+            "title": "Season updated",
+            "body": "Season 2024/25 was updated.",
+            "time": "Yesterday"
+          }
+        }
+      },
+      "profile": {
+        "label": "Profile",
+        "menu": {
+          "profile": "My profile",
+          "settings": "Settings"
+        }
+      }
+    },
+    "page": {
+      "status": {
+        "operational": "All services operational",
+        "degraded": "Performance degraded",
+        "outage": "Service outage"
       }
     }
   },
@@ -1137,7 +1486,28 @@
     "print": "Print",
     "select": "Select",
     "vsLastMonth": "vs last month",
-    "total": "total"
+    "total": "total",
+    "recentSubscriptionsTable": {
+      "empty": "No recent subscription",
+      "columns": {
+        "member": "Member",
+        "discipline": "Discipline",
+        "type": "Type",
+        "status": "Status",
+        "amount": "Amount",
+        "startDate": "Start date",
+        "actions": "Actions"
+      }
+    },
+    "ui": {
+      "close": "Close",
+      "notificationRegion": "Notifications",
+      "closeNotification": "Close notification",
+      "carousel": {
+        "previousSlide": "Previous slide",
+        "nextSlide": "Next slide"
+      }
+    }
   },
   "espace": {
     "news": {
@@ -1230,7 +1600,38 @@
         "successTitle": "Feedback sent",
         "successDescription": "Your message has been placed in the simulated admin queue. Approximate position: {count}.",
         "errorTitle": "Unable to send"
-      }
+      },
+      "cards": {
+        "admin": {
+          "title": "Administrative assistance",
+          "description": "For file, activation, or season organization questions."
+        },
+        "hotline": {
+          "title": "Center hotline",
+          "description": "Quick contact for access, badge, or session issues."
+        },
+        "subscriptions": {
+          "title": "Manage my offers",
+          "description": "Need to add a subscription or check a pending invoice?",
+          "action": "View my subscriptions"
+        }
+      },
+      "faq": {
+        "items": {
+          "invoice": "How do I pay a pending invoice? Go to your subscriptions, then contact the center if the status has not changed.",
+          "access": "I cannot see my access for today. The record may appear after front-desk validation or badge scan.",
+          "planChange": "I want to change my plan. Create a new request or contact administrative support for help."
+        }
+      },
+      "contactLabels": {
+        "centre": "Center",
+        "email": "Email",
+        "phone": "Phone",
+        "queue": "Fake admin queue"
+      },
+      "fallbackCentre": "SONATRACH Nautical Center",
+      "unavailable": "Not provided",
+      "queueDescription": "Messages currently stored for simulated admin review."
     },
     "dashboard": {
       "hero": {
@@ -1620,7 +2021,10 @@
           "organization": "Organization",
           "birthDate": "Birth date",
           "employeeNumber": "Employee number",
-          "fileNumber": "File number"
+          "fileNumber": "File number",
+          "emailTooltip": "Email address managed from your account",
+          "addressPlaceholder": "Your full address",
+          "phonePlaceholder": "+213 5XX XX XX XX"
         },
         "passwordFields": {
           "current": "Current password",
@@ -1632,7 +2036,10 @@
           "saving": "Saving...",
           "saveProfile": "Save my changes",
           "updatingPassword": "Updating...",
-          "changePassword": "Change password"
+          "changePassword": "Change password",
+          "cancel": "Cancel",
+          "keepEditing": "Keep editing",
+          "discard": "Discard"
         },
         "toasts": {
           "profileError": "Unable to update",
@@ -1640,9 +2047,47 @@
           "profileSavedDescription": "Your contact details have been updated.",
           "passwordError": "Password change rejected",
           "passwordChanged": "Password changed",
-          "passwordChangedDescription": "Your security has been strengthened."
+          "passwordChangedDescription": "Your security has been strengthened.",
+          "validationError": "Incomplete form",
+          "requiredFields": "First name and last name are required.",
+          "passwordWeak": "Password too weak",
+          "passwordWeakDescription": "Please satisfy all password requirements.",
+          "changesDiscarded": "Changes discarded",
+          "changesDiscardedDescription": "The profile form has been reset."
         },
-        "noRecentActivity": "No recent activity."
+        "noRecentActivity": "No recent activity.",
+        "unsavedChanges": "Unsaved changes",
+        "validation": {
+          "required": "This field is required"
+        },
+        "security": {
+          "status": "Security status",
+          "protected": "Your account is protected",
+          "active": "Active"
+        },
+        "passwordDialog": {
+          "title": "Change password",
+          "description": "Choose a new secure password for your account."
+        },
+        "passwordStrength": "Password strength",
+        "strong": "Strong",
+        "medium": "Medium",
+        "weak": "Weak",
+        "passwordValidation": {
+          "minLength": "At least 8 characters",
+          "uppercase": "One uppercase letter",
+          "lowercase": "One lowercase letter",
+          "number": "One number",
+          "match": "Passwords do not match"
+        },
+        "passwordToggle": {
+          "show": "Show password",
+          "hide": "Hide password"
+        },
+        "cancelDialog": {
+          "title": "Discard your changes?",
+          "description": "Your unsaved edits will be lost."
+        }
       },
       "subscriptionNew": {
         "backToSubscriptions": "Back to subscriptions",
@@ -1748,8 +2193,7 @@
           "dayEmpty": "No slot",
           "noGroup": "No group",
           "openBadge": "Open access",
-          "openMessage": "Open access — no fixed slot required."
-          ,
+          "openMessage": "Open access — no fixed slot required.",
           "selectionLimit": "Select up to {max} slots for this plan.",
           "selectionCount": "{count}/{max} selected",
           "limitReached": "You reached the limit for this plan. Deselect a slot to choose another one."
@@ -1884,7 +2328,8 @@
   "theme": {
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "toggle": "Change theme"
   },
   "language": {
     "fr": "Français",

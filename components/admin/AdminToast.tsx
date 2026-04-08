@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { CheckCircle, XCircle, AlertTriangle, Info, X, Bell, Volume2, VolumeX } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { CheckCircle, XCircle, AlertTriangle, Info, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /* ══════════════════════════════════════════════════════
@@ -44,14 +45,14 @@ const ANIMATION_DURATION = {
   exit: 220,
 } as const;
 
-const POSITION = {
+export type ToastPosition = "bottom" | "top" | "right" | "left";
+
+const POSITION_CLASSES: Record<ToastPosition, string> = {
   bottom: "bottom-5",
   top: "top-5",
   right: "right-5",
   left: "left-5",
-} as const;
-
-export type ToastPosition = keyof typeof POSITION;
+};
 
 const ICONS: Record<ToastVariant, React.ReactNode> = {
   success: <CheckCircle className="w-4 h-4" />,
@@ -128,32 +129,35 @@ export function AdminToastProvider({
   enableSound = false,
 }: AdminToastProviderProps) {
   const [toasts, setToasts] = React.useState<Toast[]>([]);
-  const [soundEnabled, setSoundEnabled] = React.useState(enableSound);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   // Initialize audio if sound is enabled
   React.useEffect(() => {
-    if (soundEnabled && typeof window !== "undefined") {
+    if (enableSound && typeof window !== "undefined") {
       audioRef.current = new Audio("/sounds/toast.mp3");
     }
-  }, [soundEnabled]);
+  }, [enableSound]);
 
   const playSound = React.useCallback(() => {
-    if (soundEnabled && audioRef.current) {
+    if (enableSound && audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(() => {
         // Silently fail if audio can't play
       });
     }
-  }, [soundEnabled]);
+  }, [enableSound]);
 
   const toast = React.useCallback((options: ToastOptions): string => {
     const id = options.id || generateId();
-    const duration = options.duration ?? DEFAULT_DURATION;
     const isPersistent = options.isPersistent ?? false;
 
     setToasts((prev) => {
-      const newToast = { ...options, id, duration, isPersistent };
+      const newToast = {
+        ...options,
+        id,
+        duration: options.duration ?? DEFAULT_DURATION,
+        isPersistent,
+      };
       const updated = [...prev, newToast];
       // Limit number of toasts
       return updated.slice(-maxToasts);
@@ -162,13 +166,6 @@ export function AdminToastProvider({
     // Play sound for non-persistent toasts
     if (!isPersistent) {
       playSound();
-    }
-
-    // Auto-dismiss timer
-    if (!isPersistent && duration > 0) {
-      setTimeout(() => {
-        setToasts((prev) => prev.filter((t) => t.id !== id));
-      }, duration);
     }
 
     return id;
@@ -240,14 +237,12 @@ interface ToastRegionProps {
 }
 
 function ToastRegion({ toasts, onDismiss, position }: ToastRegionProps) {
+  const t = useTranslations("common.ui");
   if (toasts.length === 0) return null;
 
   const positionClasses = cn(
     "fixed z-[9999] flex flex-col gap-2.5 pointer-events-none",
-    position === "bottom" && "bottom-5",
-    position === "top" && "top-5",
-    position === "right" && "right-5",
-    position === "left" && "left-5",
+    POSITION_CLASSES[position],
     // Center alignment for top/bottom
     (position === "top" || position === "bottom") && "left-1/2 -translate-x-1/2",
     // Width based on position
@@ -259,7 +254,7 @@ function ToastRegion({ toasts, onDismiss, position }: ToastRegionProps) {
     <div
       className={positionClasses}
       role="region"
-      aria-label="Notifications"
+      aria-label={t("notificationRegion")}
       aria-live="polite"
     >
       {toasts.map((toast) => (
@@ -284,6 +279,7 @@ interface ToastItemProps {
 }
 
 function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
+  const t = useTranslations("common.ui");
   const [leaving, setLeaving] = React.useState(false);
   const [isPaused, setIsPaused] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -293,6 +289,18 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
   const s = STYLES[toast.variant];
   const duration = toast.duration ?? DEFAULT_DURATION;
   const isPersistent = toast.isPersistent ?? false;
+
+  const handleDismiss = React.useCallback(() => {
+    setLeaving((current) => {
+      if (current) return current;
+
+      setTimeout(() => {
+        onDismiss(toast.id);
+      }, ANIMATION_DURATION.exit);
+
+      return true;
+    });
+  }, [onDismiss, toast.id]);
 
   // Handle auto-dismiss with pause on hover
   React.useEffect(() => {
@@ -314,7 +322,7 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [isPaused, leaving, isPersistent]);
+  }, [handleDismiss, isPaused, leaving, isPersistent]);
 
   const handleMouseEnter = () => {
     if (!isPersistent && !leaving) {
@@ -336,15 +344,6 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
     }
   };
 
-  const handleDismiss = () => {
-    if (leaving) return;
-
-    setLeaving(true);
-    setTimeout(() => {
-      onDismiss(toast.id);
-    }, ANIMATION_DURATION.exit);
-  };
-
   const handleAction = () => {
     toast.action?.onClick();
     if (!toast.isPersistent) {
@@ -354,7 +353,6 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
 
   // Animation variants based on position
   const getAnimationClasses = () => {
-    const isHorizontal = position === "left" || position === "right";
     const isRight = position === "right";
     const isLeft = position === "left";
     const isTop = position === "top";
@@ -387,7 +385,7 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
         s.border,
         getAnimationClasses(),
         "duration-250 ease-out",
-        leaving && `duration-${ANIMATION_DURATION.exit} ease-in`
+        leaving && "ease-in"
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -449,7 +447,7 @@ function ToastItem({ toast, onDismiss, position }: ToastItemProps) {
       <button
         type="button"
         onClick={handleDismiss}
-        aria-label="Fermer la notification"
+        aria-label={t("closeNotification")}
         className={cn(
           "flex-shrink-0 mt-0.5 p-1 rounded-lg",
           "text-muted-foreground/70 transition-all duration-150",

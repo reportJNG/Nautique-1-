@@ -47,7 +47,7 @@ interface Props {
   abonnementId: number;
   data: PaymentData;
 }
-export function PayerClient({ locale, abonnementId: _abonnementId, data }: Props) {
+export function PayerClient({ locale, data }: Props) {
   const router = useRouter();
   const t = useTranslations("espace.client.abonnementPayment");
   const [pending, startTransition] = useTransition();
@@ -106,7 +106,7 @@ export function PayerClient({ locale, abonnementId: _abonnementId, data }: Props
       toast.success(t("toasts.success"), {
         description: t("toasts.successDescription"),
       });
-      router.push(`/${locale}/espace/abonnements`);
+      router.push("/espace/abonnements");
       router.refresh();
     });
   }

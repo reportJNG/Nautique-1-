@@ -26,9 +26,7 @@ async function getData() {
   return { adherents, disciplines, saisons, categories };
 }
 
-export default async function NouvelAbonnementPage(_props: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function NouvelAbonnementPage() {
   const data = await getData();
   return <NouvelAbonnementClient {...data} />;
 }
