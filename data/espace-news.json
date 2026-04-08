@@ -1,0 +1,53 @@
+[
+  {
+    "id": "season-focus",
+    "slug": "season-focus",
+    "level": "info",
+    "publishedAt": "2026-04-01T09:00:00.000Z",
+    "title": {
+      "fr": "La saison en cours reste ouverte aux nouvelles souscriptions",
+      "en": "The current season is still open for new subscriptions",
+      "ar": "الموسم الحالي ما زال مفتوحاً للاشتراكات الجديدة"
+    },
+    "excerpt": {
+      "fr": "Les membres peuvent encore activer de nouvelles disciplines et consulter leurs créneaux directement depuis l'espace client.",
+      "en": "Members can still activate new disciplines and review their slots directly from the member area.",
+      "ar": "لا يزال بإمكان الأعضاء تفعيل تخصصات جديدة ومراجعة الحصص مباشرة من فضاء العميل."
+    },
+    "ctaHref": "/espace/abonnements/nouveau"
+  },
+  {
+    "id": "access-reminder",
+    "slug": "access-reminder",
+    "level": "warning",
+    "publishedAt": "2026-03-28T08:30:00.000Z",
+    "title": {
+      "fr": "Pensez à vérifier votre statut de paiement avant votre prochaine séance",
+      "en": "Remember to verify your payment status before your next session",
+      "ar": "تأكد من حالة الدفع قبل حصتك القادمة"
+    },
+    "excerpt": {
+      "fr": "Les factures en attente peuvent retarder la validation d'accès. Le tableau de bord vous affiche désormais les alertes les plus importantes.",
+      "en": "Pending invoices can delay access validation. The dashboard now highlights your most important alerts.",
+      "ar": "قد تؤخر الفواتير المعلقة التحقق من الدخول. تعرض لك لوحة التحكم الآن أهم التنبيهات."
+    },
+    "ctaHref": "/espace/abonnements"
+  },
+  {
+    "id": "support-update",
+    "slug": "support-update",
+    "level": "success",
+    "publishedAt": "2026-03-20T11:15:00.000Z",
+    "title": {
+      "fr": "Le support membre est joignable depuis la nouvelle page d'assistance",
+      "en": "Member support is now reachable from the new assistance page",
+      "ar": "أصبح دعم الأعضاء متاحاً من صفحة المساعدة الجديدة"
+    },
+    "excerpt": {
+      "fr": "Vous pouvez désormais envoyer un message de feedback qui sera ajouté à une file d'administration simulée pour vos tests.",
+      "en": "You can now send feedback that will be added to a simulated admin queue for your tests.",
+      "ar": "يمكنك الآن إرسال ملاحظات تُضاف إلى قائمة إدارة تجريبية لاختباراتك."
+    },
+    "ctaHref": "/espace/support"
+  }
+]

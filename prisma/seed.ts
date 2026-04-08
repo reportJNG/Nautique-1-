@@ -233,10 +233,12 @@ async function main() {
     const parOrg = await prisma.organisation.findUnique({ where: { code: "PAR" } });
     if (parOrg) {
         const testPassword = await bcrypt.hash("Test@2026", 12);
-        await prisma.adherent.upsert({
+        const existingAdherent = await prisma.adherent.findFirst({
             where: { email: "ahmed@test.dz" },
-            update: {},
-            create: {
+        });
+        if (!existingAdherent) {
+            await prisma.adherent.create({
+                data: {
                 organisationId: parOrg.id,
                 numeroDossier: "DOS-123456",
                 nom: "Test",
@@ -247,8 +249,9 @@ async function main() {
                 dateNaissance: new Date("1990-01-15"),
                 telephone: "+213 555 123 456",
                 actif: 1,
-            },
-        });
+                },
+            });
+        }
     }
     console.log("✅ Test adherent created");
     console.log("🎉 Seed completed!");

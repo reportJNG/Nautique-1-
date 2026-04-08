@@ -1,7 +1,7 @@
 import { redirect } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth/session";
-import { prisma } from "@/lib/db/prisma";
 import { EspaceShell } from "@/components/espace/EspaceShell";
+import { getEspaceShellData } from "@/lib/espace";
 
 export default async function EspaceLayout({
     children,
@@ -18,23 +18,21 @@ export default async function EspaceLayout({
         return null;
     }
 
-    const adherent = await prisma.adherent.findUnique({
-        where: { id: session.id },
-        select: {
-            nom: true,
-            prenom: true,
-            numeroDossier: true,
-            email: true,
-        },
-    });
+    const shellData = await getEspaceShellData(session.id);
 
-    if (!adherent) {
+    if (!shellData) {
         redirect({ href: "/auth/adherent/login", locale });
         return null;
     }
 
     return (
-        <EspaceShell adherent={adherent}>
+        <EspaceShell
+            adherent={shellData.adherent}
+            centre={shellData.centre}
+            stats={shellData.stats}
+            context={shellData.context}
+            notifications={shellData.notifications}
+        >
             {children}
         </EspaceShell>
     );

@@ -1044,6 +1044,744 @@
     "vsLastMonth": "vs mois précédent",
     "total": "total"
   },
+  "espace": {
+    "news": {
+      "badge": "Fil d'actualités",
+      "title": "Les infos utiles de votre espace",
+      "subtitle": "Cette page rassemble les nouveautés calculées à partir de vos saisons ouvertes, de vos créneaux et des opportunités encore disponibles.",
+      "actionsTitle": "Actions conseillées",
+      "actionsSubtitle": "Gardez votre espace à jour avec les deux actions les plus fréquentes.",
+      "subscribe": "Souscrire une offre",
+      "support": "Contacter le support",
+      "sourceDefault": "Centre Nautique",
+      "admin_badge": "Admin",
+      "like": "mention J'aime",
+      "likes": "mentions J'aime",
+      "like_this_post": "Aimer cette publication",
+      "just_now": "À l'instant",
+      "minutes_ago": "{count, plural, one {il y a # minute} other {il y a # minutes}}",
+      "hours_ago": "{count, plural, one {il y a # heure} other {il y a # heures}}",
+      "days_ago": "{count, plural, one {il y a # jour} other {il y a # jours}}",
+      "posts": {
+        "1": {
+          "username": "Nautique News",
+          "source": "Formation",
+          "title": "🚣 Stage de kayak pour débutants — Inscriptions ouvertes ! Rejoignez-nous sur les eaux de la baie d'Alger pour une initiation complète encadrée par nos moniteurs certifiés."
+        },
+        "2": {
+          "username": "Nautique News",
+          "source": "Promotion",
+          "title": "🏄 Promotion du weekend — 20% de réduction sur toutes les locations de paddle ! Profitez de la mer Méditerranée à petit prix. Offre valable vendredi, samedi et dimanche."
+        },
+        "3": {
+          "username": "Nautique News",
+          "source": "Atelier",
+          "title": "🏊 Atelier de natation avancée — Notre coach national Karim Benamara animera une session intensive de perfectionnement technique. Places très limitées, réservez vite !"
+        },
+        "4": {
+          "username": "Nautique News",
+          "source": "Compétition",
+          "title": "⛵ Championnat de voile inter-clubs — Le Centre Nautique organise sa compétition annuelle en baie de Sidi Fredj. Équipes de 3 à 5 membres. Inscriptions avant le 10 avril."
+        },
+        "5": {
+          "username": "Nautique News",
+          "source": "Programme",
+          "title": "👦 Programme Estival Jeunes 2026 — Cet été, offrez à vos enfants (8 à 14 ans) une aventure nautique inoubliable sur les côtes algériennes. Natation, kayak, voile et plongée au programme !"
+        },
+        "6": {
+          "username": "Nautique News",
+          "source": "Formation",
+          "title": "🛟 Certification Sécurité Aquatique — Formation officielle reconnue par la Fédération Algérienne de Natation. Seulement 12 places disponibles. Idéal pour moniteurs et animateurs."
+        },
+        "7": {
+          "username": "Nautique News",
+          "source": "Événement",
+          "title": "🧘 Yoga sur Paddle au coucher du soleil — Une expérience unique face à la Méditerranée. Chaque vendredi soir à 18h au port de Tipaza. Niveau débutant accepté, tapis fournis."
+        },
+        "8": {
+          "username": "Nautique News",
+          "source": "Actualité",
+          "title": "⚓ Notre nouvelle flotte est arrivée ! 8 kayaks de mer, 4 voiliers Optimist et 6 paddles flambant neufs viennent de rejoindre notre centre. Venez les essayer dès cette semaine !"
+        },
+        "9": {
+          "username": "Nautique News",
+          "source": "Promotion",
+          "title": "🤝 Amenez un ami, il navigue gratuitement ! Pour toute réservation d'une session cette semaine, votre accompagnateur bénéficie d'une place offerte. Partagez la passion de la mer !"
+        },
+        "10": {
+          "username": "Nautique News",
+          "source": "Événement",
+          "title": "🏆 Gala de Fin de Saison — Rejoignez-nous pour la soirée de remise des prix de notre centre. Trophées, buffet traditionnel algérien et musique live au programme. Membres et familles bienvenus."
+        }
+      }
+    },
+    "support": {
+      "badge": "Assistance",
+      "title": "Support et contacts utiles",
+      "subtitle": "Votre espace client regroupe les coordonnées du centre et les raccourcis les plus pratiques pour résoudre un besoin sans attendre.",
+      "faqTitle": "Questions fréquentes",
+      "faqSubtitle": "Les demandes les plus courantes côté adhérent.",
+      "contactTitle": "Coordonnées du centre",
+      "contactSubtitle": "Toujours visibles depuis votre espace.",
+      "feedback": {
+        "title": "Envoyer un feedback",
+        "subtitle": "Votre message sera ajouté à une file d'administration simulée pour vos tests.",
+        "subject": "Sujet",
+        "message": "Message",
+        "subjectPlaceholder": "Exemple : amélioration de la page abonnement",
+        "messagePlaceholder": "Décrivez votre retour, une idée d'amélioration ou un problème rencontré...",
+        "submit": "Envoyer au support",
+        "sending": "Envoi...",
+        "successTitle": "Feedback envoyé",
+        "successDescription": "Votre message a été placé dans la file admin simulée. Position approximative : {count}.",
+        "errorTitle": "Envoi impossible"
+      }
+    },
+    "dashboard": {
+      "hero": {
+        "badge": "Espace client premium",
+        "title": "Bonjour {firstName}, votre espace est maintenant connecté à vos vraies données.",
+        "subtitle": "Suivez vos abonnements, vos accès, vos factures et votre prochaine séance depuis une seule interface plus claire.",
+        "primaryCta": "Souscrire une nouvelle offre",
+        "secondaryCta": "Voir mon historique d'accès"
+      },
+      "nextSession": {
+        "title": "Prochaine séance",
+        "empty": "Aucun créneau actif pour l'instant. Vous pouvez souscrire une nouvelle offre quand vous voulez."
+      },
+      "contact": {
+        "title": "Centre de contact",
+        "emailUnavailable": "Contact email indisponible",
+        "phoneUnavailable": "Téléphone indisponible"
+      },
+      "highlights": {
+        "subscriptions": "Abonnements",
+        "activeDisciplines": "Disciplines actives",
+        "pendingInvoices": "Factures en attente",
+        "recentAccess": "Passages récents"
+      },
+      "subscriptions": {
+        "title": "Abonnements récents",
+        "subtitle": "Vos dernières offres et leur statut actuel.",
+        "viewAll": "Tout voir",
+        "emptyTitle": "Aucun abonnement pour le moment",
+        "emptyDescription": "Lancez votre première souscription et la suite sera automatiquement suivie ici.",
+        "period": "Du {start} au {end}",
+        "slotsCount": "{count} créneau(x) rattaché(s)"
+      },
+      "invoices": {
+        "title": "Factures récentes",
+        "empty": "Aucune facture récente."
+      },
+      "access": {
+        "title": "Derniers accès",
+        "empty": "Vos passages apparaîtront ici après votre première visite.",
+        "authorized": "Autorisé",
+        "denied": "Refusé"
+      }
+    },
+    "abonnements": {
+      "eyebrow": "Parcours membre",
+      "title": "Vos abonnements",
+      "subtitle": "Suivez chaque demande du brouillon au paiement, pour vous-même ou pour un proche déjà rattaché au centre.",
+      "addButton": "Ajouter un abonnement",
+      "empty": {
+        "title": "Aucun abonnement pour le moment",
+        "description": "Vous pouvez lancer une nouvelle demande en quelques étapes. Le dossier, les créneaux et le paiement seront ensuite suivis ici.",
+        "cta": "Commencer"
+      },
+      "cards": {
+        "beneficiary": "Bénéficiaire",
+        "period": "Période",
+        "category": "Catégorie",
+        "plan": "Formule",
+        "amount": "Montant",
+        "seasonRange": "Dates saison"
+      },
+      "slots": {
+        "title": "Créneaux reliés",
+        "empty": "Aucun créneau spécifique sur cet abonnement",
+        "more": "+{count} autres"
+      },
+      "filters": {
+        "all": "Tous",
+        "draft": "Brouillon",
+        "pending": "En attente",
+        "active": "Actif",
+        "approved": "Approuvé",
+        "empty": "Aucun abonnement ne correspond à ce filtre pour le moment."
+      },
+      "payment": {
+        "title": "Paiement et suivi",
+        "lastInvoice": "Dernière facture",
+        "paid": "Payée",
+        "pending": "En attente",
+        "notGenerated": "Non générée"
+      },
+      "actions": {
+        "title": "Action disponible",
+        "submit": "Soumettre à l'administration",
+        "submitting": "Soumission...",
+        "confirmSubmit": "Confirmer l'envoi",
+        "cancel": "Annuler",
+        "awaiting": "En attente d'approbation",
+        "pendingLine": "La validation administrative est toujours en cours.",
+        "payNow": "Payer maintenant",
+        "viewReceipt": "Voir le reçu",
+        "hideReceipt": "Masquer le reçu",
+        "openPaymentFlow": "Ouvrir le paiement",
+        "receiptReady": "Reçu disponible",
+        "receiptPanelTitle": "Détails du reçu",
+        "closeReceipt": "Fermer",
+        "submitWarningDialog": "Cette action envoie définitivement la demande à l'administration. Continuer ?",
+        "submitError": "Soumission impossible",
+        "submitSuccess": "Demande transmise",
+        "submitSuccessDescription": "La demande est maintenant en attente de validation administrative.",
+        "receiptNumberLabel": "Reçu",
+        "receiptAmountLabel": "Montant",
+        "receiptStatusLabel": "Statut",
+        "receiptMethodLabel": "Mode",
+        "receiptPaidAtLabel": "Payée le",
+        "receiptNumber": "Numéro de reçu : {value}",
+        "receiptAmount": "Montant : {value}",
+        "receiptStatus": "Statut : {value}",
+        "receiptMethod": "Mode : {value}",
+        "receiptPaidAt": "Payée le : {value}",
+        "card": "Carte",
+        "cash": "Espèces",
+        "notAvailable": "Non disponible",
+        "descriptions": {
+          "CRE": "Votre brouillon est prêt. Une fois envoyé, l'administration devra le valider avant l'activation.",
+          "ATP": "La demande a été envoyée. Aucune autre action n'est nécessaire pour le moment.",
+          "ACT": "L'administration a validé l'abonnement. Vous pouvez maintenant régler la facture.",
+          "APP": "Le dossier est entièrement approuvé et payé. Le reçu reste disponible."
+        }
+      }
+    },
+    "access": {
+      "eyebrow": "Contrôle d'accès",
+      "title": "Historique de vos passages",
+      "subtitle": "Chaque entrée ou refus enregistré remonte ici avec le créneau rattaché, pour vous donner une trace claire de votre activité au centre.",
+      "metrics": {
+        "total": "Total",
+        "authorized": "Autorisés",
+        "denied": "Refusés"
+      },
+      "empty": {
+        "title": "Aucun accès enregistré",
+        "description": "Vos passages apparaîtront dès la première lecture de badge ou validation à l'accueil.",
+        "cta": "Voir mes abonnements"
+      },
+      "validation": "Validation par {mode}.",
+      "badgeMode": "badge adhérent",
+      "manualMode": "contrôle manuel",
+      "authorized": "Accès autorisé",
+      "denied": "Accès refusé"
+    },
+    "activity": {
+      "badge": "Activité",
+      "title": "Historique global de votre espace",
+      "subtitle": "Une seule timeline pour suivre vos abonnements, factures, accès, actualités et feedbacks envoyés.",
+      "metrics": {
+        "events": "Événements",
+        "news": "News fake",
+        "feedback": "Feedbacks"
+      },
+      "timeline": {
+        "title": "Timeline client",
+        "subtitle": "Classement chronologique des événements les plus récents."
+      },
+      "news": {
+        "title": "Dernières news",
+        "subtitle": "Contenu simulé mais servi depuis le backend local."
+      },
+      "feedback": {
+        "title": "Feedbacks envoyés",
+        "subtitle": "Historique des messages transmis à la file admin simulée.",
+        "empty": "Aucun feedback envoyé pour le moment depuis votre compte."
+      }
+    },
+    "invoices": {
+      "eyebrow": "Facturation",
+      "title": "Mes factures",
+      "subtitle": "Le suivi financier de vos abonnements est maintenant visible dans un espace dédié avec statuts, montants et historique.",
+      "metrics": {
+        "total": "Total",
+        "pending": "En attente",
+        "paid": "Payées"
+      },
+      "outstanding": {
+        "title": "Montant encore à régler",
+        "cta": "Demander une aide de paiement"
+      },
+      "empty": {
+        "title": "Aucune facture pour le moment",
+        "description": "Vos prochaines factures apparaîtront automatiquement dès qu'un abonnement sera créé."
+      },
+      "cards": {
+        "amount": "Montant",
+        "created": "Création",
+        "payment": "Paiement",
+        "pending": "En attente",
+        "mode": "Mode"
+      },
+      "quickAction": {
+        "title": "Action rapide",
+        "pendingDescription": "Cette facture attend encore un traitement. Le support peut vous confirmer l'état du règlement.",
+        "paidDescription": "Cette facture est déjà réglée et reste disponible comme trace historique.",
+        "cta": "Contacter le support financier"
+      }
+    },
+    "planning": {
+      "badge": "Planning",
+      "title": "Vos créneaux de la semaine",
+      "subtitle": "Cette vue réunit les créneaux reliés à vos abonnements actifs ou en attente de validation.",
+      "metrics": {
+        "followedOffers": "Offres suivies",
+        "activeSlots": "Créneaux actifs"
+      },
+      "daySubtitle": "{count} créneau(x) rattaché(s)",
+      "dayEmptySubtitle": "Aucun créneau programmé",
+      "emptyDay": "Rien n'est programmé ce jour-là avec vos abonnements actuels."
+    },
+    "client": {
+      "shell": {
+        "closeNavigation": "Fermer la navigation"
+      },
+      "sidebar": {
+        "title": "Navigation",
+        "subtitle": "Espace client",
+        "closeAria": "Fermer la barre latérale",
+        "sections": {
+          "overview": "Pilotage",
+          "management": "Gestion",
+          "account": "Compte"
+        },
+        "nav": {
+          "home": "Accueil",
+          "planning": "Planning",
+          "activity": "Activité",
+          "news": "Actualités",
+          "subscriptions": "Abonnements",
+          "invoices": "Factures",
+          "access": "Accès",
+          "profile": "Profil",
+          "settings": "Paramètres",
+          "support": "Support"
+        },
+        "logout": "Se déconnecter",
+        "loggingOut": "Déconnexion..."
+      },
+      "topbar": {
+        "openMenuAria": "Ouvrir la barre latérale",
+        "openMenuTitle": "Ouvrir la barre latérale",
+        "languageAria": "Changer la langue",
+        "languageTitle": "Langue",
+        "activeLocale": "Active",
+        "themeTitle": "Thème",
+        "notificationsAria": "Ouvrir les notifications",
+        "notificationsTitle": "Notifications",
+        "unreadCount": "{count, plural, =0 {Aucune nouvelle alerte} one {# nouvelle alerte} other {# nouvelles alertes}}",
+        "markAllRead": "Tout lire",
+        "emptyNotifications": "Aucune notification pour le moment.",
+        "profileAria": "Ouvrir le menu profil",
+        "profileTitle": "Profil",
+        "fileNumber": "Dossier {value}",
+        "defaultCentre": "Centre Nautique SONATRACH",
+        "profileMenu": {
+          "myProfile": "Mon profil",
+          "dashboard": "Tableau de bord",
+          "activity": "Activité",
+          "invoices": "Factures",
+          "planning": "Planning",
+          "settings": "Paramètres"
+        },
+        "activeSubscriptions": "Actifs",
+        "pendingInvoices": "Factures",
+        "logout": "Déconnexion",
+        "loggingOut": "...",
+        "session": "Session",
+        "pages": {
+          "dashboard": {
+            "title": "Tableau de bord",
+            "subtitle": "Votre espace personnel centralise abonnements, accès et support."
+          },
+          "news": {
+            "title": "Actualités",
+            "subtitle": "Infos utiles, mises à jour de saisons et nouveautés du centre."
+          },
+          "planning": {
+            "title": "Planning",
+            "subtitle": "Retrouvez vos créneaux actifs organisés par jour de semaine."
+          },
+          "activity": {
+            "title": "Activité",
+            "subtitle": "Visualisez toute l'activité récente de votre espace membre."
+          },
+          "subscriptions": {
+            "title": "Abonnements",
+            "subtitle": "Suivez vos offres, factures et prochains créneaux."
+          },
+          "invoices": {
+            "title": "Factures",
+            "subtitle": "Consultez vos montants, statuts et règlements liés aux abonnements."
+          },
+          "newSubscription": {
+            "title": "Nouvel abonnement",
+            "subtitle": "Choisissez une discipline adaptée à votre profil et à votre saison."
+          },
+          "access": {
+            "title": "Historique d'accès",
+            "subtitle": "Retrouvez vos passages et vérifiez vos validations récentes."
+          },
+          "profile": {
+            "title": "Profil",
+            "subtitle": "Gardez vos informations de contact et votre sécurité à jour."
+          },
+          "settings": {
+            "title": "Paramètres",
+            "subtitle": "Pilotez l'affichage, la langue et vos préférences rapides."
+          },
+          "support": {
+            "title": "Support",
+            "subtitle": "Accédez aux coordonnées utiles et aux canaux d'assistance."
+          }
+        }
+      },
+      "settings": {
+        "badge": "Personnalisation",
+        "title": "Paramètres de votre espace",
+        "subtitle": "Choisissez un affichage confortable, basculez de langue et gardez une expérience cohérente sur tous vos écrans.",
+        "sections": {
+          "appearance": {
+            "title": "Apparence",
+            "subtitle": "Le thème s'applique à l'ensemble de l'espace client.",
+            "systemDescription": "S'aligne sur votre appareil",
+            "instantDescription": "Disponible immédiatement"
+          },
+          "language": {
+            "title": "Langue",
+            "subtitle": "Le changement se fait sans quitter la page en cours.",
+            "active": "Langue active",
+            "switch": "Basculer l'interface"
+          },
+          "comfort": {
+            "title": "Confort d'usage",
+            "subtitle": "Préférences locales mémorisées sur cet appareil."
+          }
+        },
+        "preferences": {
+          "compact": {
+            "title": "Mode compact",
+            "description": "Réduit les espacements pour afficher plus d'informations."
+          },
+          "reduceMotion": {
+            "title": "Limiter les animations",
+            "description": "Pratique si vous préférez une interface plus sobre."
+          }
+        },
+        "summary": {
+          "title": "Résumé actuel",
+          "theme": "Thème actif : {value}",
+          "language": "Langue active : {value}",
+          "compactMode": "Mode compact : {value}",
+          "reduceMotion": "Animations réduites : {value}"
+        },
+        "states": {
+          "active": "active",
+          "inactive": "désactivé"
+        },
+        "reset": "Revenir aux réglages conseillés"
+      },
+      "profile": {
+        "statusActive": "Compte actif",
+        "fileNumber": "Dossier {value}",
+        "emptyValue": "Non renseigné",
+        "stats": {
+          "activeSubscriptions": "Abonnements actifs",
+          "paidInvoices": "Factures réglées",
+          "recordedAccesses": "Accès enregistrés"
+        },
+        "sections": {
+          "personalInfo": {
+            "title": "Informations personnelles",
+            "subtitle": "Mettez à jour vos coordonnées sans repasser par l'accueil."
+          },
+          "security": {
+            "title": "Sécurité",
+            "subtitle": "Changez votre mot de passe et conservez un accès protégé."
+          },
+          "recentActivity": {
+            "title": "Activité récente",
+            "subtitle": "Les derniers mouvements reliés à votre compte."
+          }
+        },
+        "fields": {
+          "lastName": "Nom",
+          "firstName": "Prénom",
+          "email": "Email",
+          "phone": "Téléphone",
+          "address": "Adresse",
+          "organization": "Organisation",
+          "birthDate": "Date de naissance",
+          "employeeNumber": "Numéro matricule",
+          "fileNumber": "Numéro dossier"
+        },
+        "passwordFields": {
+          "current": "Mot de passe actuel",
+          "new": "Nouveau mot de passe",
+          "confirm": "Confirmation"
+        },
+        "passwordHint": "Utilisez au moins 8 caractères avec majuscules, minuscules et chiffres pour un mot de passe plus solide.",
+        "actions": {
+          "saving": "Enregistrement...",
+          "saveProfile": "Enregistrer mes modifications",
+          "updatingPassword": "Mise à jour...",
+          "changePassword": "Changer le mot de passe"
+        },
+        "toasts": {
+          "profileError": "Mise à jour impossible",
+          "profileSaved": "Profil enregistré",
+          "profileSavedDescription": "Vos informations de contact ont bien été mises à jour.",
+          "passwordError": "Changement refusé",
+          "passwordChanged": "Mot de passe modifié",
+          "passwordChangedDescription": "Votre sécurité a bien été renforcée."
+        },
+        "noRecentActivity": "Aucune activité récente."
+      },
+      "subscriptionNew": {
+        "backToSubscriptions": "Retour aux abonnements",
+        "ageDetected": "Âge détecté : {value} ans",
+        "hero": {
+          "badge": "Nouvelle souscription",
+          "title": "Préparez une demande d'abonnement claire et guidée.",
+          "subtitle": "Choisissez d'abord le bénéficiaire, puis composez l'abonnement et envoyez la demande à l'administration."
+        },
+        "stepLabel": "Étape {value}",
+        "progressLabel": "{current} / {total}",
+        "steps": {
+          "who": "Pour qui ?",
+          "builder": "Formule",
+          "review": "Récapitulatif"
+        },
+        "days": {
+          "sun": "Dim",
+          "mon": "Lun",
+          "tue": "Mar",
+          "wed": "Mer",
+          "thu": "Jeu",
+          "fri": "Ven",
+          "sat": "Sam"
+        },
+        "gender": {
+          "male": "Masculin",
+          "female": "Féminin",
+          "other": "Profil"
+        },
+        "who": {
+          "ageChip": "{value} ans",
+          "fields": {
+            "firstName": "Prénom",
+            "lastName": "Nom",
+            "age": "Âge",
+            "gender": "Sexe",
+            "fileNumber": "N° dossier"
+          },
+          "self": {
+            "title": "Pour moi-même",
+            "subtitle": "Utiliser automatiquement mon dossier adhérent."
+          },
+          "other": {
+            "title": "Pour un proche ou une autre personne",
+            "subtitle": "Rechercher un dossier existant avant de continuer.",
+            "searchPlaceholder": "Numéro de dossier",
+            "searchButton": "Rechercher",
+            "searching": "Recherche...",
+            "helper": "Entrez un numéro de dossier existant pour charger le profil.",
+            "searchRequired": "Veuillez saisir un numéro de dossier.",
+            "profileTitle": "Profil bénéficiaire",
+            "linked": "Dossier trouvé",
+            "change": "Rechercher un autre dossier"
+          }
+        },
+        "availability": {
+          "available": "Disponible",
+          "unavailable": "Indisponible"
+        },
+        "sections": {
+          "who": {
+            "title": "Choisissez le bénéficiaire",
+            "subtitle": "Cette sélection détermine le dossier utilisé pour tout le reste du parcours."
+          },
+          "builder": {
+            "title": "Construisez l'abonnement",
+            "subtitle": "Choisissez l'espace, la discipline, la saison, la catégorie, le type et les créneaux."
+          },
+          "review": {
+            "title": "Vérifiez avant envoi",
+            "subtitle": "Relisez les informations puis envoyez la demande à l'administration."
+          }
+        },
+        "typeOptions": {
+          "open": {
+            "label": "Open saison",
+            "description": "Accès libre sur la saison sélectionnée."
+          },
+          "duration": {
+            "label": "Par durée",
+            "description": "Formule avec créneaux fixes sur une période donnée."
+          },
+          "session": {
+            "label": "Par séances",
+            "description": "Idéal pour une pratique progressive et planifiée."
+          }
+        },
+        "labels": {
+          "discipline": "Discipline",
+          "season": "Saison",
+          "category": "Catégorie",
+          "selectPlaceholder": "Sélectionner"
+        },
+        "eligibility": {
+          "title": "Éligibilité",
+          "description": "Les catégories et créneaux visibles restent filtrés selon l'âge, le sexe autorisé et la saison ouverte."
+        },
+        "spaceAvailable": "Espace disponible cette saison",
+        "slots": {
+          "available": "Créneaux hebdomadaires",
+          "empty": "Aucun créneau compatible pour cette combinaison.",
+          "dayEmpty": "Aucun créneau",
+          "noGroup": "Sans groupe",
+          "openBadge": "Accès libre",
+          "openMessage": "Accès libre — aucun créneau fixe requis."
+        },
+        "amount": {
+          "label": "Montant TTC (DZD)",
+          "suggested": "Suggestion automatique : {value} DZD",
+          "locked": "Le montant est calculé automatiquement selon le type, l'espace et les créneaux choisis.",
+          "autoCalculated": "Calcul automatique"
+        },
+        "summaryLabels": {
+          "forWhom": "Pour qui",
+          "space": "Espace",
+          "discipline": "Discipline",
+          "spaceDiscipline": "Espace + discipline",
+          "season": "Saison",
+          "category": "Catégorie",
+          "formula": "Type",
+          "amount": "Montant",
+          "selectedSlots": "Créneaux choisis",
+          "noSpecificSlot": "Aucun créneau spécifique",
+          "openAccess": "Accès libre"
+        },
+        "buttons": {
+          "previousStep": "Étape précédente",
+          "continue": "Continuer",
+          "completeWho": "Choisissez un bénéficiaire avant de passer à l'étape suivante.",
+          "completeBuilder": "Complétez l'espace, la discipline, la saison et la catégorie pour continuer."
+        },
+        "review": {
+          "submitTitle": "Soumettre la demande",
+          "submitDescription": "Une fois envoyée, cette demande part à l'administration et ne peut plus être annulée. L'abonnement devra être approuvé avant de devenir actif.",
+          "submitAction": "Soumettre ma demande à l'administration",
+          "toggleDescription": "Activez cette confirmation pour afficher l'action finale d'envoi.",
+          "confirmAction": "Confirmer et envoyer",
+          "confirmRequired": "Activez la confirmation avant d'envoyer la demande.",
+          "submitting": "Envoi...",
+          "submitted": "Demande envoyée",
+          "submitWarningDialog": "Cette action est irréversible. Voulez-vous envoyer la demande à l'administration ?"
+        },
+        "aside": {
+          "title": "Résumé intelligent",
+          "subtitle": "Ce panneau suit votre progression pendant tout le parcours.",
+          "mobileSummary": "Résumé",
+          "profile": "Bénéficiaire",
+          "profileAge": "Profil âge",
+          "toChoose": "À choisir",
+          "estimatedAmount": "Montant estimé",
+          "verificationTitle": "Vérification automatique",
+          "checks": {
+            "subject": "Bénéficiaire confirmé",
+            "ageCategory": "Compatibilité âge / catégorie",
+            "validSlots": "Créneaux valides pour la discipline"
+          }
+        },
+        "toasts": {
+          "whoMissingTitle": "Bénéficiaire manquant",
+          "whoMissingDescription": "Choisissez votre dossier ou recherchez un autre adhérent avant de continuer.",
+          "incompleteTitle": "Sélection incomplète",
+          "incompleteDescription": "Choisissez au minimum un espace, une discipline, une saison et une catégorie.",
+          "createError": "Création impossible",
+          "createSuccess": "Demande envoyée",
+          "createSuccessDescription": "Votre demande a bien été transmise à l'administration."
+        }
+      },
+      "abonnementPayment": {
+        "back": "Retour aux abonnements",
+        "hero": {
+          "badge": "Paiement de facture",
+          "title": "Finalisez votre abonnement",
+          "subtitle": "Choisissez un mode de règlement pour confirmer cette facture et clôturer le parcours."
+        },
+        "invoice": {
+          "title": "Résumé de facture",
+          "designation": "Abonnement",
+          "season": "Saison",
+          "space": "Espace",
+          "forWhom": "Bénéficiaire",
+          "amount": "Montant",
+          "receiptNumber": "Numéro de reçu",
+          "pendingReceipt": "En attente",
+          "status": "Statut",
+          "paymentMethod": "Mode de paiement",
+          "paidAt": "Payée le"
+        },
+        "payment": {
+          "title": "Choisissez votre mode de paiement",
+          "confirm": "Confirmer le paiement",
+          "confirmCardAmount": "Payer par carte — {value} DZD",
+          "confirmCash": "Confirmer le paiement en centre",
+          "submitting": "Confirmation...",
+          "alreadyPaid": "Cette facture est déjà réglée.",
+          "unavailable": "Paiement non disponible",
+          "unavailableDescription": "Le paiement sera disponible après validation administrative de l'abonnement.",
+          "successTitle": "Paiement confirmé",
+          "preview": {
+            "label": "Carte simulée",
+            "number": "0000 0000 0000 0000",
+            "name": "Nom complet",
+            "expiry": "MM/YY"
+          },
+          "card": {
+            "title": "Payer par carte",
+            "description": "Saisie fictive pour simuler un paiement immédiat."
+          },
+          "cash": {
+            "title": "Payer au centre",
+            "description": "Prévenez l'accueil et réglez directement sur place.",
+            "instructions": "Présentez-vous à l'accueil du centre avec votre numéro de dossier pour régler en espèces."
+          },
+          "fields": {
+            "name": "Nom sur la carte",
+            "number": "Numéro de carte",
+            "expiry": "Date d'expiration",
+            "cvv": "CVV"
+          },
+          "placeholders": {
+            "name": "Nom complet",
+            "number": "1234 5678 9012 3456",
+            "expiry": "MM/YY",
+            "cvv": "123"
+          }
+        },
+        "toasts": {
+          "success": "Paiement confirmé",
+          "successDescription": "La facture est maintenant marquée comme payée.",
+          "error": "Paiement impossible"
+        }
+      }
+    }
+  },
   "theme": {
     "light": "Clair",
     "dark": "Sombre",

@@ -3,273 +3,257 @@
 import Link from "next/link";
 import { usePathname } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { useState, useTransition } from "react";
-import { cn } from "@/lib/utils";
+import { useTransition } from "react";
+import { motion } from "framer-motion";
 import {
-  LayoutDashboard,
-  Calendar,
-  NewspaperIcon,
-  HelpCircleIcon,
-  User,
-  History,
-  Settings,
+  CalendarDays,
+  CreditCard,
+  Headphones,
+  Home,
   LogOut,
+  ScanLine,
+  Settings,
+  User,
   Waves,
-  ChevronRight,
-  Loader2,
+  Newspaper,
   X,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { logoutAction } from "@/lib/actions/auth.actions";
 
-interface NavItem {
+type NavItem = {
   href: string;
   label: string;
   icon: React.ElementType;
   exact?: boolean;
-  badge?: string | number;
-  children?: Omit<NavItem, "children">[];
-}
+};
 
-interface NavGroup {
+type NavGroup = {
   label: string;
   items: NavItem[];
-}
+};
 
-interface EspaceSidebarProps {
+interface Props {
   adherent: {
     nom: string;
     prenom: string;
     numeroDossier: string;
+    organisation?: { designation: string } | null;
+  };
+  centre?: {
+    designationCentre?: string;
+    telephoneCentre?: string | null;
+    emailCentre?: string | null;
+  } | null;
+  stats: {
+    totalAbonnements: number;
+    activeAbonnements: number;
+    pendingFactures: number;
+    lastAccessAt: string;
+    nextSessionLabel: string;
+  };
+  context: {
+    loyaltyPoints: number;
+    loyaltyTier: string;
+    feedbackCount: number;
+    newsCount: number;
+    centreStatus: string;
   };
   isOpen: boolean;
+  desktop: boolean;
   onClose: () => void;
 }
 
-function NavLink({
-  item,
-  locale,
-  depth = 0,
-}: {
-  item: NavItem;
-  locale: string;
-  depth?: number;
-}) {
+export function EspaceSidebar({
+  adherent: _adherent,
+  centre: _centre,
+  stats: _stats,
+  context: _context,
+  isOpen,
+  desktop: _desktop,
+  onClose,
+}: Props) {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-
-  const isActive = item.exact
-    ? pathname === item.href
-    : pathname === item.href || pathname.startsWith(`${item.href}/`);
-
-  const hasChildren = !!item.children?.length;
-  const childActive = item.children?.some(
-    (c) => pathname === c.href || pathname.startsWith(`${c.href}/`)
-  );
-  const expanded = open || childActive;
-
-  if (hasChildren) {
-    return (
-      <li>
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className={cn(
-            "flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
-            isActive || childActive
-              ? "bg-primary/10 text-primary"
-              : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
-          )}
-        >
-          <item.icon
-            className={cn(
-              "h-4 w-4 shrink-0",
-              isActive || childActive ? "text-primary" : "text-muted-foreground"
-            )}
-          />
-          <span className="flex-1 text-left">{item.label}</span>
-          <ChevronRight
-            className={cn(
-              "h-3.5 w-3.5 shrink-0 text-muted-foreground/40 transition-transform duration-200",
-              expanded && "rotate-90"
-            )}
-          />
-        </button>
-
-        {expanded && (
-          <ul className="ml-4 mt-1 space-y-0.5 border-l border-border/60 pl-3">
-            {item.children!.map((child) => (
-              <NavLink key={child.href} item={child} locale={locale} depth={depth + 1} />
-            ))}
-          </ul>
-        )}
-      </li>
-    );
-  }
-
-  return (
-    <li>
-      <Link
-        href={`/${locale}${item.href}`}
-        className={cn(
-          "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
-          isActive
-            ? "bg-primary/10 text-primary shadow-sm"
-            : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
-        )}
-      >
-        <item.icon
-          className={cn(
-            "h-4 w-4 shrink-0",
-            isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
-          )}
-        />
-        <span className="flex-1">{item.label}</span>
-
-        {item.badge !== undefined && (
-          <span
-            className={cn(
-              "flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[10px] font-bold tabular-nums",
-              isActive ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
-            )}
-          >
-            {item.badge}
-          </span>
-        )}
-
-        {isActive && item.badge === undefined && (
-          <span className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-        )}
-      </Link>
-    </li>
-  );
-}
-
-export function EspaceSidebar({ adherent, isOpen, onClose }: EspaceSidebarProps) {
-  const t = useTranslations("adherent");
   const locale = useLocale();
-  const [, startTransition] = useTransition();
-  const [loggingOut, setLoggingOut] = useState(false);
+  const t = useTranslations("espace.client.sidebar");
+  const [isLoggingOut, startTransition] = useTransition();
 
   const navGroups: NavGroup[] = [
     {
-      label: "Navigation",
+      label: t("sections.overview"),
       items: [
         {
           href: "/espace",
-          label: t("dashboard"),
-          icon: LayoutDashboard,
+          label: t("nav.home"),
+          icon: Home,
           exact: true,
+        },
+        {
+          href: "/espace/planning",
+          label: t("nav.planning"),
+          icon: CalendarDays,
         },
         {
           href: "/espace/news",
-          label: 'News',
-          icon: NewspaperIcon,
-          exact: true,
+          label: t("nav.news"),
+          icon: Newspaper,
         },
-        {
-          href: "/espace/abonnements",
-          label: t("abonnements"),
-          icon: Calendar,
-        },
-        {
-          href: "/espace/acces",
-          label: t("access"),
-          icon: History,
-        },
-
       ],
     },
     {
-      label: "Compte",
+      label: t("sections.management"),
       items: [
-        { href: "/espace/profil", label: t("profile"), icon: User },
-        { href: "/espace/parametres", label: t("settings"), icon: Settings },
+        {
+          href: "/espace/abonnements",
+          label: t("nav.subscriptions"),
+          icon: CalendarDays,
+        },
+        {
+          href: "/espace/factures",
+          label: t("nav.invoices"),
+          icon: CreditCard,
+        },
+        {
+          href: "/espace/acces",
+          label: t("nav.access"),
+          icon: ScanLine,
+        },
+      ],
+    },
+    {
+      label: t("sections.account"),
+      items: [
+        {
+          href: "/espace/profil",
+          label: t("nav.profile"),
+          icon: User,
+        },
+        {
+          href: "/espace/parametres",
+          label: t("nav.settings"),
+          icon: Settings,
+        },
         {
           href: "/espace/support",
-          label: "Aide & Support",
-          icon: HelpCircleIcon,
+          label: t("nav.support"),
+          icon: Headphones,
         },
       ],
     },
   ];
 
-  const initials =
-    adherent.prenom.charAt(0).toUpperCase() + adherent.nom.charAt(0).toUpperCase();
-
-  function handleLogout() {
-    setLoggingOut(true);
-    startTransition(async () => {
-      await logoutAction();
-      window.location.href = `/${locale}`;
-    });
-  }
-
   return (
-    /* Sidebar slides fully off-screen when closed — no overlay, no backdrop.
-       The main content expands to fill the freed space (handled by EspaceShell margin). */
-    <aside
-      className={cn(
-        "fixed inset-y-0 left-0 z-50 flex h-full w-72 flex-col",
-        "bg-card border-r border-border/60 shadow-xl",
-        "transition-transform duration-300 ease-out will-change-transform",
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      )}
+    <motion.aside
+      id="espace-sidebar"
+      initial={false}
+      animate={{
+        x: isOpen ? 0 : -340,
+        opacity: isOpen ? 1 : 0.98,
+      }}
+      transition={{ type: "spring", stiffness: 260, damping: 28 }}
       aria-hidden={!isOpen}
+      className={cn(
+        "group fixed bottom-0 left-0 top-14 z-40 h-[calc(100vh-3.5rem)] w-[260px] border-r border-border bg-card text-card-foreground shadow-[2px_0_12px_hsl(var(--background)/0.45)] max-md:top-[5.75rem] max-md:h-[calc(100vh-5.75rem)] dark:bg-[hsl(var(--background))]",
+        isOpen ? "pointer-events-auto" : "pointer-events-none shadow-none",
+      )}
     >
-      {/* ── Brand header with inline close button ── */}
-      <div className="flex h-16 shrink-0 items-center justify-between border-b border-border/60 px-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary shadow-sm">
-            <Waves className="h-4 w-4 text-primary-foreground" />
+      <div className="flex h-full flex-col">
+        <div className="flex items-center justify-between border-b border-border px-4 py-4">
+          <div className="flex items-center gap-3">
+            <div className="flex size-9 items-center justify-center rounded-xl bg-secondary text-secondary-foreground">
+              <Waves className="size-4" />
+            </div>
+            <div>
+              <p className="text-[13px] font-medium tracking-tight text-foreground">
+                {t("title")}
+              </p>
+              <p className="text-[11px] text-muted-foreground">{t("subtitle")}</p>
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-bold tracking-wide text-foreground">SONATRACH</p>
-            <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-              Espace adhérent
-            </p>
-          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t("closeAria")}
+            className="inline-flex size-8 items-center justify-center rounded-lg bg-secondary text-muted-foreground transition-all duration-200 ease-out hover:bg-accent hover:text-accent-foreground active:scale-[0.96] cursor-pointer"
+          >
+            <X className="size-4" />
+          </button>
         </div>
 
-        {/* Close button — the only way to close (besides topbar toggle) */}
-        <button
-          onClick={onClose}
-          aria-label="Fermer la barre latérale"
-          className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
-        >
-          <X className="h-4 w-4" />
-        </button>
-      </div>
+        <div className="espace-sidebar-scroll flex-1 overflow-y-hidden px-3 py-4 hover:overflow-y-auto">
+          <nav className="space-y-6">
+            {navGroups.map((group) => (
+              <div key={group.label}>
+                <p className="mb-2 px-4 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                  {group.label}
+                </p>
+                <div className="space-y-1.5">
+                  {group.items.map((item) => {
+                    const isActive = item.exact
+                      ? pathname === item.href
+                      : pathname === item.href ||
+                        pathname.startsWith(`${item.href}/`);
 
-      {/* ── Navigation ── */}
-      <nav className="flex-1 overflow-y-auto px-3 py-2" aria-label="Navigation principale">
-        {navGroups.map((group) => (
-          <div key={group.label} className="mb-5">
-            <p className="mb-2 px-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/40">
-              {group.label}
-            </p>
-            <ul className="space-y-0.5">
-              {group.items.map((item) => (
-                <NavLink key={item.href} item={item} locale={locale} />
-              ))}
-            </ul>
-          </div>
-        ))}
-      </nav>
+                    return (
+                      <motion.div
+                        key={item.href}
+                        whileTap={{ scale: 0.96 }}
+                        transition={{ duration: 0.1, ease: "easeOut" }}
+                      >
+                        <Link
+                          href={`/${locale}${item.href}`}
+                          className={cn(
+                            "group relative flex items-center gap-3 overflow-hidden rounded-[10px] px-4 py-3 font-sans text-[14px] font-medium transition-all duration-200 ease-out",
+                            isActive
+                              ? "bg-accent text-accent-foreground"
+                              : "text-muted-foreground hover:bg-secondary hover:text-foreground",
+                          )}
+                          onClick={() => {
+                            onClose();
+                          }}
+                        >
+                          {isActive ? (
+                            <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-primary" />
+                          ) : null}
+                          <div
+                            className={cn(
+                              "flex size-5 shrink-0 items-center justify-center transition-transform duration-150 ease-out group-hover:scale-110",
+                              isActive
+                                ? "text-accent-foreground"
+                                : "text-muted-foreground group-hover:text-foreground",
+                            )}
+                          >
+                            <item.icon className="size-[18px]" />
+                          </div>
+                          <span className="truncate">{item.label}</span>
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </nav>
+        </div>
 
-      {/* ── Logout ── */}
-      <div className="shrink-0 border-t border-border/60 p-3">
-        <button
-          onClick={handleLogout}
-          disabled={loggingOut}
-          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:pointer-events-none disabled:opacity-60"
-        >
-          {loggingOut ? (
-            <Loader2 className="h-4 w-4 shrink-0 animate-spin" />
-          ) : (
-            <LogOut className="h-4 w-4 shrink-0" />
-          )}
-          <span>{loggingOut ? "Déconnexion…" : t("logout")}</span>
-        </button>
+        <div className="border-t border-border p-3">
+          <button
+            type="button"
+            disabled={isLoggingOut}
+            onClick={() =>
+              startTransition(async () => {
+                await logoutAction();
+                window.location.href = `/${locale}`;
+              })
+            }
+            className="group flex w-full items-center gap-3 rounded-[10px] px-4 py-3 font-sans text-[14px] font-medium text-muted-foreground transition-all duration-200 ease-out hover:bg-secondary hover:text-foreground active:scale-[0.96] disabled:opacity-60 cursor-pointer"
+          >
+            <LogOut className="size-[18px] transition-transform duration-150 ease-out group-hover:scale-110" />
+            {isLoggingOut ? t("loggingOut") : t("logout")}
+          </button>
+        </div>
       </div>
-    </aside>
+    </motion.aside>
   );
 }

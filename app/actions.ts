@@ -1,7 +1,7 @@
 "use server";
-import { clearAuthCookie } from "@/lib/auth/jwt";
+import { clearSessionCookie } from "@/lib/auth/session";
 import { redirect } from "@/i18n/navigation";
 export async function logout() {
-    await clearAuthCookie();
+    await clearSessionCookie();
     redirect({ href: "/", locale: "fr" });
 }

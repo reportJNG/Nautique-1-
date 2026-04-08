@@ -1139,6 +1139,744 @@
     "vsLastMonth": "vs last month",
     "total": "total"
   },
+  "espace": {
+    "news": {
+      "badge": "News feed",
+      "title": "Useful updates from your member area",
+      "subtitle": "This page gathers updates calculated from your open seasons, your slots and the opportunities still available.",
+      "actionsTitle": "Recommended actions",
+      "actionsSubtitle": "Keep your area up to date with the two most common actions.",
+      "subscribe": "Subscribe to an offer",
+      "support": "Contact support",
+      "sourceDefault": "Centre Nautique",
+      "admin_badge": "Admin",
+      "like": "like",
+      "likes": "likes",
+      "like_this_post": "Like this post",
+      "just_now": "Just now",
+      "minutes_ago": "{count, plural, one {# minute ago} other {# minutes ago}}",
+      "hours_ago": "{count, plural, one {# hour ago} other {# hours ago}}",
+      "days_ago": "{count, plural, one {# day ago} other {# days ago}}",
+      "posts": {
+        "1": {
+          "username": "Nautique News",
+          "source": "Training",
+          "title": "🚣 Beginner kayak camp — Registration is open! Join us on the waters of Algiers Bay for a full introduction guided by our certified instructors."
+        },
+        "2": {
+          "username": "Nautique News",
+          "source": "Promotion",
+          "title": "🏄 Weekend promotion — 20% off all paddle rentals! Enjoy the Mediterranean at a lower price. Offer valid Friday, Saturday and Sunday."
+        },
+        "3": {
+          "username": "Nautique News",
+          "source": "Workshop",
+          "title": "🏊 Advanced swimming workshop — Our national coach Karim Benamara will lead an intensive technical improvement session. Very limited spots, book quickly!"
+        },
+        "4": {
+          "username": "Nautique News",
+          "source": "Competition",
+          "title": "⛵ Inter-club sailing championship — The Nautical Center is organizing its annual competition in Sidi Fredj Bay. Teams of 3 to 5 members. Register before April 10."
+        },
+        "5": {
+          "username": "Nautique News",
+          "source": "Program",
+          "title": "👦 Summer Youth Program 2026 — This summer, give your children (ages 8 to 14) an unforgettable nautical adventure on the Algerian coast. Swimming, kayaking, sailing and diving are all on the program!"
+        },
+        "6": {
+          "username": "Nautique News",
+          "source": "Training",
+          "title": "🛟 Aquatic Safety Certification — Official training recognized by the Algerian Swimming Federation. Only 12 spots available. Ideal for instructors and activity leaders."
+        },
+        "7": {
+          "username": "Nautique News",
+          "source": "Event",
+          "title": "🧘 Sunset paddle yoga — A unique experience facing the Mediterranean. Every Friday evening at 6 PM at Tipaza harbor. Beginner level welcome, mats provided."
+        },
+        "8": {
+          "username": "Nautique News",
+          "source": "Update",
+          "title": "⚓ Our new fleet has arrived! 8 sea kayaks, 4 Optimist sailboats and 6 brand-new paddles have just joined our center. Come try them this week!"
+        },
+        "9": {
+          "username": "Nautique News",
+          "source": "Promotion",
+          "title": "🤝 Bring a friend, let them sail for free! For any session booking this week, your guest gets a free spot. Share the passion of the sea!"
+        },
+        "10": {
+          "username": "Nautique News",
+          "source": "Event",
+          "title": "🏆 End-of-season gala — Join us for our center's award night. Trophies, traditional Algerian buffet and live music are all on the schedule. Members and families are welcome."
+        }
+      }
+    },
+    "support": {
+      "badge": "Support",
+      "title": "Support and useful contacts",
+      "subtitle": "Your member area gathers the center contact details and the most practical shortcuts to solve a need quickly.",
+      "faqTitle": "Frequently asked questions",
+      "faqSubtitle": "The most common member-side requests.",
+      "contactTitle": "Center contacts",
+      "contactSubtitle": "Always visible from your member area.",
+      "feedback": {
+        "title": "Send feedback",
+        "subtitle": "Your message will be added to a simulated admin queue for testing.",
+        "subject": "Subject",
+        "message": "Message",
+        "subjectPlaceholder": "Example: subscription page improvement",
+        "messagePlaceholder": "Describe your feedback, an improvement idea or an issue you faced...",
+        "submit": "Send to support",
+        "sending": "Sending...",
+        "successTitle": "Feedback sent",
+        "successDescription": "Your message has been placed in the simulated admin queue. Approximate position: {count}.",
+        "errorTitle": "Unable to send"
+      }
+    },
+    "dashboard": {
+      "hero": {
+        "badge": "Premium client area",
+        "title": "Hello {firstName}, your area is now connected to your real data.",
+        "subtitle": "Track your subscriptions, access, invoices and next session from one clearer interface.",
+        "primaryCta": "Subscribe to a new offer",
+        "secondaryCta": "View my access history"
+      },
+      "nextSession": {
+        "title": "Next session",
+        "empty": "No active slot at the moment. You can subscribe to a new offer whenever you want."
+      },
+      "contact": {
+        "title": "Contact center",
+        "emailUnavailable": "Contact email unavailable",
+        "phoneUnavailable": "Phone unavailable"
+      },
+      "highlights": {
+        "subscriptions": "Subscriptions",
+        "activeDisciplines": "Active disciplines",
+        "pendingInvoices": "Pending invoices",
+        "recentAccess": "Recent access"
+      },
+      "subscriptions": {
+        "title": "Recent subscriptions",
+        "subtitle": "Your latest offers and their current status.",
+        "viewAll": "View all",
+        "emptyTitle": "No subscriptions yet",
+        "emptyDescription": "Start your first subscription and the rest will be tracked here automatically.",
+        "period": "From {start} to {end}",
+        "slotsCount": "{count} slot(s) linked"
+      },
+      "invoices": {
+        "title": "Recent invoices",
+        "empty": "No recent invoices."
+      },
+      "access": {
+        "title": "Latest access",
+        "empty": "Your visits will appear here after your first visit.",
+        "authorized": "Authorized",
+        "denied": "Denied"
+      }
+    },
+    "abonnements": {
+      "eyebrow": "Member journey",
+      "title": "Your subscriptions",
+      "subtitle": "Track each request from draft to payment, whether it is for you or for another member already known by the center.",
+      "addButton": "Add a subscription",
+      "empty": {
+        "title": "No subscriptions yet",
+        "description": "You can start a new request in a few steps. The file, schedule and payment status will then be tracked here.",
+        "cta": "Get started"
+      },
+      "cards": {
+        "beneficiary": "Beneficiary",
+        "period": "Period",
+        "category": "Category",
+        "plan": "Plan",
+        "amount": "Amount",
+        "seasonRange": "Season dates"
+      },
+      "slots": {
+        "title": "Linked slots",
+        "empty": "No specific slot on this subscription",
+        "more": "+{count} more"
+      },
+      "filters": {
+        "all": "All",
+        "draft": "Draft",
+        "pending": "Pending",
+        "active": "Active",
+        "approved": "Approved",
+        "empty": "No subscription matches this filter right now."
+      },
+      "payment": {
+        "title": "Payment and tracking",
+        "lastInvoice": "Last invoice",
+        "paid": "Paid",
+        "pending": "Pending",
+        "notGenerated": "Not generated"
+      },
+      "actions": {
+        "title": "Available action",
+        "submit": "Submit to administration",
+        "submitting": "Submitting...",
+        "confirmSubmit": "Confirm send",
+        "cancel": "Cancel",
+        "awaiting": "Awaiting admin approval",
+        "pendingLine": "Administrative review is still in progress.",
+        "payNow": "Pay now",
+        "viewReceipt": "View receipt",
+        "hideReceipt": "Hide receipt",
+        "openPaymentFlow": "Open payment flow",
+        "receiptReady": "Receipt available",
+        "receiptPanelTitle": "Receipt details",
+        "closeReceipt": "Close",
+        "submitWarningDialog": "This will permanently send the request to the administration. Continue?",
+        "submitError": "Unable to submit",
+        "submitSuccess": "Request submitted",
+        "submitSuccessDescription": "The request is now waiting for administrative approval.",
+        "receiptNumberLabel": "Receipt",
+        "receiptAmountLabel": "Amount",
+        "receiptStatusLabel": "Status",
+        "receiptMethodLabel": "Method",
+        "receiptPaidAtLabel": "Paid on",
+        "receiptNumber": "Receipt number: {value}",
+        "receiptAmount": "Amount: {value}",
+        "receiptStatus": "Status: {value}",
+        "receiptMethod": "Method: {value}",
+        "receiptPaidAt": "Paid on: {value}",
+        "card": "Card",
+        "cash": "Cash",
+        "notAvailable": "Not available",
+        "descriptions": {
+          "CRE": "Your draft is ready. Once submitted, the administration must approve it before activation.",
+          "ATP": "The request has been sent. No further action is needed for now.",
+          "ACT": "The administration approved the subscription. You can now pay the invoice.",
+          "APP": "The subscription is fully approved and paid. The receipt remains available."
+        }
+      }
+    },
+    "access": {
+      "eyebrow": "Access control",
+      "title": "Your access history",
+      "subtitle": "Each recorded entry or denial appears here with the linked slot, giving you a clear trace of your activity at the center.",
+      "metrics": {
+        "total": "Total",
+        "authorized": "Authorized",
+        "denied": "Denied"
+      },
+      "empty": {
+        "title": "No access recorded",
+        "description": "Your visits will appear here after the first badge scan or front-desk validation.",
+        "cta": "See my subscriptions"
+      },
+      "validation": "Validated via {mode}.",
+      "badgeMode": "member badge",
+      "manualMode": "manual control",
+      "authorized": "Access granted",
+      "denied": "Access denied"
+    },
+    "activity": {
+      "badge": "Activity",
+      "title": "Global history of your area",
+      "subtitle": "A single timeline to follow your subscriptions, invoices, access, news and sent feedback.",
+      "metrics": {
+        "events": "Events",
+        "news": "Mock news",
+        "feedback": "Feedback"
+      },
+      "timeline": {
+        "title": "Client timeline",
+        "subtitle": "Chronological order of the most recent events."
+      },
+      "news": {
+        "title": "Latest news",
+        "subtitle": "Simulated content but served from the local backend."
+      },
+      "feedback": {
+        "title": "Sent feedback",
+        "subtitle": "History of messages sent to the simulated admin queue.",
+        "empty": "No feedback sent yet from your account."
+      }
+    },
+    "invoices": {
+      "eyebrow": "Billing",
+      "title": "My invoices",
+      "subtitle": "The financial tracking of your subscriptions is now visible in a dedicated area with statuses, amounts and history.",
+      "metrics": {
+        "total": "Total",
+        "pending": "Pending",
+        "paid": "Paid"
+      },
+      "outstanding": {
+        "title": "Amount still due",
+        "cta": "Request payment help"
+      },
+      "empty": {
+        "title": "No invoices yet",
+        "description": "Your next invoices will appear automatically as soon as a subscription is created."
+      },
+      "cards": {
+        "amount": "Amount",
+        "created": "Created",
+        "payment": "Payment",
+        "pending": "Pending",
+        "mode": "Method"
+      },
+      "quickAction": {
+        "title": "Quick action",
+        "pendingDescription": "This invoice is still pending processing. Support can confirm the payment status for you.",
+        "paidDescription": "This invoice is already paid and remains available as a historical record.",
+        "cta": "Contact financial support"
+      }
+    },
+    "planning": {
+      "badge": "Planning",
+      "title": "Your weekly slots",
+      "subtitle": "This view gathers the slots linked to your active subscriptions or those awaiting validation.",
+      "metrics": {
+        "followedOffers": "Tracked offers",
+        "activeSlots": "Active slots"
+      },
+      "daySubtitle": "{count} linked slot(s)",
+      "dayEmptySubtitle": "No scheduled slot",
+      "emptyDay": "Nothing is scheduled on this day with your current subscriptions."
+    },
+    "client": {
+      "shell": {
+        "closeNavigation": "Close navigation"
+      },
+      "sidebar": {
+        "title": "Navigation",
+        "subtitle": "Client area",
+        "closeAria": "Close sidebar",
+        "sections": {
+          "overview": "Overview",
+          "management": "Management",
+          "account": "Account"
+        },
+        "nav": {
+          "home": "Home",
+          "planning": "Schedule",
+          "activity": "Activity",
+          "news": "News",
+          "subscriptions": "Subscriptions",
+          "invoices": "Invoices",
+          "access": "Access",
+          "profile": "Profile",
+          "settings": "Settings",
+          "support": "Support"
+        },
+        "logout": "Sign out",
+        "loggingOut": "Signing out..."
+      },
+      "topbar": {
+        "openMenuAria": "Open sidebar",
+        "openMenuTitle": "Open sidebar",
+        "languageAria": "Change language",
+        "languageTitle": "Language",
+        "activeLocale": "Current",
+        "themeTitle": "Theme",
+        "notificationsAria": "Open notifications",
+        "notificationsTitle": "Notifications",
+        "unreadCount": "{count, plural, =0 {No new alerts} one {# new alert} other {# new alerts}}",
+        "markAllRead": "Mark all as read",
+        "emptyNotifications": "No notifications right now.",
+        "profileAria": "Open profile menu",
+        "profileTitle": "Profile",
+        "fileNumber": "File {value}",
+        "defaultCentre": "SONATRACH Nautical Center",
+        "profileMenu": {
+          "myProfile": "My profile",
+          "dashboard": "Dashboard",
+          "activity": "Activity",
+          "invoices": "Invoices",
+          "planning": "Schedule",
+          "settings": "Settings"
+        },
+        "activeSubscriptions": "Active",
+        "pendingInvoices": "Invoices",
+        "logout": "Sign out",
+        "loggingOut": "...",
+        "session": "Session",
+        "pages": {
+          "dashboard": {
+            "title": "Dashboard",
+            "subtitle": "Your personal area centralizes subscriptions, access and support."
+          },
+          "news": {
+            "title": "News",
+            "subtitle": "Useful updates, season changes and center news."
+          },
+          "planning": {
+            "title": "Schedule",
+            "subtitle": "Find your active slots organized by weekday."
+          },
+          "activity": {
+            "title": "Activity",
+            "subtitle": "Review the recent activity across your member area."
+          },
+          "subscriptions": {
+            "title": "Subscriptions",
+            "subtitle": "Track your offers, invoices and upcoming slots."
+          },
+          "invoices": {
+            "title": "Invoices",
+            "subtitle": "Review your amounts, statuses and subscription payments."
+          },
+          "newSubscription": {
+            "title": "New subscription",
+            "subtitle": "Choose a discipline that fits your profile and season."
+          },
+          "access": {
+            "title": "Access history",
+            "subtitle": "Review your entries and recent validations."
+          },
+          "profile": {
+            "title": "Profile",
+            "subtitle": "Keep your contact information and security up to date."
+          },
+          "settings": {
+            "title": "Settings",
+            "subtitle": "Control display, language and quick preferences."
+          },
+          "support": {
+            "title": "Support",
+            "subtitle": "Access useful contacts and assistance channels."
+          }
+        }
+      },
+      "settings": {
+        "badge": "Customization",
+        "title": "Your area settings",
+        "subtitle": "Choose a comfortable display, switch languages and keep a consistent experience across your screens.",
+        "sections": {
+          "appearance": {
+            "title": "Appearance",
+            "subtitle": "The theme applies across the whole client area.",
+            "systemDescription": "Matches your device",
+            "instantDescription": "Available immediately"
+          },
+          "language": {
+            "title": "Language",
+            "subtitle": "The change happens without leaving the current page.",
+            "active": "Active language",
+            "switch": "Switch interface"
+          },
+          "comfort": {
+            "title": "Comfort",
+            "subtitle": "Local preferences saved on this device."
+          }
+        },
+        "preferences": {
+          "compact": {
+            "title": "Compact mode",
+            "description": "Reduces spacing to show more information."
+          },
+          "reduceMotion": {
+            "title": "Reduce animations",
+            "description": "Useful if you prefer a calmer interface."
+          }
+        },
+        "summary": {
+          "title": "Current summary",
+          "theme": "Active theme: {value}",
+          "language": "Active language: {value}",
+          "compactMode": "Compact mode: {value}",
+          "reduceMotion": "Reduced animations: {value}"
+        },
+        "states": {
+          "active": "active",
+          "inactive": "inactive"
+        },
+        "reset": "Restore recommended settings"
+      },
+      "profile": {
+        "statusActive": "Active account",
+        "fileNumber": "File {value}",
+        "emptyValue": "Not provided",
+        "stats": {
+          "activeSubscriptions": "Active subscriptions",
+          "paidInvoices": "Paid invoices",
+          "recordedAccesses": "Recorded accesses"
+        },
+        "sections": {
+          "personalInfo": {
+            "title": "Personal information",
+            "subtitle": "Update your details without going back to the home page."
+          },
+          "security": {
+            "title": "Security",
+            "subtitle": "Change your password and keep your account protected."
+          },
+          "recentActivity": {
+            "title": "Recent activity",
+            "subtitle": "The latest activity linked to your account."
+          }
+        },
+        "fields": {
+          "lastName": "Last name",
+          "firstName": "First name",
+          "email": "Email",
+          "phone": "Phone",
+          "address": "Address",
+          "organization": "Organization",
+          "birthDate": "Birth date",
+          "employeeNumber": "Employee number",
+          "fileNumber": "File number"
+        },
+        "passwordFields": {
+          "current": "Current password",
+          "new": "New password",
+          "confirm": "Confirmation"
+        },
+        "passwordHint": "Use at least 8 characters with uppercase, lowercase and numbers for a stronger password.",
+        "actions": {
+          "saving": "Saving...",
+          "saveProfile": "Save my changes",
+          "updatingPassword": "Updating...",
+          "changePassword": "Change password"
+        },
+        "toasts": {
+          "profileError": "Unable to update",
+          "profileSaved": "Profile saved",
+          "profileSavedDescription": "Your contact details have been updated.",
+          "passwordError": "Password change rejected",
+          "passwordChanged": "Password changed",
+          "passwordChangedDescription": "Your security has been strengthened."
+        },
+        "noRecentActivity": "No recent activity."
+      },
+      "subscriptionNew": {
+        "backToSubscriptions": "Back to subscriptions",
+        "ageDetected": "Detected age: {value} years",
+        "hero": {
+          "badge": "New subscription",
+          "title": "Prepare a clear and guided subscription request.",
+          "subtitle": "Choose the beneficiary first, then build the subscription and send the request to the administration."
+        },
+        "stepLabel": "Step {value}",
+        "progressLabel": "{current} / {total}",
+        "steps": {
+          "who": "For whom?",
+          "builder": "Plan",
+          "review": "Summary"
+        },
+        "days": {
+          "sun": "Sun",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat"
+        },
+        "gender": {
+          "male": "Male",
+          "female": "Female",
+          "other": "Profile"
+        },
+        "who": {
+          "ageChip": "{value} years",
+          "fields": {
+            "firstName": "First name",
+            "lastName": "Last name",
+            "age": "Age",
+            "gender": "Gender",
+            "fileNumber": "File number"
+          },
+          "self": {
+            "title": "For myself",
+            "subtitle": "Use my member file automatically."
+          },
+          "other": {
+            "title": "For a relative or another person",
+            "subtitle": "Look up an existing file before continuing.",
+            "searchPlaceholder": "File number",
+            "searchButton": "Search",
+            "searching": "Searching...",
+            "helper": "Enter an existing file number to load the profile.",
+            "searchRequired": "Please enter a file number.",
+            "profileTitle": "Beneficiary profile",
+            "linked": "File found",
+            "change": "Search another file"
+          }
+        },
+        "availability": {
+          "available": "Available",
+          "unavailable": "Unavailable"
+        },
+        "sections": {
+          "who": {
+            "title": "Choose the beneficiary",
+            "subtitle": "This selection decides which file is used for the rest of the flow."
+          },
+          "builder": {
+            "title": "Build the subscription",
+            "subtitle": "Choose the space, discipline, season, category, type and slots."
+          },
+          "review": {
+            "title": "Review before sending",
+            "subtitle": "Check the details, then send the request to the administration."
+          }
+        },
+        "typeOptions": {
+          "open": {
+            "label": "Open season",
+            "description": "Free access for the selected season."
+          },
+          "duration": {
+            "label": "By duration",
+            "description": "Fixed-slot plan for a defined period."
+          },
+          "session": {
+            "label": "By sessions",
+            "description": "Ideal for a progressive and scheduled practice."
+          }
+        },
+        "labels": {
+          "discipline": "Discipline",
+          "season": "Season",
+          "category": "Category",
+          "selectPlaceholder": "Select"
+        },
+        "eligibility": {
+          "title": "Eligibility",
+          "description": "Visible categories and slots stay filtered by age, allowed gender and open season."
+        },
+        "spaceAvailable": "Space available this season",
+        "slots": {
+          "available": "Weekly slots",
+          "empty": "No compatible slot for this combination.",
+          "dayEmpty": "No slot",
+          "noGroup": "No group",
+          "openBadge": "Open access",
+          "openMessage": "Open access — no fixed slot required."
+        },
+        "amount": {
+          "label": "Amount incl. tax (DZD)",
+          "suggested": "Suggested amount: {value} DZD",
+          "locked": "The amount is calculated automatically from the type, space and selected slots.",
+          "autoCalculated": "Auto calculated"
+        },
+        "summaryLabels": {
+          "forWhom": "For whom",
+          "space": "Space",
+          "discipline": "Discipline",
+          "spaceDiscipline": "Space + discipline",
+          "season": "Season",
+          "category": "Category",
+          "formula": "Type",
+          "amount": "Amount",
+          "selectedSlots": "Selected slots",
+          "noSpecificSlot": "No specific slot",
+          "openAccess": "Open access"
+        },
+        "buttons": {
+          "previousStep": "Previous step",
+          "continue": "Continue",
+          "completeWho": "Choose a beneficiary before moving to the next step.",
+          "completeBuilder": "Complete the space, discipline, season and category to continue."
+        },
+        "review": {
+          "submitTitle": "Submit request",
+          "submitDescription": "Once sent, this request goes to the administration and can no longer be cancelled. The subscription must be approved before it becomes active.",
+          "submitAction": "Submit my request to the administration",
+          "toggleDescription": "Turn on this confirmation to reveal the final send action.",
+          "confirmAction": "Confirm and send",
+          "confirmRequired": "Turn on the confirmation before sending the request.",
+          "submitting": "Sending...",
+          "submitted": "Request submitted",
+          "submitWarningDialog": "This action is irreversible. Do you want to send the request to the administration?"
+        },
+        "aside": {
+          "title": "Smart summary",
+          "subtitle": "This panel follows your progress during the whole flow.",
+          "mobileSummary": "Summary",
+          "profile": "Beneficiary",
+          "profileAge": "Profile age",
+          "toChoose": "To choose",
+          "estimatedAmount": "Estimated amount",
+          "verificationTitle": "Automatic checks",
+          "checks": {
+            "subject": "Beneficiary confirmed",
+            "ageCategory": "Age / category compatibility",
+            "validSlots": "Valid slots for the discipline"
+          }
+        },
+        "toasts": {
+          "whoMissingTitle": "Beneficiary missing",
+          "whoMissingDescription": "Choose your own file or look up another member before continuing.",
+          "incompleteTitle": "Incomplete selection",
+          "incompleteDescription": "Choose at least a space, discipline, season and category.",
+          "createError": "Unable to create",
+          "createSuccess": "Request sent",
+          "createSuccessDescription": "Your request was successfully sent to the administration."
+        }
+      },
+      "abonnementPayment": {
+        "back": "Back to subscriptions",
+        "hero": {
+          "badge": "Invoice payment",
+          "title": "Complete your subscription",
+          "subtitle": "Choose a payment mode to confirm this invoice and close the flow."
+        },
+        "invoice": {
+          "title": "Invoice summary",
+          "designation": "Subscription",
+          "season": "Season",
+          "space": "Space",
+          "forWhom": "Beneficiary",
+          "amount": "Amount",
+          "receiptNumber": "Receipt number",
+          "pendingReceipt": "Pending",
+          "status": "Status",
+          "paymentMethod": "Payment method",
+          "paidAt": "Paid on"
+        },
+        "payment": {
+          "title": "Choose your payment mode",
+          "confirm": "Confirm payment",
+          "confirmCardAmount": "Pay by card — {value} DZD",
+          "confirmCash": "Confirm payment at the center",
+          "submitting": "Confirming...",
+          "alreadyPaid": "This invoice has already been paid.",
+          "unavailable": "Payment unavailable",
+          "unavailableDescription": "Payment becomes available once the subscription has been approved by the administration.",
+          "successTitle": "Payment confirmed",
+          "preview": {
+            "label": "Card preview",
+            "number": "0000 0000 0000 0000",
+            "name": "Full name",
+            "expiry": "MM/YY"
+          },
+          "card": {
+            "title": "Pay by card",
+            "description": "Cosmetic card form to simulate an immediate payment."
+          },
+          "cash": {
+            "title": "Pay at the center",
+            "description": "Let the front desk know and pay directly on site.",
+            "instructions": "Go to the front desk with your file number to pay in cash."
+          },
+          "fields": {
+            "name": "Name on card",
+            "number": "Card number",
+            "expiry": "Expiry date",
+            "cvv": "CVV"
+          },
+          "placeholders": {
+            "name": "Full name",
+            "number": "1234 5678 9012 3456",
+            "expiry": "MM/YY",
+            "cvv": "123"
+          }
+        },
+        "toasts": {
+          "success": "Payment confirmed",
+          "successDescription": "The invoice is now marked as paid.",
+          "error": "Unable to confirm payment"
+        }
+      }
+    }
+  },
   "theme": {
     "light": "Light",
     "dark": "Dark",

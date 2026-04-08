@@ -4,12 +4,15 @@ import type { NextConfig } from "next";
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
-    experimental: {
-        typedRoutes: true,
-    },
+    typedRoutes: true,
 
     images: {
-        remotePatterns: [],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "images.unsplash.com",
+            },
+        ],
     },
 };
 

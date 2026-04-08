@@ -16,3 +16,19 @@ export function generateNumeroRecu(year: number, sequence: number): string {
     const paddedSequence = sequence.toString().padStart(5, '0');
     return `REC-${year}-${paddedSequence}`;
 }
+
+export function formatCurrency(value: number, locale = "fr"): string {
+    return new Intl.NumberFormat(locale === "fr" ? "fr-FR" : "en-US", {
+        style: "currency",
+        currency: "DZD",
+        maximumFractionDigits: 2,
+    }).format(value);
+}
+
+export function formatDate(date: Date, locale = "fr"): string {
+    return new Intl.DateTimeFormat(locale === "fr" ? "fr-FR" : "en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+    }).format(date);
+}
