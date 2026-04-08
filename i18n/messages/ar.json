@@ -1351,11 +1351,16 @@
     },
     "disciplinesUi": {
       "pageTitle": "التخصصات والمناطق",
+      "newButton": "إضافة",
       "tabs": {
         "espaces": "المناطق",
         "disciplines": "التخصصات"
       },
       "labelAgeCategories": "فئات العمر:",
+      "cards": {
+        "disciplinesCount": "{count} تخصصات",
+        "noAgeCategories": "لا توجد فئات عمرية مرتبطة بهذا الفضاء بعد."
+      },
       "table": {
         "code": "الرمز",
         "designation": "التسمية",
@@ -1364,7 +1369,108 @@
       },
       "pageDescription": "{spaces} فضاءات - {disciplines} تخصصات",
       "listDescription": "{count} تخصصًا مسجلًا",
-      "empty": "لا يوجد تخصص مهيأ"
+      "empty": "لا يوجد تخصص مهيأ",
+      "form": {
+        "title": "إضافة فضاء أو تخصص",
+        "description": "أنشئ مدخلاً مرجعياً جديداً يُستخدم في الفترات الزمنية والاشتراكات وفضاء العضو.",
+        "adminOnlyBadge": "Admin only",
+        "modes": {
+          "espace": {
+            "label": "فضاء",
+            "description": "أنشئ فضاءً رئيسياً جديداً قبل ربط التخصصات به."
+          },
+          "discipline": {
+            "label": "تخصص",
+            "description": "أضف نشاطاً جديداً داخل فضاء تم إعداده مسبقاً."
+          }
+        },
+        "preview": {
+          "modeLabel": "النوع",
+          "codeLabel": "الرمز",
+          "targetLabel": "الوجهة",
+          "emptyCode": "رمز غير محدد",
+          "emptyDesignation": "تسمية غير محددة",
+          "spaceFallback": "اختر فضاءً"
+        },
+        "sections": {
+          "mode": "نوع الإدخال",
+          "linking": "الربط",
+          "details": "المعلومات"
+        },
+        "fields": {
+          "code": "الرمز",
+          "designation": "التسمية",
+          "description": "الوصف",
+          "espace": "الفضاء الرئيسي"
+        },
+        "placeholders": {
+          "espace": {
+            "code": "مثال: FIT",
+            "designation": "مثال: فضاء اللياقة",
+            "description": "ملخص قصير عن الفضاء واستخدامه."
+          },
+          "discipline": {
+            "espace": "اختر فضاءً",
+            "code": "مثال: AQUA",
+            "designation": "مثال: أكوا جيم"
+          }
+        },
+        "hints": {
+          "code": "استخدم من 2 إلى 10 أحرف كبيرة أو أرقام أو شرطات.",
+          "spaceDescription": "يساعد هذا الوصف الفريق على فهم وظيفة الفضاء بسرعة.",
+          "disciplineSpace": "سيتم ربط التخصص بالفضاء المحدد ويمكن استخدامه بعد ذلك في الفترات الزمنية."
+        },
+        "notes": {
+          "espaceTitle": "بعد الإنشاء",
+          "espaceDescription": "يمكنك لاحقاً ربط فئات عمرية وتخصصات جديدة بهذا الفضاء.",
+          "disciplineTitle": "التوفر",
+          "disciplineDescription": "سيصبح التخصص متاحاً في إعداد الفترات الزمنية والاشتراكات بعد التحديث.",
+          "emptySpacesTitle": "ابدأ بفضاء",
+          "emptySpacesDescription": "لا يمكن إنشاء تخصص قبل وجود فضاء واحد على الأقل.",
+          "adminTitle": "إدارة مركزية",
+          "adminDescription": "تُحدِّث هذه التغييرات شاشات الإدارة ومسارات الأعضاء مباشرة."
+        },
+        "actions": {
+          "cancel": "إلغاء",
+          "submitEspace": "إنشاء الفضاء",
+          "submitDiscipline": "إنشاء التخصص",
+          "submitting": "جارٍ الإنشاء..."
+        },
+        "toasts": {
+          "validationTitle": "النموذج غير مكتمل",
+          "validationDescription": "صحح الحقول المعلَّمة ثم أعد المحاولة.",
+          "errorTitle": "تعذر الإنشاء",
+          "successTitle": "تم الإنشاء بنجاح",
+          "spaceSuccessDescription": "تمت إضافة الفضاء الجديد بنجاح.",
+          "disciplineSuccessDescription": "تمت إضافة التخصص الجديد بنجاح."
+        },
+        "validation": {
+          "espace": {
+            "codeRequired": "رمز الفضاء مطلوب.",
+            "codeInvalid": "يجب أن يحتوي الرمز على 2 إلى 10 أحرف أو أرقام أو شرطات.",
+            "designationRequired": "تسمية الفضاء مطلوبة.",
+            "designationMin": "يجب أن تحتوي التسمية على حرفين على الأقل.",
+            "designationMax": "لا يمكن أن تتجاوز التسمية 80 حرفاً.",
+            "descriptionMax": "لا يمكن أن يتجاوز الوصف 255 حرفاً."
+          },
+          "discipline": {
+            "espaceRequired": "يرجى اختيار فضاء.",
+            "codeRequired": "رمز التخصص مطلوب.",
+            "codeInvalid": "يجب أن يحتوي الرمز على 2 إلى 10 أحرف أو أرقام أو شرطات.",
+            "designationRequired": "تسمية التخصص مطلوبة.",
+            "designationMin": "يجب أن تحتوي التسمية على حرفين على الأقل.",
+            "designationMax": "لا يمكن أن تتجاوز التسمية 80 حرفاً."
+          }
+        },
+        "feedback": {
+          "invalidForm": "يحتوي النموذج على قيم غير صالحة.",
+          "forbidden": "ليست لديك صلاحية لتنفيذ هذا الإجراء.",
+          "unexpected": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+          "espaceDuplicateCode": "يوجد فضاء آخر يستخدم هذا الرمز.",
+          "disciplineDuplicateCode": "يوجد تخصص آخر يستخدم هذا الرمز داخل الفضاء المحدد.",
+          "spaceMissing": "الفضاء المحدد غير موجود."
+        }
+      }
     },
     "moniteursUi": {
       "pageTitle": "إدارة المدربين",

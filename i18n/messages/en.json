@@ -1421,11 +1421,16 @@
     },
     "disciplinesUi": {
       "pageTitle": "Disciplines and Spaces",
+      "newButton": "Add",
       "tabs": {
         "espaces": "Spaces",
         "disciplines": "Disciplines"
       },
       "labelAgeCategories": "Age categories:",
+      "cards": {
+        "disciplinesCount": "{count} disciplines",
+        "noAgeCategories": "No age category is linked to this space yet."
+      },
       "table": {
         "code": "Code",
         "designation": "Name",
@@ -1434,7 +1439,108 @@
       },
       "pageDescription": "{spaces} spaces - {disciplines} disciplines",
       "listDescription": "{count} disciplines configured",
-      "empty": "No discipline configured"
+      "empty": "No discipline configured",
+      "form": {
+        "title": "Add a space or discipline",
+        "description": "Create a new reference entry used across time slots, subscriptions, and the member space.",
+        "adminOnlyBadge": "Admin only",
+        "modes": {
+          "espace": {
+            "label": "Space",
+            "description": "Create a new main space before linking disciplines to it."
+          },
+          "discipline": {
+            "label": "Discipline",
+            "description": "Add a new activity inside an already configured space."
+          }
+        },
+        "preview": {
+          "modeLabel": "Type",
+          "codeLabel": "Code",
+          "targetLabel": "Target",
+          "emptyCode": "Code to define",
+          "emptyDesignation": "Name to define",
+          "spaceFallback": "Choose a space"
+        },
+        "sections": {
+          "mode": "Entry type",
+          "linking": "Linking",
+          "details": "Details"
+        },
+        "fields": {
+          "code": "Code",
+          "designation": "Name",
+          "description": "Description",
+          "espace": "Parent space"
+        },
+        "placeholders": {
+          "espace": {
+            "code": "Example: FIT",
+            "designation": "Example: Fitness space",
+            "description": "Short summary of the space and what it is used for."
+          },
+          "discipline": {
+            "espace": "Select a space",
+            "code": "Example: AQUA",
+            "designation": "Example: Aqua fitness"
+          }
+        },
+        "hints": {
+          "code": "Use 2 to 10 uppercase letters, numbers, or hyphens.",
+          "spaceDescription": "This text helps the team understand the purpose of the space at a glance.",
+          "disciplineSpace": "The discipline will be attached to the selected space and can then be used in time slots."
+        },
+        "notes": {
+          "espaceTitle": "After creation",
+          "espaceDescription": "You can later attach age categories and new disciplines to this space.",
+          "disciplineTitle": "Availability",
+          "disciplineDescription": "The discipline becomes available in time slot and subscription configuration after refresh.",
+          "emptySpacesTitle": "Start with a space",
+          "emptySpacesDescription": "No discipline can be created until at least one space exists.",
+          "adminTitle": "Centralized management",
+          "adminDescription": "These changes immediately update admin screens and member journeys."
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "submitEspace": "Create space",
+          "submitDiscipline": "Create discipline",
+          "submitting": "Creating..."
+        },
+        "toasts": {
+          "validationTitle": "Incomplete form",
+          "validationDescription": "Fix the highlighted fields and try again.",
+          "errorTitle": "Unable to create",
+          "successTitle": "Created successfully",
+          "spaceSuccessDescription": "The new space was added successfully.",
+          "disciplineSuccessDescription": "The new discipline was added successfully."
+        },
+        "validation": {
+          "espace": {
+            "codeRequired": "Space code is required.",
+            "codeInvalid": "Code must use 2 to 10 letters, numbers, or hyphens.",
+            "designationRequired": "Space name is required.",
+            "designationMin": "Name must contain at least 2 characters.",
+            "designationMax": "Name cannot exceed 80 characters.",
+            "descriptionMax": "Description cannot exceed 255 characters."
+          },
+          "discipline": {
+            "espaceRequired": "Please select a space.",
+            "codeRequired": "Discipline code is required.",
+            "codeInvalid": "Code must use 2 to 10 letters, numbers, or hyphens.",
+            "designationRequired": "Discipline name is required.",
+            "designationMin": "Name must contain at least 2 characters.",
+            "designationMax": "Name cannot exceed 80 characters."
+          }
+        },
+        "feedback": {
+          "invalidForm": "The form contains invalid values.",
+          "forbidden": "You are not allowed to perform this action.",
+          "unexpected": "An unexpected error occurred. Please try again.",
+          "espaceDuplicateCode": "Another space already uses this code.",
+          "disciplineDuplicateCode": "Another discipline already uses this code in the selected space.",
+          "spaceMissing": "The selected space could not be found."
+        }
+      }
     },
     "moniteursUi": {
       "pageTitle": "Instructors management",

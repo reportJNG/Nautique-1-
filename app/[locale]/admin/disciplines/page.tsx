@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db/prisma";
+import { getSession } from "@/lib/auth/session";
 import {
   AdminDataTable,
   AdminPageHeader,
@@ -7,11 +8,25 @@ import {
 } from "@/components/admin/AdminPage";
 import { getTranslations } from "next-intl/server";
 import { CheckCircle, Dumbbell, Tag, Waves, XCircle } from "lucide-react";
+import { CreateDisciplineEspaceDialog } from "./CreateDisciplineEspaceDialog";
 
 async function getData() {
   const [espaces, disciplines] = await Promise.all([
-    prisma.espace.findMany({ include: { categoriesAge: true } }),
-    prisma.discipline.findMany({ include: { espace: true } }),
+    prisma.espace.findMany({
+      orderBy: { designation: "asc" },
+      include: {
+        categoriesAge: {
+          orderBy: { ageMin: "asc" },
+        },
+        _count: {
+          select: { disciplines: true },
+        },
+      },
+    }),
+    prisma.discipline.findMany({
+      orderBy: [{ espaceId: "asc" }, { designation: "asc" }],
+      include: { espace: true },
+    }),
   ]);
 
   return { espaces, disciplines };
@@ -24,7 +39,12 @@ export default async function DisciplinesPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "admin" });
-  const { espaces, disciplines } = await getData();
+  const [{ espaces, disciplines }, session] = await Promise.all([
+    getData(),
+    getSession(),
+  ]);
+  const canCreateDiscipline =
+    session?.type === "agent" && session.roleCode === "ADMIN";
 
   const espaceColors = [
     { border: "ring-primary/30", accent: "text-primary" },
@@ -42,6 +62,18 @@ export default async function DisciplinesPage({
           disciplines: disciplines.length,
         })}
         icon={<Dumbbell />}
+        actions={
+          canCreateDiscipline ? (
+            <CreateDisciplineEspaceDialog
+              locale={locale}
+              espaces={espaces.map((espace) => ({
+                id: espace.id,
+                code: espace.code,
+                designation: espace.designation,
+              }))}
+            />
+          ) : null
+        }
       />
 
       <div className="space-y-6 [&:has(#dis-tab-disc:checked)_.disciplines-panel]:block [&:has(#dis-tab-disc:checked)_.disciplines-tab-trigger]:bg-primary/10 [&:has(#dis-tab-disc:checked)_.disciplines-tab-trigger]:font-semibold [&:has(#dis-tab-disc:checked)_.disciplines-tab-trigger]:text-primary [&:has(#dis-tab-disc:checked)_.disciplines-tab-trigger]:ring-1 [&:has(#dis-tab-disc:checked)_.disciplines-tab-trigger]:ring-primary/30 [&:has(#dis-tab-disc:checked)_.espaces-panel]:hidden [&:has(#dis-tab-espaces:checked)_.espaces-tab-trigger]:bg-primary/10 [&:has(#dis-tab-espaces:checked)_.espaces-tab-trigger]:font-semibold [&:has(#dis-tab-espaces:checked)_.espaces-tab-trigger]:text-primary [&:has(#dis-tab-espaces:checked)_.espaces-tab-trigger]:ring-1 [&:has(#dis-tab-espaces:checked)_.espaces-tab-trigger]:ring-primary/30">
@@ -90,11 +122,18 @@ export default async function DisciplinesPage({
                     <div className="text-base font-bold text-foreground">
                       {espace.designation}
                     </div>
-                    <span
-                      className={`inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-semibold ring-1 ${colors.border} ${colors.accent}`}
-                    >
-                      {espace.code}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="rounded-full bg-muted/30 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                        {t("disciplinesUi.cards.disciplinesCount", {
+                          count: espace._count.disciplines,
+                        })}
+                      </span>
+                      <span
+                        className={`inline-flex items-center rounded-md bg-transparent px-2 py-1 text-xs font-semibold ring-1 ${colors.border} ${colors.accent}`}
+                      >
+                        {espace.code}
+                      </span>
+                    </div>
                   </div>
 
                   {espace.description ? (
@@ -107,16 +146,22 @@ export default async function DisciplinesPage({
                     <div className="mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
                       {t("disciplinesUi.labelAgeCategories")}
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                      {espace.categoriesAge.map((category) => (
-                        <span
-                          key={category.id}
-                          className="inline-flex items-center rounded-full bg-card/50 px-2 py-1 text-xs font-medium text-muted-foreground ring-1 ring-border"
-                        >
-                          {category.designation}
-                        </span>
-                      ))}
-                    </div>
+                    {espace.categoriesAge.length > 0 ? (
+                      <div className="flex flex-wrap gap-2">
+                        {espace.categoriesAge.map((category) => (
+                          <span
+                            key={category.id}
+                            className="inline-flex items-center rounded-full bg-card/50 px-2 py-1 text-xs font-medium text-muted-foreground ring-1 ring-border"
+                          >
+                            {category.designation}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-muted-foreground/70">
+                        {t("disciplinesUi.cards.noAgeCategories")}
+                      </p>
+                    )}
                   </div>
                 </div>
               );

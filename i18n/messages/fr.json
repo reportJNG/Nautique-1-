@@ -1421,11 +1421,16 @@
     },
     "disciplinesUi": {
       "pageTitle": "Disciplines et Espaces",
+      "newButton": "Ajouter",
       "tabs": {
         "espaces": "Espaces",
         "disciplines": "Disciplines"
       },
       "labelAgeCategories": "Catégories d'âge :",
+      "cards": {
+        "disciplinesCount": "{count} disciplines",
+        "noAgeCategories": "Aucune catégorie d'âge rattachée pour le moment."
+      },
       "table": {
         "code": "Code",
         "designation": "Désignation",
@@ -1434,7 +1439,108 @@
       },
       "pageDescription": "{spaces} espaces - {disciplines} disciplines",
       "listDescription": "{count} disciplines enregistrées",
-      "empty": "Aucune discipline configurée"
+      "empty": "Aucune discipline configurée",
+      "form": {
+        "title": "Ajouter un espace ou une discipline",
+        "description": "Créez une nouvelle entrée de référence pour alimenter les créneaux, les abonnements et l'espace adhérent.",
+        "adminOnlyBadge": "Admin only",
+        "modes": {
+          "espace": {
+            "label": "Espace",
+            "description": "Créer un nouvel espace principal avant d'y rattacher des disciplines."
+          },
+          "discipline": {
+            "label": "Discipline",
+            "description": "Ajouter une nouvelle activité dans un espace déjà configuré."
+          }
+        },
+        "preview": {
+          "modeLabel": "Type",
+          "codeLabel": "Code",
+          "targetLabel": "Cible",
+          "emptyCode": "Code à définir",
+          "emptyDesignation": "Désignation à définir",
+          "spaceFallback": "Choisir un espace"
+        },
+        "sections": {
+          "mode": "Type d'entrée",
+          "linking": "Rattachement",
+          "details": "Informations"
+        },
+        "fields": {
+          "code": "Code",
+          "designation": "Désignation",
+          "description": "Description",
+          "espace": "Espace parent"
+        },
+        "placeholders": {
+          "espace": {
+            "code": "Ex : FIT",
+            "designation": "Ex : Espace fitness",
+            "description": "Résumé court de l'espace et de ses usages."
+          },
+          "discipline": {
+            "espace": "Sélectionner un espace",
+            "code": "Ex : AQUA",
+            "designation": "Ex : Aquagym"
+          }
+        },
+        "hints": {
+          "code": "Utilisez 2 à 10 caractères en majuscules, chiffres ou tirets.",
+          "spaceDescription": "Ce texte aide à comprendre rapidement la vocation de l'espace.",
+          "disciplineSpace": "La discipline sera rattachée à l'espace sélectionné et pourra ensuite être utilisée dans les créneaux."
+        },
+        "notes": {
+          "espaceTitle": "Après création",
+          "espaceDescription": "Vous pourrez rattacher des catégories d'âge et de nouvelles disciplines à cet espace.",
+          "disciplineTitle": "Disponibilité",
+          "disciplineDescription": "La discipline sera disponible dans la configuration des créneaux et des abonnements après actualisation.",
+          "emptySpacesTitle": "Commencez par un espace",
+          "emptySpacesDescription": "Aucune discipline ne peut être créée tant qu'aucun espace n'existe.",
+          "adminTitle": "Gestion centralisée",
+          "adminDescription": "Ces changements mettent immédiatement à jour les écrans d'administration et les parcours adhérents."
+        },
+        "actions": {
+          "cancel": "Annuler",
+          "submitEspace": "Créer l'espace",
+          "submitDiscipline": "Créer la discipline",
+          "submitting": "Création..."
+        },
+        "toasts": {
+          "validationTitle": "Formulaire incomplet",
+          "validationDescription": "Corrigez les champs signalés puis réessayez.",
+          "errorTitle": "Création impossible",
+          "successTitle": "Création réussie",
+          "spaceSuccessDescription": "Le nouvel espace a bien été ajouté.",
+          "disciplineSuccessDescription": "La nouvelle discipline a bien été ajoutée."
+        },
+        "validation": {
+          "espace": {
+            "codeRequired": "Le code de l'espace est requis.",
+            "codeInvalid": "Le code doit contenir 2 à 10 lettres, chiffres ou tirets.",
+            "designationRequired": "La désignation de l'espace est requise.",
+            "designationMin": "La désignation doit contenir au moins 2 caractères.",
+            "designationMax": "La désignation ne peut pas dépasser 80 caractères.",
+            "descriptionMax": "La description ne peut pas dépasser 255 caractères."
+          },
+          "discipline": {
+            "espaceRequired": "Veuillez sélectionner un espace.",
+            "codeRequired": "Le code de la discipline est requis.",
+            "codeInvalid": "Le code doit contenir 2 à 10 lettres, chiffres ou tirets.",
+            "designationRequired": "La désignation de la discipline est requise.",
+            "designationMin": "La désignation doit contenir au moins 2 caractères.",
+            "designationMax": "La désignation ne peut pas dépasser 80 caractères."
+          }
+        },
+        "feedback": {
+          "invalidForm": "Le formulaire contient des erreurs.",
+          "forbidden": "Vous n'avez pas l'autorisation pour effectuer cette action.",
+          "unexpected": "Une erreur inattendue est survenue. Veuillez réessayer.",
+          "espaceDuplicateCode": "Un espace utilise déjà ce code.",
+          "disciplineDuplicateCode": "Une discipline utilise déjà ce code dans cet espace.",
+          "spaceMissing": "L'espace sélectionné est introuvable."
+        }
+      }
     },
     "moniteursUi": {
       "pageTitle": "Gestion des moniteurs",
