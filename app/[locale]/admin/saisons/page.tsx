@@ -6,7 +6,7 @@ import {
   AdminSection,
 } from "@/components/admin/AdminPage";
 import { getTranslations } from "next-intl/server";
-import { Calendar, Clock, LayoutGrid } from "lucide-react";
+import { Calendar, Clock, LayoutGrid, Plus } from "lucide-react";
 import Link from "next/link";
 import { CreateSaisonDialog } from "./CreateSaisonDialog";
 
@@ -21,34 +21,170 @@ async function getSaisons() {
   });
 }
 
+// ─── Status visual config ────────────────────────────────────────────────────
+
+const STATUS_CONFIG = {
+  OUV: {
+    dot: "#1D9E75",
+    badge: "bg-[#E1F5EE] text-[#085041] border-[#9FE1CB]",
+    bar: "bg-[#1D9E75]",
+    label: "Open",
+  },
+  PRE: {
+    dot: "#7F77DD",
+    badge: "bg-[#EEEDFE] text-[#3C3489] border-[#AFA9EC]",
+    bar: "bg-[#7F77DD]",
+    label: "Pre-season",
+  },
+  FER: {
+    dot: "#888780",
+    badge: "bg-[#F1EFE8] text-[#444441] border-[#D3D1C7]",
+    bar: "bg-[#888780]",
+    label: "Closed",
+  },
+  CLO: {
+    dot: "#E24B4A",
+    badge: "bg-[#FCEBEB] text-[#791F1F] border-[#F7C1C1]",
+    bar: "bg-[#E24B4A]",
+    label: "Locked",
+  },
+} as const;
+
+type StatusKey = keyof typeof STATUS_CONFIG;
+
+// ─── Season card ─────────────────────────────────────────────────────────────
+
+function SaisonCard({
+  saison,
+  locale,
+  dateLocale,
+  t,
+}: {
+  saison: Awaited<ReturnType<typeof getSaisons>>[number];
+  locale: string;
+  dateLocale: string;
+  t: Awaited<ReturnType<typeof getTranslations<"admin">>>;
+}) {
+  const status =
+    (saison.statut as StatusKey) in STATUS_CONFIG
+      ? (saison.statut as StatusKey)
+      : "FER";
+  const cfg = STATUS_CONFIG[status];
+
+  const startDate = new Date(saison.dateDebut).toLocaleDateString(dateLocale, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+  const endDate = new Date(saison.dateFin).toLocaleDateString(dateLocale, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+  const startYear = new Date(saison.dateDebut).getFullYear();
+  const endYear = new Date(saison.dateFin).getFullYear();
+  const yearLabel =
+    startYear === endYear ? `${startYear}` : `${startYear}–${endYear}`;
+
+  return (
+    <Link
+      href={`/${locale}/admin/saisons/${saison.id}`}
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-border/40 bg-card transition-all duration-200 hover:-translate-y-0.5 hover:border-border/80 hover:shadow-md"
+    >
+      {/* Top status bar */}
+      <div className={`h-0.5 w-full ${cfg.bar} opacity-70`} />
+
+      <div className="flex flex-1 flex-col gap-4 p-5">
+        {/* Header row */}
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              {yearLabel}
+            </p>
+            <h3 className="mt-0.5 line-clamp-2 text-[15px] font-semibold leading-snug tracking-tight text-card-foreground">
+              {saison.designation}
+            </h3>
+          </div>
+          <span
+            className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${cfg.badge}`}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: cfg.dot }}
+            />
+            {t(`saisonStatus.${saison.statut}`)}
+          </span>
+        </div>
+
+        {/* Date range */}
+        <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
+          <Calendar className="h-3.5 w-3.5 shrink-0 opacity-60" />
+          <span>{startDate}</span>
+          <span className="opacity-40">→</span>
+          <span>{endDate}</span>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-auto flex items-center justify-between border-t border-border/30 pt-3">
+          <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
+            <LayoutGrid className="h-3.5 w-3.5 opacity-60" />
+            <span>
+              {t("saisonsUi.cards.slots", { count: saison._count.creneaux })}
+            </span>
+          </div>
+          <span className="text-[11px] font-medium text-muted-foreground/50 transition-colors group-hover:text-muted-foreground">
+            View →
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+// ─── Empty state ──────────────────────────────────────────────────────────────
+
+function EmptyState({
+  t,
+}: {
+  t: Awaited<ReturnType<typeof getTranslations<"admin">>>;
+}) {
+  return (
+    <div className="flex min-h-[48vh] flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-border/40 bg-muted/10 py-20 text-center">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border/40 bg-background">
+        <Calendar className="h-5 w-5 text-muted-foreground/60" />
+      </div>
+      <div>
+        <p className="text-[14px] font-medium text-foreground">
+          No seasons yet
+        </p>
+        <p className="mt-1 text-[13px] text-muted-foreground">
+          {t("status.noData")}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
 export default async function SaisonsPage({ params }: PageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "admin" });
-  const dateLocale = locale === "en" ? "en-US" : locale === "ar" ? "ar-DZ" : "fr-FR";
+  const dateLocale =
+    locale === "en" ? "en-US" : locale === "ar" ? "ar-DZ" : "fr-FR";
+
   const [saisons, session] = await Promise.all([getSaisons(), getSession()]);
-  const canCreateSaison = session?.type === "agent" && session.roleCode === "ADMIN";
-  const openSeason = saisons.find((saison) => saison.statut === "OUV");
-
-  const statusBadgeClasses: Record<string, string> = {
-    OUV: "border border-emerald-500/25 bg-[rgba(16,185,129,0.12)] text-emerald-500",
-    FER: "border border-slate-400/20 bg-[rgba(100,116,139,0.12)] text-slate-400",
-    PRE: "border border-primary/25 bg-[rgba(14,165,233,0.12)] text-primary",
-    CLO: "border border-red-400/25 bg-[rgba(248,113,113,0.12)] text-red-400",
-  };
-
-  const statusAfterClasses: Record<string, string> = {
-    OUV: "after:bg-gradient-to-r after:from-transparent after:via-emerald-500 after:to-transparent",
-    FER: "after:bg-gradient-to-r after:from-transparent after:via-slate-400 after:to-transparent",
-    PRE: "after:bg-gradient-to-r after:from-transparent after:via-primary after:to-transparent",
-    CLO: "after:bg-gradient-to-r after:from-transparent after:via-red-400 after:to-transparent",
-  };
+  const canCreateSaison =
+    session?.type === "agent" && session.roleCode === "ADMIN";
+  const openSeason = saisons.find((s) => s.statut === "OUV");
 
   return (
     <AdminPageShell locale={locale}>
       <AdminPageHeader
         title={t("saisonsUi.pageTitle")}
         description={t("saisonsUi.pageDescription", { count: saisons.length })}
-        icon={<Calendar />}
+        icon={<Calendar className="h-5 w-5" />}
         actions={
           canCreateSaison ? (
             <CreateSaisonDialog
@@ -63,53 +199,19 @@ export default async function SaisonsPage({ params }: PageProps) {
 
       {saisons.length === 0 ? (
         <AdminSection>
-          <div className="py-16 text-center text-sm text-muted-foreground">
-            {t("status.noData")}
-          </div>
+          <EmptyState t={t} />
         </AdminSection>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {saisons.map((saison) => {
-            const status = saison.statut as keyof typeof statusBadgeClasses;
-            const badgeClass = statusBadgeClasses[status] || statusBadgeClasses.FER;
-            const afterClass = statusAfterClasses[status] || statusAfterClasses.FER;
-
-            return (
-              <Link
-                key={saison.id}
-                href={`/${locale}/admin/saisons/${saison.id}`}
-                className={`group relative flex flex-col gap-3.5 overflow-hidden rounded-xl border border-border bg-card p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)] after:absolute after:left-0 after:right-0 after:top-0 after:h-0.5 after:opacity-0 after:transition-opacity after:duration-200 after:content-[''] hover:after:opacity-70 ${afterClass}`}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="text-base font-bold tracking-tight text-card-foreground">
-                    {saison.designation}
-                  </div>
-                  <span
-                    className={`inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 text-[10.5px] font-bold uppercase tracking-wide ${badgeClass}`}
-                  >
-                    {t(`saisonStatus.${saison.statut}`)}
-                  </span>
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <div className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
-                    <Clock size={13} className="shrink-0 text-muted-foreground" />
-                    {t("saisonsUi.detail.dateRange", {
-                      start: new Date(saison.dateDebut).toLocaleDateString(dateLocale),
-                      end: new Date(saison.dateFin).toLocaleDateString(dateLocale),
-                    })}
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-end border-t border-border pt-2">
-                  <div className="inline-flex items-center gap-1.5 rounded-md border border-border bg-secondary px-2.5 py-0.5 text-xs font-bold text-primary">
-                    <LayoutGrid size={12} />
-                    {t("saisonsUi.cards.slots", { count: saison._count.creneaux })}
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+          {saisons.map((saison) => (
+            <SaisonCard
+              key={saison.id}
+              saison={saison}
+              locale={locale}
+              dateLocale={dateLocale}
+              t={t}
+            />
+          ))}
         </div>
       )}
     </AdminPageShell>

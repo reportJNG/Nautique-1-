@@ -5,25 +5,17 @@ import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import {
   AlertTriangle,
+  ArrowRight,
   CalendarDays,
-  CalendarRange,
   CheckCircle2,
   Clock3,
   Lock,
   Plus,
   Shield,
+  X,
 } from "lucide-react";
 import { useAdminToast } from "@/components/admin/AdminToast";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -37,6 +29,10 @@ import {
 } from "@/lib/validators/saison";
 import { createSaison } from "./actions";
 
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
 type CreateSaisonDialogProps = {
   locale: string;
   defaultStatus: SaisonStatusValue;
@@ -46,33 +42,83 @@ type CreateSaisonDialogProps = {
 
 type FormErrors = Partial<Record<keyof CreateSaisonInput, string>>;
 
+// ---------------------------------------------------------------------------
+// Status config
+// ---------------------------------------------------------------------------
+
+const STATUS_CONFIG = {
+  PRE: {
+    icon: Clock3,
+    label: "Pre-season",
+    description:
+      "The season is being prepared. Registrations are not yet accessible.",
+    pillStyle: {
+      background: "#EEEDFE",
+      color: "#3C3489",
+    },
+    accentColor: "#AFA9EC",
+  },
+  OUV: {
+    icon: CheckCircle2,
+    label: "Open",
+    description:
+      "The season is active. Registrations and matches are in progress.",
+    pillStyle: {
+      background: "#E1F5EE",
+      color: "#085041",
+    },
+    accentColor: "#9FE1CB",
+  },
+  FER: {
+    icon: Shield,
+    label: "Closed",
+    description:
+      "The season has ended. Data is read-only; no further changes accepted.",
+    pillStyle: {
+      background: "#F1EFE8",
+      color: "#444441",
+    },
+    accentColor: "#D3D1C7",
+  },
+  CLO: {
+    icon: Lock,
+    label: "Locked",
+    description:
+      "The season is archived and fully locked. Contact support to unlock.",
+    pillStyle: {
+      background: "#FCEBEB",
+      color: "#791F1F",
+    },
+    accentColor: "#F7C1C1",
+  },
+} satisfies Record<
+  SaisonStatusValue,
+  {
+    icon: React.ElementType;
+    label: string;
+    description: string;
+    pillStyle: React.CSSProperties;
+    accentColor: string;
+  }
+>;
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
 function getDateLocale(locale: string) {
   if (locale === "en") return "en-US";
   if (locale === "ar") return "ar-DZ";
   return "fr-FR";
 }
 
-function formatDatePreview(value: string, locale: string) {
-  if (!isValidDateInput(value)) {
-    return null;
-  }
-
+function formatDateShort(value: string, locale: string) {
+  if (!isValidDateInput(value)) return null;
   return new Intl.DateTimeFormat(getDateLocale(locale), {
     day: "numeric",
     month: "short",
     year: "numeric",
   }).format(dateInputToUtcDate(value));
-}
-
-function getSeasonYearLabel(start: string, end: string) {
-  if (!isValidDateInput(start) || !isValidDateInput(end)) {
-    return null;
-  }
-
-  const startYear = dateInputToUtcDate(start).getUTCFullYear();
-  const endYear = dateInputToUtcDate(end).getUTCFullYear();
-
-  return `${startYear}-${endYear}`;
 }
 
 function buildValidationMessages(
@@ -90,7 +136,9 @@ function buildValidationMessages(
   };
 }
 
-function buildDefaultValues(defaultStatus: SaisonStatusValue): CreateSaisonInput {
+function buildDefaultValues(
+  defaultStatus: SaisonStatusValue,
+): CreateSaisonInput {
   return {
     designation: "",
     dateDebut: "",
@@ -98,6 +146,190 @@ function buildDefaultValues(defaultStatus: SaisonStatusValue): CreateSaisonInput
     statut: defaultStatus,
   };
 }
+
+// ---------------------------------------------------------------------------
+// CharRing — SVG progress ring for character count
+// ---------------------------------------------------------------------------
+
+function CharRing({ count, max }: { count: number; max: number }) {
+  const r = 9;
+  const circ = 2 * Math.PI * r;
+  const filled = circ * Math.min(count / max, 1);
+  const isNearLimit = count / max >= 0.85;
+
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden>
+      <circle
+        cx="11"
+        cy="11"
+        r={r}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        className="text-border"
+        opacity={0.3}
+      />
+      <circle
+        cx="11"
+        cy="11"
+        r={r}
+        fill="none"
+        stroke={isNearLimit ? "#E24B4A" : "#534AB7"}
+        strokeWidth="2"
+        strokeDasharray={`${filled.toFixed(1)} ${circ.toFixed(1)}`}
+        strokeLinecap="round"
+        transform="rotate(-90 11 11)"
+        style={{ transition: "stroke-dasharray 0.18s ease" }}
+      />
+    </svg>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// PreviewStrip
+// ---------------------------------------------------------------------------
+
+function PreviewStrip({
+  designation,
+  dateDebut,
+  dateFin,
+  statut,
+  locale,
+}: {
+  designation: string;
+  dateDebut: string;
+  dateFin: string;
+  statut: SaisonStatusValue;
+  locale: string;
+}) {
+  const startFmt = formatDateShort(dateDebut, locale);
+  const endFmt = formatDateShort(dateFin, locale);
+  const cfg = STATUS_CONFIG[statut];
+
+  return (
+    <div className="flex shrink-0 items-center gap-0 overflow-hidden border-b border-border/30 bg-muted/30 px-6 py-3">
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
+          Designation
+        </span>
+        <span className="truncate text-[13px] font-medium text-foreground">
+          {designation.trim() || "—"}
+        </span>
+      </div>
+
+      <div className="mx-4 h-8 w-px shrink-0 bg-border/40" />
+
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
+          Period
+        </span>
+        <span className="truncate text-[13px] font-medium text-foreground">
+          {startFmt && endFmt ? `${startFmt} → ${endFmt}` : "—"}
+        </span>
+      </div>
+
+      <div className="mx-4 h-8 w-px shrink-0 bg-border/40" />
+
+      <div className="flex shrink-0 flex-col gap-0.5">
+        <span className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
+          Status
+        </span>
+        <span
+          className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+          style={cfg.pillStyle}
+        >
+          {cfg.label}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// SegmentedControl
+// ---------------------------------------------------------------------------
+
+function SegmentedControl({
+  value,
+  onChange,
+}: {
+  value: SaisonStatusValue;
+  onChange: (v: SaisonStatusValue) => void;
+}) {
+  const options = Object.entries(STATUS_CONFIG) as [
+    SaisonStatusValue,
+    (typeof STATUS_CONFIG)[SaisonStatusValue],
+  ][];
+
+  return (
+    <div className="flex rounded-full border border-border/50 bg-muted/40 p-1 gap-1">
+      {options.map(([val, cfg]) => {
+        const Icon = cfg.icon;
+        const active = value === val;
+        return (
+          <button
+            key={val}
+            type="button"
+            onClick={() => onChange(val)}
+            className={cn(
+              "flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-[12px] font-medium transition-all duration-150",
+              active
+                ? "bg-background text-foreground shadow-sm ring-1 ring-border/30"
+                : "text-muted-foreground hover:text-foreground hover:bg-background/50",
+            )}
+          >
+            <Icon
+              className={cn(
+                "h-3.5 w-3.5 shrink-0",
+                active ? "opacity-100" : "opacity-60",
+              )}
+            />
+            <span className="hidden sm:inline">{cfg.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// StatusInfo
+// ---------------------------------------------------------------------------
+
+function StatusInfo({ statut }: { statut: SaisonStatusValue }) {
+  const cfg = STATUS_CONFIG[statut];
+  const Icon = cfg.icon;
+
+  return (
+    <div
+      className="mt-3 flex items-start gap-3 rounded-lg border-l-[3px] bg-muted/20 px-4 py-3"
+      style={{ borderLeftColor: cfg.accentColor }}
+    >
+      <Icon className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+      <div>
+        <p className="text-[12px] font-medium text-foreground">{cfg.label}</p>
+        <p className="mt-0.5 text-[12px] leading-5 text-muted-foreground">
+          {cfg.description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// FieldError
+// ---------------------------------------------------------------------------
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return (
+    <p className="mt-1.5 text-[11px] font-medium text-destructive">{message}</p>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Main component
+// ---------------------------------------------------------------------------
 
 export function CreateSaisonDialog({
   locale,
@@ -121,102 +353,50 @@ export function CreateSaisonDialog({
     () => buildValidationMessages(validationT),
     [validationT],
   );
-
   const schema = React.useMemo(
     () => createSaisonSchema(validationMessages),
     [validationMessages],
   );
 
-  const startPreview = formatDatePreview(values.dateDebut, locale);
-  const endPreview = formatDatePreview(values.dateFin, locale);
-  const seasonYearLabel = getSeasonYearLabel(values.dateDebut, values.dateFin);
-
-  const statusOptions = React.useMemo(
-    () =>
-      [
-        {
-          value: "PRE" as const,
-          icon: Clock3,
-          chipClass:
-            "border-amber-500/25 bg-amber-500/10 text-amber-600 dark:text-amber-300",
-        },
-        {
-          value: "OUV" as const,
-          icon: CheckCircle2,
-          chipClass:
-            "border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300",
-        },
-        {
-          value: "FER" as const,
-          icon: Shield,
-          chipClass:
-            "border-slate-500/25 bg-slate-500/10 text-slate-600 dark:text-slate-300",
-        },
-        {
-          value: "CLO" as const,
-          icon: Lock,
-          chipClass:
-            "border-rose-500/25 bg-rose-500/10 text-rose-600 dark:text-rose-300",
-        },
-      ].map((item) => ({
-        ...item,
-        label: t(`saisonStatus.${item.value}`),
-        description: t(`form.statusOptions.${item.value}.description`),
-      })),
-    [t],
-  );
+  const charCount = values.designation.length;
 
   const resetForm = React.useCallback(() => {
     setValues(buildDefaultValues(defaultStatus));
     setErrors({});
   }, [defaultStatus]);
 
-  const handleOpenChange = React.useCallback(
-    (nextOpen: boolean) => {
-      if (!nextOpen && !submitting) {
-        resetForm();
-      }
-
-      setOpen(nextOpen);
-    },
-    [resetForm, submitting],
-  );
+  const handleClose = React.useCallback(() => {
+    if (submitting) return;
+    setOpen(false);
+    setTimeout(resetForm, 300);
+  }, [submitting, resetForm]);
 
   const handleFieldChange = React.useCallback(
-    <K extends keyof CreateSaisonInput>(field: K, value: CreateSaisonInput[K]) => {
-      setValues((current) => ({
-        ...current,
-        [field]: value,
-      }));
-
-      setErrors((current) => {
-        if (!current[field]) {
-          return current;
-        }
-
-        return {
-          ...current,
-          [field]: undefined,
-        };
+    <K extends keyof CreateSaisonInput>(
+      field: K,
+      value: CreateSaisonInput[K],
+    ) => {
+      setValues((cur) => ({ ...cur, [field]: value }));
+      setErrors((cur) => {
+        if (!cur[field]) return cur;
+        return { ...cur, [field]: undefined };
       });
     },
     [],
   );
 
   const handleSubmit = React.useCallback(
-    async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
 
       const parsed = schema.safeParse(values);
-
       if (!parsed.success) {
         const flattened = parsed.error.flatten().fieldErrors;
         const nextErrors = Object.fromEntries(
           Object.entries(flattened)
-            .map(([field, messages]) => [field, messages?.[0]])
+            .map(([field, msgs]) => [field, msgs?.[0]])
             .filter((entry): entry is [string, string] => Boolean(entry[1])),
         ) as FormErrors;
-
         setErrors(nextErrors);
         toast({
           variant: "error",
@@ -230,14 +410,10 @@ export function CreateSaisonDialog({
       setErrors({});
 
       const result = await createSaison(locale, parsed.data);
-
       setSubmitting(false);
 
       if (!result.success) {
-        if (result.fieldErrors) {
-          setErrors(result.fieldErrors);
-        }
-
+        if (result.fieldErrors) setErrors(result.fieldErrors);
         toast({
           variant: "error",
           title: t("form.toasts.errorTitle"),
@@ -252,331 +428,286 @@ export function CreateSaisonDialog({
         description: t("form.toasts.successDescription"),
       });
 
-      handleOpenChange(false);
-      React.startTransition(() => {
-        router.refresh();
-      });
+      handleClose();
+      React.startTransition(() => router.refresh());
     },
-    [handleOpenChange, locale, router, schema, t, toast, values],
+    [handleClose, locale, router, schema, t, toast, values],
   );
 
+  // Trap focus + close on Escape
+  React.useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, handleClose]);
+
+  // Prevent body scroll while open
+  React.useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <Button
-          type="button"
-          className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary/80 px-4 py-2 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95"
+    <>
+      {/* Trigger */}
+      <Button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:opacity-90 active:scale-95"
+      >
+        <Plus className="h-4 w-4" />
+        {t("newButton")}
+      </Button>
+
+      {/* Overlay + Drawer */}
+      {open && (
+        <div
+          className="fixed inset-0 z-50 flex items-stretch justify-end"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("form.title")}
         >
-          <Plus className="h-4 w-4" />
-          {t("newButton")}
-        </Button>
-      </DialogTrigger>
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/30 backdrop-blur-[2px]"
+            onClick={handleClose}
+            aria-hidden
+          />
 
-      <DialogContent className="max-w-4xl gap-0 overflow-hidden border-border/60 bg-background/95 p-0">
-        <div className="border-b border-border/40 bg-gradient-to-br from-primary/12 via-background to-background px-6 py-5">
-          <DialogHeader className="space-y-3 text-left">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-              <Shield className="h-3.5 w-3.5" />
-              {t("form.adminOnlyBadge")}
-            </div>
-            <div className="space-y-1">
-              <DialogTitle className="text-2xl font-black tracking-tight">
-                {t("form.title")}
-              </DialogTitle>
-              <DialogDescription className="max-w-2xl text-sm leading-6">
-                {t("form.description")}
-              </DialogDescription>
-            </div>
-          </DialogHeader>
-        </div>
-
-        <form onSubmit={handleSubmit} className="grid gap-0 md:grid-cols-[1.15fr_0.85fr]">
-          <div className="space-y-6 px-6 py-6">
-            <div className="rounded-2xl border border-border/50 bg-card/50 p-4 shadow-sm">
-              <div className="mb-4 flex items-center gap-2">
-                <CalendarDays className="h-4 w-4 text-primary" />
-                <p className="text-sm font-semibold text-foreground">
-                  {t("form.sections.identity")}
-                </p>
+          {/* Drawer panel */}
+          <div
+            className={cn(
+              "relative z-10 flex h-full w-full flex-col bg-background shadow-2xl",
+              "sm:w-[480px] sm:border-l sm:border-border/40",
+              "animate-in slide-in-from-right duration-300",
+            )}
+          >
+            {/* ── Header ─────────────────────────────────────── */}
+            <div className="shrink-0 border-b border-border/30 px-6 py-5">
+              {/* Admin badge row */}
+              <div className="mb-3 flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-primary" />
+                <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+                  Admin only
+                </span>
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  disabled={submitting}
+                  aria-label="Close"
+                  className="ml-auto flex h-7 w-7 items-center justify-center rounded-full border border-border/40 text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
               </div>
 
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="saison-designation" className="text-sm font-semibold">
-                    {t("form.fields.designation")}
+              {/* Title with left accent */}
+              <div className="flex items-start gap-3">
+                <div className="mt-1 h-6 w-0.5 shrink-0 rounded-full bg-primary" />
+                <div>
+                  <h2 className="text-xl font-semibold leading-tight text-foreground">
+                    {t("form.title")}
+                  </h2>
+                  <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
+                    {t("form.description")}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Live preview strip ──────────────────────────── */}
+            <PreviewStrip
+              designation={values.designation}
+              dateDebut={values.dateDebut}
+              dateFin={values.dateFin}
+              statut={values.statut}
+              locale={locale}
+            />
+
+            {/* ── Scrollable body ─────────────────────────────── */}
+            <form
+              onSubmit={handleSubmit}
+              className="flex min-h-0 flex-1 flex-col"
+              noValidate
+            >
+              <div className="flex-1 overflow-y-auto px-6 py-6">
+                {/* Section: Identity */}
+                <p className="mb-4 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  Identity
+                </p>
+
+                {/* Designation */}
+                <div className="mb-5">
+                  <Label
+                    htmlFor="designation"
+                    className="mb-1.5 flex items-center justify-between text-[12px] font-medium text-muted-foreground"
+                  >
+                    <span>
+                      Designation{" "}
+                      <span className="text-destructive" aria-hidden>
+                        *
+                      </span>
+                    </span>
+                    <span className="flex items-center gap-1.5 tabular-nums">
+                      <CharRing count={charCount} max={80} />
+                      <span
+                        className={cn(
+                          "text-[11px]",
+                          charCount / 80 >= 0.85
+                            ? "text-destructive"
+                            : "text-muted-foreground",
+                        )}
+                      >
+                        {charCount} / 80
+                      </span>
+                    </span>
                   </Label>
                   <Input
-                    id="saison-designation"
+                    id="designation"
                     value={values.designation}
-                    onChange={(event) =>
-                      handleFieldChange("designation", event.target.value)
+                    onChange={(e) =>
+                      handleFieldChange("designation", e.target.value)
                     }
                     placeholder={t("form.placeholders.designation")}
+                    maxLength={80}
                     className={cn(
-                      "h-11 rounded-xl border-border/50 bg-background/80 shadow-sm",
-                      errors.designation &&
-                        "border-destructive/60 focus:border-destructive focus:ring-destructive/20",
+                      "h-10 rounded-lg border-border/50 bg-background text-[13px] placeholder:text-muted-foreground/50 focus-visible:ring-primary/30",
+                      errors.designation && "border-destructive/60",
                     )}
-                    aria-invalid={Boolean(errors.designation)}
                   />
-                  <div className="flex items-start justify-between gap-3">
-                    <p className="text-xs text-muted-foreground">
-                      {t("form.hints.designation")}
-                    </p>
-                    <span className="text-[11px] text-muted-foreground">
-                      {values.designation.trim().length}/80
+                  <p className="mt-1.5 text-[11px] text-muted-foreground">
+                    {t("form.hints.designation")}
+                  </p>
+                  <FieldError message={errors.designation} />
+                </div>
+
+                {/* Date range */}
+                <div className="mb-5">
+                  <Label className="mb-1.5 block text-[12px] font-medium text-muted-foreground">
+                    Date range{" "}
+                    <span className="text-destructive" aria-hidden>
+                      *
                     </span>
+                  </Label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1">
+                      <Input
+                        id="dateDebut"
+                        type="date"
+                        value={values.dateDebut}
+                        onChange={(e) =>
+                          handleFieldChange("dateDebut", e.target.value)
+                        }
+                        className={cn(
+                          "h-10 rounded-lg border-border/50 bg-background text-[13px] focus-visible:ring-primary/30",
+                          errors.dateDebut && "border-destructive/60",
+                        )}
+                      />
+                      <FieldError message={errors.dateDebut} />
+                    </div>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground/50" />
+                    <div className="flex-1">
+                      <Input
+                        id="dateFin"
+                        type="date"
+                        value={values.dateFin}
+                        onChange={(e) =>
+                          handleFieldChange("dateFin", e.target.value)
+                        }
+                        className={cn(
+                          "h-10 rounded-lg border-border/50 bg-background text-[13px] focus-visible:ring-primary/30",
+                          errors.dateFin && "border-destructive/60",
+                        )}
+                      />
+                      <FieldError message={errors.dateFin} />
+                    </div>
                   </div>
-                  {errors.designation ? (
-                    <p className="text-xs font-medium text-destructive">
-                      {errors.designation}
-                    </p>
-                  ) : null}
+                  <p className="mt-1.5 text-[11px] text-muted-foreground">
+                    {t("form.hints.dateRange")}
+                  </p>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="saison-date-debut" className="text-sm font-semibold">
-                      {t("form.fields.dateDebut")}
-                    </Label>
-                    <Input
-                      id="saison-date-debut"
-                      type="date"
-                      value={values.dateDebut}
-                      onChange={(event) =>
-                        handleFieldChange("dateDebut", event.target.value)
-                      }
-                      className={cn(
-                        "h-11 rounded-xl border-border/50 bg-background/80 shadow-sm",
-                        errors.dateDebut &&
-                          "border-destructive/60 focus:border-destructive focus:ring-destructive/20",
-                      )}
-                      aria-invalid={Boolean(errors.dateDebut)}
-                    />
-                    {errors.dateDebut ? (
-                      <p className="text-xs font-medium text-destructive">
-                        {errors.dateDebut}
-                      </p>
-                    ) : null}
-                  </div>
+                {/* Divider */}
+                <div className="my-6 border-t border-border/30" />
 
-                  <div className="space-y-2">
-                    <Label htmlFor="saison-date-fin" className="text-sm font-semibold">
-                      {t("form.fields.dateFin")}
-                    </Label>
-                    <Input
-                      id="saison-date-fin"
-                      type="date"
-                      value={values.dateFin}
-                      onChange={(event) =>
-                        handleFieldChange("dateFin", event.target.value)
-                      }
-                      className={cn(
-                        "h-11 rounded-xl border-border/50 bg-background/80 shadow-sm",
-                        errors.dateFin &&
-                          "border-destructive/60 focus:border-destructive focus:ring-destructive/20",
-                      )}
-                      aria-invalid={Boolean(errors.dateFin)}
-                    />
-                    {errors.dateFin ? (
-                      <p className="text-xs font-medium text-destructive">
-                        {errors.dateFin}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-dashed border-border/60 bg-muted/20 px-4 py-3 text-xs leading-5 text-muted-foreground">
-                  {t("form.hints.dateRange")}
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-border/50 bg-card/50 p-4 shadow-sm">
-              <div className="mb-4 flex items-center gap-2">
-                <CalendarRange className="h-4 w-4 text-primary" />
-                <p className="text-sm font-semibold text-foreground">
-                  {t("form.sections.status")}
+                {/* Section: Status */}
+                <p className="mb-4 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                  Status
                 </p>
-              </div>
 
-              <div className="grid gap-3 sm:grid-cols-2">
-                {statusOptions.map((option) => {
-                  const Icon = option.icon;
-                  const selected = values.statut === option.value;
+                <SegmentedControl
+                  value={values.statut}
+                  onChange={(v) => handleFieldChange("statut", v)}
+                />
 
-                  return (
-                    <button
-                      key={option.value}
-                      type="button"
-                      onClick={() => handleFieldChange("statut", option.value)}
-                      className={cn(
-                        "group rounded-2xl border p-4 text-left transition-all duration-200",
-                        "hover:-translate-y-0.5 hover:shadow-lg",
-                        selected
-                          ? "border-primary/50 bg-primary/10 shadow-[0_10px_30px_-18px_hsl(var(--primary)/0.75)]"
-                          : "border-border/50 bg-background/70 hover:border-primary/25",
-                      )}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div
-                          className={cn(
-                            "flex h-10 w-10 items-center justify-center rounded-xl border",
-                            selected ? option.chipClass : "border-border/50 bg-muted/30 text-muted-foreground",
-                          )}
-                        >
-                          <Icon className="h-4 w-4" />
-                        </div>
-                        <span
-                          className={cn(
-                            "rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]",
-                            selected
-                              ? "border-primary/25 bg-primary/10 text-primary"
-                              : "border-border/60 bg-background text-muted-foreground",
-                          )}
-                        >
-                          {option.label}
-                        </span>
-                      </div>
-                      <div className="mt-3">
-                        <p className="text-sm font-semibold text-foreground">
-                          {option.label}
-                        </p>
-                        <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                          {option.description}
-                        </p>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+                <FieldError message={errors.statut} />
 
-              {errors.statut ? (
-                <p className="mt-3 text-xs font-medium text-destructive">
-                  {errors.statut}
-                </p>
-              ) : null}
-            </div>
-          </div>
+                <StatusInfo statut={values.statut} />
 
-          <div className="border-t border-border/40 bg-muted/10 px-6 py-6 md:border-l md:border-t-0">
-            <div className="space-y-5">
-              <div className="rounded-3xl border border-border/50 bg-card/80 p-5 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.7)] backdrop-blur">
-                <div className="mb-4 flex items-center justify-between gap-3">
+                {/* Open season warning */}
+                {hasOpenSeason && values.statut === "OUV" && (
+                  <div className="mt-4 flex items-start gap-3 border-l-[3px] border-amber-400 py-3 pl-4">
+                    <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+                    <div>
+                      <p className="text-[12px] font-medium text-foreground">
+                        {t("form.notes.openSeasonTitle")}
+                      </p>
+                      <p className="mt-0.5 text-[12px] leading-5 text-muted-foreground">
+                        {t("form.notes.openSeasonDescription", {
+                          designation:
+                            openSeasonDesignation ??
+                            t("form.notes.anotherSeason"),
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Admin note */}
+                <div className="mt-5 flex items-start gap-3 rounded-lg bg-muted/30 px-4 py-3">
+                  <Shield className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                      {t("form.preview.eyebrow")}
-                    </p>
-                    <h3 className="mt-1 text-lg font-bold tracking-tight text-foreground">
-                      {t("form.preview.title")}
-                    </h3>
-                  </div>
-                  <div className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-semibold text-primary">
-                    {t("form.preview.live")}
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="rounded-2xl border border-border/50 bg-background/80 p-4">
-                    <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                      {t("form.preview.designationLabel")}
-                    </p>
-                    <p className="mt-2 text-xl font-black tracking-tight text-foreground">
-                      {values.designation.trim() || t("form.preview.emptyDesignation")}
-                    </p>
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      {seasonYearLabel
-                        ? t("form.preview.seasonYear", { years: seasonYearLabel })
-                        : t("form.preview.seasonYearFallback")}
-                    </p>
-                  </div>
-
-                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
-                    <div className="rounded-2xl border border-border/50 bg-background/70 p-4">
-                      <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                        {t("form.preview.rangeLabel")}
-                      </p>
-                      <p className="mt-2 text-sm font-semibold text-foreground">
-                        {startPreview && endPreview
-                          ? t("detail.dateRange", {
-                              start: startPreview,
-                              end: endPreview,
-                            })
-                          : t("form.preview.emptyRange")}
-                      </p>
-                    </div>
-
-                    <div className="rounded-2xl border border-border/50 bg-background/70 p-4">
-                      <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                        {t("form.preview.statusLabel")}
-                      </p>
-                      <span className="mt-2 inline-flex rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
-                        {t(`saisonStatus.${values.statut}`)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-primary/15 bg-primary/8 p-4">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 rounded-xl border border-primary/20 bg-primary/12 p-2 text-primary">
-                    <Shield className="h-4 w-4" />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-foreground">
+                    <p className="text-[12px] font-medium text-foreground">
                       {t("form.notes.adminTitle")}
                     </p>
-                    <p className="text-xs leading-5 text-muted-foreground">
+                    <p className="mt-0.5 text-[12px] leading-5 text-muted-foreground">
                       {t("form.notes.adminDescription")}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {hasOpenSeason && values.statut === "OUV" ? (
-                <div className="rounded-2xl border border-amber-500/20 bg-amber-500/10 p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="mt-0.5 rounded-xl border border-amber-500/25 bg-amber-500/10 p-2 text-amber-600 dark:text-amber-300">
-                      <AlertTriangle className="h-4 w-4" />
-                    </div>
-                    <div className="space-y-1">
-                      <p className="text-sm font-semibold text-foreground">
-                        {t("form.notes.openSeasonTitle")}
-                      </p>
-                      <p className="text-xs leading-5 text-muted-foreground">
-                        {t("form.notes.openSeasonDescription", {
-                          designation:
-                            openSeasonDesignation ?? t("form.notes.anotherSeason"),
-                        })}
-                      </p>
-                    </div>
-                  </div>
+              {/* ── Footer ─────────────────────────────────────── */}
+              <div className="shrink-0 border-t border-border/30 bg-background px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    disabled={submitting}
+                    className="text-[13px] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
+                  >
+                    {t("form.actions.cancel")}
+                  </button>
+                  <Button
+                    type="submit"
+                    disabled={submitting}
+                    className="flex-1 h-10 rounded-lg bg-primary text-[13px] font-medium text-primary-foreground transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
+                  >
+                    {submitting
+                      ? t("form.actions.submitting")
+                      : t("form.actions.submit")}
+                  </Button>
                 </div>
-              ) : null}
-            </div>
+              </div>
+            </form>
           </div>
-
-          <DialogFooter className="col-span-full border-t border-border/40 bg-background/95 px-6 py-4">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => handleOpenChange(false)}
-              disabled={submitting}
-              className="rounded-xl"
-            >
-              {t("form.actions.cancel")}
-            </Button>
-            <Button
-              type="submit"
-              disabled={submitting}
-              className="rounded-xl bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25"
-            >
-              {submitting ? t("form.actions.submitting") : t("form.actions.submit")}
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+        </div>
+      )}
+    </>
   );
 }
