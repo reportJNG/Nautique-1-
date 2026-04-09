@@ -2044,7 +2044,18 @@
         "sending": "Envoi...",
         "successTitle": "Feedback envoyé",
         "successDescription": "Votre message a été placé dans la file admin simulée. Position approximative : {count}.",
-        "errorTitle": "Envoi impossible"
+        "errorTitle": "Envoi impossible",
+        "errors": {
+          "accountNotFound": "Compte introuvable.",
+          "invalidForm": "Certains champs sont invalides.",
+          "unexpected": "Impossible d'envoyer votre feedback pour le moment."
+        },
+        "validation": {
+          "subjectMin": "Le sujet doit contenir au moins {min} caractères.",
+          "subjectMax": "Le sujet ne peut pas dépasser {max} caractères.",
+          "messageMin": "Le message doit contenir au moins {min} caractères.",
+          "messageMax": "Le message ne peut pas dépasser {max} caractères."
+        }
       },
       "cards": {
         "admin": {

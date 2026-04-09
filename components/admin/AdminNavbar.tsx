@@ -10,6 +10,7 @@ import {
   Bell,
   CalendarClock,
   CheckCheck,
+  ChevronRight,
   LogOut,
   Menu,
   Settings,
@@ -24,13 +25,14 @@ import { ThemeToggle } from "@/components/theme-toggle";
 interface AdminNavbarProps {
   agent: { nom: string; prenom: string; roleCode: string };
   sidebarCollapsed?: boolean;
+  mobileMenuOpen?: boolean;
   onToggleSidebar?: () => void;
   onMobileMenuOpen?: () => void;
 }
 
 type SegmentLabelResolver = (
   t: ReturnType<typeof useTranslations>,
-  tc: ReturnType<typeof useTranslations>
+  tc: ReturnType<typeof useTranslations>,
 ) => string;
 
 type DemoNotificationId = "subscription" | "invoice" | "season";
@@ -72,7 +74,7 @@ function formatFallbackLabel(segment: string) {
 function resolveSegmentLabel(
   segment: string,
   t: ReturnType<typeof useTranslations>,
-  tc: ReturnType<typeof useTranslations>
+  tc: ReturnType<typeof useTranslations>,
 ) {
   const resolver = SEGMENT_LABELS[segment];
   return resolver ? resolver(t, tc) : formatFallbackLabel(segment);
@@ -85,7 +87,10 @@ function PageLabel({ locale }: { locale: string }) {
   const pathWithoutLocale = pathname.startsWith(`/${locale}`)
     ? pathname.slice(locale.length + 1)
     : pathname;
-  const segments = pathWithoutLocale.replace(/\/+$/, "").split("/").filter(Boolean);
+  const segments = pathWithoutLocale
+    .replace(/\/+$/, "")
+    .split("/")
+    .filter(Boolean);
   const currentSeg = segments[segments.length - 1] ?? "admin";
   const parentSeg = segments.length > 1 ? segments[segments.length - 2] : null;
 
@@ -99,7 +104,7 @@ function PageLabel({ locale }: { locale: string }) {
           <span className="hidden truncate text-[11.5px] font-medium text-muted-foreground sm:block">
             {parent}
           </span>
-          <Menu className="hidden h-3 w-3 flex-shrink-0 text-muted-foreground/50 sm:block" />
+          <ChevronRight className="hidden h-3 w-3 flex-shrink-0 text-muted-foreground/50 sm:block" />
         </>
       ) : null}
       <span className="truncate text-[13.5px] font-bold tracking-tight text-foreground">
@@ -133,7 +138,7 @@ function NavIconBtn({
         "hover:bg-muted/50 hover:text-foreground",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
         "active:scale-95",
-        active && "bg-primary/10 text-primary"
+        active && "bg-primary/10 text-primary",
       )}
     >
       {children}
@@ -149,7 +154,9 @@ function NavIconBtn({
 function NavBell() {
   const t = useTranslations("admin.navbar");
   const [open, setOpen] = useState(false);
-  const [notifs, setNotifs] = useState<Array<{ id: DemoNotificationId; unread: boolean }>>([
+  const [notifs, setNotifs] = useState<
+    Array<{ id: DemoNotificationId; unread: boolean }>
+  >([
     { id: "subscription", unread: true },
     { id: "invoice", unread: true },
     { id: "season", unread: false },
@@ -198,7 +205,7 @@ function NavBell() {
                   type="button"
                   onClick={() =>
                     setNotifs((previous) =>
-                      previous.map((notif) => ({ ...notif, unread: false }))
+                      previous.map((notif) => ({ ...notif, unread: false })),
                     )
                   }
                   className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 text-[11px] text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
@@ -228,13 +235,15 @@ function NavBell() {
                   key={notif.id}
                   className={cn(
                     "relative flex cursor-pointer items-start gap-3 px-4 py-3 transition-colors hover:bg-muted/30",
-                    notif.unread && "bg-primary/10"
+                    notif.unread && "bg-primary/10",
                   )}
                   onClick={() =>
                     setNotifs((previous) =>
                       previous.map((entry) =>
-                        entry.id === notif.id ? { ...entry, unread: false } : entry
-                      )
+                        entry.id === notif.id
+                          ? { ...entry, unread: false }
+                          : entry,
+                      ),
                     )
                   }
                 >
@@ -244,7 +253,7 @@ function NavBell() {
                   <div
                     className={cn(
                       "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-muted/50",
-                      meta.color
+                      meta.color,
                     )}
                   >
                     <Icon className="h-3.5 w-3.5" />
@@ -335,7 +344,7 @@ function NavProfile({
           "hover:bg-muted/50",
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
           "active:scale-95",
-          open && "bg-muted/50"
+          open && "bg-muted/50",
         )}
       >
         <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-[10px] font-bold text-primary-foreground shadow-[0_0_10px_rgba(6,182,212,0.35)]">
@@ -402,6 +411,7 @@ function NavProfile({
 export function AdminNavbar({
   agent,
   sidebarCollapsed,
+  mobileMenuOpen,
   onToggleSidebar,
   onMobileMenuOpen,
 }: AdminNavbarProps) {
@@ -417,25 +427,27 @@ export function AdminNavbar({
           </div>
         </div>
 
-        <button
-          type="button"
-          className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-all hover:bg-muted/50 hover:text-foreground active:scale-95 lg:hidden"
-          onClick={onMobileMenuOpen}
-          aria-label={tShell("toggleMenu")}
-        >
-          <Menu className="h-4 w-4" />
-        </button>
+        {!mobileMenuOpen ? (
+          <button
+            type="button"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-all hover:bg-muted/50 hover:text-foreground active:scale-95 lg:hidden"
+            onClick={onMobileMenuOpen}
+            aria-label={tShell("toggleMenu")}
+          >
+            <Menu className="h-4 w-4" />
+          </button>
+        ) : null}
 
-        <button
-          type="button"
-          className="hidden h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition-all hover:bg-muted/50 hover:text-foreground active:scale-95 lg:flex"
-          onClick={onToggleSidebar}
-          aria-label={
-            sidebarCollapsed ? tShell("expandDesktopSr") : tShell("collapseDesktopSr")
-          }
-        >
-          <Menu className="h-4 w-4" />
-        </button>
+        {sidebarCollapsed ? (
+          <button
+            type="button"
+            className="hidden h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition-all hover:bg-muted/50 hover:text-foreground active:scale-95 lg:flex"
+            onClick={onToggleSidebar}
+            aria-label={tShell("expandDesktopSr")}
+          >
+            <Menu className="h-4 w-4" />
+          </button>
+        ) : null}
       </div>
 
       <div className="flex min-w-0 flex-1 items-center gap-3 px-1">

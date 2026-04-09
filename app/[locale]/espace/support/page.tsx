@@ -114,6 +114,7 @@ export default async function SupportPage({
           </div>
 
           <SupportFeedbackClient
+            locale={locale}
             queueSize={feedback.length}
             translations={{
               title: t("feedback.title"),

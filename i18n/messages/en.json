@@ -2044,7 +2044,18 @@
         "sending": "Sending...",
         "successTitle": "Feedback sent",
         "successDescription": "Your message has been placed in the simulated admin queue. Approximate position: {count}.",
-        "errorTitle": "Unable to send"
+        "errorTitle": "Unable to send",
+        "errors": {
+          "accountNotFound": "Account not found.",
+          "invalidForm": "Some fields are invalid.",
+          "unexpected": "Unable to send your feedback right now."
+        },
+        "validation": {
+          "subjectMin": "The subject must contain at least {min} characters.",
+          "subjectMax": "The subject cannot exceed {max} characters.",
+          "messageMin": "The message must contain at least {min} characters.",
+          "messageMax": "The message cannot exceed {max} characters."
+        }
       },
       "cards": {
         "admin": {

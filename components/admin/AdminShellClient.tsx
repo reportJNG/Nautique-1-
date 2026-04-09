@@ -315,6 +315,7 @@ export function AdminShellClient({ agent, children }: AdminShellClientProps) {
           <AdminNavbar
             agent={agent}
             sidebarCollapsed={isCollapsed}
+            mobileMenuOpen={isMobileOpen}
             onToggleSidebar={toggleCollapsed}
             onMobileMenuOpen={handleMobileMenuOpen}
           />

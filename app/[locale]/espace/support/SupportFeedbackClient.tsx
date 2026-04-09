@@ -7,11 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { submitSupportFeedback } from "./actions";
 import { Send, MessageSquareText } from "lucide-react";
+import type { Locale } from "@/i18n/config";
 
 export function SupportFeedbackClient({
+  locale,
   queueSize,
   translations,
 }: {
+  locale: Locale;
   queueSize: number;
   translations: {
     title: string;
@@ -38,7 +41,7 @@ export function SupportFeedbackClient({
     formData.set("message", message);
 
     startTransition(async () => {
-      const result = await submitSupportFeedback(formData);
+      const result = await submitSupportFeedback(locale, formData);
       if (result.error) {
         toast.error(translations.errorTitle, {
           description: result.error,

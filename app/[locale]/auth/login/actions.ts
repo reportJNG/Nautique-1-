@@ -3,7 +3,6 @@ import { prisma } from "@/lib/db/prisma";
 import { signToken } from "@/lib/auth/jwt";
 import { setSessionCookie } from "@/lib/auth/session";
 import { agentLoginSchema } from "@/lib/validators/auth";
-import bcrypt from "bcryptjs";
 export async function loginAgent(formData: FormData) {
   try {
     const raw = Object.fromEntries(formData);

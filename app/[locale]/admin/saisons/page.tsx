@@ -6,7 +6,7 @@ import {
   AdminSection,
 } from "@/components/admin/AdminPage";
 import { getTranslations } from "next-intl/server";
-import { Calendar, Clock, LayoutGrid, Plus } from "lucide-react";
+import { Calendar, LayoutGrid } from "lucide-react";
 import Link from "next/link";
 import { CreateSaisonDialog } from "./CreateSaisonDialog";
 

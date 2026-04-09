@@ -5,13 +5,8 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import {
   AlertTriangle,
-  CalendarDays,
-  Clock3,
-  Dumbbell,
   Plus,
   Shield,
-  Users,
-  Waves,
   X,
 } from "lucide-react";
 import { useAdminToast } from "@/components/admin/AdminToast";
