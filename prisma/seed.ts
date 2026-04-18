@@ -215,7 +215,7 @@ async function main() {
         });
     }
     console.log("✅ Moniteurs created");
-    const saison = await prisma.saison.upsert({
+    await prisma.saison.upsert({
         where: {
             id: await prisma.saison.findFirst({
                 where: { designation: "Saison 2025-2026" },

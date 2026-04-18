@@ -63,6 +63,7 @@ desktop.ini
 .parcel-cache/
 .eslintcache
 .stylelintcache
+*.tsbuildinfo
 
 # Python (if any scripts)
 __pycache__/
@@ -75,3 +76,7 @@ venv/
 *.bak
 *.tmp
 *.temp
+git_log.txt
+git_status.txt
+layout_diff.txt
+tsc_output.txt
