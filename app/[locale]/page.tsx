@@ -9,6 +9,8 @@ import { GallerySection } from "@/components/landing/GallerySection";
 import { SupportForm } from "@/components/landing/SupportForm";
 import { Footer } from "@/components/landing/Footer";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage({ params, }: {
   params: Promise<{
     locale: string;

@@ -2,9 +2,24 @@ import { prisma } from "@/lib/db/prisma";
 import { Waves, Mail, Phone, MapPin } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link as IntlLink } from "@/i18n/navigation";
+import {
+  fallbackLandingParametres,
+  withPublicLandingFallback,
+} from "@/lib/public-landing";
 export const dynamic = "force-dynamic";
+
+type LandingParametres = {
+  emailCentre?: string | null;
+  telephoneCentre?: string | null;
+  adresseCentre?: string | null;
+};
+
 async function getParametres() {
-  const params = await prisma.parametres.findFirst();
+  const params = await withPublicLandingFallback<LandingParametres | null>(
+    "parametres",
+    () => prisma.parametres.findFirst(),
+    fallbackLandingParametres,
+  );
   return params;
 }
 const FacebookIcon = () => (<svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
